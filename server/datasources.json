@@ -1,0 +1,12 @@
+{
+  "mysql": {
+    "name": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "database": "ktxh_caphuyen",
+    "user": "local_user_001",
+    "password": "password",
+    "connector": "mysql",
+    "collation": "utf8_unicode_ci"
+  }
+}
