@@ -17,3 +17,12 @@
 coverage
 node_modules
 npm-debug.log
+
+
+#local configuration
+server/config.local.json
+server/datasources.local.json
+
+# Ignore local dev
+start_dev.sh
+start_local.sh
