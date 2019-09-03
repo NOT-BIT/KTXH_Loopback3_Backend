@@ -3,23 +3,13 @@
   "base": "Model",
   "plural": "BieuNhapLieu",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "bieu_nhap_lieu"
     },
     "relations": {}
   },
   "properties": {
-    "id": {
-      "type": "Number",
-      "generated": true,
-      "id": 1,
-      "mysql": {
-        "columnName": "id",
-        "dataType": "int",
-        "nullable": "N"
-      }
-    },
     "sysLoaiBieuNhapLieuId": {
       "type": "Number",
       "required": true,

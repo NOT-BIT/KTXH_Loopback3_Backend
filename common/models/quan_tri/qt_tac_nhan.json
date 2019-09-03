@@ -3,23 +3,13 @@
   "plural": "QTTacNhan",
   "base": "Model",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "qt_tac_nhan"
     },
     "relations": {}
   },
   "properties": {
-    "id": {
-      "type": "Number",
-      "generated": true,
-      "id": 1,
-      "mysql": {
-        "columnName": "id",
-        "dataType": "int",
-        "nullable": "N"
-      }
-    },
     "sysCapHanhChinhId": {
       "type": "Number",
       "required": false,
@@ -66,7 +56,8 @@
       "mysql": {
         "columnName": "xoa",
         "dataType": "tinyint",
-        "nullable": "N"
+        "nullable": "N",
+        "default": 0
       }
     }
   },

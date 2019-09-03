@@ -3,7 +3,7 @@
   "base": "Model",
   "plural": false,
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "qt_users"
     },
@@ -16,16 +16,6 @@
     }
   },
   "properties": {
-    "id": {
-      "type": "Number",
-      "generated": true,
-      "id": true,
-      "mysql": {
-        "columnName": "id",
-        "dataType": "int",
-        "nullable": "N"
-      }
-    },
     "username": {
       "type": "String",
       "required": true,
