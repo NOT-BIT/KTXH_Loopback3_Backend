@@ -1,23 +1,13 @@
 {
   "name": "QCXa",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "qc_xa"
     },
     "relations": {}
   },
   "properties": {
-    "id": {
-      "type": "Number",
-      "id": 1,
-      "generated": true,
-      "mysql": {
-        "columnName": "id",
-        "dataType": "int",
-        "nullable": "N"
-      }
-    },
     "ma": {
       "type": "String",
       "required": false,

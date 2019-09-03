@@ -39,10 +39,12 @@ module.exports = function(QCXa) {
         if (huyen == null) {
             return [404, 'huyen khong ton tai']
         }
-        // let [err2, xa2] = await to(QCXa.findOne({where: {ma: ma}}))
-        // if (xa2 != null) {
-        //     return [400, 'da ton tai ma xa nay']
-        // }
+        if (ma != null){
+            let [err2, xa2] = await to(QCXa.findOne({where: {ma: ma}}))
+            if (xa2 != null) {
+                return [400, 'da ton tai ma xa nay']
+            }
+        }
         let xaData = {
             ma: ma,
             qcHuyenId: qcHuyenId,

@@ -26,11 +26,14 @@ module.exports = function(QCTinh) {
         if (tinh == null) {
             return [404, 'tinh khong ton tai']
         }
-        // let [err2, tinh2] = await to(QCTinh.findOne({where: {ma: ma}}))
-        // if (tinh2 != null) {
-        //     return [400, 'da ton tai ma tinh nay']
-        // }
+        if (ma != null){
+            let [err2, tinh2] = await to(QCTinh.findOne({where: {ma: ma}}))
+            if (tinh2 != null) {
+                return [400, 'da ton tai ma tinh nay']
+            }
+        }
         let tinhData = {
+            id: id,
             ma: ma,
             ten: ten,
             hieuLuc: hieuLuc

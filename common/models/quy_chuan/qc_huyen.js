@@ -39,11 +39,14 @@ module.exports = function(QCHuyen) {
         if (tinh == null) {
             return [404, 'tinh khong ton tai']
         }
-        // let [err2, huyen2] = await to(QCHuyen.findOne({where: {ma: ma}}))
-        // if (huyen2 != null) {
-        //     return [400, 'da ton tai ma huyen nay']
-        // }
+        if (ma != null){
+            let [err2, huyen2] = await to(QCHuyen.findOne({where: {ma: ma}}))
+            if (huyen2 != null) {
+                return [400, 'da ton tai ma huyen nay']
+            }
+        }
         let huyenData = {
+            id: id,
             ma: ma,
             qcTinhId: qcTinhId,
             ten: ten,
