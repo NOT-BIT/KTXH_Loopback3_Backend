@@ -4,6 +4,7 @@
       "loopback/common/models",
       "loopback/server/models",
       "../common/models",
+      "../common/models/users",
       "../common/models/bieu_nhap_lieu",
       "../common/models/chi_tieu",
       "../common/models/data",
@@ -21,6 +22,18 @@
       "./mixins"
     ]
   },
+  "Users": {
+    "dataSource": "mysql",
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": true
+        }
+      }
+    }
+  },
+
   "BieuNhapLieu-ChiTieu": {
     "dataSource": "mysql",
     "public": true,
