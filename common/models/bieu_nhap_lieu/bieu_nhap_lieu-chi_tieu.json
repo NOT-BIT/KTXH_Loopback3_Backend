@@ -1,5 +1,6 @@
 {
   "name": "BieuNhapLieu-ChiTieu",
+  "base": "Model",
   "options": {
     "idInjection": false,
     "mysql": {
@@ -8,6 +9,24 @@
     "relations": {}
   },
   "properties": {
+    "id": {
+      "type": "Number",
+      "required": true,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "id": 1,
+      "primaryKey": true,
+      "autoIncrement": true,
+      "mysql": {
+        "columnName": "id",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "N"
+      }
+    },
     "bieuNhapLieuId": {
       "type": "Number",
       "required": false,
@@ -44,6 +63,7 @@
       "length": null,
       "precision": 3,
       "scale": 0,
+      "default":1,
       "mysql": {
         "columnName": "hieu_luc",
         "dataType": "tinyint",
@@ -53,28 +73,13 @@
         "nullable": "Y"
       }
     },
-    "id": {
-      "type": "Number",
-      "required": true,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
-      "id": 1,
-      "mysql": {
-        "columnName": "id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "N"
-      }
-    },
     "xoa": {
       "type": "Number",
       "required": false,
       "length": null,
       "precision": 3,
       "scale": 0,
+      "default":0,
       "mysql": {
         "columnName": "xoa",
         "dataType": "tinyint",
