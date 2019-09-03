@@ -9,17 +9,7 @@
     "relations": {}
   },
   "properties": {
-    "id": {
-      "type": "number",
-      "required": true,
-      "id": 1,
-      "primaryKey": true,
-      "autoIncrement": true,
-      "mysql": {
-        "columnName": "id",
-        "dataType": "int"
-      }
-    },
+    
     "capNhapLieuId": {
       "type": "Number",
       "required": false,
