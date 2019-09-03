@@ -1,5 +1,6 @@
 {
   "name": "QTNamLamViec",
+  "base": "Model",
   "options": {
     "idInjection": false,
     "mysql": {

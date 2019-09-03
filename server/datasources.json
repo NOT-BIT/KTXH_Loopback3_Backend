@@ -3,9 +3,9 @@
     "name": "mysql",
     "host": "localhost",
     "port": 3306,
-    "database": "ktxh_caphuyen",
-    "user": "local_user_001",
-    "password": "password",
+    "database": "ktxh_caphuyen_custom",
+    "user": "root",
+    "password": "icandoit24",
     "connector": "mysql",
     "collation": "utf8_unicode_ci"
   }

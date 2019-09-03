@@ -1,5 +1,6 @@
 {
   "name": "DataDetail",
+  "base": "Model",
   "options": {
     "idInjection": false,
     "mysql": {

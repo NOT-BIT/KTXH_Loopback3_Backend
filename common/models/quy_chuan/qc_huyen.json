@@ -1,5 +1,6 @@
 {
   "name": "QCHuyen",
+  "base": "Model",
   "options": {
     "idInjection": false,
     "mysql": {

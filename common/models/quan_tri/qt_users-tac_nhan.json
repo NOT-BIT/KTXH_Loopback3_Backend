@@ -1,5 +1,6 @@
 {
   "name": "QTUsers-TacNhan",
+  "base": "Model",
   "options": {
     "idInjection": false,
     "mysql": {

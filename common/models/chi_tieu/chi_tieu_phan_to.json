@@ -1,28 +1,14 @@
 {
   "name": "ChiTieuPhanTo",
+  "base": "Model",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "chi_tieu_phan_to"
     },
     "relations": {}
   },
   "properties": {
-    "hieuLuc": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 3,
-      "scale": 0,
-      "mysql": {
-        "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "dataLength": null,
-        "dataPrecision": 3,
-        "dataScale": 0,
-        "nullable": "Y"
-      }
-    },
     "id": {
       "type": "Number",
       "required": true,
@@ -37,6 +23,21 @@
         "dataPrecision": 10,
         "dataScale": 0,
         "nullable": "N"
+      }
+    },
+    "hieuLuc": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mysql": {
+        "columnName": "hieu_luc",
+        "dataType": "tinyint",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "Y"
       }
     },
     "ma": {

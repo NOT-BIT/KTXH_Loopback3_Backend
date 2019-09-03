@@ -1,5 +1,6 @@
 {
   "name": "SysLoaiBieuNhapLieu",
+  "base": "Model",
   "options": {
     "idInjection": false,
     "mysql": {

@@ -1,5 +1,6 @@
 {
   "name": "QCTinh",
+  "base": "Model",
   "options": {
     "idInjection": false,
     "mysql": {

@@ -1,5 +1,6 @@
 {
   "name": "SysDataStatus",
+  "base": "Model",
   "options": {
     "idInjection": false,
     "mysql": {

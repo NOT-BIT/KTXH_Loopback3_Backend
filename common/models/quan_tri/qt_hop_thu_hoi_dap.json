@@ -1,5 +1,6 @@
 {
   "name": "QTHopThuHoiDap",
+  "base": "Model",
   "options": {
     "idInjection": false,
     "mysql": {

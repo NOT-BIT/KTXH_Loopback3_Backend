@@ -1,5 +1,6 @@
 {
   "name": "DataMaster",
+  "base": "Model",
   "options": {
     "idInjection": false,
     "mysql": {

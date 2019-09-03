@@ -1,13 +1,25 @@
 {
   "name": "ChiTieu",
+  "base": "Model",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "chi_tieu"
     },
     "relations": {}
   },
   "properties": {
+    "id": {
+      "type": "number",
+      "required": true,
+      "id": 1,
+      "primaryKey": true,
+      "autoIncrement": true,
+      "mysql": {
+        "columnName": "id",
+        "dataType": "int"
+      }
+    },
     "capNhapLieuId": {
       "type": "Number",
       "required": false,
@@ -156,22 +168,6 @@
         "dataPrecision": 3,
         "dataScale": 0,
         "nullable": "Y"
-      }
-    },
-    "id": {
-      "type": "Number",
-      "required": true,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
-      "id": 1,
-      "mysql": {
-        "columnName": "id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "N"
       }
     },
     "idCha": {

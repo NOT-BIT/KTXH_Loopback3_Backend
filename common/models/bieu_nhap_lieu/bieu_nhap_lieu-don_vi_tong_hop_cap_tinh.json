@@ -1,5 +1,6 @@
 {
   "name": "BieuNhapLieu-DonViTongHopCapTinh",
+  "base": "Model",
   "options": {
     "idInjection": false,
     "mysql": {

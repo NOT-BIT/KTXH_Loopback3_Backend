@@ -1,13 +1,30 @@
 {
   "name": "BieuNhapLieu-KyBaoCao",
+  "base": "Model",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "bieu_nhap_lieu-ky_bao_cao"
     },
     "relations": {}
   },
   "properties": {
+    "id": {
+      "type": "Number",
+      "required": true,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "id": 1,
+      "mysql": {
+        "columnName": "id",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "N"
+      }
+    },
     "bieuNhapLieuId": {
       "type": "Number",
       "required": false,
@@ -36,22 +53,6 @@
         "dataPrecision": 3,
         "dataScale": 0,
         "nullable": "Y"
-      }
-    },
-    "id": {
-      "type": "Number",
-      "required": true,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
-      "id": 1,
-      "mysql": {
-        "columnName": "id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "N"
       }
     },
     "sysKyBaoCaoId": {
