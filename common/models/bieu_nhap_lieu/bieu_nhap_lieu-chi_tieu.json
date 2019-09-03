@@ -2,33 +2,13 @@
   "name": "BieuNhapLieu-ChiTieu",
   "base": "Model",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "bieu_nhap_lieu-chi_tieu"
     },
     "relations": {}
   },
   "properties": {
-    "id": {
-      "type": "Number",
-      "required": true,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
-      "id": 1,
-      "primaryKey": true,
-      "allowNull": false,
-      "unique": true,
-      "autoIncrement": true,
-      "mysql": {
-        "columnName": "id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "N"
-      }
-    },
     "bieuNhapLieuId": {
       "type": "Number",
       "required": false,
