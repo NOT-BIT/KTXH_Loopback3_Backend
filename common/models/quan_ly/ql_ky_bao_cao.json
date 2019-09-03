@@ -1,7 +1,7 @@
 {
   "name": "QLKyBaoCao",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "ql_ky_bao_cao"
     },
@@ -10,183 +10,127 @@
   "properties": {
     "id": {
       "type": "Number",
-      "required": true,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
       "id": 1,
+      "generated": true,
       "mysql": {
         "columnName": "id",
         "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
         "nullable": "N"
       }
     },
+
     "ngayBatDau": {
       "type": "Date",
-      "required": false,
-      "length": null,
-      "precision": null,
-      "scale": null,
       "mysql": {
         "columnName": "ngay_bat_dau",
-        "dataType": "date",
-        "dataLength": null,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "dataType": "date"
       }
     },
+
     "ngayBaoCaoHuyen": {
       "type": "Date",
-      "required": false,
-      "length": null,
-      "precision": null,
-      "scale": null,
       "mysql": {
         "columnName": "ngay_bao_cao_huyen",
-        "dataType": "date",
-        "dataLength": null,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "dataType": "date"
       }
     },
+
     "ngayBaoCaoTinh": {
       "type": "Date",
-      "required": false,
-      "length": null,
-      "precision": null,
-      "scale": null,
       "mysql": {
         "columnName": "ngay_bao_cao_tinh",
-        "dataType": "date",
-        "dataLength": null,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "dataType": "date"
       }
     },
+
     "ngayBaoCaoTW": {
       "type": "Date",
-      "required": false,
-      "length": null,
-      "precision": null,
-      "scale": null,
       "mysql": {
         "columnName": "ngay_bao_cao_tw",
-        "dataType": "date",
-        "dataLength": null,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "dataType": "date"
       }
     },
+
     "ngayDong": {
       "type": "Date",
-      "required": false,
-      "length": null,
-      "precision": null,
-      "scale": null,
       "mysql": {
         "columnName": "ngay_dong",
-        "dataType": "date",
-        "dataLength": null,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "dataType": "date"
       }
     },
+
     "ngayMo": {
       "type": "Date",
-      "required": false,
-      "length": null,
-      "precision": null,
-      "scale": null,
       "mysql": {
         "columnName": "ngay_mo",
-        "dataType": "date",
-        "dataLength": null,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "dataType": "date"
       }
     },
+
     "ngayTongHop": {
       "type": "Date",
-      "required": false,
-      "length": null,
-      "precision": null,
-      "scale": null,
       "mysql": {
         "columnName": "ngay_tong_hop",
-        "dataType": "date",
-        "dataLength": null,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "dataType": "date"
       }
     },
+
     "noiDung": {
       "type": "String",
-      "required": false,
       "length": 250,
-      "precision": null,
-      "scale": null,
       "mysql": {
         "columnName": "noi_dung",
-        "dataType": "varchar",
-        "dataLength": 250,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "dataType": "varchar"
       }
     },
+
     "qlNamLamViecId": {
       "type": "Number",
-      "required": false,
-      "length": null,
       "precision": 10,
       "scale": 0,
       "mysql": {
         "columnName": "ql_nam_lam_viec_id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
+        "dataType": "int"
       }
     },
+
     "sysKyBaoCaoId": {
       "type": "Number",
-      "required": false,
-      "length": null,
       "precision": 10,
       "scale": 0,
       "mysql": {
         "columnName": "sys_ky_bao_cao_id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
+        "dataType": "int"
       }
     },
+
     "sysTrangThaiDongMoId": {
       "type": "Number",
-      "required": false,
-      "length": null,
       "precision": 10,
       "scale": 0,
       "mysql": {
         "columnName": "sys_trang_thai_dong_mo_id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
+        "dataType": "int"
+      }
+    },
+
+    "hieuLuc": {
+      "type": "Boolean",
+      "precision": 3,
+      "scale": 0,
+      "mysql": {
+        "columnName": "hieu_luc",
+        "dataType": "tinyint"
+      }
+    },
+
+    "xoa": {
+      "type": "Boolean",
+      "precision": 3,
+      "scale": 0,
+      "mysql": {
+        "columnName": "xoa",
+        "dataType": "tinyint"
       }
     }
   }

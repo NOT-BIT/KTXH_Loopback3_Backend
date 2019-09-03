@@ -8,41 +8,12 @@
     "relations": {}
   },
   "properties": {
-    "ghiChu": {
-      "type": "String",
-      "required": false,
-      "precision": null,
-      "scale": null,
-      "mysql": {
-        "columnName": "ghi_chu",
-        "dataType": "longtext",
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
-      }
-    },
-    "hieuLuc": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 3,
-      "scale": 0,
-      "mysql": {
-        "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "dataLength": null,
-        "dataPrecision": 3,
-        "dataScale": 0,
-        "nullable": "Y"
-      }
-    },
     "id": {
       "type": "Number",
       "required": true,
-      "length": null,
       "precision": 10,
       "scale": 0,
-      "id": 1,
+      "id": true,
       "mysql": {
         "columnName": "id",
         "dataType": "int",
@@ -52,6 +23,15 @@
         "nullable": "N"
       }
     },
+
+    "ghiChu": {
+      "type": "String",
+      "mysql": {
+        "columnName": "ghi_chu",
+        "dataType": "longtext"
+      }
+    },
+
     "ma": {
       "type": "String",
       "required": false,
@@ -82,6 +62,23 @@
         "nullable": "Y"
       }
     },
+
+    "hieuLuc": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mysql": {
+        "columnName": "hieu_luc",
+        "dataType": "tinyint",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "Y"
+      }
+    },
+
     "xoa": {
       "type": "Number",
       "required": false,
