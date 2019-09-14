@@ -114,5 +114,13 @@
         "nullable": "Y"
       }
     }
+  },
+
+  "relations": {
+    "QTNamLamViec": {
+      "type": "hasMany",
+      "model": "QLKyBaoCao",
+      "foreignKey": "qtNamLamViecId"
+    }
   }
 }

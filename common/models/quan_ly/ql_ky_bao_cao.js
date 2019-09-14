@@ -1,29 +1,54 @@
 module.exports = function(QLKyBaoCao) {
-  QLKyBaoCao.getAllKyBaoCao = async function() {
+  const Promise = require('bluebird')
+
+  QLKyBaoCao.listKyBaoCao = async function(page, pageSize, deleted) {
     try {
-      const data = await QLKyBaoCao.find()
-      return data
+      const [data, total] = await Promise.all([
+        QLKyBaoCao.find({
+          where: {
+            xoa: deleted
+          },
+          fields: {
+            ten: true,
+            noiDung: true
+          },
+          limit: pageSize,
+          skip: page
+        }),
+        QLKyBaoCao.count({
+          xoa: deleted
+        })
+      ])
+
+      return {
+        rows: data,
+        page: page,
+        pageSize: pageSize,
+        total: total
+      }
     } catch (err) {
-      console.log('findAllKyBaoCao', err)
-      return err
+      console.log('listKyBaoCao', err)
+      throw err
     }
   }
 
-  QLKyBaoCao.getKyBaoCaoById = async function(id) {
+  QLKyBaoCao.readKyBaoCao = async function(id) {
     try {
-      const data = await QLKyBaoCao.find({
+      const data = await QLKyBaoCao.findById(id, {
         where: {
-          id: id
+          xoa: false
         }
       })
       return data
     } catch (err) {
-      console.log('findKyBaoCaoById', err)
-      return err
+      console.log('readBaoCaoBy', err)
+      throw err
     }
   }
 
   QLKyBaoCao.createKyBaoCao = async function(
+    uid,
+    ten,
     ngayBatDau,
     ngayBaoCaoHuyen,
     ngayBaoCaoTinh,
@@ -32,11 +57,14 @@ module.exports = function(QLKyBaoCao) {
     ngayMo,
     ngayTongHop,
     noiDung,
+    createdBy,
     qlNamLamViecId,
     sysKyBaoCaoId,
     sysTrangThaiDongMoId
   ) {
     const qlKyBaoCao = {
+      uid: uid,
+      ten: ten,
       ngayBatDau: ngayBatDau,
       ngayBaoCaoHuyen: ngayBaoCaoHuyen,
       ngayBaoCaoTinh: ngayBaoCaoTinh,
@@ -45,6 +73,8 @@ module.exports = function(QLKyBaoCao) {
       ngayMo: ngayMo,
       ngayTongHop: ngayTongHop,
       noiDung: noiDung,
+      createdAt: new Date(),
+      createdBy: createdBy,
       qlNamLamViecId: qlNamLamViecId,
       sysKyBaoCaoId: sysKyBaoCaoId,
       sysTrangThaiDongMoId: sysTrangThaiDongMoId
@@ -54,55 +84,115 @@ module.exports = function(QLKyBaoCao) {
       const data = await QLKyBaoCao.create(qlKyBaoCao)
       return data
     } catch (err) {
-      console.log('createQLKyBaoCao', err)
-      return err
+      console.log('createKyBaoCao', err)
+      throw err
     }
   }
 
-  QLKyBaoCao.updateKyBaoCao = async function(qlKyBaoCao) {
+  QLKyBaoCao.updateKyBaoCao = async function(
+    id,
+    ten,
+    ngayBatDau,
+    ngayBaoCaoHuyen,
+    ngayBaoCaoTinh,
+    ngayBaoCaoTW,
+    ngayDong,
+    ngayMo,
+    ngayTongHop,
+    noiDung,
+    updatedBy,
+    qlNamLamViecId,
+    sysKyBaoCaoId,
+    sysTrangThaiDongMoId
+  ) {
+    const qlKyBaoCao = {
+      id: id,
+      ten: ten,
+      ngayBatDau: ngayBatDau,
+      ngayBaoCaoHuyen: ngayBaoCaoHuyen,
+      ngayBaoCaoTinh: ngayBaoCaoTinh,
+      ngayBaoCaoTW: ngayBaoCaoTW,
+      ngayDong: ngayDong,
+      ngayMo: ngayMo,
+      ngayTongHop: ngayTongHop,
+      noiDung: noiDung,
+      updatedAt: new Date(),
+      updatedBy: updatedBy,
+      qlNamLamViecId: qlNamLamViecId,
+      sysKyBaoCaoId: sysKyBaoCaoId,
+      sysTrangThaiDongMoId: sysTrangThaiDongMoId
+    }
+
     try {
-      const data = await QLKyBaoCao.update({
-        where: {
-          id: qlKyBaoCao.id
+      const data = await QLKyBaoCao.upsertWithWhere({ id: id }, qlKyBaoCao)
+
+      return data
+    } catch (err) {
+      console.log('updateKyBaoCao', err)
+      throw err
+    }
+  }
+
+  QLKyBaoCao.deleteKyBaoCao = async function(id, deleted) {
+    try {
+      const data = await QLKyBaoCao.upsertWithWhere(
+        {
+          id: id
         },
-        data: qlKyBaoCao
-      })
+        { xoa: deleted }
+      )
       return data
     } catch (err) {
-      console.log('updateQLKyBaoCao', err)
-      return err
+      console.log('deleteKyBaoCao', err)
+      throw err
     }
   }
 
-  QLKyBaoCao.deleteKyBaoCao = async function(id) {
-    try {
-      const data = await QLKyBaoCao.destroyById(id)
-      return data
-    } catch (err) {
-      console.log('deleteQLKyBaoCao', err)
-      return err
-    }
-  }
-
-  QLKyBaoCao.remoteMethod('getAllKyBaoCao', {
-    accepts: [],
-    returns: { arg: 'data' },
-    http: { verb: 'get', path: '/kybaocao' }
-  })
-
-  QLKyBaoCao.remoteMethod('getKyBaoCaoById', {
+  QLKyBaoCao.remoteMethod('listKyBaoCao', {
     accepts: [
       {
-        arg: 'id',
-        type: 'number'
+        arg: 'page',
+        type: 'number',
+        default: '0'
+      },
+      {
+        arg: 'pageSize',
+        type: 'number',
+        default: '20'
+      },
+      {
+        arg: 'deleted',
+        type: 'boolean',
+        default: false
       }
     ],
     returns: { arg: 'data' },
-    http: { verb: 'get', path: '/kybaocao/:id' }
+    http: { verb: 'get', path: '/list' }
+  })
+
+  QLKyBaoCao.remoteMethod('readKyBaoCao', {
+    accepts: [
+      {
+        arg: 'id',
+        type: 'number',
+        require: true
+      }
+    ],
+    returns: { arg: 'data' },
+    http: { verb: 'get', path: '/read' }
   })
 
   QLKyBaoCao.remoteMethod('createKyBaoCao', {
     accepts: [
+      {
+        arg: 'uid',
+        type: 'string',
+        require: true
+      },
+      {
+        arg: 'ten',
+        type: 'string'
+      },
       {
         arg: 'ngayBatDau',
         type: 'date'
@@ -136,6 +226,79 @@ module.exports = function(QLKyBaoCao) {
         type: 'string'
       },
       {
+        arg: 'createdBy',
+        type: 'number',
+        require: true
+      },
+      {
+        arg: 'qlNamLamViecId',
+        type: 'number',
+        require: true
+      },
+      {
+        arg: 'sysKyBaoCaoId',
+        type: 'number',
+        require: true
+      },
+      {
+        arg: 'sysTrangThaiDongMoId',
+        type: 'number',
+        require: true
+      }
+    ],
+    returns: { arg: 'data' },
+    http: { verb: 'post', path: '/create' }
+  })
+
+  QLKyBaoCao.remoteMethod('updateKyBaoCao', {
+    accepts: [
+      {
+        arg: 'id',
+        type: 'number',
+        require: true
+      },
+      {
+        arg: 'ten',
+        type: 'string'
+      },
+      {
+        arg: 'ngayBatDau',
+        type: 'date'
+      },
+      {
+        arg: 'ngayBaoCaoHuyen',
+        type: 'date'
+      },
+      {
+        arg: 'ngayBaoCaoTinh',
+        type: 'date'
+      },
+      {
+        arg: 'ngayBaoCaoTW',
+        type: 'date'
+      },
+      {
+        arg: 'ngayDong',
+        type: 'date'
+      },
+      {
+        arg: 'ngayMo',
+        type: 'date'
+      },
+      {
+        arg: 'ngayTongHop',
+        type: 'date'
+      },
+      {
+        arg: 'noiDung',
+        type: 'string'
+      },
+      {
+        arg: 'updatedBy',
+        type: 'number',
+        require: true
+      },
+      {
         arg: 'qlNamLamViecId',
         type: 'number'
       },
@@ -149,6 +312,23 @@ module.exports = function(QLKyBaoCao) {
       }
     ],
     returns: { arg: 'data' },
-    http: { verb: 'post', path: '/kybaocao' }
+    http: { verb: 'post', path: '/update' }
+  })
+
+  QLKyBaoCao.remoteMethod('deleteKyBaoCao', {
+    accepts: [
+      {
+        arg: 'id',
+        type: 'number',
+        require: true
+      },
+      {
+        arg: 'deleted',
+        type: 'boolean',
+        default: true
+      }
+    ],
+    returns: { arg: 'data' },
+    http: { verb: 'post', path: '/delete' }
   })
 }

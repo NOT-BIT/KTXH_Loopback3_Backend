@@ -99,5 +99,13 @@
         "nullable": "Y"
       }
     }
+  },
+
+  "relations": {
+    "SysKyBaoCao": {
+      "type": "hasMany",
+      "model": "QLKyBaoCao",
+      "foreignKey": "sysKyBaoCaoId"
+    }
   }
 }
