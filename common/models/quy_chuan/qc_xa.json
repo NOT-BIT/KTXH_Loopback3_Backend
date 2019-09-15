@@ -1,5 +1,5 @@
 {
-  "name": "QCxa",
+  "name": "QCXa",
   "base": "Model",
   "idInjection": true,
   "options": {
@@ -184,7 +184,7 @@
       "entity": "QCHuyen"
     },
     "capDonViHanhChinh": {
-      "name": "QCHuyen_SysCapHanhChinh",
+      "name": "QCXa_SysCapHanhChinh",
       "foreignKey": "capDonViHanhChinh",
       "entityKey": "id",
       "entity": "SysCapHanhChinh"
