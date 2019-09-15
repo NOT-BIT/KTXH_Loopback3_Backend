@@ -5,7 +5,7 @@ let to = require('await-to-js').to
 'use strict';
 
 module.exports = function(QCHuyen) {
-    QCHuyen.createHuyen = async function(uid, ma, qcTinhId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, userID){
+    QCHuyen.createHuyen = async function(uid, ma, qcTinhId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk){
         let [err1, huyen1] = await to(QCHuyen.findOne({where: {uid: uid}}))
         if (err1||huyen1 != null) {
             return [400, 'uid huyen da ton tai']
@@ -19,7 +19,6 @@ module.exports = function(QCHuyen) {
         if (errTinh||tinh == null) {
             return [404, 'tinh khong ton tai']
         }
-        let cDate = Date()
         let huyenData = {
             uid: uid,
             ma: ma,
@@ -32,8 +31,6 @@ module.exports = function(QCHuyen) {
             bienGioi: bg,
             haiDao: hd,
             vungDBKhoKhan: dbkk,
-            createdAt: cDate,
-            createdBy: userID,
             hieuLuc: 1,
             xoa: 0
         }
@@ -44,7 +41,7 @@ module.exports = function(QCHuyen) {
         return [200, 'create success']
     }
 
-    QCHuyen.updateHuyen = async function(id, ma, qcTinhId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, userID, hieuLuc){
+    QCHuyen.updateHuyen = async function(id, ma, qcTinhId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
         let [err, huyen] = await to(QCHuyen.findOne({where: {id: id}}))
         if (err||huyen == null) {
             return [404, 'huyen khong ton tai']
@@ -65,7 +62,6 @@ module.exports = function(QCHuyen) {
                 return [400, 'da ton tai ma huyen nay']
             }
         }
-        let uDate = Date()
         let huyenData = {
             id: id,
             ma: ma,
@@ -78,8 +74,6 @@ module.exports = function(QCHuyen) {
             bienGioi: bg,
             haiDao: hd,
             vungDBKhoKhan: dbkk,
-            updatedAt: uDate,
-            updatedBy: userID,
             hieuLuc: hieuLuc
         }
         let [errUpdate, huyenUpdate] = await to(QCHuyen.upsert(huyenData))
@@ -119,7 +113,7 @@ module.exports = function(QCHuyen) {
         return [200, 'restore success']
     }
 
-    QCHuyen.readHuyen = async function(id, ma, qcTinhId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
+    QCHuyen.readHuyen = async function(id){
         let [err, huyen] = await to(QCHuyen.findOne({where: {id: id}}))
         if (err||huyen == null) {
             return [404, 'huyen khong ton tai', huyen]
@@ -152,13 +146,12 @@ module.exports = function(QCHuyen) {
                 {arg: 'qcTinhId', type: 'number', required: true},
                 {arg: 'ten', type: 'string', required: false},
                 {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'cap', type: 'number', required: false},
+                {arg: 'cap', type: 'number', required: true},
                 {arg: 'loai', type: 'string', required: true},
                 {arg: 'nt', type: 'string', required: false},
                 {arg: 'bg', type: 'string', required: false},
                 {arg: 'hd', type: 'string', required: false},
-                {arg: 'dbkk', type: 'string', required: false},
-                {arg: 'userID', type: 'number', required: true}
+                {arg: 'dbkk', type: 'string', required: false}
             ],
             returns: [
                 {arg: 'statusCode', type: 'number'},
@@ -182,7 +175,6 @@ module.exports = function(QCHuyen) {
                 {arg: 'bg', type: 'string', required: false},
                 {arg: 'hd', type: 'string', required: false},
                 {arg: 'dbkk', type: 'string', required: false},
-                {arg: 'userID', type: 'number', required: true},
                 {arg: 'hieuLuc', type: 'number', required: false}
             ],
             returns: [
@@ -222,18 +214,7 @@ module.exports = function(QCHuyen) {
         'readHuyen', {
             http: {path: '/:id/read', verb: 'post'},
             accepts: [
-                {arg: 'id', type: 'number', required: true},
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'qcTinhId', type: 'number', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'cap', type: 'number', required: false},
-                {arg: 'loai', type: 'string', required: false},
-                {arg: 'nt', type: 'string', required: false},
-                {arg: 'bg', type: 'string', required: false},
-                {arg: 'hd', type: 'string', required: false},
-                {arg: 'dbkk', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'id', type: 'number', required: true}
             ],
             returns: [
                 {arg: 'statusCode', type: 'number'},
@@ -269,7 +250,7 @@ module.exports = function(QCHuyen) {
 
     QCHuyen.remoteMethod(
         'listDeletedHuyen', {
-            http: {path: '/:DeletedList', verb: 'post'},
+            http: {path: '/deleted_list', verb: 'post'},
             accepts: [
                 {arg: 'ma', type: 'string', required: false},
                 {arg: 'qcTinhId', type: 'number', required: false},

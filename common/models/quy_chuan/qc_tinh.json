@@ -50,9 +50,11 @@
     },
     "capDonViHanhChinh": {
       "type": "Number",
+      "required": true,
       "mysql": {
         "columnName": "cap_don_vi_hanh_chinh",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "loaiDonViHanhChinh": {
@@ -100,11 +102,9 @@
     },
     "createdAt":{
       "type": "Date",
-      "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date",
-        "nullable": "N"
+        "dataType": "date"
       }
     },
     "updatedAt":{
@@ -116,11 +116,9 @@
     },
     "createdBy":{
       "type": "Number",
-      "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "updatedBy":{

@@ -5,7 +5,7 @@ let to = require('await-to-js').to
 'use strict';
 
 module.exports = function(QCXa) {
-    QCXa.createXa = async function(uid, ma, qcHuyenId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, userID){
+    QCXa.createXa = async function(uid, ma, qcHuyenId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk){
         let [err1, xa1] = await to(QCXa.findOne({where: {uid: uid}}))
         if (err1||xa1 != null) {
             return [400, 'uid xa da ton tai']
@@ -19,7 +19,6 @@ module.exports = function(QCXa) {
         if (errHuyen||huyen == null) {
             return [404, 'huyen khong ton tai']
         }
-        let cDate = Date()
         let xaData = {
             uid: uid,
             ma: ma,
@@ -32,8 +31,6 @@ module.exports = function(QCXa) {
             bienGioi: bg,
             haiDao: hd,
             vungDBKhoKhan: dbkk,
-            createdAt: cDate,
-            createdBy: userID,
             hieuLuc: 1,
             xoa: 0
         }
@@ -44,7 +41,7 @@ module.exports = function(QCXa) {
         return [200, 'create success']
     }
 
-    QCXa.updateXa = async function(id, ma, qcHuyenId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, userID, hieuLuc){
+    QCXa.updateXa = async function(id, ma, qcHuyenId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
         let [err, xa] = await to(QCXa.findOne({where: {id: id}}))
         if (err||xa == null) {
             return [404, 'xa khong ton tai']
@@ -65,7 +62,6 @@ module.exports = function(QCXa) {
                 return [400, 'da ton tai ma xa nay']
             }
         }
-        let uDate = Date()
         let xaData = {
             id: id,
             ma: ma,
@@ -78,8 +74,6 @@ module.exports = function(QCXa) {
             bienGioi: bg,
             haiDao: hd,
             vungDBKhoKhan: dbkk,
-            updatedAt: uDate,
-            updatedBy: userID,
             hieuLuc: hieuLuc
         }
         let [errUpdate, xaUpdate] = await to(QCXa.upsert(xaData))
@@ -119,7 +113,7 @@ module.exports = function(QCXa) {
         return [200, 'restore success']
     }
 
-    QCXa.readXa = async function(id, ma, qcHuyenId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
+    QCXa.readXa = async function(id){
         let [err, xa] = await to(QCXa.findOne({where: {id: id}}))
         if (err||xa == null) {
             return [404, 'xa khong ton tai', xa]
@@ -152,13 +146,12 @@ module.exports = function(QCXa) {
                 {arg: 'qcHuyenId', type: 'number', required: true},
                 {arg: 'ten', type: 'string', required: false},
                 {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'cap', type: 'number', required: false},
+                {arg: 'cap', type: 'number', required: true},
                 {arg: 'loai', type: 'string', required: true},
                 {arg: 'nt', type: 'string', required: false},
                 {arg: 'bg', type: 'string', required: false},
                 {arg: 'hd', type: 'string', required: false},
-                {arg: 'dbkk', type: 'string', required: false},
-                {arg: 'userID', type: 'number', required: true}
+                {arg: 'dbkk', type: 'string', required: false}
             ],
             returns: [
                 {arg: 'statusCode', type: 'number'},
@@ -182,7 +175,6 @@ module.exports = function(QCXa) {
                 {arg: 'bg', type: 'string', required: false},
                 {arg: 'hd', type: 'string', required: false},
                 {arg: 'dbkk', type: 'string', required: false},
-                {arg: 'userID', type: 'number', required: true},
                 {arg: 'hieuLuc', type: 'number', required: false}
             ],
             returns: [
@@ -222,18 +214,7 @@ module.exports = function(QCXa) {
         'readXa', {
             http: {path: '/:id/read', verb: 'post'},
             accepts: [
-                {arg: 'id', type: 'number', required: true},
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'qcHuyenId', type: 'number', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'cap', type: 'number', required: false},
-                {arg: 'loai', type: 'string', required: false},
-                {arg: 'nt', type: 'string', required: false},
-                {arg: 'bg', type: 'string', required: false},
-                {arg: 'hd', type: 'string', required: false},
-                {arg: 'dbkk', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'id', type: 'number', required: true}
             ],
             returns: [
                 {arg: 'statusCode', type: 'number'},
@@ -269,7 +250,7 @@ module.exports = function(QCXa) {
 
     QCXa.remoteMethod(
         'listDeletedXa', {
-            http: {path: '/:DeletedList', verb: 'post'},
+            http: {path: '/deleted_list', verb: 'post'},
             accepts: [
                 {arg: 'ma', type: 'string', required: false},
                 {arg: 'qcHuyenId', type: 'number', required: false},

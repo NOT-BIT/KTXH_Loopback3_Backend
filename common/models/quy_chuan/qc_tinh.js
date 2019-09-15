@@ -3,7 +3,7 @@ let to = require('await-to-js').to;
 'use strict';
 
 module.exports = function(QCTinh) {
-    QCTinh.createTinh = async function(uid, ma, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, userID){
+    QCTinh.createTinh = async function(uid, ma, ten, ghiChu, cap, loai, nt, bg, hd, dbkk){
         let [err1, tinh1] = await to(QCTinh.findOne({where: {uid: uid}}))
         if (err1||tinh1 != null) {
             return [400, 'uid tinh da ton tai']
@@ -12,7 +12,6 @@ module.exports = function(QCTinh) {
         if (err2||tinh2 != null) {
             return [400, 'ma tinh da ton tai']
         }
-        let cDate = Date()
         let tinhData = {
             uid: uid,
             ma: ma,
@@ -24,8 +23,6 @@ module.exports = function(QCTinh) {
             bienGioi: bg,
             haiDao: hd,
             vungDBKhoKhan: dbkk,
-            createdAt: cDate,
-            createdBy: userID,
             hieuLuc: 1,
             xoa: 0
         }
@@ -36,7 +33,7 @@ module.exports = function(QCTinh) {
         return [200, 'create success']
     }
 
-    QCTinh.updateTinh = async function(id, ma, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, userID, hieuLuc){
+    QCTinh.updateTinh = async function(id, ma, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
         let [err, tinh] = await to(QCTinh.findOne({where: {id: id}}))
         if (err||tinh == null) {
             return [404, 'tinh khong ton tai']
@@ -50,7 +47,6 @@ module.exports = function(QCTinh) {
                 return [400, 'da ton tai ma tinh nay']
             }
         }
-        let uDate = Date()
         let tinhData = {
             id: id,
             ma: ma,
@@ -62,8 +58,6 @@ module.exports = function(QCTinh) {
             bienGioi: bg,
             haiDao: hd,
             vungDBKhoKhan: dbkk,
-            updatedAt: uDate,
-            updatedBy: userID,
             hieuLuc: hieuLuc
         }
         let [errUpdate, tinhUpdate] = await to(QCTinh.upsert(tinhData))
@@ -103,7 +97,7 @@ module.exports = function(QCTinh) {
         return [200, 'restore success']
     }
 
-    QCTinh.readTinh = async function(id, ma, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
+    QCTinh.readTinh = async function(id){
         let [err, tinh] = await to(QCTinh.findOne({where: {id: id}}))
         if (err||tinh == null) {
             return [404, 'tinh khong ton tai', tinh]
@@ -135,13 +129,12 @@ module.exports = function(QCTinh) {
                 {arg: 'ma', type: 'string', required: true},
                 {arg: 'ten', type: 'string', required: false},
                 {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'cap', type: 'number', required: false},
+                {arg: 'cap', type: 'number', required: true},
                 {arg: 'loai', type: 'string', required: true},
                 {arg: 'nt', type: 'string', required: false},
                 {arg: 'bg', type: 'string', required: false},
                 {arg: 'hd', type: 'string', required: false},
-                {arg: 'dbkk', type: 'string', required: false},
-                {arg: 'userID', type: 'number', required: true}
+                {arg: 'dbkk', type: 'string', required: false}
             ],
             returns: [
                 {arg: 'statusCode', type: 'number'},
@@ -164,7 +157,6 @@ module.exports = function(QCTinh) {
                 {arg: 'bg', type: 'string', required: false},
                 {arg: 'hd', type: 'string', required: false},
                 {arg: 'dbkk', type: 'string', required: false},
-                {arg: 'userID', type: 'number', required: true},
                 {arg: 'hieuLuc', type: 'number', required: false}
             ],
             returns: [
@@ -204,17 +196,7 @@ module.exports = function(QCTinh) {
         'readTinh', {
             http: {path: '/:id/read', verb: 'post'},
             accepts: [
-                {arg: 'id', type: 'number', required: true},
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'cap', type: 'number', required: false},
-                {arg: 'loai', type: 'string', required: false},
-                {arg: 'nt', type: 'string', required: false},
-                {arg: 'bg', type: 'string', required: false},
-                {arg: 'hd', type: 'string', required: false},
-                {arg: 'dbkk', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'id', type: 'number', required: true}
             ],
             returns: [
                 {arg: 'statusCode', type: 'number'},
@@ -249,7 +231,7 @@ module.exports = function(QCTinh) {
 
     QCTinh.remoteMethod(
         'listDeletedTinh', {
-            http: {path: '/:DeletedList', verb: 'post'},
+            http: {path: '/deleted_list', verb: 'post'},
             accepts: [
                 {arg: 'ma', type: 'string', required: false},
                 {arg: 'ten', type: 'string', required: false},
