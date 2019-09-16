@@ -1,7 +1,13 @@
 module.exports = function(ChiTieuNhom) {
   const Promise = require('bluebird')
 
-  ChiTieuNhom.listChiTieuNhom = async function(page, pageSize, deleted) {
+  ChiTieuNhom.listChiTieuNhom = async function(
+    page,
+    pageSize,
+    ma,
+    ten,
+    ghiChu
+  ) {
     try {
       const [data, total] = await Promise.all([
         ChiTieuNhom.find({
@@ -9,12 +15,14 @@ module.exports = function(ChiTieuNhom) {
             xoa: 0
           },
           fields: {
+            ma: true,
             ten: true,
-            noidung: true
+            ghiChu: true,
+            hieuLuc: true
           }
         }),
         ChiTieuNhom.count({
-          xoa: deleted
+          xoa: false
         })
       ])
 
@@ -26,6 +34,43 @@ module.exports = function(ChiTieuNhom) {
       }
     } catch (err) {
       console.log('listChiTieuNhom', err)
+      throw err
+    }
+  }
+
+  ChiTieuNhom.deletedListChiTieuNhom = async function(
+    page,
+    pageSize,
+    ma,
+    ten,
+    ghiChu
+  ) {
+    try {
+      const [data, total] = await Promise.all([
+        ChiTieuNhom.find({
+          where: {
+            xoa: 0
+          },
+          fields: {
+            ma: true,
+            ten: true,
+            ghiChu: true,
+            hieuLuc: true
+          }
+        }),
+        ChiTieuNhom.count({
+          xoa: true
+        })
+      ])
+
+      return {
+        rows: data,
+        page: page,
+        pageSize: pageSize,
+        total: total
+      }
+    } catch (err) {
+      console.log('deletedListChiTieuNhom', err)
       throw err
     }
   }
@@ -46,18 +91,16 @@ module.exports = function(ChiTieuNhom) {
 
   ChiTieuNhom.createChiTieuNhom = async function(
     uid,
+    ma,
     ten,
     ghiChu,
-    ma,
-    noiDung,
     createdBy
   ) {
     const chiTieuNhom = {
       uid: uid,
+      ma: ma,
       ten: ten,
       ghiChu: ghiChu,
-      ma: ma,
-      noiDung: noiDung,
       createdAt: new Date(),
       createdBy: createdBy
     }
@@ -73,18 +116,16 @@ module.exports = function(ChiTieuNhom) {
 
   ChiTieuNhom.updateChiTieuNhom = async function(
     id,
+    ma,
     ten,
     ghiChu,
-    ma,
-    noiDung,
     updatedBy
   ) {
     const chiTieuNhom = {
       id: id,
+      ma: ma,
       ten: ten,
       ghiChu: ghiChu,
-      ma: ma,
-      noiDung: noiDung,
       updatedAt: new Date(),
       updatedBy: updatedBy
     }
@@ -103,17 +144,34 @@ module.exports = function(ChiTieuNhom) {
     }
   }
 
-  ChiTieuNhom.deleteChiTieuNhom = async function(id, deleted) {
+  ChiTieuNhom.deleteChiTieuNhom = async function(id) {
     try {
       const data = await ChiTieuNhom.upsertWithWhere(
         {
           id: id
         },
-        { xoa: deleted }
+        { xoa: true }
       )
       return data
     } catch (err) {
       console.log('deleteChiTieuNhom', err)
+      throw err
+    }
+  }
+
+  ChiTieuNhom.reStoreChiTieuNhom = async function(id) {
+    try {
+      const data = await ChiTieuNhom.upsertWithWhere(
+        {
+          id: id
+        },
+        {
+          xoa: false
+        }
+      )
+      return data
+    } catch (err) {
+      console.log('reStoreChiTieuNhom', err)
       throw err
     }
   }
@@ -131,13 +189,49 @@ module.exports = function(ChiTieuNhom) {
         default: '20'
       },
       {
-        arg: 'deleted',
-        type: 'boolean',
-        default: false
+        arg: 'ma',
+        type: 'string'
+      },
+      {
+        arg: 'ten',
+        type: 'string'
+      },
+      {
+        arg: 'ghiChu',
+        type: 'string'
       }
     ],
     returns: { arg: 'data' },
     http: { verb: 'get', path: '/list' }
+  })
+
+  ChiTieuNhom.remoteMethod('deletedListChiTieuNhom', {
+    accepts: [
+      {
+        arg: 'page',
+        type: 'number',
+        default: '0'
+      },
+      {
+        arg: 'pageSize',
+        type: 'number',
+        default: '20'
+      },
+      {
+        arg: 'ma',
+        type: 'string'
+      },
+      {
+        arg: 'ten',
+        type: 'string'
+      },
+      {
+        arg: 'ghiChu',
+        type: 'string'
+      }
+    ],
+    returns: { arg: 'data' },
+    http: { verb: 'get', path: '/deleted-list' }
   })
 
   ChiTieuNhom.remoteMethod('readChiTieuNhom', {
@@ -145,7 +239,7 @@ module.exports = function(ChiTieuNhom) {
       {
         arg: 'id',
         type: 'number',
-        require: true
+        required: true
       }
     ],
     returns: { arg: 'data' },
@@ -157,7 +251,12 @@ module.exports = function(ChiTieuNhom) {
       {
         arg: 'uid',
         type: 'string',
-        require: true
+        required: true
+      },
+      {
+        arg: 'ma',
+        type: 'string',
+        required: true
       },
       {
         arg: 'ten',
@@ -167,18 +266,11 @@ module.exports = function(ChiTieuNhom) {
         arg: 'ghiChu',
         type: 'string'
       },
-      {
-        arg: 'ma',
-        type: 'string'
-      },
-      {
-        arg: 'noiDung',
-        type: 'string'
-      },
+
       {
         arg: 'createdBy',
         type: 'number',
-        require: true
+        required: true
       }
     ],
     returns: { arg: 'data' },
@@ -190,7 +282,12 @@ module.exports = function(ChiTieuNhom) {
       {
         arg: 'id',
         type: 'number',
-        require: true
+        required: true
+      },
+      {
+        arg: 'ma',
+        type: 'string',
+        required: true
       },
       {
         arg: 'ten',
@@ -200,18 +297,11 @@ module.exports = function(ChiTieuNhom) {
         arg: 'ghiChu',
         type: 'string'
       },
-      {
-        arg: 'ma',
-        type: 'string'
-      },
-      {
-        arg: 'noiDung',
-        type: 'string'
-      },
+
       {
         arg: 'updatedBy',
         type: 'number',
-        require: true
+        required: true
       }
     ],
     returns: { arg: 'data' },
@@ -223,15 +313,22 @@ module.exports = function(ChiTieuNhom) {
       {
         arg: 'id',
         type: 'number',
-        require: true
-      },
-      {
-        arg: 'deleted',
-        type: 'boolean',
-        default: true
+        required: true
       }
     ],
     returns: { arg: 'data' },
     http: { verb: 'post', path: '/delete' }
+  })
+
+  ChiTieuNhom.remoteMethod('reStoreChiTieuNhom', {
+    accepts: [
+      {
+        arg: 'id',
+        type: 'number',
+        required: true
+      }
+    ],
+    returns: { arg: 'data' },
+    http: { verb: 'post', path: '/restore' }
   })
 }

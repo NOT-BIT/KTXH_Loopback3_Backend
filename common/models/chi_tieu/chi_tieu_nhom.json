@@ -11,10 +11,21 @@
     "uid": {
       "type": "String",
       "required": true,
-      "unique": true,
+      "index": { "unique": true },
       "length": 50,
       "mysql": {
         "columnName": "uid",
+        "dataType": "varchar"
+      }
+    },
+
+    "ma": {
+      "type": "String",
+      "require": true,
+      "index": { "unique": true },
+      "length": 250,
+      "mysql": {
+        "columnName": "ma",
         "dataType": "varchar"
       }
     },
@@ -34,24 +45,6 @@
       "mysql": {
         "columnName": "ghi_chu",
         "dataType": "longtext"
-      }
-    },
-
-    "ma": {
-      "type": "String",
-      "length": 50,
-      "mysql": {
-        "columnName": "ma",
-        "dataType": "varchar"
-      }
-    },
-
-    "noiDung": {
-      "type": "String",
-      "length": 250,
-      "mysql": {
-        "columnName": "noi_dung",
-        "dataType": "varchar"
       }
     },
 

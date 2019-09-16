@@ -1,7 +1,14 @@
 module.exports = function(TruongNhapLieu) {
   const Promise = require('bluebird')
 
-  TruongNhapLieu.listTruongNhapLieu = async function(page, pageSize, deleted) {
+  TruongNhapLieu.listTruongNhapLieu = async function(
+    page,
+    pageSize,
+    ma,
+    ten,
+    donViTinh,
+    ghiChu
+  ) {
     try {
       const [data, total] = await Promise.all([
         TruongNhapLieu.find({
@@ -10,11 +17,13 @@ module.exports = function(TruongNhapLieu) {
           },
           fields: {
             ten: true,
-            noidung: true
-          }
+            ghiChu: true,
+            sysLoaiTruongNhapLieu: true
+          },
+          include: ['SysLoaiTruongNhapLieu']
         }),
         TruongNhapLieu.count({
-          xoa: deleted
+          xoa: false
         })
       ])
 
@@ -26,6 +35,44 @@ module.exports = function(TruongNhapLieu) {
       }
     } catch (err) {
       console.log('listTruongNhapLieu', err)
+      throw err
+    }
+  }
+
+  TruongNhapLieu.deletedListTruongNhapLieu = async function(
+    page,
+    pageSize,
+    ma,
+    ten,
+    donViTinh,
+    ghiChu
+  ) {
+    try {
+      const [data, total] = await Promise.all([
+        TruongNhapLieu.find({
+          where: {
+            xoa: 0
+          },
+          fields: {
+            ten: true,
+            noidung: true,
+            sysLoaiTruongNhapLieu: true
+          },
+          include: ['SysLoaiTruongNhapLieu']
+        }),
+        TruongNhapLieu.count({
+          xoa: true
+        })
+      ])
+
+      return {
+        rows: data,
+        page: page,
+        pageSize: pageSize,
+        total: total
+      }
+    } catch (err) {
+      console.log('deletedListTruongNhapLieu', err)
       throw err
     }
   }
@@ -46,19 +93,19 @@ module.exports = function(TruongNhapLieu) {
 
   TruongNhapLieu.createTruongNhapLieu = async function(
     uid,
-    ten,
     ma,
+    ten,
     donViTinh,
-    noiDung,
+    ghiChu,
     createdBy,
     sysLoaiTruongNhapLieuId
   ) {
     const truongNhapLieu = {
       uid: uid,
-      ten: ten,
       ma: ma,
+      ten: ten,
       donViTinh: donViTinh,
-      noiDung: noiDung,
+      ghiChu: ghiChu,
       createdAt: new Date(),
       createdBy: createdBy,
       sysLoaiTruongNhapLieuId: sysLoaiTruongNhapLieuId
@@ -75,20 +122,20 @@ module.exports = function(TruongNhapLieu) {
 
   TruongNhapLieu.updateTruongNhapLieu = async function(
     id,
-    ten,
     ma,
+    ten,
     donViTinh,
-    noiDung,
+    ghiChu,
     sysLoaiTruongNhapLieuId,
     updatedBy
   ) {
     const truongNhapLieu = {
       id: id,
+      ma: ma,
       ten: ten,
       ghiChu: ghiChu,
-      ma: ma,
       donViTinh: donViTinh,
-      noiDung: noiDung,
+      ghiChu: ghiChu,
       sysLoaiTruongNhapLieuId: sysLoaiTruongNhapLieuId,
       updatedAt: new Date(),
       updatedBy: updatedBy
@@ -97,7 +144,8 @@ module.exports = function(TruongNhapLieu) {
     try {
       const data = await TruongNhapLieu.upsertWithWhere(
         {
-          id: truongNhapLieu.id
+          id: truongNhapLieu.id,
+          xoa: false
         },
         truongNhapLieu
       )
@@ -108,17 +156,34 @@ module.exports = function(TruongNhapLieu) {
     }
   }
 
-  TruongNhapLieu.deleteTruongNhapLieu = async function(id, deleted) {
+  TruongNhapLieu.deleteTruongNhapLieu = async function(id) {
     try {
       const data = await TruongNhapLieu.upsertWithWhere(
         {
           id: id
         },
-        { xoa: deleted }
+        { xoa: true }
       )
       return data
     } catch (err) {
       console.log('deleteTruongNhapLieu', err)
+      throw err
+    }
+  }
+
+  TruongNhapLieu.reStoreTruongNhapLieu = async function(id) {
+    try {
+      const data = await TruongNhapLieu.upsertWithWhere(
+        {
+          id: id
+        },
+        {
+          xoa: false
+        }
+      )
+      return data
+    } catch (err) {
+      console.log('reStoreTruongNhapLieu', err)
       throw err
     }
   }
@@ -136,13 +201,57 @@ module.exports = function(TruongNhapLieu) {
         default: '20'
       },
       {
-        arg: 'deleted',
-        type: 'boolean',
-        default: false
+        arg: 'ma',
+        type: 'string'
+      },
+      {
+        arg: 'ten',
+        type: 'string'
+      },
+      {
+        arg: 'donViTinh',
+        type: 'string'
+      },
+      {
+        arg: 'ghiChu',
+        type: 'string'
       }
     ],
     returns: { arg: 'data' },
     http: { verb: 'get', path: '/list' }
+  })
+
+  TruongNhapLieu.remoteMethod('deleteListTruongNhapLieu', {
+    accepts: [
+      {
+        arg: 'page',
+        type: 'number',
+        default: '0'
+      },
+      {
+        arg: 'pageSize',
+        type: 'number',
+        default: '20'
+      },
+      {
+        arg: 'ma',
+        type: 'string'
+      },
+      {
+        arg: 'ten',
+        type: 'string'
+      },
+      {
+        arg: 'donViTinh',
+        type: 'string'
+      },
+      {
+        arg: 'ghiChu',
+        type: 'string'
+      }
+    ],
+    returns: { arg: 'data' },
+    http: { verb: 'get', path: '/deleted-list' }
   })
 
   TruongNhapLieu.remoteMethod('readTruongNhapLieu', {
@@ -150,7 +259,7 @@ module.exports = function(TruongNhapLieu) {
       {
         arg: 'id',
         type: 'number',
-        require: true
+        required: true
       }
     ],
     returns: { arg: 'data' },
@@ -162,14 +271,15 @@ module.exports = function(TruongNhapLieu) {
       {
         arg: 'uid',
         type: 'string',
-        require: true
-      },
-      {
-        arg: 'ten',
-        type: 'string'
+        required: true
       },
       {
         arg: 'ma',
+        type: 'string',
+        required: true
+      },
+      {
+        arg: 'ten',
         type: 'string'
       },
       {
@@ -177,18 +287,18 @@ module.exports = function(TruongNhapLieu) {
         type: 'string'
       },
       {
-        arg: 'noiDung',
+        arg: 'ghiChu',
         type: 'string'
       },
       {
         arg: 'sysLoaiTruongNhapLieuId',
         type: 'string',
-        require: true
+        required: true
       },
       {
         arg: 'createdBy',
         type: 'number',
-        require: true
+        required: true
       }
     ],
     returns: { arg: 'data' },
@@ -200,7 +310,7 @@ module.exports = function(TruongNhapLieu) {
       {
         arg: 'id',
         type: 'number',
-        require: true
+        required: true
       },
       {
         arg: 'ten',
@@ -225,7 +335,7 @@ module.exports = function(TruongNhapLieu) {
       {
         arg: 'updatedBy',
         type: 'number',
-        require: true
+        required: true
       }
     ],
     returns: { arg: 'data' },
@@ -237,15 +347,22 @@ module.exports = function(TruongNhapLieu) {
       {
         arg: 'id',
         type: 'number',
-        require: true
-      },
-      {
-        arg: 'deleted',
-        type: 'boolean',
-        default: true
+        required: true
       }
     ],
     returns: { arg: 'data' },
     http: { verb: 'post', path: '/delete' }
+  })
+
+  TruongNhapLieu.remoteMethod('reStoreTruongNhapLieu', {
+    accepts: [
+      {
+        arg: 'id',
+        type: 'number',
+        required: true
+      }
+    ],
+    returns: { arg: 'data' },
+    http: { verb: 'post', path: '/restore' }
   })
 }
