@@ -76,7 +76,7 @@
       }
     }
   },
-  "BieuNhapLieu-KyBaoCao": {
+  "BieuNhapLieu_KyBaoCao": {
     "dataSource": "mysql",
     "public": true,
     "options": {

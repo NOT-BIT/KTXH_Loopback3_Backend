@@ -1,60 +1,60 @@
 {
-  "name": "QCXa",
+  "name": "QCHuyen",
   "base": "Model",
   "idInjection": true,
   "options": {
     "mysql": {
-      "table": "qc_xa"
+      "table": "qc_huyen"
     }
   },
   "properties": {
     "uid": {
       "type": "String",
       "required": true,
-      "length": 50,
+      "index": { "unique": true },
+      "length": 250,
       "mysql": {
         "columnName": "uid",
         "dataType": "varchar",
-        "dataLength": 50,
+        "dataLength": 250,
         "nullable": "N"
       }
     },
     "ma": {
       "type": "String",
-      "required": true,      
-      "length": 50,
+      "required": true, 
+      "index": { "unique": true },     
+      "length": 250,
       "mysql": {
         "columnName": "ma",
         "dataType": "varchar",
-        "dataLength": 50,
+        "dataLength": 250,
         "nullable": "N"
       }
     },
-    "qcHuyenId": {
+    "qcTinhId": {
       "type": "Number",
-      "required": true,
+      "required": true, 
       "mysql": {
-        "columnName": "qc_huyen_id",
+        "columnName": "qc_tinh_id",
         "dataType": "int",
         "nullable": "N"
       }
     },
     "ten": {
       "type": "String",
-      "length": 100,
+      "length": 250,
       "mysql": {
         "columnName": "ten",
         "dataType": "varchar",
-        "dataLength": 100
+        "dataLength": 250
       }
     },
     "ghiChu": {
       "type": "String",
-      "length": 250,
       "mysql": {
         "columnName": "ghi_chu",
-        "dataType": "varchar",
-        "dataLength": 250
+        "dataType": "longtext"
       }
     },
     "capDonViHanhChinh": {
@@ -111,6 +111,7 @@
     },
     "createdAt":{
       "type": "Date",
+      "required": true,
       "mysql": {
         "columnName": "created_at",
         "dataType": "date"
@@ -125,6 +126,7 @@
     },
     "createdBy":{
       "type": "Number",
+      "required": true,
       "mysql": {
         "columnName": "created_by",
         "dataType": "int"
@@ -159,13 +161,18 @@
     }
   },
   "relations": {
-    "qcHuyen": {
+    "qcTinh": {
       "type": "belongsTo",
-      "model": "QCHuyen",
-      "foreignKey": "qcHuyenId",
+      "model": "QCTinh",
+      "foreignKey": "qcTinhId",
       "options": {
         "nestRemoting": true
       }
+    },
+    "qcXa": {
+      "type": "hasMany",
+      "model": "QCXa",
+      "foreignKey": "qcHuyenId"
     },
     "capHanhChinh": {
       "type": "belongsTo",
@@ -177,14 +184,14 @@
     }
   },
   "foreignKeys": {
-    "qcHuyenId": {
-      "name": "QCXa_QCHuyen",
-      "foreignKey": "qcHuyenId",
+    "qcTinhId": {
+      "name": "QCHuyen_QCTinh",
+      "foreignKey": "qcTinhId",
       "entityKey": "id",
-      "entity": "QCHuyen"
+      "entity": "QCTinh"
     },
     "capDonViHanhChinh": {
-      "name": "QCXa_SysCapHanhChinh",
+      "name": "QCHuyen_SysCapHanhChinh",
       "foreignKey": "capDonViHanhChinh",
       "entityKey": "id",
       "entity": "SysCapHanhChinh"
