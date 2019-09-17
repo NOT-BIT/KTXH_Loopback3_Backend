@@ -1,0 +1,191 @@
+{
+  "name": "BieuNhapLieu-ChiTieu",
+  "base": "Model",
+  "options": {
+    "idInjection": true,
+    "mysql": {
+      "table": "bieu_nhap_lieu-chi_tieu"
+    }
+  },
+  "properties": { 
+    "uid": {
+      "type": "String",
+      "required": true,
+      "index": { "unique": true },
+      "length": 50,
+      "mysql": {
+        "columnName": "uid",
+        "dataType": "varchar"
+      }
+    },
+
+    "ten": {
+      "type": "String",
+      "required": false,
+      "length": 250,
+      "mysql": {
+        "columnName": "ten",
+        "dataType": "varchar"
+      }
+    },
+    "noiDung": {
+      "type": "String",
+      "length": 250,
+      "mysql": {
+        "columnName": "noi_dung",
+        "dataType": "varchar"
+      }
+    },
+
+    "ghiChu": {
+      "type": "String",
+      "required": false,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "ghi_chu",
+        "dataType": "longtext",
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      }
+    },
+    
+    "ma": {
+      "type": "String",
+      "length": 50,
+      "mysql": {
+        "columnName": "ma",
+        "dataType": "varchar"
+      }
+    },
+    
+    "bieuNhapLieuId": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "mysql": {
+        "columnName": "bieu_nhap_lieu_id",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "Y"
+      }
+    },
+
+    "chiTieuId": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "mysql": {
+        "columnName": "chi_tieu_id",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "Y"
+      }
+    },
+
+    "createdAt": {
+      "type": "Date",
+      "required": true,
+      "mysql": {
+        "columnName": "created_at",
+        "dataType": "date"
+      }
+    },
+
+    "updatedAt": {
+      "type": "Date",
+      "required": false,
+      "mysql": {
+        "columnName": "updated_at",
+        "dataType": "date"
+      }
+    },
+
+    "createdBy": {
+      "type": "Number",
+      "required": true,
+      "mysql": {
+        "columnName": "created_by",
+        "dataType": "int"
+      }
+    },
+
+    "updatedBy": {
+      "type": "Number",
+      "required": false,
+      "mysql": {
+        "columnName": "updated_by",
+        "dataType": "int"
+      }
+    },
+
+    "hieuLuc": {
+      "type": "Boolean",
+      "default": 1,
+      "precision": 3,
+      "scale": 0,
+      "mysql": {
+        "columnName": "hieu_luc",
+        "dataType": "tinyint"
+      }
+    },
+
+    "xoa": {
+      "type": "Boolean",
+      "default": 0,
+      "precision": false,
+      "scale": 0,
+      "mysql": {
+        "columnName": "xoa",
+        "dataType": "tinyint"
+      }
+    }
+  },
+
+  "validations": [],
+  "relations": {
+    "BieuNhapLieu": {
+      "type":"belongsTo",
+      "model": "BieuNhapLieu",
+      "foreignKey": "bieuNhapLieuId",
+      "primaryKey": "id",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "ChiTieu": {
+      "type":"belongsTo",
+      "model": "ChiTieu",
+      "foreignKey": "chiTieuId",
+      "primaryKey": "id",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {},
+  "foreignKeys": {
+    "bieuNhapLieuId": {
+      "name": "bieu_nhap_lieu_chi_tieu_bieu_nhap_lieu_fk",
+      "foreignKey": "bieuNhapLieuId",
+      "entityKey": "id",
+      "entity": "BieuNhapLieu"
+    },
+    "chiTieuId": {
+      "name": "bieu_nhap_lieu_chi_tieu_chi_tieu_fk",
+      "foreignKey": "chiTieuId",
+      "entityKey": "id",
+      "entity": "ChiTieu"
+    }
+  }
+}
