@@ -105,16 +105,16 @@ module.exports = function(QCTinh) {
         return [200, 'thong tin cua tinh', tinh]
     }
 
-    QCTinh.listTinh = async function(ma, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
-        let [err, tinhArr] = await to(QCTinh.find({where: {xoa: 0}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: 20, skip: 0}))
+    QCTinh.listTinh = async function(queryData, page, pageSize){
+        let [err, tinhArr] = await to(QCTinh.find({where: {xoa: 0}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
         if (err||tinhArr == null) {
             return [404, 'khong ton tai', tinhArr]
         }
         return [200, 'danh sach tinh', tinhArr]
     }
 
-    QCTinh.listDeletedTinh = async function(ma, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
-        let [err, tinhArr] = await to(QCTinh.find({where: {xoa: 1}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: 20, skip: 0}))
+    QCTinh.listDeletedTinh = async function(queryData, page, pageSize){
+        let [err, tinhArr] = await to(QCTinh.find({where: {xoa: 1}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
         if (err||tinhArr == null) {
             return [404, 'khong ton tai', tinhArr]
         }
@@ -210,16 +210,9 @@ module.exports = function(QCTinh) {
         'listTinh', {
             http: {path: '/list', verb: 'post'},
             accepts: [
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'cap', type: 'number', required: false},
-                {arg: 'loai', type: 'string', required: false},
-                {arg: 'nt', type: 'string', required: false},
-                {arg: 'bg', type: 'string', required: false},
-                {arg: 'hd', type: 'string', required: false},
-                {arg: 'dbkk', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'page', type: 'number', default: '0'},
+                {arg: 'pageSize', type: 'number', default: '20'}
             ],
             returns: [
                 {arg: 'statusCode', type: 'number'},
@@ -233,16 +226,9 @@ module.exports = function(QCTinh) {
         'listDeletedTinh', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'cap', type: 'number', required: false},
-                {arg: 'loai', type: 'string', required: false},
-                {arg: 'nt', type: 'string', required: false},
-                {arg: 'bg', type: 'string', required: false},
-                {arg: 'hd', type: 'string', required: false},
-                {arg: 'dbkk', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'page', type: 'number', default: '0'},
+                {arg: 'pageSize', type: 'number', default: '20'}
             ],
             returns: [
                 {arg: 'statusCode', type: 'number'},

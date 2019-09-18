@@ -121,16 +121,16 @@ module.exports = function(QCHuyen) {
         return [200, 'thong tin cua huyen', huyen]
     }
 
-    QCHuyen.listHuyen = async function(ma, qcTinhId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
-        let [err, huyenArr] = await to(QCHuyen.find({where: {xoa: 0}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: 20, skip: 0}))
+    QCHuyen.listHuyen = async function(queryData, page, pageSize){
+        let [err, huyenArr] = await to(QCHuyen.find({where: {xoa: 0}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
         if (err||huyenArr == null) {
             return [404, 'khong ton tai', huyenArr]
         }
         return [200, 'danh sach huyen', huyenArr]
     }
 
-    QCHuyen.listDeletedHuyen = async function(ma, qcTinhId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
-        let [err, huyenArr] = await to(QCHuyen.find({where: {xoa: 1}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: 20, skip: 0}))
+    QCHuyen.listDeletedHuyen = async function(queryData, page, pageSize){
+        let [err, huyenArr] = await to(QCHuyen.find({where: {xoa: 1}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
         if (err||huyenArr == null) {
             return [404, 'khong ton tai', huyenArr]
         }
@@ -228,17 +228,9 @@ module.exports = function(QCHuyen) {
         'listHuyen', {
             http: {path: '/list', verb: 'post'},
             accepts: [
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'qcTinhId', type: 'number', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'cap', type: 'number', required: false},
-                {arg: 'loai', type: 'string', required: false},
-                {arg: 'nt', type: 'string', required: false},
-                {arg: 'bg', type: 'string', required: false},
-                {arg: 'hd', type: 'string', required: false},
-                {arg: 'dbkk', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'page', type: 'number', default: '0'},
+                {arg: 'pageSize', type: 'number', default: '20'}
             ],
             returns: [
                 {arg: 'statusCode', type: 'number'},
@@ -252,17 +244,9 @@ module.exports = function(QCHuyen) {
         'listDeletedHuyen', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'qcTinhId', type: 'number', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'cap', type: 'number', required: false},
-                {arg: 'loai', type: 'string', required: false},
-                {arg: 'nt', type: 'string', required: false},
-                {arg: 'bg', type: 'string', required: false},
-                {arg: 'hd', type: 'string', required: false},
-                {arg: 'dbkk', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'page', type: 'number', default: '0'},
+                {arg: 'pageSize', type: 'number', default: '20'}
             ],
             returns: [
                 {arg: 'statusCode', type: 'number'},

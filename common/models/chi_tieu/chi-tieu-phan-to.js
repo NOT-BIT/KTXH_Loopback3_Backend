@@ -5,8 +5,12 @@ let to = require('await-to-js').to
 
 module.exports = function(ChiTieuPhanTo){
     ChiTieuPhanTo.createCTPT = async function(uid, ma, ten, ghiChu){
-        let [err, CTPT] = await to(ChiTieuPhanTo.findOne({where: {ma: ma}}))
-        if (err||CTPT != null) {
+        let [err1, CTPT1] = await to(ChiTieuPhanTo.findOne({where: {uid: uid}}))
+        if (err1||CTPT1 != null) {
+            return [400, 'uid chi tieu phan to nay da ton tai']
+        }
+        let [err2, CTPT2] = await to(ChiTieuPhanTo.findOne({where: {ma: ma}}))
+        if (err2||CTPT2 != null) {
             return [400, 'ma chi tieu phan to nay da ton tai']
         }
         let CTPTdata = {
@@ -19,6 +23,7 @@ module.exports = function(ChiTieuPhanTo){
         }
         let [errCreate, data] = await to(ChiTieuPhanTo.create(CTPTdata))
         if (errCreate||!data) {
+            console.log(errCreate)
             return [400, 'create fail']
         }
         return [200, 'create success']
@@ -90,16 +95,16 @@ module.exports = function(ChiTieuPhanTo){
         return [200, 'thong tin cua chi tieu phan to', CTPT]
     }
 
-    ChiTieuPhanTo.listCTPT = async function(ma, ten, ghiChu, hieuLuc){
-        let [err, CTPTArr] = await to(ChiTieuPhanTo.find({where: {xoa: 0}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: 20, skip: 0}))
+    ChiTieuPhanTo.listCTPT = async function(queryData, page, pageSize){
+        let [err, CTPTArr] = await to(ChiTieuPhanTo.find({where: {xoa: 0}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
         if (err||CTPTArr == null) {
             return [404, 'khong ton tai', CTPTArr]
         }
         return [200, 'danh sach chi tieu phan to', CTPTArr]
     }
 
-    ChiTieuPhanTo.listDeletedCTPT = async function(ma, ten, ghiChu, hieuLuc){
-        let [err, CTPTArr] = await to(ChiTieuPhanTo.find({where: {xoa: 1}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: 20, skip: 0}))
+    ChiTieuPhanTo.listDeletedCTPT = async function(queryData, page, pageSize){
+        let [err, CTPTArr] = await to(ChiTieuPhanTo.find({where: {xoa: 1}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
         if (err||CTPTArr == null) {
             return [404, 'khong ton tai', CTPTArr]
         }
@@ -183,10 +188,9 @@ module.exports = function(ChiTieuPhanTo){
         'listCTPT', {
             http: {path: '/list', verb: 'post'},
             accepts: [
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'page', type: 'number', default: '0'},
+                {arg: 'pageSize', type: 'number', default: '20'}
             ],
             returns: [
                 {arg: 'statusCode', type: 'number'},
@@ -200,10 +204,9 @@ module.exports = function(ChiTieuPhanTo){
         'listDeletedCTPT', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'page', type: 'number', default: '0'},
+                {arg: 'pageSize', type: 'number', default: '20'}
             ],
             returns: [
                 {arg: 'statusCode', type: 'number'},

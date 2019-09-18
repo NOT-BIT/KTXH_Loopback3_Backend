@@ -7,6 +7,14 @@ let to = require('await-to-js').to
 
 module.exports = function(BieuNhapLieu_KyBaoCao) {
     BieuNhapLieu_KyBaoCao.createBK = async function(uid, ma, bieuNhapLieuId, sysKyBaoCaoId, ten, ghiChu){
+        let [err, BK] = await to(BieuNhapLieu_KyBaoCao.findOne({where: {uid: uid}}))
+        if (err||BK != null) {
+            return [400, 'uid da ton tai']
+        }
+        let [err2, BK2] = await to(BieuNhapLieu_KyBaoCao.findOne({where: {ma: ma}}))
+        if (err2||BK2 != null) {
+            return [400, 'ma BieuNhapLieu_KyBaoCao da ton tai']
+        }
         let BieuNhapLieu = app.models.BieuNhapLieu
         let SysKyBaoCao = app.models.SysKyBaoCao
         let [errBNL, BNL] = await to(BieuNhapLieu.findOne({where: {id: bieuNhapLieuId}}))
@@ -29,6 +37,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         }
         let [errCreate, BKCreate] = await to(BieuNhapLieu_KyBaoCao.create(BKData))
         if (errCreate || !BKCreate) {
+            console.log(errCreate)
             return [400, 'create fail']
         }
         return [200, 'create success']
@@ -116,16 +125,16 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         return [200, 'thong tin cua BieuNhapLieu_KyBaoCao', BK]
     }
 
-    BieuNhapLieu_KyBaoCao.listBK= async function(ma, bieuNhapLieuId, sysKyBaoCaoId, ten, ghiChu, hieuLuc){
-        let [err, BKArr] = await to(BieuNhapLieu_KyBaoCao.find({where: {xoa: 0}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: 20, skip: 0}))
+    BieuNhapLieu_KyBaoCao.listBK= async function(queryData, page, pageSize){
+        let [err, BKArr] = await to(BieuNhapLieu_KyBaoCao.find({where: {xoa: 0}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
         if (err||BKArr == null) {
             return [404, 'khong ton tai', BKArr]
         }
         return [200, 'danh sach BieuNhapLieu_KyBaoCao', BKArr]
     }
 
-    BieuNhapLieu_KyBaoCao.listDeletedBK = async function(ma, bieuNhapLieuId, sysKyBaoCaoId, ten, ghiChu, hieuLuc){
-        let [err, BKArr] = await to(BieuNhapLieu_KyBaoCao.find({where: {xoa: 1}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: 20, skip: 0}))
+    BieuNhapLieu_KyBaoCao.listDeletedBK = async function(queryData, page, pageSize){
+        let [err, BKArr] = await to(BieuNhapLieu_KyBaoCao.find({where: {xoa: 1}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
         if (err||BKArr == null) {
             return [404, 'khong ton tai', BKArr]
         }
@@ -213,12 +222,9 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         'listBK', {
             http: {path: '/list', verb: 'post'},
             accepts: [
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'bieuNhapLieuId', type: 'number', required: false},
-                {arg: 'sysKyBaoCaoId', type: 'number', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'queryData', type: 'object', required: false},
+                { arg: 'page', type: 'number', default: '0'},
+                { arg: 'pageSize', type: 'number', default: '20'}
             ],
             returns: [
                 {arg: 'statusCode', type: 'number'},
@@ -232,12 +238,9 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         'listDeletedBK', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'bieuNhapLieuId', type: 'number', required: false},
-                {arg: 'sysKyBaoCaoId', type: 'number', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'queryData', type: 'object', required: false},
+                { arg: 'page', type: 'number', default: '0'},
+                { arg: 'pageSize', type: 'number', default: '20'}
             ],
             returns: [
                 {arg: 'statusCode', type: 'number'},

@@ -111,7 +111,6 @@
     },
     "createdAt":{
       "type": "Date",
-      "required": true,
       "mysql": {
         "columnName": "created_at",
         "dataType": "date"
@@ -126,7 +125,6 @@
     },
     "createdBy":{
       "type": "Number",
-      "required": true,
       "mysql": {
         "columnName": "created_by",
         "dataType": "int"
