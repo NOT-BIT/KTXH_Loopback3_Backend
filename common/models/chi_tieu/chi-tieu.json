@@ -1,73 +1,92 @@
 {
   "name": "ChiTieu",
+  "base": "Model",
+  "idInjection": true,
   "options": {
-    "idInjection": false,
     "mysql": {
       "table": "chi_tieu"
-    },
-    "relations": {}
+    }
   },
   "properties": {
+    "uid": {
+      "type": "String",
+      "required": true,
+      "index": { "unique": true },
+      "length": 250,
+      "mysql": {
+        "columnName": "uid",
+        "dataType": "varchar",
+        "dataLength": 250,
+        "nullable": "N"
+      }
+    },
+    "ma": {
+      "type": "String",
+      "required": true,   
+      "index": { "unique": true },   
+      "length": 250,
+      "mysql": {
+        "columnName": "ma",
+        "dataType": "varchar",
+        "dataLength": 250,
+        "nullable": "N"
+      }
+    },
+    "ten": {
+      "type": "String",
+      "length": 250,
+      "mysql": {
+        "columnName": "ten",
+        "dataType": "varchar",
+        "dataLength": 250
+      }
+    },
     "capNhapLieuId": {
       "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
+      "required": true, 
       "mysql": {
         "columnName": "cap_nhap_lieu_id",
         "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
+        "nullable": "N"
       }
     },
     "capTongHopId": {
       "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
+      "required": true, 
       "mysql": {
-        "columnName": "cap_tong_hop_id",
+        "columnName": "cap_tong_hieu_id",
         "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
+        "nullable": "N"
       }
     },
     "chiTieuNhomId": {
       "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
+      "required": true, 
       "mysql": {
         "columnName": "chi_tieu_nhom_id",
         "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
+        "nullable": "N"
       }
     },
     "chiTieuPhanToId": {
       "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
+      "required": true, 
       "mysql": {
         "columnName": "chi_tieu_phan_to_id",
         "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
+        "nullable": "N"
       }
     },
+    "idCha": {
+      "type": "Number",
+      "required": true, 
+      "mysql": {
+        "columnName": "id_cha",
+        "dataType": "int",
+        "nullable": "N"
+      }
+    },
+
     "congDonTuDuoiLen": {
       "type": "Number",
       "required": false,
@@ -143,52 +162,6 @@
         "nullable": "Y"
       }
     },
-    "hieuLuc": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 3,
-      "scale": 0,
-      "mysql": {
-        "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "dataLength": null,
-        "dataPrecision": 3,
-        "dataScale": 0,
-        "nullable": "Y"
-      }
-    },
-    "id": {
-      "type": "Number",
-      "required": true,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
-      "id": 1,
-      "mysql": {
-        "columnName": "id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "N"
-      }
-    },
-    "idCha": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
-      "mysql": {
-        "columnName": "id_cha",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
-      }
-    },
     "maChiTieu": {
       "type": "String",
       "required": false,
@@ -234,21 +207,6 @@
         "nullable": "Y"
       }
     },
-    "tenChiTieu": {
-      "type": "String",
-      "required": false,
-      "length": 250,
-      "precision": null,
-      "scale": null,
-      "mysql": {
-        "columnName": "ten_chi_tieu",
-        "dataType": "varchar",
-        "dataLength": 250,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
-      }
-    },
     "tinhPhanTram": {
       "type": "Number",
       "required": false,
@@ -279,20 +237,133 @@
         "nullable": "Y"
       }
     },
-    "xoa": {
+    
+    "ghiChu": {
+      "type": "String",
+      "mysql": {
+        "columnName": "ghi_chu",
+        "dataType": "longtext"
+      }
+    },
+    "createdAt": {
+      "type": "Date",
+      "mysql": {
+        "columnName": "created_at",
+        "dataType": "date"
+      }
+    },
+    "createdBy": {
       "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 3,
-      "scale": 0,
+      "mysql": {
+        "columnName": "created_by",
+        "dataType": "int"
+      }
+    },
+    "updatedAt": {
+      "type": "Date",
+      "mysql": {
+        "columnName": "updated_at",
+        "dataType": "date"
+      }
+    },
+    "updatedBy": {
+      "type": "Number",
+      "mysql": {
+        "columnName": "updated_by",
+        "dataType": "int"
+      }
+    },
+    "hieuLuc": {
+      "type": "Boolean",
+      "required": true,
+      "default": 1,
+      "mysql": {
+        "columnName": "hieu_luc",
+        "dataType": "tinyint"
+      }
+    },
+    "xoa": {
+      "type": "Boolean",
+      "required": true,
+      "default": 0,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint",
-        "dataLength": null,
-        "dataPrecision": 3,
-        "dataScale": 0,
-        "nullable": "Y"
+        "dataType": "tinyint"
       }
+    }
+  },
+  "relations": {
+    "capNhapLieu": {
+      "type": "belongsTo",
+      "model": "SysCapHanhChinh",
+      "foreignKey": "capNhapLieuId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "capTongHop": {
+      "type": "belongsTo",
+      "model": "SysCapHanhChinh",
+      "foreignKey": "capTongHopId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "chiTieuNhom": {
+      "type": "belongsTo",
+      "model": "ChiTieuNhom",
+      "foreignKey": "chiTieuNhomId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "chiTieuPhanTo": {
+      "type": "belongsTo",
+      "model": "ChiTieuPhanTo",
+      "foreignKey": "chiTieuPhanToId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "idCha": {
+      "type": "belongsTo",
+      "model": "ChiTieuNhom",
+      "foreignKey": "idCha",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "foreignKeys": {
+    "capNhapLieuId": {
+      "name": "ChiTieu_SysCapHanhChinh",
+      "foreignKey": "capNhapLieuId",
+      "entityKey": "id",
+      "entity": "SysCapHanhChinh"
+    },
+    "capTongHopId": {
+      "name": "ChiTieu_SysCapHanhChinh1",
+      "foreignKey": "capTongHopId",
+      "entityKey": "id",
+      "entity": "SysCapHanhChinh"
+    },
+    "chiTieuNhomId": {
+      "name": "ChiTieu_ChiTieuNhom",
+      "foreignKey": "chiTieuNhomId",
+      "entityKey": "id",
+      "entity": "ChiTieuNhom"
+    },
+    "chiTieuPhanToId": {
+      "name": "ChiTieu_ChiTieuPhanTo",
+      "foreignKey": "chiTieuPhanToId",
+      "entityKey": "id",
+      "entity": "ChiTieuPhanTo"
+    },
+    "idCha": {
+      "name": "ChiTieu_ChiTieuNhom1",
+      "foreignKey": "idCha",
+      "entityKey": "id",
+      "entity": "ChiTieuNhom"
     }
   }
 }
