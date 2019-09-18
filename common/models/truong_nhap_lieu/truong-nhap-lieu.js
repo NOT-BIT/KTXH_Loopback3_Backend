@@ -4,10 +4,7 @@ module.exports = function(TruongNhapLieu) {
   TruongNhapLieu.listTruongNhapLieu = async function(
     page,
     pageSize,
-    ma,
-    ten,
-    donViTinh,
-    ghiChu
+    queryData
   ) {
     try {
       const [data, total] = await Promise.all([
@@ -42,10 +39,7 @@ module.exports = function(TruongNhapLieu) {
   TruongNhapLieu.deletedListTruongNhapLieu = async function(
     page,
     pageSize,
-    ma,
-    ten,
-    donViTinh,
-    ghiChu
+    queryData
   ) {
     try {
       const [data, total] = await Promise.all([
@@ -201,24 +195,12 @@ module.exports = function(TruongNhapLieu) {
         default: '20'
       },
       {
-        arg: 'ma',
-        type: 'string'
-      },
-      {
-        arg: 'ten',
-        type: 'string'
-      },
-      {
-        arg: 'donViTinh',
-        type: 'string'
-      },
-      {
-        arg: 'ghiChu',
-        type: 'string'
+        arg: 'queryData',
+        type: 'object'
       }
     ],
     returns: { arg: 'data' },
-    http: { verb: 'get', path: '/list' }
+    http: { verb: 'post', path: '/list' }
   })
 
   TruongNhapLieu.remoteMethod('deleteListTruongNhapLieu', {
@@ -234,24 +216,12 @@ module.exports = function(TruongNhapLieu) {
         default: '20'
       },
       {
-        arg: 'ma',
-        type: 'string'
-      },
-      {
-        arg: 'ten',
-        type: 'string'
-      },
-      {
-        arg: 'donViTinh',
-        type: 'string'
-      },
-      {
-        arg: 'ghiChu',
-        type: 'string'
+        arg: 'queryData',
+        type: 'object'
       }
     ],
     returns: { arg: 'data' },
-    http: { verb: 'get', path: '/deleted-list' }
+    http: { verb: 'post', path: '/deleted-list' }
   })
 
   TruongNhapLieu.remoteMethod('readTruongNhapLieu', {

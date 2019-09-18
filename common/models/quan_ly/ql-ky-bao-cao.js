@@ -1,23 +1,7 @@
 module.exports = function(QLKyBaoCao) {
   const Promise = require('bluebird')
 
-  QLKyBaoCao.listKyBaoCao = async function(
-    page,
-    pageSize,
-    ma,
-    ten,
-    ngayBatDau,
-    ngayBaoCaoHuyen,
-    ngayBaoCaoTinh,
-    ngayBaoCaoTW,
-    ngayDong,
-    ngayMo,
-    ngayTongHop,
-    ghiChu,
-    qlNamLamViecId,
-    sysKyBaoCaoId,
-    sysTrangThaiDongMoId
-  ) {
+  QLKyBaoCao.listKyBaoCao = async function(page, pageSize, queryData) {
     try {
       const [data, total] = await Promise.all([
         QLKyBaoCao.find({
@@ -54,23 +38,7 @@ module.exports = function(QLKyBaoCao) {
     }
   }
 
-  QLKyBaoCao.deletedListKyBaoCao = async function(
-    page,
-    pageSize,
-    ma,
-    ten,
-    ngayBatDau,
-    ngayBaoCaoHuyen,
-    ngayBaoCaoTinh,
-    ngayBaoCaoTW,
-    ngayDong,
-    ngayMo,
-    ngayTongHop,
-    ghiChu,
-    qlNamLamViecId,
-    sysKyBaoCaoId,
-    sysTrangThaiDongMoId
-  ) {
+  QLKyBaoCao.deletedListKyBaoCao = async function(page, pageSize, queryData) {
     try {
       const [data, total] = await Promise.all([
         QLKyBaoCao.find({
@@ -249,60 +217,12 @@ module.exports = function(QLKyBaoCao) {
         default: '20'
       },
       {
-        arg: 'ma',
-        type: 'string'
-      },
-      {
-        arg: 'ten',
-        type: 'string'
-      },
-      {
-        arg: 'ngayBatDau',
-        type: 'date'
-      },
-      {
-        arg: 'ngayBaoCaoHuyen',
-        type: 'date'
-      },
-      {
-        arg: 'ngayBaoCaoTinh',
-        type: 'date'
-      },
-      {
-        arg: 'ngayBaoCaoTW',
-        type: 'date'
-      },
-      {
-        arg: 'ngayDong',
-        type: 'date'
-      },
-      {
-        arg: 'ngayMo',
-        type: 'date'
-      },
-      {
-        arg: 'ngayTongHop',
-        type: 'date'
-      },
-      {
-        arg: 'ghiChu',
-        type: 'string'
-      },
-      {
-        arg: 'qlNamLamViecId',
-        type: 'number'
-      },
-      {
-        arg: 'sysKyBaoCaoId',
-        type: 'number'
-      },
-      {
-        arg: 'sysTrangThaiDongMoId',
-        type: 'number'
+        arg: 'queryData',
+        type: 'object'
       }
     ],
     returns: { arg: 'data' },
-    http: { verb: 'get', path: '/list' }
+    http: { verb: 'post', path: '/list' }
   })
 
   QLKyBaoCao.remoteMethod('deletedListKyBaoCao', {
@@ -318,60 +238,12 @@ module.exports = function(QLKyBaoCao) {
         default: '20'
       },
       {
-        arg: 'ma',
-        type: 'string'
-      },
-      {
-        arg: 'ten',
-        type: 'string'
-      },
-      {
-        arg: 'ngayBatDau',
-        type: 'date'
-      },
-      {
-        arg: 'ngayBaoCaoHuyen',
-        type: 'date'
-      },
-      {
-        arg: 'ngayBaoCaoTinh',
-        type: 'date'
-      },
-      {
-        arg: 'ngayBaoCaoTW',
-        type: 'date'
-      },
-      {
-        arg: 'ngayDong',
-        type: 'date'
-      },
-      {
-        arg: 'ngayMo',
-        type: 'date'
-      },
-      {
-        arg: 'ngayTongHop',
-        type: 'date'
-      },
-      {
-        arg: 'ghiChu',
-        type: 'string'
-      },
-      {
-        arg: 'qlNamLamViecId',
-        type: 'number'
-      },
-      {
-        arg: 'sysKyBaoCaoId',
-        type: 'number'
-      },
-      {
-        arg: 'sysTrangThaiDongMoId',
-        type: 'number'
+        arg: 'queryData',
+        type: 'object'
       }
     ],
     returns: { arg: 'data' },
-    http: { verb: 'get', path: '/deleted-list' }
+    http: { verb: 'post', path: '/deleted-list' }
   })
 
   QLKyBaoCao.remoteMethod('readKyBaoCao', {

@@ -1,13 +1,7 @@
 module.exports = function(ChiTieuNhom) {
   const Promise = require('bluebird')
 
-  ChiTieuNhom.listChiTieuNhom = async function(
-    page,
-    pageSize,
-    ma,
-    ten,
-    ghiChu
-  ) {
+  ChiTieuNhom.listChiTieuNhom = async function(page, pageSize, queryData) {
     try {
       const [data, total] = await Promise.all([
         ChiTieuNhom.find({
@@ -41,9 +35,7 @@ module.exports = function(ChiTieuNhom) {
   ChiTieuNhom.deletedListChiTieuNhom = async function(
     page,
     pageSize,
-    ma,
-    ten,
-    ghiChu
+    queryData
   ) {
     try {
       const [data, total] = await Promise.all([
@@ -189,20 +181,12 @@ module.exports = function(ChiTieuNhom) {
         default: '20'
       },
       {
-        arg: 'ma',
-        type: 'string'
-      },
-      {
-        arg: 'ten',
-        type: 'string'
-      },
-      {
-        arg: 'ghiChu',
-        type: 'string'
+        arg: 'queryData',
+        type: 'object'
       }
     ],
     returns: { arg: 'data' },
-    http: { verb: 'get', path: '/list' }
+    http: { verb: 'post', path: '/list' }
   })
 
   ChiTieuNhom.remoteMethod('deletedListChiTieuNhom', {
@@ -218,20 +202,12 @@ module.exports = function(ChiTieuNhom) {
         default: '20'
       },
       {
-        arg: 'ma',
-        type: 'string'
-      },
-      {
-        arg: 'ten',
-        type: 'string'
-      },
-      {
-        arg: 'ghiChu',
-        type: 'string'
+        arg: 'queryData',
+        type: 'object'
       }
     ],
     returns: { arg: 'data' },
-    http: { verb: 'get', path: '/deleted-list' }
+    http: { verb: 'post', path: '/deleted-list' }
   })
 
   ChiTieuNhom.remoteMethod('readChiTieuNhom', {
