@@ -1,0 +1,98 @@
+{
+  "name": "ChiTieuPhanTo",
+  "base": "Model",
+  "idInjection": true,
+  "options": {
+    "mysql": {
+      "table": "chi_tieu_phan_to"
+    }
+  },
+  "properties": {
+    "uid": {
+      "type": "String",
+      "required": true,
+      "index": { "unique": true },
+      "length": 250,
+      "mysql": {
+        "columnName": "uid",
+        "dataType": "varchar",
+        "dataLength": 250,
+        "nullable": "N"
+      }
+    },
+    "ma": {
+      "type": "String",
+      "required": true,   
+      "index": { "unique": true },   
+      "length": 250,
+      "mysql": {
+        "columnName": "ma",
+        "dataType": "varchar",
+        "dataLength": 250,
+        "nullable": "N"
+      }
+    },
+    "ten": {
+      "type": "String",
+      "length": 250,
+      "mysql": {
+        "columnName": "ten",
+        "dataType": "varchar",
+        "dataLength": 250
+      }
+    },
+    "ghiChu": {
+      "type": "String",
+      "mysql": {
+        "columnName": "ghi_chu",
+        "dataType": "longtext"
+      }
+    },
+    "createdAt": {
+      "type": "Date",
+      "mysql": {
+        "columnName": "created_at",
+        "dataType": "date"
+      }
+    },
+    "createdBy": {
+      "type": "Number",
+      "mysql": {
+        "columnName": "created_by",
+        "dataType": "int"
+      }
+    },
+    "updatedAt": {
+      "type": "Date",
+      "mysql": {
+        "columnName": "updated_at",
+        "dataType": "date"
+      }
+    },
+    "updatedBy": {
+      "type": "Number",
+      "mysql": {
+        "columnName": "updated_by",
+        "dataType": "int"
+      }
+    },
+    "hieuLuc": {
+      "type": "Boolean",
+      "required": true,
+      "default": 1,
+      "mysql": {
+        "columnName": "hieu_luc",
+        "dataType": "tinyint"
+      }
+    },
+    "xoa": {
+      "type": "Boolean",
+      "required": true,
+      "default": 0,
+      "mysql": {
+        "columnName": "xoa",
+        "dataType": "tinyint"
+      }
+    }
+  }
+}

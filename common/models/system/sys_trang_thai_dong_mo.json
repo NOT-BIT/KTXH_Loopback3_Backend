@@ -97,5 +97,13 @@
         "nullable": "Y"
       }
     }
+  },
+
+  "relations": {
+    "SysTranngThaiDongMo": {
+      "type": "hasMany",
+      "model": "QLKyBaoCao",
+      "foreignKey": "sysTrangThaiDongMoId"
+    }
   }
 }

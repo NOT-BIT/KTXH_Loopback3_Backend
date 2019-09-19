@@ -1,3 +1,24 @@
 {
-  "extends": "loopback"
+  "env": {
+    "node": true,
+    "es6": true
+  },
+
+  "parserOptions": {
+    "ecmaVersion": 8
+  },
+
+  "extends": "loopback",
+  "rules": {
+    "object-curly-spacing": "off",
+    "jsx-quotes": "off",
+    "prettier/prettier": "off",
+    "no-console": "off",
+    "no-undef": "off",
+    "import/order": "off",
+    "comma-dangle": "off",
+    "strict": "off",
+    "semi": "off",
+    "camelcase": "off"
+  }
 }
