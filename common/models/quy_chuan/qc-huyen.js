@@ -8,16 +8,25 @@ module.exports = function(QCHuyen) {
     QCHuyen.createHuyen = async function(uid, ma, qcTinhId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk){
         let [err1, huyen1] = await to(QCHuyen.findOne({where: {uid: uid}}))
         if (err1||huyen1 != null) {
-            return [400, 'uid huyen da ton tai']
+            return {
+                'statusCode': 400, 
+                'message': 'uid huyen da ton tai'
+            }
         }
         let [err2, huyen2] = await to(QCHuyen.findOne({where: {ma: ma}}))
         if (err2||huyen2 != null) {
-            return [400, 'ma huyen da ton tai']
+            return {
+                'statusCode': 400, 
+                'message': 'ma huyen da ton tai'
+            }
         }
         let QCTinh = app.models.QCTinh
         let [errTinh, tinh] = await to(QCTinh.findOne({where: {id: qcTinhId}}))
         if (errTinh||tinh == null) {
-            return [404, 'tinh khong ton tai']
+            return {
+                'statusCode': 404, 
+                'message': 'tinh khong ton tai'
+            }
         }
         let huyenData = {
             uid: uid,
@@ -36,30 +45,48 @@ module.exports = function(QCHuyen) {
         }
         let [errCreate, huyenCreate] = await to(QCHuyen.create(huyenData))
         if (errCreate || !huyenCreate) {
-            return [400, 'create fail']
+            return {
+                'statusCode': 400, 
+                'message': 'create fail'
+            }
         }
-        return [200, 'create success']
+        return {
+            'statusCode': 200, 
+            'message': 'create success'
+        }
     }
 
     QCHuyen.updateHuyen = async function(id, ma, qcTinhId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
         let [err, huyen] = await to(QCHuyen.findOne({where: {id: id}}))
         if (err||huyen == null) {
-            return [404, 'huyen khong ton tai']
+            return {
+                'statusCode': 404, 
+                'message': 'huyen khong ton tai'
+            }
         }
         if (huyen.xoa == 1){
-            return [400, 'huyen da bi xoa']
+            return {
+                'statusCode': 400, 
+                'message': 'huyen da bi xoa'
+            }
         }
         if (qcTinhId != null){
             let QCTinh = app.models.QCTinh
             let [errTinh, tinh] = await to(QCTinh.findOne({where: {id: qcTinhId}}))
             if (errTinh||tinh == null) {
-                return [404, 'tinh khong ton tai']
+                return {
+                    'statusCode': 404, 
+                    'message': 'tinh khong ton tai'
+                }
             }
         }
         if (ma != null){
             let [err2, huyen2] = await to(QCHuyen.findOne({where: {ma: ma}}))
             if (err2||huyen2 != null) {
-                return [400, 'da ton tai ma huyen nay']
+                return {
+                    'statusCode': 400, 
+                    'message': 'ma huyen da ton tai'
+                }
             }
         }
         let huyenData = {
@@ -78,63 +105,115 @@ module.exports = function(QCHuyen) {
         }
         let [errUpdate, huyenUpdate] = await to(QCHuyen.upsert(huyenData))
         if (errUpdate || !huyenUpdate) {
-            return [400, 'update fail']
+            return {
+                'statusCode': 400, 
+                'message': 'update fail'
+            }
         }
-        return [200, 'update success']
+        return {
+            'statusCode': 200, 
+            'message': 'update success'
+        }
     }
 
     QCHuyen.deleteHuyen = async function(id){
         let [err, huyen] = await to(QCHuyen.findOne({where: {id: id}}))
         if (err||huyen == null) {
-            return [404, 'huyen khong ton tai']
+            return {
+                'statusCode': 404, 
+                'message': 'huyen khong ton tai'
+            }
         }
         if (huyen.xoa == 1){
-            return [400, 'huyen da bi xoa']
+            return {
+                'statusCode': 400, 
+                'message': 'huyen da bi xoa'
+            }
         }
         let [errDelete, huyenDelete] = await to(QCHuyen.upsertWithWhere({id: id}, {xoa: 1}))
         if (errDelete || !huyenDelete) {
-            return [400, 'delete fail']
+            return {
+                'statusCode': 400, 
+                'message': 'delete fail'
+            }
         }
-        return [200, 'delete success']
+        return {
+            'statusCode': 200, 
+            'message': 'delete success'
+        }
     }
     
     QCHuyen.restoreHuyen = async function(id){
         let [err, huyen] = await to(QCHuyen.findOne({where: {id: id}}))
         if (err||huyen == null) {
-            return [404, 'huyen khong ton tai']
+            return {
+                'statusCode': 404, 
+                'message': 'huyen khong ton tai'
+            }
         }
         if (huyen.xoa == 0){
-            return [400, 'huyen khong bi xoa']
+            return {
+                'statusCode': 400, 
+                'message': 'huyen khong bi xoa'
+            }
         }
         let [errRestore, huyenRestore] = await to(QCHuyen.upsertWithWhere({id: id}, {xoa: 0}))
         if (errRestore || !huyenRestore) {
-            return [400, 'restore fail']
+            return {
+                'statusCode': 400, 
+                'message': 'restore fail'
+            }
         }
-        return [200, 'restore success']
+        return {
+            'statusCode': 200, 
+            'message': 'restore success'
+        }
     }
 
     QCHuyen.readHuyen = async function(id){
         let [err, huyen] = await to(QCHuyen.findOne({where: {id: id}}))
         if (err||huyen == null) {
-            return [404, 'huyen khong ton tai', huyen]
+            return {
+                'statusCode': 404, 
+                'message': 'huyen khong ton tai'
+            }
         }
-        return [200, 'thong tin cua huyen', huyen]
+        return {
+            'statusCode': 200, 
+            'message': 'thong tin cua huyen',
+            'result': huyen
+        }
     }
 
     QCHuyen.listHuyen = async function(queryData, page, pageSize){
         let [err, huyenArr] = await to(QCHuyen.find({where: {xoa: 0}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
         if (err||huyenArr == null) {
-            return [404, 'khong ton tai', huyenArr]
+            return {
+                'statusCode': 404, 
+                'message': 'ds huyen khong ton tai'
+            }
         }
-        return [200, 'danh sach huyen', huyenArr]
+        return {
+            'statusCode': 200, 
+            'message': 'danh sach huyen',
+            'result': huyenArr
+
+        }
     }
 
     QCHuyen.listDeletedHuyen = async function(queryData, page, pageSize){
         let [err, huyenArr] = await to(QCHuyen.find({where: {xoa: 1}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
         if (err||huyenArr == null) {
-            return [404, 'khong ton tai', huyenArr]
+            return {
+                'statusCode': 404, 
+                'message': 'ds huyen da bi xoa khong ton tai'
+            }
         }
-        return [200, 'danh sach huyen da bi xoa', huyenArr]
+        return {
+            'statusCode': 200, 
+            'message': 'danh sach huyen da bi xoa',
+            'result': huyenArr
+        }
     }
 
     QCHuyen.remoteMethod(
@@ -153,10 +232,7 @@ module.exports = function(QCHuyen) {
                 {arg: 'hd', type: 'string', required: false},
                 {arg: 'dbkk', type: 'string', required: false}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -177,10 +253,7 @@ module.exports = function(QCHuyen) {
                 {arg: 'dbkk', type: 'string', required: false},
                 {arg: 'hieuLuc', type: 'number', required: false}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -190,10 +263,7 @@ module.exports = function(QCHuyen) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -203,10 +273,7 @@ module.exports = function(QCHuyen) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -216,11 +283,7 @@ module.exports = function(QCHuyen) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'},
-                {arg: 'result', type: 'object'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -232,11 +295,7 @@ module.exports = function(QCHuyen) {
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'},
-                {arg: 'result', type: 'array'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -248,11 +307,7 @@ module.exports = function(QCHuyen) {
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'},
-                {arg: 'result', type: 'array'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 }

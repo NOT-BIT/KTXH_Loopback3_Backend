@@ -1,5 +1,5 @@
 {
-  "name": "QTTacNhan-ChucNangPhanMem",
+  "name": "QTTacNhan_ChucNangPhanMem",
   "options": {
     "idInjection": true,
     "mysql": {

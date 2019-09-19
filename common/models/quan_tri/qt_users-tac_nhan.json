@@ -1,5 +1,5 @@
 {
-  "name": "QTUsers-TacNhan",
+  "name": "QTUsers_TacNhan",
   "options": {
     "idInjection": true,
     "mysql": {

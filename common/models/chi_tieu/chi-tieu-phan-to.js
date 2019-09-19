@@ -7,11 +7,17 @@ module.exports = function(ChiTieuPhanTo){
     ChiTieuPhanTo.createCTPT = async function(uid, ma, ten, ghiChu){
         let [err1, CTPT1] = await to(ChiTieuPhanTo.findOne({where: {uid: uid}}))
         if (err1||CTPT1 != null) {
-            return [400, 'uid chi tieu phan to nay da ton tai']
+            return {
+                'statusCode': 400, 
+                'message': 'uid chi tieu phan to da ton tai'
+            }
         }
         let [err2, CTPT2] = await to(ChiTieuPhanTo.findOne({where: {ma: ma}}))
         if (err2||CTPT2 != null) {
-            return [400, 'ma chi tieu phan to nay da ton tai']
+            return {
+                'statusCode': 400, 
+                'message': 'ma chi tieu phan to da ton tai'
+            }
         }
         let CTPTdata = {
             uid: uid,
@@ -23,24 +29,38 @@ module.exports = function(ChiTieuPhanTo){
         }
         let [errCreate, data] = await to(ChiTieuPhanTo.create(CTPTdata))
         if (errCreate||!data) {
-            console.log(errCreate)
-            return [400, 'create fail']
+            return {
+                'statusCode': 400, 
+                'message': 'create fail'
+            }
         }
-        return [200, 'create success']
+        return {
+            'statusCode': 200, 
+            'message': 'create success'
+        }
     }
 
     ChiTieuPhanTo.updateCTPT = async function(id, ma, ten, ghiChu, hieuLuc){
         let [err, CTPT] = await to(ChiTieuPhanTo.findOne({where: {id: id}}))
         if (err||CTPT == null) {
-            return [404, 'chi tieu phan to khong ton tai']
+            return {
+                'statusCode': 404, 
+                'message': 'chi tieu phan to khong ton tai'
+            }
         }
         if (CTPT.xoa == 1){
-            return [400, 'chi tieu phan to da bi xoa']
+            return {
+                'statusCode': 400, 
+                'message': 'chi tieu phan to da bi xoa'
+            }
         }
         if (ma != null){
             let [err2, CTPT2] = await to(ChiTieuPhanTo.findOne({where: {ma: ma}}))
             if (err2||CTPT2 != null) {
-                return [400, 'da ton tai ma chi tieu phan to nay']
+                return {
+                    'statusCode': 400, 
+                    'message': 'ma chi tieu phan to da ton tai'
+                }
             }
         }
         let CTPTdata = {
@@ -52,63 +72,114 @@ module.exports = function(ChiTieuPhanTo){
         }
         let [errUpdate, CTPTUpdate] = await to(ChiTieuPhanTo.upsert(CTPTdata))
         if (errUpdate || !CTPTUpdate) {
-            return [400, 'update fail']
+            return {
+                'statusCode': 400, 
+                'message': 'update fail'
+            }
         }
-        return [200, 'update success']
+        return {
+            'statusCode': 200, 
+            'message': 'update success'
+        }
     }
 
     ChiTieuPhanTo.deleteCTPT = async function(id){
         let [err, CTPT] = await to(ChiTieuPhanTo.findOne({where: {id: id}}))
         if (err||CTPT == null) {
-            return [404, 'chi tieu phan to khong ton tai']
+            return {
+                'statusCode': 404, 
+                'message': 'chi tieu phan to khong ton tai'
+            }
         }
         if (CTPT.xoa == 1){
-            return [400, 'chi tieu phan to da bi xoa']
+            return {
+                'statusCode': 400, 
+                'message': 'chi tieu phan to da bi xoa'
+            }
         }
         let [errDelete, CTPTDelete] = await to(ChiTieuPhanTo.upsertWithWhere({id: id}, {xoa: 1}))
         if (errDelete || !CTPTDelete) {
-            return [400, 'delete fail']
+            return {
+                'statusCode': 400, 
+                'message': 'delete fail'
+            }
         }
-        return [200, 'delete success']
+        return {
+            'statusCode': 200, 
+            'message': 'delete success'
+        }
     }
     
     ChiTieuPhanTo.restoreCTPT = async function(id){
         let [err, CTPT] = await to(ChiTieuPhanTo.findOne({where: {id: id}}))
         if (err||CTPT == null) {
-            return [404, 'chi tieu phan to khong ton tai']
+            return {
+                'statusCode': 404, 
+                'message': 'chi tieu phan to khong ton tai'
+            }
         }
         if (CTPT.xoa == 0){
-            return [400, 'chi tieu phan to khong bi xoa']
+            return {
+                'statusCode': 400, 
+                'message': 'chi tieu phan to khong bi xoa'
+            }
         }
         let [errRestore, CTPTRestore] = await to(ChiTieuPhanTo.upsertWithWhere({id: id}, {xoa: 0}))
         if (errRestore || !CTPTRestore) {
-            return [400, 'restore fail']
+            return {
+                'statusCode': 400, 
+                'message': 'restore fail'
+            }
         }
-        return [200, 'restore success']
+        return {
+            'statusCode': 200, 
+            'message': 'restore success'
+        }
     }
 
     ChiTieuPhanTo.readCTPT = async function(id){
         let [err, CTPT] = await to(ChiTieuPhanTo.findOne({where: {id: id}}))
         if (err||CTPT == null) {
-            return [404, 'chi tieu phan to khong ton tai', CTPT]
+            return {
+                'statusCode': 404, 
+                'message': 'chi tieu phan to khong ton tai'
+            }
         }
-        return [200, 'thong tin cua chi tieu phan to', CTPT]
+        return {
+            'statusCode': 200, 
+            'message': 'thong tin cua chi tieu phan to',
+            'result': CTPT
+        }
     }
 
     ChiTieuPhanTo.listCTPT = async function(queryData, page, pageSize){
         let [err, CTPTArr] = await to(ChiTieuPhanTo.find({where: {xoa: 0}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
         if (err||CTPTArr == null) {
-            return [404, 'khong ton tai', CTPTArr]
+            return {
+                'statusCode': 404, 
+                'message': 'ds chi tieu phan to khong ton tai'
+            }
         }
-        return [200, 'danh sach chi tieu phan to', CTPTArr]
+        return {
+            'statusCode': 200, 
+            'message': 'danh sach chi tieu phan to',
+            'result': CTPTArr
+        }
     }
 
     ChiTieuPhanTo.listDeletedCTPT = async function(queryData, page, pageSize){
         let [err, CTPTArr] = await to(ChiTieuPhanTo.find({where: {xoa: 1}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
         if (err||CTPTArr == null) {
-            return [404, 'khong ton tai', CTPTArr]
+            return {
+                'statusCode': 404, 
+                'message': 'ds chi tieu phan to da bi xoa khong ton tai'
+            }
         }
-        return [200, 'danh sach chi tieu phan to da bi xoa', CTPTArr]
+        return {
+            'statusCode': 200, 
+            'message': 'danh sach chi tieu phan to da bi xoa',
+            'result': CTPTArr
+        }
     }
 
     ChiTieuPhanTo.remoteMethod(
@@ -120,10 +191,7 @@ module.exports = function(ChiTieuPhanTo){
                 {arg: 'ten', type: 'string', required: false},
                 {arg: 'ghiChu', type: 'string', required: false}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -137,10 +205,7 @@ module.exports = function(ChiTieuPhanTo){
                 {arg: 'ghiChu', type: 'string', required: false},
                 {arg: 'hieuLuc', type: 'number', required: false}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -150,10 +215,7 @@ module.exports = function(ChiTieuPhanTo){
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -163,10 +225,7 @@ module.exports = function(ChiTieuPhanTo){
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -176,11 +235,7 @@ module.exports = function(ChiTieuPhanTo){
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'},
-                {arg: 'result', type: 'object'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -192,11 +247,7 @@ module.exports = function(ChiTieuPhanTo){
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'},
-                {arg: 'result', type: 'array'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -208,11 +259,7 @@ module.exports = function(ChiTieuPhanTo){
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'},
-                {arg: 'result', type: 'array'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 }

@@ -9,21 +9,33 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
     BieuNhapLieu_KyBaoCao.createBK = async function(uid, ma, bieuNhapLieuId, sysKyBaoCaoId, ten, ghiChu){
         let [err, BK] = await to(BieuNhapLieu_KyBaoCao.findOne({where: {uid: uid}}))
         if (err||BK != null) {
-            return [400, 'uid da ton tai']
+            return {
+                'statusCode': 400, 
+                'message': 'uid da ton tai'
+            }
         }
         let [err2, BK2] = await to(BieuNhapLieu_KyBaoCao.findOne({where: {ma: ma}}))
         if (err2||BK2 != null) {
-            return [400, 'ma BieuNhapLieu_KyBaoCao da ton tai']
+            return {
+                'statusCode': 400, 
+                'message': 'ma BieuNhapLieu_KyBaoCao da ton tai'
+            }
         }
         let BieuNhapLieu = app.models.BieuNhapLieu
         let SysKyBaoCao = app.models.SysKyBaoCao
         let [errBNL, BNL] = await to(BieuNhapLieu.findOne({where: {id: bieuNhapLieuId}}))
         if (errBNL||BNL == null) {
-            return [404, 'Bieu Nhap Lieu khong ton tai']
+            return {
+                'statusCode': 404, 
+                'message': 'BieuNhapLieu khong ton tai'
+            }
         }
         let [errKBC, KBC] = await to(SysKyBaoCao.findOne({where: {id: sysKyBaoCaoId}}))
         if (errKBC||KBC == null) {
-            return [404, 'Ky Bao Cao khong ton tai']
+            return {
+                'statusCode': 404, 
+                'message': 'KyBaoCao khong ton tai'
+            }
         }
         let BKData = {
             uid: uid,
@@ -36,39 +48,59 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
             xoa: 0
         }
         let [errCreate, BKCreate] = await to(BieuNhapLieu_KyBaoCao.create(BKData))
-        if (errCreate || !BKCreate) {
-            console.log(errCreate)
-            return [400, 'create fail']
+        if (errCreate||!BKCreate) {
+            return {
+                'statusCode': 400, 
+                'message': 'create fail'
+            }
         }
-        return [200, 'create success']
+        return {
+            'statusCode': 200, 
+            'message': 'create success'
+        }
     }
 
     BieuNhapLieu_KyBaoCao.updateBK = async function(id, ma, bieuNhapLieuId, sysKyBaoCaoId, ten, ghiChu, hieuLuc){
         let [err1, BK] = await to(BieuNhapLieu_KyBaoCao.findOne({where: {id: id}}))
         if (err1||BK == null) {
-            return [404, 'BieuNhapLieu_KyBaoCao khong ton tai']
+            return {
+                'statusCode': 404, 
+                'message': 'BieuNhapLieu_KyBaoCao khong ton tai'
+            }
         }
         if (BK.xoa == 1){
-            return [400, 'BieuNhapLieu_KyBaoCao da bi xoa']
+            return {
+                'statusCode': 400, 
+                'message': 'BieuNhapLieu_KyBaoCao da bi xoa'
+            }
         }
         if (ma != null){
             let [err2, BK2] = await to(BieuNhapLieu_KyBaoCao.findOne({where: {ma: ma}}))
             if (err2||BK2 != null) {
-                return [400, 'da ton tai ma BieuNhapLieu_KyBaoCao nay']
+                return {
+                    'statusCode': 400, 
+                    'message': 'ma BieuNhapLieu_KyBaoCao da ton tai'
+                }
             }
         }
         if (bieuNhapLieuId != null){
             let BieuNhapLieu = app.models.BieuNhapLieu
             let [errBNL, BNL] = await to(BieuNhapLieu.findOne({where: {id: bieuNhapLieuId}}))
             if (errBNL||BNL == null) {
-                return [404, 'Bieu Nhap Lieu khong ton tai']
+                return {
+                    'statusCode': 404, 
+                    'message': 'BieuNhapLieu khong ton tai'
+                }
             }
         }
         if (sysKyBaoCaoId != null){
             let SysKyBaoCao = app.models.SysKyBaoCao
             let [errKBC, KBC] = await to(SysKyBaoCao.findOne({where: {id: sysKyBaoCaoId}}))
             if (errKBC||KBC == null) {
-                return [404, 'Ky Bao Cao khong ton tai']
+                return {
+                    'statusCode': 404, 
+                    'message': 'KyBaoCao khong ton tai'
+                }
             }
         }
         let BKData = {
@@ -82,63 +114,114 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         }
         let [errUpdate, BKUpdate] = await to(BieuNhapLieu_KyBaoCao.upsert(BKData))
         if (errUpdate || !BKUpdate) {
-            return [400, 'Update fail']
+            return {
+                'statusCode': 400, 
+                'message': 'update fail'
+            }
         }
-        return [200, 'Update success']
+        return {
+            'statusCode': 200, 
+            'message': 'update success'
+        }
     }
 
     BieuNhapLieu_KyBaoCao.deleteBK = async function(id){
         let [err, BK] = await to(BieuNhapLieu_KyBaoCao.findOne({where: {id: id}}))
         if (err||BK == null) {
-            return [404, 'BieuNhapLieu_KyBaoCao khong ton tai']
+            return {
+                'statusCode': 404, 
+                'message': 'BieuNhapLieu_KyBaoCao khong ton tai'
+            }
         }
         if (BK.xoa == 1){
-            return [400, 'BieuNhapLieu_KyBaoCao da bi xoa']
+            return {
+                'statusCode': 400, 
+                'message': 'BieuNhapLieu_KyBaoCao da bi xoa'
+            }
         }
         let [errDelete, BKDelete] = await to(BieuNhapLieu_KyBaoCao.upsertWithWhere({id: id}, {xoa: 1}))
         if (errDelete || !BKDelete) {
-            return [400, 'delete fail']
+            return {
+                'statusCode': 400, 
+                'message': 'delete fail'
+            }
         }
-        return [200, 'delete success']
+        return {
+            'statusCode': 200, 
+            'message': 'delete success'
+        }
     }
 
     BieuNhapLieu_KyBaoCao.restoreBK = async function(id){
         let [err, BK] = await to(BieuNhapLieu_KyBaoCao.findOne({where: {id: id}}))
         if (err||BK == null) {
-            return [404, 'BieuNhapLieu_KyBaoCao khong ton tai']
+            return {
+                'statusCode': 404, 
+                'message': 'BieuNhapLieu_KyBaoCao khong ton tai'
+            }
         }
         if (BK.xoa == 0){
-            return [400, 'BieuNhapLieu_KyBaoCao khong bi xoa']
+            return {
+                'statusCode': 400, 
+                'message': 'BieuNhapLieu_KyBaoCao khong bi xoa'
+            }
         }
         let [errRestore, BKRestore] = await to(BieuNhapLieu_KyBaoCao.upsertWithWhere({id: id}, {xoa: 0}))
         if (errRestore || !BKRestore) {
-            return [400, 'Restore fail']
+            return {
+                'statusCode': 400, 
+                'message': 'restore fail'
+            }
         }
-        return [200, 'Restore success']
+        return {
+            'statusCode': 200, 
+            'message': 'restore success'
+        }
     }
 
     BieuNhapLieu_KyBaoCao.readBK = async function(id){
         let [err, BK] = await to(BieuNhapLieu_KyBaoCao.findOne({where: {id: id}}))
         if (err||BK == null) {
-            return [404, 'BieuNhapLieu_KyBaoCao khong ton tai', BK]
+            return {
+                'statusCode': 404, 
+                'message': 'BieuNhapLieu_KyBaoCao khong ton tai'
+            }
         }
-        return [200, 'thong tin cua BieuNhapLieu_KyBaoCao', BK]
+        return {
+            'statusCode': 200, 
+            'message': 'thong tin cua BieuNhapLieu_KyBaoCao',
+            'result': BK
+        }
     }
 
     BieuNhapLieu_KyBaoCao.listBK= async function(queryData, page, pageSize){
         let [err, BKArr] = await to(BieuNhapLieu_KyBaoCao.find({where: {xoa: 0}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
         if (err||BKArr == null) {
-            return [404, 'khong ton tai', BKArr]
+            return {
+                'statusCode': 404, 
+                'message': 'ds BieuNhapLieu_KyBaoCao khong ton tai'
+            }
         }
-        return [200, 'danh sach BieuNhapLieu_KyBaoCao', BKArr]
+        return {
+            'statusCode': 200, 
+            'message': 'danh sach cua BieuNhapLieu_KyBaoCao',
+            'result': BKArr
+        }
     }
 
     BieuNhapLieu_KyBaoCao.listDeletedBK = async function(queryData, page, pageSize){
         let [err, BKArr] = await to(BieuNhapLieu_KyBaoCao.find({where: {xoa: 1}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
         if (err||BKArr == null) {
-            return [404, 'khong ton tai', BKArr]
+            return {
+                'statusCode': 404, 
+                'message': 'ds BieuNhapLieu_KyBaoCao da bi xoa khong ton tai'
+            }
         }
-        return [200, 'danh sach BieuNhapLieu_KyBaoCao da bi xoa', BKArr]
+        return {
+            'statusCode': 200, 
+            'message': 'danh sach cua BieuNhapLieu_KyBaoCao da bi xoa',
+            'result': BKArr
+        }
     }
 
     BieuNhapLieu_KyBaoCao.remoteMethod(
@@ -152,10 +235,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
                 {arg: 'ten', type: 'string', required: false},
                 {arg: 'ghiChu', type: 'string', required: false}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         }
     )
 
@@ -171,10 +251,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
                 {arg: 'ghiChu', type: 'string', required: false},
                 {arg: 'hieuLuc', type: 'number', required: false}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         }
     )
 
@@ -184,10 +261,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -197,10 +271,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -210,11 +281,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'},
-                {arg: 'result', type: 'object'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -226,11 +293,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
                 { arg: 'page', type: 'number', default: '0'},
                 { arg: 'pageSize', type: 'number', default: '20'}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'},
-                {arg: 'result', type: 'array'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -242,11 +305,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
                 { arg: 'page', type: 'number', default: '0'},
                 { arg: 'pageSize', type: 'number', default: '20'}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'},
-                {arg: 'result', type: 'array'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 }

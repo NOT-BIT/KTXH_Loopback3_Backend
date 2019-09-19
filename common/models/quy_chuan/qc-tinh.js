@@ -6,11 +6,17 @@ module.exports = function(QCTinh) {
     QCTinh.createTinh = async function(uid, ma, ten, ghiChu, cap, loai, nt, bg, hd, dbkk){
         let [err1, tinh1] = await to(QCTinh.findOne({where: {uid: uid}}))
         if (err1||tinh1 != null) {
-            return [400, 'uid tinh da ton tai']
+            return {
+                'statusCode': 400, 
+                'message': 'uid tinh da ton tai'
+            }
         }
         let [err2, tinh2] = await to(QCTinh.findOne({where: {ma: ma}}))
         if (err2||tinh2 != null) {
-            return [400, 'ma tinh da ton tai']
+            return {
+                'statusCode': 400, 
+                'message': 'ma tinh da ton tai'
+            }
         }
         let tinhData = {
             uid: uid,
@@ -28,23 +34,39 @@ module.exports = function(QCTinh) {
         }
         let [errCreate, data] = await to(QCTinh.create(tinhData))
         if (errCreate||!data) {
-            return [400, 'create fail']
+            console.log(errCreate)
+            return {
+                'statusCode': 400, 
+                'message': 'create fail'
+            }
         }
-        return [200, 'create success']
+        return {
+            'statusCode': 200, 
+            'message': 'create success'
+        }
     }
 
     QCTinh.updateTinh = async function(id, ma, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
         let [err, tinh] = await to(QCTinh.findOne({where: {id: id}}))
         if (err||tinh == null) {
-            return [404, 'tinh khong ton tai']
+            return {
+                'statusCode': 404, 
+                'message': 'tinh khong ton tai'
+            }
         }
         if (tinh.xoa == 1){
-            return [400, 'tinh da bi xoa']
+            return {
+                'statusCode': 400, 
+                'message': 'tinh da bi xoa'
+            }
         }
         if (ma != null){
             let [err2, tinh2] = await to(QCTinh.findOne({where: {ma: ma}}))
             if (err2||tinh2 != null) {
-                return [400, 'da ton tai ma tinh nay']
+                return {
+                    'statusCode': 400, 
+                    'message': 'ma tinh da ton tai'
+                }
             }
         }
         let tinhData = {
@@ -62,63 +84,114 @@ module.exports = function(QCTinh) {
         }
         let [errUpdate, tinhUpdate] = await to(QCTinh.upsert(tinhData))
         if (errUpdate || !tinhUpdate) {
-            return [400, 'update fail']
+            return {
+                'statusCode': 400, 
+                'message': 'update fail'
+            }
         }
-        return [200, 'update success']
+        return {
+            'statusCode': 200, 
+            'message': 'update success'
+        }
     }
 
     QCTinh.deleteTinh = async function(id){
         let [err, tinh] = await to(QCTinh.findOne({where: {id: id}}))
         if (err||tinh == null) {
-            return [404, 'tinh khong ton tai']
+            return {
+                'statusCode': 404, 
+                'message': 'tinh khong ton tai'
+            }
         }
         if (tinh.xoa == 1){
-            return [400, 'tinh da bi xoa']
+            return {
+                'statusCode': 400, 
+                'message': 'tinh da bi xoa'
+            }
         }
         let [errDelete, tinhDelete] = await to(QCTinh.upsertWithWhere({id: id}, {xoa: 1}))
         if (errDelete || !tinhDelete) {
-            return [400, 'delete fail']
+            return {
+                'statusCode': 400, 
+                'message': 'delete fail'
+            }
         }
-        return [200, 'delete success']
+        return {
+            'statusCode': 200, 
+            'message': 'delete success'
+        }
     }
     
     QCTinh.restoreTinh = async function(id){
         let [err, tinh] = await to(QCTinh.findOne({where: {id: id}}))
         if (err||tinh == null) {
-            return [404, 'tinh khong ton tai']
+            return {
+                'statusCode': 404, 
+                'message': 'tinh khong ton tai'
+            }
         }
         if (tinh.xoa == 0){
-            return [400, 'tinh khong bi xoa']
+            return {
+                'statusCode': 400, 
+                'message': 'tinh khong bi xoa'
+            }
         }
         let [errRestore, tinhRestore] = await to(QCTinh.upsertWithWhere({id: id}, {xoa: 0}))
         if (errRestore || !tinhRestore) {
-            return [400, 'restore fail']
+            return {
+                'statusCode': 400, 
+                'message': 'restore fail'
+            }
         }
-        return [200, 'restore success']
+        return {
+            'statusCode': 200, 
+            'message': 'restore success'
+        }
     }
 
     QCTinh.readTinh = async function(id){
         let [err, tinh] = await to(QCTinh.findOne({where: {id: id}}))
         if (err||tinh == null) {
-            return [404, 'tinh khong ton tai', tinh]
+            return {
+                'statusCode': 404, 
+                'message': 'tinh khong ton tai'
+            }
         }
-        return [200, 'thong tin cua tinh', tinh]
+        return {
+            'statusCode': 200, 
+            'message': 'thong tin cua tinh',
+            'result': tinh
+        }
     }
 
     QCTinh.listTinh = async function(queryData, page, pageSize){
         let [err, tinhArr] = await to(QCTinh.find({where: {xoa: 0}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
         if (err||tinhArr == null) {
-            return [404, 'khong ton tai', tinhArr]
+            return {
+                'statusCode': 404, 
+                'message': 'ds tinh khong ton tai'
+            }
         }
-        return [200, 'danh sach tinh', tinhArr]
+        return {
+            'statusCode': 200, 
+            'message': 'danh sach tinh',
+            'result': tinhArr
+        }
     }
 
     QCTinh.listDeletedTinh = async function(queryData, page, pageSize){
         let [err, tinhArr] = await to(QCTinh.find({where: {xoa: 1}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
         if (err||tinhArr == null) {
-            return [404, 'khong ton tai', tinhArr]
+            return {
+                'statusCode': 404, 
+                'message': 'ds tinh da bi xoa khong ton tai'
+            }
         }
-        return [200, 'danh sach tinh da bi xoa', tinhArr]
+        return {
+            'statusCode': 200, 
+            'message': 'danh sach tinh da bi xoa',
+            'result': tinhArr
+        }
     }
 
     QCTinh.remoteMethod(
@@ -136,10 +209,7 @@ module.exports = function(QCTinh) {
                 {arg: 'hd', type: 'string', required: false},
                 {arg: 'dbkk', type: 'string', required: false}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -159,10 +229,7 @@ module.exports = function(QCTinh) {
                 {arg: 'dbkk', type: 'string', required: false},
                 {arg: 'hieuLuc', type: 'number', required: false}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -172,10 +239,7 @@ module.exports = function(QCTinh) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -185,10 +249,7 @@ module.exports = function(QCTinh) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -198,11 +259,7 @@ module.exports = function(QCTinh) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'},
-                {arg: 'result', type: 'object'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -214,11 +271,7 @@ module.exports = function(QCTinh) {
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'},
-                {arg: 'result', type: 'array'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 
@@ -230,11 +283,7 @@ module.exports = function(QCTinh) {
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'},
-                {arg: 'result', type: 'array'}
-            ],
+            returns: [{arg: 'data', type: 'object'}],
         },
     )
 }
