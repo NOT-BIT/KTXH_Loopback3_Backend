@@ -1,9 +1,9 @@
 {
-  "name": "BieuNhapLieu_DonViTongHopCapHuyen",
+  "name": "BieuNhapLieu_KyBaoCao",
   "options": {
     "idInjection": true,
     "mysql": {
-      "table": "bieu_nhap_lieu-don_vi_tong_hop_cap_huyen"
+      "table": "bieu_nhap_lieu-ky_bao_cao"
     },
     "relations": {}
   },
@@ -46,11 +46,11 @@
         "nullable": "N"
       }
     },
-    "donViId": {
+    "qlKyBaoCaoId": {
       "type": "Number",
       "required": true,
       "mysql": {
-        "columnName": "don_vi_id",
+        "columnName": "ql_ky_bao_cao_id",
         "dataType": "int",
         "nullable": "N"
       }

@@ -1,7 +1,7 @@
 {
   "name": "QTNamLamViec",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "qt_nam_lam_viec"
     },
@@ -113,6 +113,14 @@
         "dataScale": 0,
         "nullable": "Y"
       }
+    }
+  },
+
+  "relations": {
+    "QTNamLamViec": {
+      "type": "hasMany",
+      "model": "QLKyBaoCao",
+      "foreignKey": "qtNamLamViecId"
     }
   }
 }

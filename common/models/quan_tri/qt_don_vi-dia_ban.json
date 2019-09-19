@@ -1,7 +1,7 @@
 {
   "name": "QTDonVi-DiaBan",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "qt_don_vi-dia_ban"
     },

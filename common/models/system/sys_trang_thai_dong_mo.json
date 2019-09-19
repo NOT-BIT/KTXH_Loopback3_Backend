@@ -1,7 +1,7 @@
 {
   "name": "SysTrangThaiDongMo",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "sys_trang_thai_dong_mo"
     },
@@ -96,6 +96,14 @@
         "dataScale": 0,
         "nullable": "Y"
       }
+    }
+  },
+
+  "relations": {
+    "SysTranngThaiDongMo": {
+      "type": "hasMany",
+      "model": "QLKyBaoCao",
+      "foreignKey": "sysTrangThaiDongMoId"
     }
   }
 }

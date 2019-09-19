@@ -1,7 +1,7 @@
 {
   "name": "SysKyBaoCao",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "sys_ky_bao_cao"
     },
@@ -98,6 +98,14 @@
         "dataScale": 0,
         "nullable": "Y"
       }
+    }
+  },
+
+  "relations": {
+    "SysKyBaoCao": {
+      "type": "hasMany",
+      "model": "QLKyBaoCao",
+      "foreignKey": "sysKyBaoCaoId"
     }
   }
 }

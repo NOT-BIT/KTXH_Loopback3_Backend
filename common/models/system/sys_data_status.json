@@ -1,7 +1,7 @@
 {
   "name": "SysDataStatus",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "sys_data_status"
     },

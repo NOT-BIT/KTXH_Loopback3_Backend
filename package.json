@@ -7,14 +7,15 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "start": "node .",
+    "start": "nodemon .",
     "posttest": "npm run lint && npm audit"
   },
   "dependencies": {
     "await-to-js": "^2.1.1",
+    "bluebird": "^3.5.5",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
-    "helmet": "^3.10.0",
+    "helmet": "^3.21.0",
     "loopback": "^3.22.0",
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^6.2.0",

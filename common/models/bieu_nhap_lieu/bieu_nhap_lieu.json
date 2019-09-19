@@ -1,21 +1,79 @@
 {
   "name": "BieuNhapLieu",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "bieu_nhap_lieu"
-    },
-    "relations": {}
+    }
   },
   "properties": {
-    "donViNhanBaoCao": {
+    "uid": {
+      "type": "String",
+      "required": true,
+      "length": 250,
+      "mysql": {
+        "columnName": "uid",
+        "dataType": "varchar",
+        "dataLength": 250
+      }
+    },
+    "ma": {
+      "type": "String",
+      "required": true,
+      "length": 250,
+      "mysql": {
+        "columnName": "ma",
+        "dataType": "varchar",
+        "dataLength": 250
+      }
+    },
+    "ten": {
+      "type": "String",
+      "length": 250,
+      "mysql": {
+        "columnName": "ten",
+        "dataType": "varchar",
+        "dataLength": 250
+      }
+    },
+    "sysLoaiBieuNhapLieuId": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "mysql": {
+        "columnName": "sys_loai_bieu_nhap_lieu_id",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "Y"
+      }
+    },
+    "kyHieuBieu": {
+      "type": "String",
+      "required": false,
+      "length": 50,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "ky_hieu_bieu",
+        "dataType": "varchar",
+        "dataLength": 50,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      }
+    },
+    "kyBaoCao": {
       "type": "String",
       "required": false,
       "length": 250,
       "precision": null,
       "scale": null,
       "mysql": {
-        "columnName": "don_vi_nhan_bao_cao",
+        "columnName": "ky_bao_cao",
         "dataType": "varchar",
         "dataLength": 250,
         "dataPrecision": null,
@@ -38,6 +96,21 @@
         "nullable": "Y"
       }
     },
+    "donViNhanBaoCao": {
+      "type": "String",
+      "required": false,
+      "length": 250,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "don_vi_nhan_bao_cao",
+        "dataType": "varchar",
+        "dataLength": 250,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      }
+    },
     "donViTongHop": {
       "type": "String",
       "required": false,
@@ -53,111 +126,81 @@
         "nullable": "Y"
       }
     },
-    "hieuLuc": {
-      "type": "Number",
+    "ghiChu": {
+      "type": "String",
       "required": false,
-      "length": null,
-      "precision": 3,
-      "scale": 0,
       "mysql": {
-        "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "dataLength": null,
-        "dataPrecision": 3,
-        "dataScale": 0,
+        "columnName": "ghi_chu",
+        "dataType": "longtext",
         "nullable": "Y"
       }
     },
-    "id": {
+    "createdAt": {
+      "type": "Date",
+      "required": true,
+      "mysql": {
+        "columnName": "created_at",
+        "dataType": "date"
+      }
+    },
+    "createdBy": {
       "type": "Number",
       "required": true,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
-      "id": 1,
       "mysql": {
-        "columnName": "id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "N"
+        "columnName": "created_by",
+        "dataType": "int"
       }
     },
-    "kyBaoCao": {
-      "type": "String",
-      "required": false,
-      "length": 250,
-      "precision": null,
-      "scale": null,
+    "updatedAt": {
+      "type": "Date",
       "mysql": {
-        "columnName": "ky_bao_cao",
-        "dataType": "varchar",
-        "dataLength": 250,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "columnName": "updated_at",
+        "dataType": "date"
       }
     },
-    "kyHieuBieu": {
-      "type": "String",
-      "required": false,
-      "length": 50,
-      "precision": null,
-      "scale": null,
-      "mysql": {
-        "columnName": "ky_hieu_bieu",
-        "dataType": "varchar",
-        "dataLength": 50,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
-      }
-    },
-    "sysLoaiBieuNhapLieuId": {
+    "updatedBy": {
       "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
       "mysql": {
-        "columnName": "sys_loai_bieu_nhap_lieu_id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
+        "columnName": "updated_by",
+        "dataType": "int"
       }
     },
-    "tenBieu": {
-      "type": "String",
-      "required": false,
-      "length": 250,
-      "precision": null,
-      "scale": null,
+    "hieuLuc": {
+      "type": "Boolean",
+      "required": true,
+      "default": 1,
       "mysql": {
-        "columnName": "ten_bieu",
-        "dataType": "varchar",
-        "dataLength": 250,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "columnName": "hieu_luc",
+        "dataType": "tinyint"
       }
     },
     "xoa": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 3,
-      "scale": 0,
+      "type": "Boolean",
+      "required": true,
+      "default": 0,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint",
-        "dataLength": null,
-        "dataPrecision": 3,
-        "dataScale": 0,
-        "nullable": "Y"
+        "dataType": "tinyint"
       }
+    }
+  },
+  "relations": {
+    "SysLoaiBieuNhapLieu": {
+      "type": "belongsTo",
+      "model": "SysLoaiBieuNhapLieu",
+      "foreignKey": "sysLoaiBieuNhapLieuId",
+      "primaryKey": "id",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "foreignKeys": {
+    "sysLoaiBieuNhapLieuId": {
+      "name": "BieuNhapLieu_SysLoaiBieuNhapLieu",
+      "foreignKey": "sysLoaiBieuNhapLieuId",
+      "entityKey": "id",
+      "entity": "SysLoaiBieuNhapLieu"
     }
   }
 }

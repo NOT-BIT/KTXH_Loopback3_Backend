@@ -1,7 +1,7 @@
 {
   "name": "QTHopThuHoiDap",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "qt_hop_thu_hoi_dap"
     },
