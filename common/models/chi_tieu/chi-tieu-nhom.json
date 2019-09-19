@@ -1,6 +1,6 @@
 {
   "name": "ChiTieuNhom",
-  "idInjection": false,
+  "idInjection": true,
   "base": "Model",
   "options": {
     "mysql": {

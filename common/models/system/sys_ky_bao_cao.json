@@ -1,7 +1,7 @@
 {
   "name": "SysKyBaoCao",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "sys_ky_bao_cao"
     },

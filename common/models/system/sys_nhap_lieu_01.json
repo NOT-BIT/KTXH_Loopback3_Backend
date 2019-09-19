@@ -1,7 +1,7 @@
 {
   "name": "SysNhapLieu01",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "sys_nhap_lieu_01"
     },

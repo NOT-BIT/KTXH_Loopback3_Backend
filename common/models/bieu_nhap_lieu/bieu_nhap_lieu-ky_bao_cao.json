@@ -1,7 +1,7 @@
 {
   "name": "BieuNhapLieu_KyBaoCao",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "bieu_nhap_lieu-ky_bao_cao"
     },
