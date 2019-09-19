@@ -1,191 +1,171 @@
 {
   "name": "QTDonVi",
+  "base": "Model",
+  "idInjection": true,
   "options": {
-    "idInjection": true,
     "mysql": {
       "table": "qt_don_vi"
-    },
-    "relations": {}
+    }
   },
   "properties": {
-    "diaChi": {
+    "uid": {
       "type": "String",
-      "required": false,
-      "length": 250,
-      "precision": null,
-      "scale": null,
-      "mysql": {
-        "columnName": "dia_chi",
-        "dataType": "varchar",
-        "dataLength": 250,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
-      }
-    },
-    "email": {
-      "type": "String",
-      "required": false,
-      "length": 50,
-      "precision": null,
-      "scale": null,
-      "mysql": {
-        "columnName": "email",
-        "dataType": "varchar",
-        "dataLength": 50,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
-      }
-    },
-    "ghiChu": {
-      "type": "String",
-      "required": false,
-      "precision": null,
-      "scale": null,
-      "mysql": {
-        "columnName": "ghi_chu",
-        "dataType": "longtext",
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
-      }
-    },
-    "hieuLuc": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 3,
-      "scale": 0,
-      "mysql": {
-        "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "dataLength": null,
-        "dataPrecision": 3,
-        "dataScale": 0,
-        "nullable": "Y"
-      }
-    },
-    "id": {
-      "type": "Number",
       "required": true,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
-      "id": 1,
+      "index": { "unique": true },
+      "length": 50,
       "mysql": {
-        "columnName": "id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
+        "columnName": "uid",
+        "dataType": "varchar",
         "nullable": "N"
-      }
-    },
-    "idCha": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
-      "mysql": {
-        "columnName": "id_cha",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
-      }
-    },
-    "laDonVi": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 3,
-      "scale": 0,
-      "mysql": {
-        "columnName": "la_don_vi",
-        "dataType": "tinyint",
-        "dataLength": null,
-        "dataPrecision": 3,
-        "dataScale": 0,
-        "nullable": "Y"
       }
     },
     "ma": {
       "type": "String",
-      "required": false,
+      "required": true,
+      "index": { "unique": true },
       "length": 50,
-      "precision": null,
-      "scale": null,
       "mysql": {
         "columnName": "ma",
         "dataType": "varchar",
-        "dataLength": 50,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "nullable": "N"
       }
     },
-    "noiDung": {
+    "ten": {
       "type": "String",
-      "required": false,
       "length": 250,
-      "precision": null,
-      "scale": null,
       "mysql": {
-        "columnName": "noi_dung",
-        "dataType": "varchar",
-        "dataLength": 250,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "columnName": "ten",
+        "dataType": "varchar"
       }
     },
-    "QCDonViNhom": {
+    "idCha": {
       "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
       "mysql": {
-        "columnName": "qc_don_vi_nhom",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
+        "columnName": "id_cha",
+        "dataType": "int"
+      }
+    },
+    "diaChi": {
+      "type": "String",
+      "mysql": {
+        "columnName": "dia_chi",
+        "dataType": "varchar"
       }
     },
     "soDienThoai": {
       "type": "String",
-      "required": false,
-      "length": 50,
-      "precision": null,
-      "scale": null,
       "mysql": {
         "columnName": "so_dien_thoai",
-        "dataType": "varchar",
-        "dataLength": 50,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "dataType": "varchar"
+      }
+    },
+    "email": {
+      "type": "String",
+      "mysql": {
+        "columnName": "email",
+        "dataType": "varchar"
+      }
+    },
+    "laDonVi": {
+      "type": "Boolean",
+      "required": true,
+      "default": false,
+      "mysql": {
+        "columnName": "la_don_vi",
+        "dataType": "tinyint",
+        "nullable": "N"
+      }
+    },
+    "ghiChu": {
+      "type": "String",
+      "mysql": {
+        "columnName": "ghi_chu",
+        "dataType": "longtext"
+      }
+    },
+    "createdAt": {
+      "type": "Date",
+      "required": true,
+      "mysql": {
+        "columnName": "created_at",
+        "dataType": "date"
+      }
+    },
+    "updatedAt": {
+      "type": "Date",
+      "mysql": {
+        "columnName": "updated_at",
+        "dataType": "date"
+      }
+    },
+    "createdBy": {
+      "type": "Number",
+      "required": true,
+      "mysql": {
+        "columnName": "created_by",
+        "dataType": "int"
+      }
+    },
+    "updatedBy": {
+      "type": "Number",
+      "mysql": {
+        "columnName": "updated_by",
+        "dataType": "int"
+      }
+    },
+    "hieuLuc": {
+      "type": "Boolean",
+      "default": true,
+      "mysql": {
+        "columnName": "hieu_luc",
+        "dataType": "tinyint"
       }
     },
     "xoa": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 3,
-      "scale": 0,
+      "type": "Boolean",
+      "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint",
-        "dataLength": null,
-        "dataPrecision": 3,
-        "dataScale": 0,
-        "nullable": "Y"
+        "dataType": "tinyint"
       }
     }
+  },
+
+  "validations": [],
+  "relations": {
+    "QTDonVi": {
+      "type":"belongsTo",
+      "model": "QTDonVi",
+      "foreignKey": "idCha",
+      "primaryKey": "id",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "QTDonVi_DiaBan": {
+      "type": "hasMany",
+      "model": "QTDonVi_DiaBan",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "QTUsers": {
+      "type": "hasMany",
+      "model": "QTUsers",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {},
+  "foreignKeys": {
+    "idCha": {
+      "name": "qt_don_vi_qt_don_vi_fk",
+      "foreignKey": "idCha",
+      "entityKey": "id",
+      "entity": "QTDonVi"
+    }
   }
+
 }

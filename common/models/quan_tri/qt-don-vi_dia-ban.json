@@ -1,103 +1,159 @@
 {
   "name": "QTDonVi-DiaBan",
+  "base": "Model",
+  "idInjection": true,
   "options": {
-    "idInjection": true,
     "mysql": {
       "table": "qt_don_vi-dia_ban"
-    },
-    "relations": {}
+    }
   },
   "properties": {
-    "id": {
-      "type": "Number",
+    "uid": {
+      "type": "String",
       "required": true,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
-      "id": 1,
+      "index": { "unique": true },
+      "length": 250,
       "mysql": {
-        "columnName": "id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "N"
+        "columnName": "uid",
+        "dataType": "varchar",
+        "dataLength": 250
       }
     },
-    "qcHuyenId": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
+    "ma": {
+      "type": "String",
+      "required": true,
+      "index": { "unique": true },
+      "length": 250,
       "mysql": {
-        "columnName": "qc_huyen_id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
+        "columnName": "ma",
+        "dataType": "varchar",
+        "dataLength": 250
       }
     },
-    "qcTinhId": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
+    "ten": {
+      "type": "String",
+      "length": 250,
       "mysql": {
-        "columnName": "qc_tinh_id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
-      }
-    },
-    "qcXaId": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
-      "mysql": {
-        "columnName": "qc_xa_id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
+        "columnName": "ten",
+        "dataType": "varchar",
+        "dataLength": 250
       }
     },
     "qtDonviId": {
       "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
+      "required": true,
       "mysql": {
         "columnName": "qt_don_vi_id",
         "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
+        "nullable": "N"
+      }
+    },
+    "qcTinhId": {
+      "type": "Number",
+      "mysql": {
+        "columnName": "qc_tinh_id",
+        "dataType": "int"
+      }
+    },
+    "qcHuyenId": {
+      "type": "Number",
+      "mysql": {
+        "columnName": "qc_huyen_id",
+        "dataType": "int"
+      }
+    },
+    "qcXaId": {
+      "type": "Number",
+      "mysql": {
+        "columnName": "qc_xa_id",
+        "dataType": "int"
       }
     },
     "tatCaNutCon": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 3,
-      "scale": 0,
+      "type": "Boolean",
+      "required": true,
+      "default": false,
       "mysql": {
         "columnName": "tat_ca_nut_con",
         "dataType": "tinyint",
-        "dataLength": null,
-        "dataPrecision": 3,
-        "dataScale": 0,
+        "nullable": "N"
+      }
+    },
+    "ghiChu": {
+      "type": "String",
+      "required": false,
+      "mysql": {
+        "columnName": "ghi_chu",
+        "dataType": "longtext",
         "nullable": "Y"
       }
+    },
+    "createdAt": {
+      "type": "Date",
+      "required": true,
+      "mysql": {
+        "columnName": "created_at",
+        "dataType": "date"
+      }
+    },
+    "createdBy": {
+      "type": "Number",
+      "required": true,
+      "mysql": {
+        "columnName": "created_by",
+        "dataType": "int"
+      }
+    },
+    "updatedAt": {
+      "type": "Date",
+      "mysql": {
+        "columnName": "updated_at",
+        "dataType": "date"
+      }
+    },
+    "updatedBy": {
+      "type": "Number",
+      "mysql": {
+        "columnName": "updated_by",
+        "dataType": "int"
+      }
+    },
+    "hieuLuc": {
+      "type": "Boolean",
+      "required": true,
+      "default": 1,
+      "mysql": {
+        "columnName": "hieu_luc",
+        "dataType": "tinyint"
+      }
+    },
+    "xoa": {
+      "type": "Boolean",
+      "required": true,
+      "default": 0,
+      "mysql": {
+        "columnName": "xoa",
+        "dataType": "tinyint"
+      }
+    }
+  },
+  "relations": {
+    "QTDonVi": {
+      "type": "belongsTo",
+      "model": "QTDonVi",
+      "foreignKey": "qtDonViId",
+      "primaryKey": "id",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "foreignKeys": {
+    "qtDonViId": {
+      "name": "qt_don_vi_dia_ban_qt_don_vi_fk",
+      "foreignKey": "idCha",
+      "entityKey": "id",
+      "entity": "QTDonVi"
     }
   }
 }

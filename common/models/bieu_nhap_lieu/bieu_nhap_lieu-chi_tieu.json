@@ -1,7 +1,7 @@
 {
-  "name": "BieuNhapLieu-ChiTieu",
+  "name": "BieuNhapLieu_ChiTieu",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "bieu_nhap_lieu-chi_tieu"
     },

@@ -1,47 +1,37 @@
 let to = require('await-to-js').to;
-
-'use_strict';
+let constants = require('../../constants/constants')
+const Promise = require('bluebird')
 
 module.exports = function(QTDonVi) {
-  const Promise = require('bluebird')
 	  //create Quan Tri Don Vi
-	  QTDonVi.createQTDonVi = async function(
-        uid, 
-        idCha, 
-        ma, 
-        ten,
-        noiDung, 
-        diaChi, 
-        soDienThoai, 
-        email, 
-        laDonVi, 
-        ghiChu,
-        createdBy) {
-
+    QTDonVi.createQTDonVi = async function(uid, ma, ten, idCha,
+      diaChi, soDienThoai, email, laDonVi, ghiChu) {
         const qtDonViData = {
-            uid: uid,
-            idCha: idCha,
-            ma: ma,
-            ten: ten,
-            noiDung: noiDung,
-            diaChi: diaChi,
-            soDienThoai: soDienThoai,
-            email: email,
-            laDonVi: laDonVi,
-            ghiChu: ghiChu,
-            createdAt: new Date(),
-            createdBy: createdBy,
-            hieuLuc: 1,
-            xoa: 0
+          uid: uid,
+          ma: ma,
+          ten: ten,
+          idCha: idCha,
+          diaChi: diaChi,
+          soDienThoai: soDienThoai,
+          email: email,
+          laDonVi: laDonVi,
+          ghiChu: ghiChu,
+          createdAt: new Date(),
+          createdBy: 0
         }
+
         try {
-            const data = await QTDonVi.create(qtDonViData)
-            return data
-          } catch (err) {
-            console.log('create QT-Don-Vi', err)
-            throw err
+          const result = await QTDonVi.create(qtDonViData)
+          return {
+            statusCode: 200,
+            message: "Success",
+            result: result
           }
+        } catch (err) {
+          console.log('create QT-Don-Vi', err)
+          throw err
         }
+      }
     
 
     //read Quan Tri Don Vi
@@ -60,32 +50,20 @@ module.exports = function(QTDonVi) {
     }
 
     //update Quan Tri Don Vi
-    QTDonVi.updateQTDonVi = async function(
-        id, 
-        idCha, 
-        ma,
-        ten, 
-        noiDung, 
-        diaChi, 
-        soDienThoai, 
-        email, 
-        laDonVi, 
-        ghiChu, 
-        updatedBy ) {
-    	
+    QTDonVi.updateQTDonVi = async function(id, ma, ten, idCha,
+      diaChi, soDienThoai, email, laDonVi, ghiChu, hieuLuc) {
         const qtDonViData = {
-            id: id,
-            idCha: idCha,
-            ma: ma,
-            ten: ten,
-            noiDung: noiDung,
-            diaChi: diaChi,
-            soDienThoai: soDienThoai,
-            email: email,
-            laDonVi: laDonVi,
-            ghiChu: ghiChu,
-            updatedAt: new Date(),
-            updatedBy: updatedBy    
+          id: id,
+          ma: ma,
+          ten: ten,
+          idCha: idCha,
+          diaChi: diaChi,
+          soDienThoai: soDienThoai,
+          email: email,
+          laDonVi: laDonVi,
+          ghiChu: ghiChu,
+          updatedAt: new Date(),
+          hieuLuc: hieuLuc
         }
 
         try {
@@ -199,16 +177,16 @@ module.exports = function(QTDonVi) {
       {
         http: {path: '/create', verb: 'post'},
         accepts: [
-            {arg: 'uid', type: 'number', required: true},
-            {arg: 'idCha', type: 'number', required: false},
-            {arg: 'ma', type: 'string', required: false},
-            {arg: 'noiDung', type: 'string', required: false},
-            {arg: 'diaChi', type: 'string', required: false},
-            {arg: 'soDienThoai', type: 'string', required: false},
-            {arg: 'email', type: 'string', required: false},
-            {arg: 'laDonVi', type: 'boolean', required: false},
-            {arg: 'ghiChu', type: 'string', required: false},
-            {arg: 'createdBy', type: 'number', required: true}
+            {arg: 'uid', type: 'string', required: true},
+            {arg: 'ma', type: 'string', required: true},
+            {arg: 'ten', type: 'string'},
+            {arg: 'idCha', type: 'number'},
+            {arg: 'diaChi', type: 'string'},
+            {arg: 'soDienThoai', type: 'string'},
+            {arg: 'email', type: 'string'},
+            {arg: 'laDonVi', type: 'boolean'},
+            {arg: 'ghiChu', type: 'string'},
+            {arg: 'hieuLuc', type: 'boolean'}
         ],
         returns: { arg: 'data' },
       }
@@ -228,15 +206,15 @@ module.exports = function(QTDonVi) {
         http: {path: '/update', verb: 'post'},
         accepts: [
             {arg: 'id', type: 'number', required: true},
-            {arg: 'idCha', type: 'number', required: false},
-            {arg: 'ma', type: 'string', required: false},
-            {arg: 'noiDung', type: 'string', required: false},
-            {arg: 'diaChi', type: 'string', required: false},
-            {arg: 'soDienThoai', type: 'string', required: false},
-            {arg: 'email', type: 'string', required: false},
-            {arg: 'laDonVi', type: 'boolean', required: false},
-            {arg: 'ghiChu', type: 'string', required: false},
-            {arg: 'updatedBy', type: 'number', required: true}
+            {arg: 'ma', type: 'string', required: true},
+            {arg: 'ten', type:' string'},
+            {arg: 'idCha', type: 'number'},
+            {arg: 'noiDung', type: 'string'},
+            {arg: 'diaChi', type: 'string'},
+            {arg: 'soDienThoai', type: 'string'},
+            {arg: 'email', type: 'string'},
+            {arg: 'laDonVi', type: 'boolean',},
+            {arg: 'ghiChu', type: 'string'}
         ],
         returns: { arg: 'data' }
       },

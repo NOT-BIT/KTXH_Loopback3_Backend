@@ -4,28 +4,17 @@ let to = require('await-to-js').to;
 module.exports = function(QTTacNhanChucNangPhanMem) {
   const Promise = require('bluebird')
 	  //create Quan Tri Tac Nhan Chuc Nang Phan Mem
-	  QTTacNhanChucNangPhanMem.createQTTacNhanChucNangPhanMem = async function(
-        uid, 
-        ten,
-        ma,
-        noiDung,
-        ghiChu,
-        qtChucNangPhanMem, 
-        qtTacNhanId, 
-        createdBy
+    QTTacNhanChucNangPhanMem.createQTTacNhanChucNangPhanMem = async function(uid, ma, ten,
+      qtTacNhanId, qtChucNangPhanMemId, ghiChu
         ) {
         const qtTNCNPMdata = {
             uid: uid,
-            ten: ten,
             ma: ma,
-            noiDung: noiDung,
-            ghiChu:ghiChu,
-            qtChucNangPhanMem: qtChucNangPhanMem,
+            ten: ten,
             qtTacNhanId: qtTacNhanId,
+            qtChucNangPhanMemId: qtChucNangPhanMemId,
             createdAt: new Date(),
-            createdBy: createdBy,
-            hieuLuc: 1,
-            xoa: 0
+            ghiChu:ghiChu
         }
         try {
             const data = await QTTacNhanChucNangPhanMem.create(qtTNCNPMdata)
@@ -52,26 +41,18 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
     }
 
     //update Quan Tri Tac Nhan Chuc Nang Phan Mem
-    QTTacNhanChucNangPhanMem.updateQTTacNhanChucNangPhanMem = async function(
-        id,
-        ten,
-        ma,
-        noiDung,
-        ghiChu,
-        qtChucNangPhanMem, 
-        qtTacNhanId, 
-        updatedBy) {
+    QTTacNhanChucNangPhanMem.updateQTTacNhanChucNangPhanMem = async function(id, ma, ten,
+      qtTacNhanId, qtChucNangPhanMemId, ghiChu, hieuLuc) {
 
         const qtTacNhanChucNangPhanMemData = {
             id: id,
-            ten: ten,
             ma: ma,
-            noiDung: noiDung,
-            ghiChu:ghiChu,
-            qtChucNangPhanMem: qtChucNangPhanMem,
+            ten: ten,
             qtTacNhanId: qtTacNhanId,
+            qtChucNangPhanMemId: qtChucNangPhanMemId,
+            ghiChu:ghiChu,
             updatedAt: new Date(),
-            updatedBy: updatedBy
+            hieuLuc: hieuLuc
         }
         try {
             const data = await QTTacNhanChucNangPhanMem.upsertWithWhere(
@@ -183,13 +164,12 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
       {
         http: {path: '/create', verb: 'post'},
         accepts: [
-            {arg: 'uid', type: 'number', required: true},
-            {arg: 'ten', type: 'string', required: false},
-            {arg: 'ma', type: 'string', required: false},
-            {arg: 'noiDung', type: 'string', required: false},
-            {arg: 'qtChucNangPhanMem', type: 'number', required: false},
-            {arg: 'qtTacNhanId', type: 'number', required: false},
-            {arg: 'createdBy', type: 'number', required: true}
+            {arg: 'uid', type: 'string', required: true},
+            {arg: 'ma', type: 'string', required: true},
+            {arg: 'ten', type: 'string'},
+            {arg: 'qtTacNhanId', type: 'number'},
+            {arg: 'qtChucNangPhanMemId', type: 'number'},
+            {arg: 'ghiChu', type: 'string'}
         ],
         returns: { arg: 'data' },
       },
@@ -209,14 +189,14 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
       {
         http: {path: '/update', verb: 'post'},
         accepts: [
-            {arg: 'id', type: 'number', required: true},
-            {arg: 'ten', type: 'string', required: false},
-            {arg: 'ma', type: 'string', required: false},
-            {arg: 'noiDung', type: 'string', required: false},
-            {arg: 'qtChucNangPhanMem', type: 'number', required: false},
-            {arg: 'qtTacNhanId', type: 'number', required: false},
-            {arg: 'updatedBy', type: 'number', required: true}
-        ],
+          {arg: 'id', type: 'number', required: true},
+          {arg: 'ma', type: 'string', required: true},
+          {arg: 'ten', type: 'string'},
+          {arg: 'qtTacNhanId', type: 'number'},
+          {arg: 'qtChucNangPhanMemId', type: 'number'},
+          {arg: 'ghiChu', type: 'string'},
+          {arg: 'hieuLuc', type: 'boolean'}
+      ],
         returns: { arg: 'data' },
       },
     )
