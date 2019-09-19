@@ -1,16 +1,17 @@
 {
-  "name": "BieuNhapLieu_DonViNhap",
+  "name": "BieuNhapLieu_ChiTieu",
+  "base": "Model",
+  "idInjection": true,
   "options": {
-    "idInjection": true,
     "mysql": {
-      "table": "bieu_nhap_lieu-don_vi_nhap"
-    },
-    "relations": {}
+      "table": "bieu_nhap_lieu-chi_tieu"
+    }
   },
   "properties": {
     "uid": {
       "type": "String",
       "required": true,
+      "index": { "unique": true },
       "length": 250,
       "mysql": {
         "columnName": "uid",
@@ -21,6 +22,7 @@
     "ma": {
       "type": "String",
       "required": true,
+      "index": { "unique": true },
       "length": 250,
       "mysql": {
         "columnName": "ma",
@@ -46,11 +48,11 @@
         "nullable": "N"
       }
     },
-    "donViId": {
+    "chiTieuId": {
       "type": "Number",
       "required": true,
       "mysql": {
-        "columnName": "don_vi_id",
+        "columnName": "chi_tieu_id",
         "dataType": "int",
         "nullable": "N"
       }
@@ -111,6 +113,38 @@
         "columnName": "xoa",
         "dataType": "tinyint"
       }
+    }
+  },
+  "relations": {
+    "bieuNhapLieu": {
+      "type": "belongsTo",
+      "model": "BieuNhapLieu",
+      "foreignKey": "bieuNhapLieuId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "chiTieu": {
+      "type": "belongsTo",
+      "model": "ChiTieu",
+      "foreignKey": "chiTieuId",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "foreignKeys": {
+    "bieuNhapLieuId": {
+      "name": "BieuNhapLieu_ChiTieu-BieuNhapLieu",
+      "foreignKey": "bieuNhapLieuId",
+      "entityKey": "id",
+      "entity": "BieuNhapLieu"
+    },
+    "truongNhapLieuId": {
+      "name": "BieuNhapLieu_ChiTieu-ChiTieu",
+      "foreignKey": "chiTieuId",
+      "entityKey": "id",
+      "entity": "ChiTieu"
     }
   }
 }

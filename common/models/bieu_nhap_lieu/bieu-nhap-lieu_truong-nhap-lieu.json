@@ -1,16 +1,17 @@
 {
-  "name": "BieuNhapLieu_KyBaoCao",
+  "name": "BieuNhapLieu_TruongNhapLieu",
+  "base": "Model",
+  "idInjection": true,
   "options": {
-    "idInjection": true,
     "mysql": {
-      "table": "bieu_nhap_lieu-ky_bao_cao"
-    },
-    "relations": {}
+      "table": "bieu_nhap_lieu-truong_nhap_lieu"
+    }
   },
   "properties": {
     "uid": {
       "type": "String",
       "required": true,
+      "index": { "unique": true },
       "length": 250,
       "mysql": {
         "columnName": "uid",
@@ -21,6 +22,7 @@
     "ma": {
       "type": "String",
       "required": true,
+      "index": { "unique": true },
       "length": 250,
       "mysql": {
         "columnName": "ma",
@@ -46,11 +48,11 @@
         "nullable": "N"
       }
     },
-    "qlKyBaoCaoId": {
+    "truongNhapLieuId": {
       "type": "Number",
       "required": true,
       "mysql": {
-        "columnName": "ql_ky_bao_cao_id",
+        "columnName": "truong_nhap_lieu_id",
         "dataType": "int",
         "nullable": "N"
       }
@@ -111,6 +113,38 @@
         "columnName": "xoa",
         "dataType": "tinyint"
       }
+    }
+  },
+  "relations": {
+    "bieuNhapLieu": {
+      "type": "belongsTo",
+      "model": "BieuNhapLieu",
+      "foreignKey": "bieuNhapLieuId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "truongNhapLieu": {
+      "type": "belongsTo",
+      "model": "TruongNhapLieu",
+      "foreignKey": "truongNhapLieuId",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "foreignKeys": {
+    "bieuNhapLieuId": {
+      "name": "BieuNhapLieu_TruongNhapLieu-BieuNhapLieu",
+      "foreignKey": "bieuNhapLieuId",
+      "entityKey": "id",
+      "entity": "BieuNhapLieu"
+    },
+    "truongNhapLieuId": {
+      "name": "BieuNhapLieu_TruongNhapLieu-TruongNhapLieu",
+      "foreignKey": "truongNhapLieuId",
+      "entityKey": "id",
+      "entity": "TruongNhapLieu"
     }
   }
 }

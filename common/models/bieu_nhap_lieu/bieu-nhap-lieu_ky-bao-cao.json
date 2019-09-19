@@ -22,8 +22,8 @@
     },
     "ma": {
       "type": "String",
-      "required": true,   
-      "index": { "unique": true },   
+      "required": true,
+      "index": { "unique": true },
       "length": 250,
       "mysql": {
         "columnName": "ma",
@@ -124,8 +124,8 @@
     },
     "sysKyBaoCao": {
       "type": "belongsTo",
-      "model": "SysKyBaoCao",
-      "foreignKey": "sysKyBaoCaoId",
+      "model": "QLKyBaoCao",
+      "foreignKey": "qlKyBaoCaoId",
       "options": {
         "nestRemoting": true
       }
@@ -140,9 +140,9 @@
     },
     "sysKyBaoCaoId": {
       "name": "KyBaoCao_BieuNhapLieu",
-      "foreignKey": "sysKyBaoCaoId",
+      "foreignKey": "qlKyBaoCaoId",
       "entityKey": "id",
-      "entity": "SysKyBaoCao"
+      "entity": "QLKyBaoCao"
     }
   }
 }
