@@ -1,7 +1,7 @@
 {
   "name": "SysTrangThaiDongMo",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "sys_trang_thai_dong_mo"
     },

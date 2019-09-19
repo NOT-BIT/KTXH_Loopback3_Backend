@@ -1,7 +1,7 @@
 {
   "name": "QTChucNangPhanMem",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "qt_chuc_nang_phan_mem"
     },

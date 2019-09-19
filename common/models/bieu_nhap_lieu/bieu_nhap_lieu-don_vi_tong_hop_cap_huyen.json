@@ -1,87 +1,115 @@
 {
-  "name": "BieuNhapLieu-DonViTongHopCapHuyen",
+  "name": "BieuNhapLieu_DonViTongHopCapHuyen",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "bieu_nhap_lieu-don_vi_tong_hop_cap_huyen"
     },
     "relations": {}
   },
   "properties": {
+    "uid": {
+      "type": "String",
+      "required": true,
+      "length": 250,
+      "mysql": {
+        "columnName": "uid",
+        "dataType": "varchar",
+        "dataLength": 250
+      }
+    },
+    "ma": {
+      "type": "String",
+      "required": true,
+      "length": 250,
+      "mysql": {
+        "columnName": "ma",
+        "dataType": "varchar",
+        "dataLength": 250
+      }
+    },
+    "ten": {
+      "type": "String",
+      "length": 250,
+      "mysql": {
+        "columnName": "ten",
+        "dataType": "varchar",
+        "dataLength": 250
+      }
+    },
     "bieuNhapLieuId": {
       "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
+      "required": true,
       "mysql": {
         "columnName": "bieu_nhap_lieu_id",
         "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
+        "nullable": "N"
       }
     },
     "donViId": {
       "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
+      "required": true,
       "mysql": {
         "columnName": "don_vi_id",
         "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
-      }
-    },
-    "hieuLuc": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 3,
-      "scale": 0,
-      "mysql": {
-        "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "dataLength": null,
-        "dataPrecision": 3,
-        "dataScale": 0,
-        "nullable": "Y"
-      }
-    },
-    "id": {
-      "type": "Number",
-      "required": true,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
-      "id": 1,
-      "mysql": {
-        "columnName": "id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
         "nullable": "N"
       }
     },
-    "xoa": {
-      "type": "Number",
+    "ghiChu": {
+      "type": "String",
       "required": false,
-      "length": null,
-      "precision": 3,
-      "scale": 0,
+      "mysql": {
+        "columnName": "ghi_chu",
+        "dataType": "longtext",
+        "nullable": "Y"
+      }
+    },
+    "createdAt": {
+      "type": "Date",
+      "required": true,
+      "mysql": {
+        "columnName": "created_at",
+        "dataType": "date"
+      }
+    },
+    "createdBy": {
+      "type": "Number",
+      "required": true,
+      "mysql": {
+        "columnName": "created_by",
+        "dataType": "int"
+      }
+    },
+    "updatedAt": {
+      "type": "Date",
+      "mysql": {
+        "columnName": "updated_at",
+        "dataType": "date"
+      }
+    },
+    "updatedBy": {
+      "type": "Number",
+      "mysql": {
+        "columnName": "updated_by",
+        "dataType": "int"
+      }
+    },
+    "hieuLuc": {
+      "type": "Boolean",
+      "required": true,
+      "default": 1,
+      "mysql": {
+        "columnName": "hieu_luc",
+        "dataType": "tinyint"
+      }
+    },
+    "xoa": {
+      "type": "Boolean",
+      "required": true,
+      "default": 0,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint",
-        "dataLength": null,
-        "dataPrecision": 3,
-        "dataScale": 0,
-        "nullable": "Y"
+        "dataType": "tinyint"
       }
     }
   }

@@ -1,7 +1,7 @@
 {
   "name": "SysNguonSoLieu",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "sys_nguon_so_lieu"
     },

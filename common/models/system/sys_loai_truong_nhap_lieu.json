@@ -1,7 +1,7 @@
 {
   "name": "SysLoaiTruongNhapLieu",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "sys_loai_truong_nhap_lieu"
     },

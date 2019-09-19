@@ -1,7 +1,7 @@
 {
   "name": "ChiTieuPhanToChiTiet",
   "options": {
-    "idInjection": false,
+    "idInjection": true,
     "mysql": {
       "table": "chi_tieu_phan_to_chi_tiet"
     },
