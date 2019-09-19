@@ -1,16 +1,17 @@
 {
-  "name": "BieuNhapLieu_DonViTongHopCapHuyen",
+  "name": "BieuNhapLieu_DonViNhap",
+  "base": "Model",
+  "idInjection": true,
   "options": {
-    "idInjection": true,
     "mysql": {
-      "table": "bieu_nhap_lieu-don_vi_tong_hop_cap_huyen"
-    },
-    "relations": {}
+      "table": "bieu_nhap_lieu-don_vi_nhap"
+    }
   },
   "properties": {
     "uid": {
       "type": "String",
       "required": true,
+      "index": { "unique": true },
       "length": 250,
       "mysql": {
         "columnName": "uid",
@@ -21,6 +22,7 @@
     "ma": {
       "type": "String",
       "required": true,
+      "index": { "unique": true },
       "length": 250,
       "mysql": {
         "columnName": "ma",
@@ -111,6 +113,38 @@
         "columnName": "xoa",
         "dataType": "tinyint"
       }
+    }
+  },
+  "relations": {
+    "bieuNhapLieu": {
+      "type": "belongsTo",
+      "model": "BieuNhapLieu",
+      "foreignKey": "bieuNhapLieuId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "donVi": {
+      "type": "belongsTo",
+      "model": "DonVi",
+      "foreignKey": "donViId",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "foreignKeys": {
+    "bieuNhapLieuId": {
+      "name": "BieuNhapLieu_DonViNhap-BieuNhapLieu",
+      "foreignKey": "bieuNhapLieuId",
+      "entityKey": "id",
+      "entity": "BieuNhapLieu"
+    },
+    "truongNhapLieuId": {
+      "name": "BieuNhapLieu_DonViNhap-DonViNhap",
+      "foreignKey": "donViId",
+      "entityKey": "id",
+      "entity": "DonVi"
     }
   }
 }
