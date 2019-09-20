@@ -1,43 +1,8 @@
-app = require('../../../server/server')
-let BieuNhapLieu = app.models.BieuNhapLieu
-let SysKyBaoCao = app.models.SysKyBaoCao
-let to = require('await-to-js').to
-
-'use strict'
-
 module.exports = function(BieuNhapLieu_KyBaoCao) {
+    const Promise = require('bluebird')
+
     BieuNhapLieu_KyBaoCao.createBK = async function(uid, ma, bieuNhapLieuId, sysKyBaoCaoId, ten, ghiChu){
-        let [err, BK] = await to(BieuNhapLieu_KyBaoCao.findOne({where: {uid: uid}}))
-        if (err||BK != null) {
-            return {
-                'statusCode': 400, 
-                'message': 'uid da ton tai'
-            }
-        }
-        let [err2, BK2] = await to(BieuNhapLieu_KyBaoCao.findOne({where: {ma: ma}}))
-        if (err2||BK2 != null) {
-            return {
-                'statusCode': 400, 
-                'message': 'ma BieuNhapLieu_KyBaoCao da ton tai'
-            }
-        }
-        let BieuNhapLieu = app.models.BieuNhapLieu
-        let SysKyBaoCao = app.models.SysKyBaoCao
-        let [errBNL, BNL] = await to(BieuNhapLieu.findOne({where: {id: bieuNhapLieuId}}))
-        if (errBNL||BNL == null) {
-            return {
-                'statusCode': 404, 
-                'message': 'BieuNhapLieu khong ton tai'
-            }
-        }
-        let [errKBC, KBC] = await to(SysKyBaoCao.findOne({where: {id: sysKyBaoCaoId}}))
-        if (errKBC||KBC == null) {
-            return {
-                'statusCode': 404, 
-                'message': 'KyBaoCao khong ton tai'
-            }
-        }
-        let BKData = {
+        const BKData = {
             uid: uid,
             ma: ma,
             bieuNhapLieuId: bieuNhapLieuId,
@@ -47,180 +12,116 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
             hieuLuc: 1,
             xoa: 0
         }
-        let [errCreate, BKCreate] = await to(BieuNhapLieu_KyBaoCao.create(BKData))
-        if (errCreate||!BKCreate) {
-            return {
-                'statusCode': 400, 
-                'message': 'create fail'
-            }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'create success'
+        try {
+            const data = await BieuNhapLieu_KyBaoCao.create(BKData)
+            return data
+        } catch (err) {
+            console.log('createBieuNhapLieu_KyBaoCao', err)
+            throw err
         }
     }
 
     BieuNhapLieu_KyBaoCao.updateBK = async function(id, ma, bieuNhapLieuId, sysKyBaoCaoId, ten, ghiChu, hieuLuc){
-        let [err1, BK] = await to(BieuNhapLieu_KyBaoCao.findOne({where: {id: id}}))
-        if (err1||BK == null) {
-            return {
-                'statusCode': 404, 
-                'message': 'BieuNhapLieu_KyBaoCao khong ton tai'
+        try {
+            const BK = await BieuNhapLieu_KyBaoCao.findById(id)
+            if (BK.xoa == 1){
+                return null
             }
-        }
-        if (BK.xoa == 1){
-            return {
-                'statusCode': 400, 
-                'message': 'BieuNhapLieu_KyBaoCao da bi xoa'
+            const BKData = {
+                id: id,
+                ma: ma,
+                bieuNhapLieuId: bieuNhapLieuId,
+                sysKyBaoCaoId: sysKyBaoCaoId,
+                ten: ten,
+                ghiChu: ghiChu,
+                hieuLuc: hieuLuc
             }
-        }
-        if (ma != null){
-            let [err2, BK2] = await to(BieuNhapLieu_KyBaoCao.findOne({where: {ma: ma}}))
-            if (err2||BK2 != null) {
-                return {
-                    'statusCode': 400, 
-                    'message': 'ma BieuNhapLieu_KyBaoCao da ton tai'
-                }
+            try {
+                const data = await BieuNhapLieu_KyBaoCao.upsertWithWhere({id: BKData.id}, BKData)
+                return data
+            } catch (err) {
+                console.log('updateBieuNhapLieu_KyBaoCao', err)
+                throw err
             }
-        }
-        if (bieuNhapLieuId != null){
-            let BieuNhapLieu = app.models.BieuNhapLieu
-            let [errBNL, BNL] = await to(BieuNhapLieu.findOne({where: {id: bieuNhapLieuId}}))
-            if (errBNL||BNL == null) {
-                return {
-                    'statusCode': 404, 
-                    'message': 'BieuNhapLieu khong ton tai'
-                }
-            }
-        }
-        if (sysKyBaoCaoId != null){
-            let SysKyBaoCao = app.models.SysKyBaoCao
-            let [errKBC, KBC] = await to(SysKyBaoCao.findOne({where: {id: sysKyBaoCaoId}}))
-            if (errKBC||KBC == null) {
-                return {
-                    'statusCode': 404, 
-                    'message': 'KyBaoCao khong ton tai'
-                }
-            }
-        }
-        let BKData = {
-            id: id,
-            ma: ma,
-            bieuNhapLieuId: bieuNhapLieuId,
-            sysKyBaoCaoId: sysKyBaoCaoId,
-            ten: ten,
-            ghiChu: ghiChu,
-            hieuLuc: hieuLuc
-        }
-        let [errUpdate, BKUpdate] = await to(BieuNhapLieu_KyBaoCao.upsert(BKData))
-        if (errUpdate || !BKUpdate) {
-            return {
-                'statusCode': 400, 
-                'message': 'update fail'
-            }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'update success'
+        } catch (err) {
+            console.log('findBK', err)
+            throw err
         }
     }
 
     BieuNhapLieu_KyBaoCao.deleteBK = async function(id){
-        let [err, BK] = await to(BieuNhapLieu_KyBaoCao.findOne({where: {id: id}}))
-        if (err||BK == null) {
-            return {
-                'statusCode': 404, 
-                'message': 'BieuNhapLieu_KyBaoCao khong ton tai'
-            }
-        }
-        if (BK.xoa == 1){
-            return {
-                'statusCode': 400, 
-                'message': 'BieuNhapLieu_KyBaoCao da bi xoa'
-            }
-        }
-        let [errDelete, BKDelete] = await to(BieuNhapLieu_KyBaoCao.upsertWithWhere({id: id}, {xoa: 1}))
-        if (errDelete || !BKDelete) {
-            return {
-                'statusCode': 400, 
-                'message': 'delete fail'
-            }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'delete success'
+        try {
+            const data = await BieuNhapLieu_KyBaoCao.upsertWithWhere({id: id},{ xoa: true })
+            return data
+        } catch (err) {
+            console.log('deleteBieuNhapLieu_KyBaoCao', err)
+            throw err
         }
     }
 
     BieuNhapLieu_KyBaoCao.restoreBK = async function(id){
-        let [err, BK] = await to(BieuNhapLieu_KyBaoCao.findOne({where: {id: id}}))
-        if (err||BK == null) {
-            return {
-                'statusCode': 404, 
-                'message': 'BieuNhapLieu_KyBaoCao khong ton tai'
-            }
-        }
-        if (BK.xoa == 0){
-            return {
-                'statusCode': 400, 
-                'message': 'BieuNhapLieu_KyBaoCao khong bi xoa'
-            }
-        }
-        let [errRestore, BKRestore] = await to(BieuNhapLieu_KyBaoCao.upsertWithWhere({id: id}, {xoa: 0}))
-        if (errRestore || !BKRestore) {
-            return {
-                'statusCode': 400, 
-                'message': 'restore fail'
-            }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'restore success'
+        try {
+            const data = await BieuNhapLieu_KyBaoCao.upsertWithWhere({id: id}, { xoa: false })
+            return data
+        } catch (err) {
+            console.log('restoreBieuNhapLieu_KyBaoCao', err)
+            throw err
         }
     }
 
     BieuNhapLieu_KyBaoCao.readBK = async function(id){
-        let [err, BK] = await to(BieuNhapLieu_KyBaoCao.findOne({where: {id: id}}))
-        if (err||BK == null) {
-            return {
-                'statusCode': 404, 
-                'message': 'BieuNhapLieu_KyBaoCao khong ton tai'
-            }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'thong tin cua BieuNhapLieu_KyBaoCao',
-            'result': BK
+        try {
+            const data = await BieuNhapLieu_KyBaoCao.findById(id, {where: {xoa: false}})
+            return data
+        } catch (err) {
+            console.log('readBieuNhapLieu_KyBaoCao', err)
+            throw err
         }
     }
 
     BieuNhapLieu_KyBaoCao.listBK= async function(queryData, page, pageSize){
-        let [err, BKArr] = await to(BieuNhapLieu_KyBaoCao.find({where: {xoa: 0}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
-        if (err||BKArr == null) {
+        try {
+            const [data, total] = await Promise.all([
+                BieuNhapLieu_KyBaoCao.find({
+                where: {xoa: 0},
+                fields: {ma: true, ten: true, ghiChu: true, hieuLuc: true},
+                limit: pageSize,
+                skip: page
+              }),
+              BieuNhapLieu_KyBaoCao.count({xoa: false})
+            ])
             return {
-                'statusCode': 404, 
-                'message': 'ds BieuNhapLieu_KyBaoCao khong ton tai'
+              rows: data,
+              page: page,
+              pageSize: pageSize,
+              total: total
             }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'danh sach cua BieuNhapLieu_KyBaoCao',
-            'result': BKArr
+        } catch (err) {
+            console.log('listBieuNhapLieu_KyBaoCao', err)
+            throw err
         }
     }
 
     BieuNhapLieu_KyBaoCao.listDeletedBK = async function(queryData, page, pageSize){
-        let [err, BKArr] = await to(BieuNhapLieu_KyBaoCao.find({where: {xoa: 1}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
-        if (err||BKArr == null) {
+        try {
+            const [data, total] = await Promise.all([
+              BieuNhapLieu_KyBaoCao.find({
+                where: {xoa: 1},
+                fields: {ma: true, ten: true, ghiChu: true, hieuLuc: true},
+                limit: pageSize,
+                skip: page
+              }),
+              BieuNhapLieu_KyBaoCao.count({xoa: true})
+            ])
             return {
-                'statusCode': 404, 
-                'message': 'ds BieuNhapLieu_KyBaoCao da bi xoa khong ton tai'
+              rows: data,
+              page: page,
+              pageSize: pageSize,
+              total: total
             }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'danh sach cua BieuNhapLieu_KyBaoCao da bi xoa',
-            'result': BKArr
+        } catch (err) {
+            console.log('listDeletedBieuNhapLieu_KyBaoCao', err)
+            throw err
         }
     }
 
@@ -235,7 +136,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
                 {arg: 'ten', type: 'string', required: false},
                 {arg: 'ghiChu', type: 'string', required: false}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         }
     )
 
@@ -251,7 +152,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
                 {arg: 'ghiChu', type: 'string', required: false},
                 {arg: 'hieuLuc', type: 'number', required: false}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         }
     )
 
@@ -261,7 +162,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -271,7 +172,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -281,7 +182,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -293,7 +194,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
                 { arg: 'page', type: 'number', default: '0'},
                 { arg: 'pageSize', type: 'number', default: '20'}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -305,7 +206,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
                 { arg: 'page', type: 'number', default: '0'},
                 { arg: 'pageSize', type: 'number', default: '20'}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 }

@@ -79,7 +79,7 @@ module.exports = function(QCTinh) {
 
     QCTinh.readTinh = async function(id){
         try {
-            const data = await ChiTieuNhom.findById(id, {where: {xoa: false}})
+            const data = await QCTinh.findById(id, {where: {xoa: false}})
             return data
         } catch (err) {
             console.log('readQCTinh', err)
@@ -92,7 +92,9 @@ module.exports = function(QCTinh) {
             const [data, total] = await Promise.all([
               QCTinh.find({
                 where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, hieuLuc: true}
+                fields: {ma: true, ten: true, ghiChu: true, hieuLuc: true},
+                limit: pageSize,
+                skip: page
               }),
               QCTinh.count({xoa: false})
             ])
@@ -113,9 +115,11 @@ module.exports = function(QCTinh) {
             const [data, total] = await Promise.all([
               QCTinh.find({
                 where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, hieuLuc: true}
+                fields: {ma: true, ten: true, ghiChu: true, hieuLuc: true},
+                limit: pageSize,
+                skip: page
               }),
-              QCTinh.count({xoa: false})
+              QCTinh.count({xoa: true})
             ])
             return {
               rows: data,

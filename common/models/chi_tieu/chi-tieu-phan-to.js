@@ -1,25 +1,8 @@
-app = require('../../../server/server')
-let to = require('await-to-js').to
-
-'use strict';
-
 module.exports = function(ChiTieuPhanTo){
+    const Promise = require('bluebird')
+
     ChiTieuPhanTo.createCTPT = async function(uid, ma, ten, ghiChu){
-        let [err1, CTPT1] = await to(ChiTieuPhanTo.findOne({where: {uid: uid}}))
-        if (err1||CTPT1 != null) {
-            return {
-                'statusCode': 400, 
-                'message': 'uid chi tieu phan to da ton tai'
-            }
-        }
-        let [err2, CTPT2] = await to(ChiTieuPhanTo.findOne({where: {ma: ma}}))
-        if (err2||CTPT2 != null) {
-            return {
-                'statusCode': 400, 
-                'message': 'ma chi tieu phan to da ton tai'
-            }
-        }
-        let CTPTdata = {
+        const CTPTData = {
             uid: uid,
             ma: ma,
             ten: ten,
@@ -27,158 +10,114 @@ module.exports = function(ChiTieuPhanTo){
             hieuLuc: 1,
             xoa: 0
         }
-        let [errCreate, data] = await to(ChiTieuPhanTo.create(CTPTdata))
-        if (errCreate||!data) {
-            return {
-                'statusCode': 400, 
-                'message': 'create fail'
-            }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'create success'
+        try {
+            const data = await ChiTieuPhanTo.create(CTPTData)
+            return data
+        } catch (err) {
+            console.log('createChiTieuPhanTo', err)
+            throw err
         }
     }
 
     ChiTieuPhanTo.updateCTPT = async function(id, ma, ten, ghiChu, hieuLuc){
-        let [err, CTPT] = await to(ChiTieuPhanTo.findOne({where: {id: id}}))
-        if (err||CTPT == null) {
-            return {
-                'statusCode': 404, 
-                'message': 'chi tieu phan to khong ton tai'
+        try {
+            const CTPT = await ChiTieuPhanTo.findById(id)
+            if (CTPT.xoa == 1){
+                return null
             }
-        }
-        if (CTPT.xoa == 1){
-            return {
-                'statusCode': 400, 
-                'message': 'chi tieu phan to da bi xoa'
+            const CTPTData = {
+                id: id,
+                ma: ma,
+                ten: ten,
+                ghiChu: ghiChu,
+                hieuLuc: hieuLuc
             }
-        }
-        if (ma != null){
-            let [err2, CTPT2] = await to(ChiTieuPhanTo.findOne({where: {ma: ma}}))
-            if (err2||CTPT2 != null) {
-                return {
-                    'statusCode': 400, 
-                    'message': 'ma chi tieu phan to da ton tai'
-                }
+            try {
+                const data = await ChiTieuPhanTo.upsertWithWhere({id: CTPTData.id}, CTPTData)
+                return data
+            } catch (err) {
+                console.log('updateChiTieuPhanTo', err)
+                throw err
             }
-        }
-        let CTPTdata = {
-            id: id,
-            ma: ma,
-            ten: ten,
-            ghiChu: ghiChu,
-            hieuLuc: hieuLuc
-        }
-        let [errUpdate, CTPTUpdate] = await to(ChiTieuPhanTo.upsert(CTPTdata))
-        if (errUpdate || !CTPTUpdate) {
-            return {
-                'statusCode': 400, 
-                'message': 'update fail'
-            }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'update success'
+        } catch (err) {
+            console.log('findCTPT', err)
+            throw err
         }
     }
 
     ChiTieuPhanTo.deleteCTPT = async function(id){
-        let [err, CTPT] = await to(ChiTieuPhanTo.findOne({where: {id: id}}))
-        if (err||CTPT == null) {
-            return {
-                'statusCode': 404, 
-                'message': 'chi tieu phan to khong ton tai'
-            }
-        }
-        if (CTPT.xoa == 1){
-            return {
-                'statusCode': 400, 
-                'message': 'chi tieu phan to da bi xoa'
-            }
-        }
-        let [errDelete, CTPTDelete] = await to(ChiTieuPhanTo.upsertWithWhere({id: id}, {xoa: 1}))
-        if (errDelete || !CTPTDelete) {
-            return {
-                'statusCode': 400, 
-                'message': 'delete fail'
-            }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'delete success'
+        try {
+            const data = await ChiTieuPhanTo.upsertWithWhere({id: id},{ xoa: true })
+            return data
+        } catch (err) {
+            console.log('deleteChiTieuPhanTo', err)
+            throw err
         }
     }
     
     ChiTieuPhanTo.restoreCTPT = async function(id){
-        let [err, CTPT] = await to(ChiTieuPhanTo.findOne({where: {id: id}}))
-        if (err||CTPT == null) {
-            return {
-                'statusCode': 404, 
-                'message': 'chi tieu phan to khong ton tai'
-            }
-        }
-        if (CTPT.xoa == 0){
-            return {
-                'statusCode': 400, 
-                'message': 'chi tieu phan to khong bi xoa'
-            }
-        }
-        let [errRestore, CTPTRestore] = await to(ChiTieuPhanTo.upsertWithWhere({id: id}, {xoa: 0}))
-        if (errRestore || !CTPTRestore) {
-            return {
-                'statusCode': 400, 
-                'message': 'restore fail'
-            }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'restore success'
+        try {
+            const data = await ChiTieuPhanTo.upsertWithWhere({id: id}, { xoa: false })
+            return data
+        } catch (err) {
+            console.log('restoreChiTieuPhanTo', err)
+            throw err
         }
     }
 
     ChiTieuPhanTo.readCTPT = async function(id){
-        let [err, CTPT] = await to(ChiTieuPhanTo.findOne({where: {id: id}}))
-        if (err||CTPT == null) {
-            return {
-                'statusCode': 404, 
-                'message': 'chi tieu phan to khong ton tai'
-            }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'thong tin cua chi tieu phan to',
-            'result': CTPT
+        try {
+            const data = await ChiTieuPhanTo.findById(id, {where: {xoa: false}})
+            return data
+        } catch (err) {
+            console.log('readChiTieuPhanTo', err)
+            throw err
         }
     }
 
     ChiTieuPhanTo.listCTPT = async function(queryData, page, pageSize){
-        let [err, CTPTArr] = await to(ChiTieuPhanTo.find({where: {xoa: 0}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
-        if (err||CTPTArr == null) {
+        try {
+            const [data, total] = await Promise.all([
+              ChiTieuPhanTo.find({
+                where: {xoa: 0},
+                fields: {ma: true, ten: true, ghiChu: true, hieuLuc: true},
+                limit: pageSize,
+                skip: page
+              }),
+              ChiTieuPhanTo.count({xoa: false})
+            ])
             return {
-                'statusCode': 404, 
-                'message': 'ds chi tieu phan to khong ton tai'
+              rows: data,
+              page: page,
+              pageSize: pageSize,
+              total: total
             }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'danh sach chi tieu phan to',
-            'result': CTPTArr
+        } catch (err) {
+            console.log('listChiTieuPhanTo', err)
+            throw err
         }
     }
 
     ChiTieuPhanTo.listDeletedCTPT = async function(queryData, page, pageSize){
-        let [err, CTPTArr] = await to(ChiTieuPhanTo.find({where: {xoa: 1}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
-        if (err||CTPTArr == null) {
+        try {
+            const [data, total] = await Promise.all([
+              ChiTieuPhanTo.find({
+                where: {xoa: 1},
+                fields: {ma: true, ten: true, ghiChu: true, hieuLuc: true},
+                limit: pageSize,
+                skip: page
+              }),
+              ChiTieuPhanTo.count({xoa: true})
+            ])
             return {
-                'statusCode': 404, 
-                'message': 'ds chi tieu phan to da bi xoa khong ton tai'
+              rows: data,
+              page: page,
+              pageSize: pageSize,
+              total: total
             }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'danh sach chi tieu phan to da bi xoa',
-            'result': CTPTArr
+        } catch (err) {
+            console.log('listDeletedChiTieuPhanTo', err)
+            throw err
         }
     }
 
@@ -191,7 +130,7 @@ module.exports = function(ChiTieuPhanTo){
                 {arg: 'ten', type: 'string', required: false},
                 {arg: 'ghiChu', type: 'string', required: false}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -205,7 +144,7 @@ module.exports = function(ChiTieuPhanTo){
                 {arg: 'ghiChu', type: 'string', required: false},
                 {arg: 'hieuLuc', type: 'number', required: false}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -215,7 +154,7 @@ module.exports = function(ChiTieuPhanTo){
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -225,7 +164,7 @@ module.exports = function(ChiTieuPhanTo){
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -235,7 +174,7 @@ module.exports = function(ChiTieuPhanTo){
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -247,7 +186,7 @@ module.exports = function(ChiTieuPhanTo){
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -259,7 +198,7 @@ module.exports = function(ChiTieuPhanTo){
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 }
