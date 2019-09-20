@@ -1,24 +1,8 @@
-let to = require('await-to-js').to;
-
-'use strict';
-
 module.exports = function(QCTinh) {
+    const Promise = require('bluebird')
+
     QCTinh.createTinh = async function(uid, ma, ten, ghiChu, cap, loai, nt, bg, hd, dbkk){
-        let [err1, tinh1] = await to(QCTinh.findOne({where: {uid: uid}}))
-        if (err1||tinh1 != null) {
-            return {
-                'statusCode': 400, 
-                'message': 'uid tinh da ton tai'
-            }
-        }
-        let [err2, tinh2] = await to(QCTinh.findOne({where: {ma: ma}}))
-        if (err2||tinh2 != null) {
-            return {
-                'statusCode': 400, 
-                'message': 'ma tinh da ton tai'
-            }
-        }
-        let tinhData = {
+        const tinhData = {
             uid: uid,
             ma: ma,
             ten: ten,
@@ -32,165 +16,116 @@ module.exports = function(QCTinh) {
             hieuLuc: 1,
             xoa: 0
         }
-        let [errCreate, data] = await to(QCTinh.create(tinhData))
-        if (errCreate||!data) {
-            console.log(errCreate)
-            return {
-                'statusCode': 400, 
-                'message': 'create fail'
-            }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'create success'
+        try {
+            const data = await QCTinh.create(tinhData)
+            return data
+        } catch (err) {
+            console.log('createQCTinh', err)
+            throw err
         }
     }
 
     QCTinh.updateTinh = async function(id, ma, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
-        let [err, tinh] = await to(QCTinh.findOne({where: {id: id}}))
-        if (err||tinh == null) {
-            return {
-                'statusCode': 404, 
-                'message': 'tinh khong ton tai'
+        try {
+            const tinh = await QCTinh.findById(id)
+            if (tinh.xoa == 1){
+                return null
             }
-        }
-        if (tinh.xoa == 1){
-            return {
-                'statusCode': 400, 
-                'message': 'tinh da bi xoa'
+            const tinhData = {
+                id: id,
+                ma: ma,
+                ten: ten,
+                ghiChu: ghiChu,
+                capDonViHanhChinh: cap,
+                loaiDonViHanhChinh: loai,
+                nongThon: nt,
+                bienGioi: bg,
+                haiDao: hd,
+                vungDBKhoKhan: dbkk,
+                hieuLuc: hieuLuc
             }
-        }
-        if (ma != null){
-            let [err2, tinh2] = await to(QCTinh.findOne({where: {ma: ma}}))
-            if (err2||tinh2 != null) {
-                return {
-                    'statusCode': 400, 
-                    'message': 'ma tinh da ton tai'
-                }
+            try {
+                const data = await QCTinh.upsertWithWhere({id: tinhData.id}, tinhData)
+                return data
+            } catch (err) {
+                console.log('updateQCTinh', err)
+                throw err
             }
-        }
-        let tinhData = {
-            id: id,
-            ma: ma,
-            ten: ten,
-            ghiChu: ghiChu,
-            capDonViHanhChinh: cap,
-            loaiDonViHanhChinh: loai,
-            nongThon: nt,
-            bienGioi: bg,
-            haiDao: hd,
-            vungDBKhoKhan: dbkk,
-            hieuLuc: hieuLuc
-        }
-        let [errUpdate, tinhUpdate] = await to(QCTinh.upsert(tinhData))
-        if (errUpdate || !tinhUpdate) {
-            return {
-                'statusCode': 400, 
-                'message': 'update fail'
-            }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'update success'
+        } catch (err) {
+            console.log('findTinh', err)
+            throw err
         }
     }
 
     QCTinh.deleteTinh = async function(id){
-        let [err, tinh] = await to(QCTinh.findOne({where: {id: id}}))
-        if (err||tinh == null) {
-            return {
-                'statusCode': 404, 
-                'message': 'tinh khong ton tai'
-            }
-        }
-        if (tinh.xoa == 1){
-            return {
-                'statusCode': 400, 
-                'message': 'tinh da bi xoa'
-            }
-        }
-        let [errDelete, tinhDelete] = await to(QCTinh.upsertWithWhere({id: id}, {xoa: 1}))
-        if (errDelete || !tinhDelete) {
-            return {
-                'statusCode': 400, 
-                'message': 'delete fail'
-            }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'delete success'
+        try {
+            const data = await QCTinh.upsertWithWhere({id: id},{ xoa: true })
+            return data
+        } catch (err) {
+            console.log('deleteQCTinh', err)
+            throw err
         }
     }
     
     QCTinh.restoreTinh = async function(id){
-        let [err, tinh] = await to(QCTinh.findOne({where: {id: id}}))
-        if (err||tinh == null) {
-            return {
-                'statusCode': 404, 
-                'message': 'tinh khong ton tai'
-            }
-        }
-        if (tinh.xoa == 0){
-            return {
-                'statusCode': 400, 
-                'message': 'tinh khong bi xoa'
-            }
-        }
-        let [errRestore, tinhRestore] = await to(QCTinh.upsertWithWhere({id: id}, {xoa: 0}))
-        if (errRestore || !tinhRestore) {
-            return {
-                'statusCode': 400, 
-                'message': 'restore fail'
-            }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'restore success'
+        try {
+            const data = await QCTinh.upsertWithWhere({id: id}, { xoa: false })
+            return data
+        } catch (err) {
+            console.log('restoreQCTinh', err)
+            throw err
         }
     }
 
     QCTinh.readTinh = async function(id){
-        let [err, tinh] = await to(QCTinh.findOne({where: {id: id}}))
-        if (err||tinh == null) {
-            return {
-                'statusCode': 404, 
-                'message': 'tinh khong ton tai'
-            }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'thong tin cua tinh',
-            'result': tinh
+        try {
+            const data = await ChiTieuNhom.findById(id, {where: {xoa: false}})
+            return data
+        } catch (err) {
+            console.log('readQCTinh', err)
+            throw err
         }
     }
 
     QCTinh.listTinh = async function(queryData, page, pageSize){
-        let [err, tinhArr] = await to(QCTinh.find({where: {xoa: 0}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
-        if (err||tinhArr == null) {
+        try {
+            const [data, total] = await Promise.all([
+              QCTinh.find({
+                where: {xoa: 0},
+                fields: {ma: true, ten: true, ghiChu: true, hieuLuc: true}
+              }),
+              QCTinh.count({xoa: false})
+            ])
             return {
-                'statusCode': 404, 
-                'message': 'ds tinh khong ton tai'
+              rows: data,
+              page: page,
+              pageSize: pageSize,
+              total: total
             }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'danh sach tinh',
-            'result': tinhArr
+        } catch (err) {
+            console.log('listQCTinh', err)
+            throw err
         }
     }
 
     QCTinh.listDeletedTinh = async function(queryData, page, pageSize){
-        let [err, tinhArr] = await to(QCTinh.find({where: {xoa: 1}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
-        if (err||tinhArr == null) {
+        try {
+            const [data, total] = await Promise.all([
+              QCTinh.find({
+                where: {xoa: 1},
+                fields: {ma: true, ten: true, ghiChu: true, hieuLuc: true}
+              }),
+              QCTinh.count({xoa: false})
+            ])
             return {
-                'statusCode': 404, 
-                'message': 'ds tinh da bi xoa khong ton tai'
+              rows: data,
+              page: page,
+              pageSize: pageSize,
+              total: total
             }
-        }
-        return {
-            'statusCode': 200, 
-            'message': 'danh sach tinh da bi xoa',
-            'result': tinhArr
+        } catch (err) {
+            console.log('listDeletedQCTinh', err)
+            throw err
         }
     }
 
@@ -209,7 +144,7 @@ module.exports = function(QCTinh) {
                 {arg: 'hd', type: 'string', required: false},
                 {arg: 'dbkk', type: 'string', required: false}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -229,7 +164,7 @@ module.exports = function(QCTinh) {
                 {arg: 'dbkk', type: 'string', required: false},
                 {arg: 'hieuLuc', type: 'number', required: false}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -239,7 +174,7 @@ module.exports = function(QCTinh) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -249,7 +184,7 @@ module.exports = function(QCTinh) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -259,7 +194,7 @@ module.exports = function(QCTinh) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -271,7 +206,7 @@ module.exports = function(QCTinh) {
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -283,7 +218,7 @@ module.exports = function(QCTinh) {
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
-            returns: [{arg: 'data', type: 'object'}],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 }
