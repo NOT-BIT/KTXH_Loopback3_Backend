@@ -1,7 +1,5 @@
 {
   "name": "QTUsers-TacNhan",
-  "base": "Model",
-  "idInjection": true,
   "options": {
     "mysql": {
       "table": "qt_users-tac_nhan"

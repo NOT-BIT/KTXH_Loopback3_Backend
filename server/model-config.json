@@ -21,17 +21,6 @@
       "./mixins"
     ]
   },
-  "Users": {
-    "dataSource": "mysql",
-    "public": true,
-    "options": {
-      "remoting": {
-        "sharedMethods": {
-          "*": true
-        }
-      }
-    }
-  },
 
   "BieuNhapLieu_ChiTieu": {
     "dataSource": "mysql",

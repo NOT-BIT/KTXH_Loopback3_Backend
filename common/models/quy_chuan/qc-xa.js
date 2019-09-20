@@ -1,25 +1,8 @@
-app = require('../../../server/server')
-let QCHuyen = app.models.QCHuyen
-let to = require('await-to-js').to
-
-'use strict';
-
 module.exports = function(QCXa) {
+    const Promise = require('bluebird')
+
     QCXa.createXa = async function(uid, ma, qcHuyenId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk){
-        let [err1, xa1] = await to(QCXa.findOne({where: {uid: uid}}))
-        if (err1||xa1 != null) {
-            return [400, 'uid xa da ton tai']
-        }
-        let [err2, xa2] = await to(QCXa.findOne({where: {ma: ma}}))
-        if (err2||xa2 != null) {
-            return [400, 'ma xa da ton tai']
-        }
-        let QCHuyen = app.models.QCHuyen
-        let [errHuyen, huyen] = await to(QCHuyen.findOne({where: {id: qcHuyenId}}))
-        if (errHuyen||huyen == null) {
-            return [404, 'huyen khong ton tai']
-        }
-        let xaData = {
+        const xaData = {
             uid: uid,
             ma: ma,
             qcHuyenId: qcHuyenId,
@@ -34,107 +17,124 @@ module.exports = function(QCXa) {
             hieuLuc: 1,
             xoa: 0
         }
-        let [errCreate, xaCreate] = await to(QCXa.create(xaData))
-        if (errCreate || !xaCreate) {
-            return [400, 'create fail']
+        try {
+            const data = await QCXa.create(xaData)
+            return data
+        } catch (err) {
+            console.log('createQCXa', err)
+            throw err
         }
-        return [200, 'create success']
     }
 
     QCXa.updateXa = async function(id, ma, qcHuyenId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
-        let [err, xa] = await to(QCXa.findOne({where: {id: id}}))
-        if (err||xa == null) {
-            return [404, 'xa khong ton tai']
-        }
-        if (xa.xoa == 1){
-            return [400, 'xa da bi xoa']
-        }
-        if (qcHuyenId != null){
-            let QCHuyen = app.models.QCHuyen
-            let [errhuyen, huyen] = await to(QCxa.findOne({where: {id: qcHuyenId}}))
-            if (errhuyen||huyen == null) {
-                return [404, 'huyen khong ton tai']
+        try {
+            const xa = await QCXa.findById(id)
+            if (xa.xoa == 1){
+                return null
             }
-        }
-        if (ma != null){
-            let [err2, xa2] = await to(QCXa.findOne({where: {ma: ma}}))
-            if (err2||xa2 != null) {
-                return [400, 'da ton tai ma xa nay']
+            const xaData = {
+                id: id,
+                ma: ma,
+                qcHuyenId: qcHuyenId,
+                ten: ten,
+                ghiChu: ghiChu,
+                capDonViHanhChinh: cap,
+                loaiDonViHanhChinh: loai,
+                nongThon: nt,
+                bienGioi: bg,
+                haiDao: hd,
+                vungDBKhoKhan: dbkk,
+                hieuLuc: hieuLuc
             }
+            try {
+                const data = await QCXa.upsertWithWhere({id: xaData.id}, xaData)
+                return data
+            } catch (err) {
+                console.log('updateQCXa', err)
+                throw err
+            }
+        } catch (err) {
+            console.log('findQCXa', err)
+            throw err
         }
-        let xaData = {
-            id: id,
-            ma: ma,
-            qcHuyenId: qcHuyenId,
-            ten: ten,
-            ghiChu: ghiChu,
-            capDonViHanhChinh: cap,
-            loaiDonViHanhChinh: loai,
-            nongThon: nt,
-            bienGioi: bg,
-            haiDao: hd,
-            vungDBKhoKhan: dbkk,
-            hieuLuc: hieuLuc
-        }
-        let [errUpdate, xaUpdate] = await to(QCXa.upsert(xaData))
-        if (errUpdate || !xaUpdate) {
-            return [400, 'update fail']
-        }
-        return [200, 'update success']
     }
 
     QCXa.deleteXa = async function(id){
-        let [err, xa] = await to(QCXa.findOne({where: {id: id}}))
-        if (err||xa == null) {
-            return [404, 'xa khong ton tai']
+        try {
+            const data = await QCXa.upsertWithWhere({id: id},{ xoa: true })
+            return data
+        } catch (err) {
+            console.log('deleteQCXa', err)
+            throw err
         }
-        if (xa.xoa == 1){
-            return [400, 'xa da bi xoa']
-        }
-        let [errDelete, xaDelete] = await to(QCXa.upsertWithWhere({id: id}, {xoa: 1}))
-        if (errDelete || !xaDelete) {
-            return [400, 'delete fail']
-        }
-        return [200, 'delete success']
     }
     
     QCXa.restoreXa = async function(id){
-        let [err, xa] = await to(QCXa.findOne({where: {id: id}}))
-        if (err||xa == null) {
-            return [404, 'xa khong ton tai']
+        try {
+            const data = await QCXa.upsertWithWhere({id: id}, { xoa: false })
+            return data
+        } catch (err) {
+            console.log('restoreQCXa', err)
+            throw err
         }
-        if (xa.xoa == 0){
-            return [400, 'xa khong bi xoa']
-        }
-        let [errRestore, xaRestore] = await to(QCXa.upsertWithWhere({id: id}, {xoa: 0}))
-        if (errRestore || !xaRestore) {
-            return [400, 'restore fail']
-        }
-        return [200, 'restore success']
     }
 
     QCXa.readXa = async function(id){
-        let [err, xa] = await to(QCXa.findOne({where: {id: id}}))
-        if (err||xa == null) {
-            return [404, 'xa khong ton tai', xa]
+        try {
+            const data = await QCXa.findById(id, {where: {xoa: false}})
+            return data
+        } catch (err) {
+            console.log('readQCXa', err)
+            throw err
         }
-        return [200, 'thong tin cua xa', xa]
     }
 
     QCXa.listXa = async function(queryData, page, pageSize){
-        let [err, xaArr] = await to(QCXa.find({where: {xoa: 0}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
-        if (err||xaArr == null) {
-            return [404, 'khong ton tai', xaArr]
+        try {
+            const [data, total] = await Promise.all([
+                QCXa.find({
+                where: {xoa: 0},
+                fields: {ma: true, ten: true, ghiChu: true, qcHuyenId: true, hieuLuc: true},
+                include: ['QCHuyen'],
+                limit: pageSize,
+                skip: page
+              }),
+              QCXa.count({xoa: false})
+            ])
+            return {
+              rows: data,
+              page: page,
+              pageSize: pageSize,
+              total: total
+            }
+        } catch (err) {
+            console.log('listQCXa', err)
+            throw err
         }
-        return [200, 'danh sach xa', xaArr]
     }
 
     QCXa.listDeletedXa = async function(queryData, page, pageSize){
-        let [err, xaArr] = await to(QCXa.find({where: {xoa: 1}, fields: ['ma', 'ten', 'ghiChu', 'hieuLuc'], limit: pageSize, skip: page}))
-        if (err||xaArr == null) {
-            return [404, 'khong ton tai', xaArr]
+        try {
+            const [data, total] = await Promise.all([
+                QCXa.find({
+                where: {xoa: 1},
+                fields: {ma: true, ten: true, ghiChu: true, qcHuyenId: true, hieuLuc: true},
+                include: ['QCHuyen'],
+                limit: pageSize,
+                skip: page
+              }),
+              QCXa.count({xoa: true})
+            ])
+            return {
+              rows: data,
+              page: page,
+              pageSize: pageSize,
+              total: total
+            }
+        } catch (err) {
+            console.log('listDeletedQCXa', err)
+            throw err
         }
-        return [200, 'danh sach xa da bi xoa', xaArr]
     }
 
     QCXa.remoteMethod(
@@ -153,10 +153,7 @@ module.exports = function(QCXa) {
                 {arg: 'hd', type: 'string', required: false},
                 {arg: 'dbkk', type: 'string', required: false}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -177,10 +174,7 @@ module.exports = function(QCXa) {
                 {arg: 'dbkk', type: 'string', required: false},
                 {arg: 'hieuLuc', type: 'number', required: false}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -190,10 +184,7 @@ module.exports = function(QCXa) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -203,10 +194,7 @@ module.exports = function(QCXa) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'}
-            ],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -216,11 +204,7 @@ module.exports = function(QCXa) {
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'},
-                {arg: 'result', type: 'object'}
-            ],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -232,11 +216,7 @@ module.exports = function(QCXa) {
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'},
-                {arg: 'result', type: 'array'}
-            ],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 
@@ -248,11 +228,7 @@ module.exports = function(QCXa) {
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
-            returns: [
-                {arg: 'statusCode', type: 'number'},
-                {arg: 'message', type: 'string'},
-                {arg: 'result', type: 'array'}
-            ],
+            returns: {arg: 'data', type: 'object'},
         },
     )
 }
