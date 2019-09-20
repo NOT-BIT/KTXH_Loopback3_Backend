@@ -50,11 +50,11 @@
         "nullable": "N"
       }
     },
-    "sysKyBaoCaoId": {
+    "qlKyBaoCaoId": {
       "type": "Number",
       "required": true,
       "mysql": {
-        "columnName": "sys_ky_bao_cao_id",
+        "columnName": "ql_ky_bao_cao_id",
         "dataType": "int",
         "nullable": "N"
       }

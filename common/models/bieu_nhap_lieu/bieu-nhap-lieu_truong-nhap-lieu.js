@@ -1,95 +1,95 @@
-module.exports = function(BieuNhapLieu_KyBaoCao) {
+module.exports = function(BieuNhapLieu_TruongNhapLieu) {
     const Promise = require('bluebird')
 
-    BieuNhapLieu_KyBaoCao.createBK = async function(uid, ma, bieuNhapLieuId, qlKyBaoCaoId, ten, ghiChu){
-        const BKData = {
+    BieuNhapLieu_TruongNhapLieu.createBT = async function(uid, ma, bieuNhapLieuId, truongNhapLieuId, ten, ghiChu){
+        const BTData = {
             uid: uid,
             ma: ma,
             bieuNhapLieuId: bieuNhapLieuId,
-            qlKyBaoCaoId: qlKyBaoCaoId,
+            truongNhapLieuId: truongNhapLieuId,
             ten: ten,
             ghiChu: ghiChu,
             hieuLuc: 1,
             xoa: 0
         }
         try {
-            const data = await BieuNhapLieu_KyBaoCao.create(BKData)
+            const data = await BieuNhapLieu_TruongNhapLieu.create(BTData)
             return data
         } catch (err) {
-            console.log('createBieuNhapLieu_KyBaoCao', err)
+            console.log('createBieuNhapLieu_TruongNhapLieu', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.updateBK = async function(id, ma, bieuNhapLieuId, qlKyBaoCaoId, ten, ghiChu, hieuLuc){
+    BieuNhapLieu_TruongNhapLieu.updateBT = async function(id, ma, bieuNhapLieuId, truongNhapLieuId, ten, ghiChu, hieuLuc){
         try {
-            const BK = await BieuNhapLieu_KyBaoCao.findById(id)
-            if (BK.xoa == 1){
+            const BT = await BieuNhapLieu_TruongNhapLieu.findById(id)
+            if (BT.xoa == 1){
                 return null
             }
-            const BKData = {
+            const BTData = {
                 id: id,
                 ma: ma,
                 bieuNhapLieuId: bieuNhapLieuId,
-                qlKyBaoCaoId: qlKyBaoCaoId,
+                truongNhapLieuId: truongNhapLieuId,
                 ten: ten,
                 ghiChu: ghiChu,
                 hieuLuc: hieuLuc
             }
             try {
-                const data = await BieuNhapLieu_KyBaoCao.upsertWithWhere({id: BKData.id}, BKData)
+                const data = await BieuNhapLieu_TruongNhapLieu.upsertWithWhere({id: BTData.id}, BTData)
                 return data
             } catch (err) {
-                console.log('updateBieuNhapLieu_KyBaoCao', err)
+                console.log('updateBieuNhapLieu_TruongNhapLieu', err)
                 throw err
             }
         } catch (err) {
-            console.log('findBK', err)
+            console.log('findBT', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.deleteBK = async function(id){
+    BieuNhapLieu_TruongNhapLieu.deleteBT = async function(id){
         try {
-            const data = await BieuNhapLieu_KyBaoCao.upsertWithWhere({id: id},{ xoa: true })
+            const data = await BieuNhapLieu_TruongNhapLieu.upsertWithWhere({id: id},{ xoa: true })
             return data
         } catch (err) {
-            console.log('deleteBieuNhapLieu_KyBaoCao', err)
+            console.log('deleteBieuNhapLieu_TruongNhapLieu', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.restoreBK = async function(id){
+    BieuNhapLieu_TruongNhapLieu.restoreBT = async function(id){
         try {
-            const data = await BieuNhapLieu_KyBaoCao.upsertWithWhere({id: id}, { xoa: false })
+            const data = await BieuNhapLieu_TruongNhapLieu.upsertWithWhere({id: id}, { xoa: false })
             return data
         } catch (err) {
-            console.log('restoreBieuNhapLieu_KyBaoCao', err)
+            console.log('restoreBieuNhapLieu_TruongNhapLieu', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.readBK = async function(id){
+    BieuNhapLieu_TruongNhapLieu.readBT = async function(id){
         try {
-            const data = await BieuNhapLieu_KyBaoCao.findById(id, {where: {xoa: false}})
+            const data = await BieuNhapLieu_TruongNhapLieu.findById(id, {where: {xoa: false}})
             return data
         } catch (err) {
-            console.log('readBieuNhapLieu_KyBaoCao', err)
+            console.log('readBieuNhapLieu_TruongNhapLieu', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.listBK= async function(queryData, page, pageSize){
+    BieuNhapLieu_TruongNhapLieu.listBT= async function(queryData, page, pageSize){
         try {
             const [data, total] = await Promise.all([
-                BieuNhapLieu_KyBaoCao.find({
+                BieuNhapLieu_TruongNhapLieu.find({
                 where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, qlKyBaoCaoId: true, hieuLuc: true},
-                include: ['QLKyBaoCao'],
+                fields: {ma: true, ten: true, ghiChu: true, bieuNhapLieuId: true, truongNhapLieuId: true, hieuLuc: true},
+                include: ['BieuNhapLieu', 'TruongNhapLieu'],
                 limit: pageSize,
                 skip: page
               }),
-              BieuNhapLieu_KyBaoCao.count({xoa: false})
+              BieuNhapLieu_TruongNhapLieu.count({xoa: false})
             ])
             return {
               rows: data,
@@ -98,22 +98,22 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
               total: total
             }
         } catch (err) {
-            console.log('listBieuNhapLieu_KyBaoCao', err)
+            console.log('listBieuNhapLieu_TruongNhapLieu', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.listDeletedBK = async function(queryData, page, pageSize){
+    BieuNhapLieu_TruongNhapLieu.listDeletedBT = async function(queryData, page, pageSize){
         try {
             const [data, total] = await Promise.all([
-              BieuNhapLieu_KyBaoCao.find({
+              BieuNhapLieu_TruongNhapLieu.find({
                 where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, qlKyBaoCaoId: true, hieuLuc: true},
-                include: ['QLKyBaoCao'],
+                fields: {ma: true, ten: true, ghiChu: true, bieuNhapLieuId: true, truongNhapLieuId: true, hieuLuc: true},
+                include: ['BieuNhapLieu', 'TruongNhapLieu'],
                 limit: pageSize,
                 skip: page
               }),
-              BieuNhapLieu_KyBaoCao.count({xoa: true})
+              BieuNhapLieu_TruongNhapLieu.count({xoa: true})
             ])
             return {
               rows: data,
@@ -122,19 +122,19 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
               total: total
             }
         } catch (err) {
-            console.log('listDeletedBieuNhapLieu_KyBaoCao', err)
+            console.log('listDeletedBieuNhapLieu_TruongNhapLieu', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'createBK', {
+    BieuNhapLieu_TruongNhapLieu.remoteMethod(
+        'createBT', {
             http: {path: '/create', verb: 'post'},
             accepts: [
                 {arg: 'uid', type: 'string', required: true},
                 {arg: 'ma', type: 'string', required: true},
                 {arg: 'bieuNhapLieuId', type: 'number', required: true},
-                {arg: 'qlKyBaoCaoId', type: 'number', required: true},
+                {arg: 'truongNhapLieuId', type: 'number', required: true},
                 {arg: 'ten', type: 'string', required: false},
                 {arg: 'ghiChu', type: 'string', required: false}
             ],
@@ -142,14 +142,14 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         }
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'updateBK', {
+    BieuNhapLieu_TruongNhapLieu.remoteMethod(
+        'updateBT', {
             http: {path: '/update', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true},
                 {arg: 'ma', type: 'string', required: false},
                 {arg: 'bieuNhapLieuId', type: 'number', required: false},
-                {arg: 'qlKyBaoCaoId', type: 'number', required: false},
+                {arg: 'truongNhapLieuId', type: 'number', required: false},
                 {arg: 'ten', type: 'string', required: false},
                 {arg: 'ghiChu', type: 'string', required: false},
                 {arg: 'hieuLuc', type: 'number', required: false}
@@ -158,8 +158,8 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         }
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'deleteBK', {
+    BieuNhapLieu_TruongNhapLieu.remoteMethod(
+        'deleteBT', {
             http: {path: '/:id/delete', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
@@ -168,8 +168,8 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         },
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'restoreBK', {
+    BieuNhapLieu_TruongNhapLieu.remoteMethod(
+        'restoreBT', {
             http: {path: '/:id/restore', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
@@ -178,8 +178,8 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         },
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'readBK', {
+    BieuNhapLieu_TruongNhapLieu.remoteMethod(
+        'readBT', {
             http: {path: '/:id/read', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
@@ -188,8 +188,8 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         },
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'listBK', {
+    BieuNhapLieu_TruongNhapLieu.remoteMethod(
+        'listBT', {
             http: {path: '/list', verb: 'post'},
             accepts: [
                 {arg: 'queryData', type: 'object', required: false},
@@ -200,8 +200,8 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         },
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'listDeletedBK', {
+    BieuNhapLieu_TruongNhapLieu.remoteMethod(
+        'listDeletedBT', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
                 {arg: 'queryData', type: 'object', required: false},

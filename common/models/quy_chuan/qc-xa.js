@@ -132,7 +132,7 @@ module.exports = function(QCXa) {
               total: total
             }
         } catch (err) {
-            console.log('listDeletedQQCXa', err)
+            console.log('listDeletedQCXa', err)
             throw err
         }
     }
