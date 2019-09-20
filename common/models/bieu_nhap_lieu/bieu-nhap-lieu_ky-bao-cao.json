@@ -122,7 +122,7 @@
         "nestRemoting": true
       }
     },
-    "sysKyBaoCao": {
+    "QLKyBaoCao": {
       "type": "belongsTo",
       "model": "QLKyBaoCao",
       "foreignKey": "qlKyBaoCaoId",
@@ -133,13 +133,13 @@
   },
   "foreignKeys": {
     "bieuNhapLieuId": {
-      "name": "BieuNhapLieu_KyBaoCao",
+      "name": "bieu_nhap_lieu_ky_bao_cao_bieu_nhap_lieu_fk",
       "foreignKey": "bieuNhapLieuId",
       "entityKey": "id",
       "entity": "BieuNhapLieu"
     },
-    "sysKyBaoCaoId": {
-      "name": "KyBaoCao_BieuNhapLieu",
+    "qlKyBaoCaoId": {
+      "name": "bieu_nhap_lieu_ky_bao_cao_ky_bao_cao_fk",
       "foreignKey": "qlKyBaoCaoId",
       "entityKey": "id",
       "entity": "QLKyBaoCao"

@@ -196,11 +196,32 @@
       "options": {
         "nestRemoting": true
       }
+    },
+    "BieuNhapLieu_ChiTieu": {
+      "type": "hasMany",
+      "model": "BieuNhapLieu_ChiTieu",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "BieuNhapLieu_TruongNhapLieu": {
+      "type": "hasMany",
+      "model": "BieuNhapLieu_TruongNhapLieu",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "BieuNhapLieu_KyBaoCao": {
+      "type": "hasMany",
+      "model": "BieuNhapLieu_KyBaoCao",
+      "options": {
+        "nestRemoting": true
+      }
     }
   },
   "foreignKeys": {
     "sysLoaiBieuNhapLieuId": {
-      "name": "BieuNhapLieu_SysLoaiBieuNhapLieu",
+      "name": "bieu_nhap_lieu_sys_loai_bieu_nhap_lieu_fk",
       "foreignKey": "sysLoaiBieuNhapLieuId",
       "entityKey": "id",
       "entity": "SysLoaiBieuNhapLieu"

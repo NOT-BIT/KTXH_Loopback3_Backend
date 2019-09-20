@@ -91,7 +91,6 @@ module.exports = function(TruongNhapLieu) {
     ten,
     donViTinh,
     ghiChu,
-    createdBy,
     sysLoaiTruongNhapLieuId
   ) {
     const truongNhapLieu = {
@@ -101,7 +100,7 @@ module.exports = function(TruongNhapLieu) {
       donViTinh: donViTinh,
       ghiChu: ghiChu,
       createdAt: new Date(),
-      createdBy: createdBy,
+      createdBy: 0,
       sysLoaiTruongNhapLieuId: sysLoaiTruongNhapLieuId
     }
 
@@ -120,8 +119,7 @@ module.exports = function(TruongNhapLieu) {
     ten,
     donViTinh,
     ghiChu,
-    sysLoaiTruongNhapLieuId,
-    updatedBy
+    sysLoaiTruongNhapLieuId
   ) {
     const truongNhapLieu = {
       id: id,
@@ -132,7 +130,7 @@ module.exports = function(TruongNhapLieu) {
       ghiChu: ghiChu,
       sysLoaiTruongNhapLieuId: sysLoaiTruongNhapLieuId,
       updatedAt: new Date(),
-      updatedBy: updatedBy
+      updatedBy: 0
     }
 
     try {
@@ -264,11 +262,6 @@ module.exports = function(TruongNhapLieu) {
         arg: 'sysLoaiTruongNhapLieuId',
         type: 'string',
         required: true
-      },
-      {
-        arg: 'createdBy',
-        type: 'number',
-        required: true
       }
     ],
     returns: { arg: 'data' },
@@ -301,11 +294,6 @@ module.exports = function(TruongNhapLieu) {
       {
         arg: 'sysLoaiTruongNhapLieuId',
         type: 'string'
-      },
-      {
-        arg: 'updatedBy',
-        type: 'number',
-        required: true
       }
     ],
     returns: { arg: 'data' },

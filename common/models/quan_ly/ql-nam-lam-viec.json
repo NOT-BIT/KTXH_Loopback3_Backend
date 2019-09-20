@@ -114,5 +114,14 @@
         "nullable": "Y"
       }
     }
+  },
+  "relations": {
+    "QLKyBaoCao": {
+      "type": "hasMany",
+      "model": "QLKyBaoCao",
+      "options": {
+        "nestRemoting": true
+      }
+    }
   }
 }

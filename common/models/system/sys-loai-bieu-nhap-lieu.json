@@ -97,5 +97,14 @@
         "nullable": "Y"
       }
     }
+  },
+  "relations": {
+    "BieuNhapLieu": {
+      "type": "hasMany",
+      "model": "BieuNhapLieu",
+      "options": {
+        "nestRemoting": true
+      }
+    }
   }
 }
