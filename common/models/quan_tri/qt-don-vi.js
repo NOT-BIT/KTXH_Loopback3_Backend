@@ -1,0 +1,262 @@
+let to = require('await-to-js').to;
+let constants = require('../../constants/constants')
+const Promise = require('bluebird')
+
+module.exports = function(QTDonVi) {
+	  //create Quan Tri Don Vi
+    QTDonVi.createQTDonVi = async function(uid, ma, ten, idCha,
+      diaChi, soDienThoai, email, laDonVi, ghiChu) {
+        const qtDonViData = {
+          uid: uid,
+          ma: ma,
+          ten: ten,
+          idCha: idCha,
+          diaChi: diaChi,
+          soDienThoai: soDienThoai,
+          email: email,
+          laDonVi: laDonVi,
+          ghiChu: ghiChu,
+          createdAt: new Date(),
+          createdBy: 0
+        }
+
+        try {
+          const result = await QTDonVi.create(qtDonViData)
+          return {
+            statusCode: 200,
+            message: "Success",
+            result: result
+          }
+        } catch (err) {
+          console.log('create QT-Don-Vi', err)
+          throw err
+        }
+      }
+    
+
+    //read Quan Tri Don Vi
+    QTDonVi.readQTDonVi = async function(id) {
+        try {
+            const data = await QTDonVi.findById(id, {
+                where: {
+                xoa: 0
+                }
+            });
+            return data;
+        } catch (err) {
+            console.log('read QT-Don-Vi', err)
+            throw err
+        }
+    }
+
+    //update Quan Tri Don Vi
+    QTDonVi.updateQTDonVi = async function(id, ma, ten, idCha,
+      diaChi, soDienThoai, email, laDonVi, ghiChu, hieuLuc) {
+        const qtDonViData = {
+          id: id,
+          ma: ma,
+          ten: ten,
+          idCha: idCha,
+          diaChi: diaChi,
+          soDienThoai: soDienThoai,
+          email: email,
+          laDonVi: laDonVi,
+          ghiChu: ghiChu,
+          updatedAt: new Date(),
+          hieuLuc: hieuLuc
+        }
+
+        try {
+            const data = await QTDonVi.upsertWithWhere(
+              {
+                id: QTDonVi.id
+              },
+              qtDonViData
+            )
+            return data
+          } catch (err) {
+            console.log('update QT-Don-Vi', err)
+            throw err
+          }
+    }
+
+    //delete Quan Tri Don Vi 
+    QTDonVi.deleteQTDonVi = async function(id) {
+        try {
+            const data = await QTDonVi.upsertWithWhere(
+              {
+                id: id
+              },
+              { xoa: 1 }
+            )
+            return data
+          } catch (err) {
+            console.log('delete QT-Don-Vi', err)
+            throw err
+          }
+    }
+
+    // Restore Quan Tri Don Vi 
+    QTDonVi.restoreQTDonVi = async function(id) {
+    	try {
+            const data = await QTDonVi.upsertWithWhere(
+              {
+                id: id
+              },
+              { xoa: 0 }
+            )
+            return data
+          } catch (err) {
+            console.log('restore QT-Don-Vi', err)
+            throw err
+          }
+    }
+
+    // list Quan Tri Don Vi
+    QTDonVi.listQTDonVi = async function(page, pageSize) {
+        try {
+          const [data, total] = await Promise.all([
+            QTDonVi.find({
+              where: {
+                xoa: 0
+              },
+              fields: {
+                ten: true,
+                noidung: true
+              }
+            }),
+            QTDonVi.count({
+              xoa: 0
+            })
+          ])
+    
+          return {
+            rows: data,
+            page: page,
+            pageSize: pageSize,
+            total: total
+          }
+        } catch (err) {
+          console.log('listQTDonVi', err)
+          throw err
+        }
+    }
+
+    // list  deleted Quan Tri Don Vi
+    QTDonVi.listdeletedQTDonVi = async function(page, pageSize) {
+      try {
+        const [data, total] = await Promise.all([
+          QTDonVi.find({
+            where: {
+              xoa: 1
+            },
+            fields: {
+              ten: true,
+              noidung: true
+            }
+          }),
+          QTDonVi.count({
+            xoa: 1
+          })
+        ])
+  
+        return {
+          rows: data,
+          page: page,
+          pageSize: pageSize,
+          total: total
+        }
+      } catch (err) {
+        console.log('list deleted QTDonVi', err)
+        throw err
+      }
+   }
+    
+
+    QTDonVi.remoteMethod('createQTDonVi', 
+      {
+        http: {path: '/create', verb: 'post'},
+        accepts: [
+            {arg: 'uid', type: 'string', required: true},
+            {arg: 'ma', type: 'string', required: true},
+            {arg: 'ten', type: 'string'},
+            {arg: 'idCha', type: 'number'},
+            {arg: 'diaChi', type: 'string'},
+            {arg: 'soDienThoai', type: 'string'},
+            {arg: 'email', type: 'string'},
+            {arg: 'laDonVi', type: 'boolean'},
+            {arg: 'ghiChu', type: 'string'},
+            {arg: 'hieuLuc', type: 'boolean'}
+        ],
+        returns: { arg: 'data' },
+      }
+    )
+
+    QTDonVi.remoteMethod('readQTDonVi', 
+      {
+        http: {path: '/read', verb: 'post'},
+        accepts: [
+            {arg: 'id', type: 'number', required: true}],
+        returns: { arg: 'data' }
+      },
+    )
+
+    QTDonVi.remoteMethod('updateQTDonVi', 
+      {
+        http: {path: '/update', verb: 'post'},
+        accepts: [
+            {arg: 'id', type: 'number', required: true},
+            {arg: 'ma', type: 'string', required: true},
+            {arg: 'ten', type:' string'},
+            {arg: 'idCha', type: 'number'},
+            {arg: 'noiDung', type: 'string'},
+            {arg: 'diaChi', type: 'string'},
+            {arg: 'soDienThoai', type: 'string'},
+            {arg: 'email', type: 'string'},
+            {arg: 'laDonVi', type: 'boolean',},
+            {arg: 'ghiChu', type: 'string'}
+        ],
+        returns: { arg: 'data' }
+      },
+    )
+
+    QTDonVi.remoteMethod('deleteQTDonVi', 
+      {
+        http: {path: '/delete', verb: 'post'},
+        accepts: [
+            {arg: 'id', type: 'number', required: true}
+        ],
+        returns:{ arg: 'data' }
+      },
+    )
+
+    QTDonVi.remoteMethod('restoreQTDonVi', 
+      {
+        http: {path: '/restore', verb: 'post'},
+        accepts: [
+            {arg: 'id', type: 'number', required: true}
+        ],
+        returns:{ arg: 'data' }
+      },
+    )
+
+    QTDonVi.remoteMethod('listQTDonVi', 
+      {
+        http: { verb: 'post', path: '/list' },
+        accepts: [
+          { arg: 'page', type: 'number', default: '0'},
+          { arg: 'pageSize', type: 'number', default: '20'}],
+        returns: { arg: 'data' },
+      }
+    )
+
+    QTDonVi.remoteMethod('listdeletedQTDonVi', 
+      {
+        http: { verb: 'post', path: '/deleted_list' },
+        accepts: [
+          { arg: 'page', type: 'number', default: '0'},
+          { arg: 'pageSize', type: 'number', default: '20'}],
+        returns: { arg: 'data' },
+      })  
+
+};

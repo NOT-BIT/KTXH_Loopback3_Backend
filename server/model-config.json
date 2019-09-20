@@ -209,7 +209,7 @@
       }
     }
   },
-  "QTDonVi-DiaBan": {
+  "QTDonVi_DiaBan": {
     "dataSource": "mysql",
     "public": true,
     "options": {
@@ -397,17 +397,6 @@
     }
   },
   "SysNguonSoLieu": {
-    "dataSource": "mysql",
-    "public": true,
-    "options": {
-      "remoting": {
-        "sharedMethods": {
-          "*": true
-        }
-      }
-    }
-  },
-  "SysNhapLieu01": {
     "dataSource": "mysql",
     "public": true,
     "options": {

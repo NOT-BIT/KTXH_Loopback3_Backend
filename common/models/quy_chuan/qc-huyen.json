@@ -32,15 +32,6 @@
         "nullable": "N"
       }
     },
-    "qcTinhId": {
-      "type": "Number",
-      "required": true, 
-      "mysql": {
-        "columnName": "qc_tinh_id",
-        "dataType": "int",
-        "nullable": "N"
-      }
-    },
     "ten": {
       "type": "String",
       "length": 250,
@@ -50,11 +41,13 @@
         "dataLength": 250
       }
     },
-    "ghiChu": {
-      "type": "String",
+    "qcTinhId": {
+      "type": "Number",
+      "required": true, 
       "mysql": {
-        "columnName": "ghi_chu",
-        "dataType": "longtext"
+        "columnName": "qc_tinh_id",
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "capDonViHanhChinh": {
@@ -107,6 +100,13 @@
       "mysql": {
         "columnName": "vung_db_kho_khan",
         "dataType": "tinyint"
+      }
+    },
+    "ghiChu": {
+      "type": "String",
+      "mysql": {
+        "columnName": "ghi_chu",
+        "dataType": "longtext"
       }
     },
     "createdAt":{

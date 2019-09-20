@@ -1,16 +1,17 @@
 {
   "name": "QTUsers",
+  "base": "Model",
+  "idInjection": true,
   "options": {
-    "idInjection": true,
     "mysql": {
       "table": "qt_users"
-    },
-    "relations": {}
+    }
   },
   "properties": {
     "uid": {
       "type": "String",
       "required": true,
+      "index": { "unique": true },
       "length": 250,
       "mysql": {
         "columnName": "uid",
@@ -21,6 +22,7 @@
     "ma": {
       "type": "String",
       "required": true,
+      "index": { "unique": true },
       "length": 250,
       "mysql": {
         "columnName": "ma",
@@ -37,19 +39,32 @@
         "dataLength": 250
       }
     },
+    "matKhau": {
+      "type": "String",
+      "mysql": {
+        "columnName": "mat_khau",
+        "dataType": "varchar"
+      }
+    },
+    "soDienThoai": {
+      "type": "String",
+      "mysql": {
+        "columnName": "so_dien_thoai",
+        "dataType": "varchar"
+      }
+    },
+    "email": {
+      "type": "String",
+      "mysql": {
+        "columnName": "email",
+        "dataType": "varchar"
+      }
+    },
     "qtDonViId": {
       "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
       "mysql": {
         "columnName": "qt_don_vi_id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
+        "dataType": "int"
       }
     },
     "ghiChu": {
@@ -108,6 +123,25 @@
         "columnName": "xoa",
         "dataType": "tinyint"
       }
+    }
+  },
+  "relations": {
+    "QTDonVi": {
+      "type": "belongsTo",
+      "model": "QTDonVi",
+      "foreignKey": "qtDonViId",
+      "primaryKey": "id",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "foreignKeys": {
+    "qtDonViId": {
+      "name": "qt_users_qt_don_vi_fk",
+      "foreignKey": "qtDonViId",
+      "entityKey": "id",
+      "entity": "QTDonVi"
     }
   }
 }

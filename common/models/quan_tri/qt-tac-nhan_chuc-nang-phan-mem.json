@@ -1,59 +1,152 @@
 {
-  "name": "QTTacNhan_ChucNangPhanMem",
+  "name": "QTTacNhan-ChucNangPhanMem",
   "options": {
     "idInjection": true,
     "mysql": {
-      "schema": "ktxh_caphuyen_custom",
       "table": "qt_tac_nhan-chuc_nang_phan_mem"
     },
     "relations": {}
   },
   "properties": {
-    "id": {
-      "type": "Number",
+    "uid": {
+      "type": "String",
       "required": true,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
-      "id": 1,
+      "index": { "unique": true },
+      "length": 50,
       "mysql": {
-        "columnName": "id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
+        "columnName": "uid",
+        "dataType": "varchar",
         "nullable": "N"
       }
     },
-    "qtChucNangPhanMem": {
-      "type": "Number",
+    "ten": {
+      "type": "String",
       "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
+      "length": 250,
       "mysql": {
-        "columnName": "qt_chuc_nang_phan_mem",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
+        "columnName": "ten",
+        "dataType": "varchar"
+      }
+    },
+    "ma": {
+      "type": "String",
+      "required": false,
+      "length": 50,
+      "mysql": {
+        "columnName": "ma",
+        "dataType": "varchar"
       }
     },
     "qtTacNhanId": {
       "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
+      "required": true,
       "mysql": {
         "columnName": "qt_tac_nhan_id",
         "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
+        "nullable": "N"
       }
+    },
+    "qtChucNangPhanMemId": {
+      "type": "Number",
+      "required": true,
+      "mysql": {
+        "columnName": "qt_chuc_nang_phan_mem_id",
+        "dataType": "int",
+        "nullable": "N"
+      }
+    },
+    "createdAt": {
+      "type": "Date",
+      "required": true,
+      "mysql": {
+        "columnName": "created_at",
+        "dataType": "date"
+      }
+    },
+
+    "updatedAt": {
+      "type": "Date",
+      "required": false,
+      "mysql": {
+        "columnName": "updated_at",
+        "dataType": "date"
+      }
+    },
+
+    "createdBy": {
+      "type": "Number",
+      "required": true,
+      "mysql": {
+        "columnName": "created_by",
+        "dataType": "int"
+      }
+    },
+
+    "updatedBy": {
+      "type": "Number",
+      "required": false,
+      "mysql": {
+        "columnName": "updated_by",
+        "dataType": "int"
+      }
+    },
+    "hieuLuc": {
+      "type": "Boolean",
+      "default": 1,
+      "precision": 3,
+      "scale": 0,
+      "mysql": {
+        "columnName": "hieu_luc",
+        "dataType": "tinyint"
+      }
+    },
+
+    "xoa": {
+      "type": "Boolean",
+      "default": 0,
+      "precision": false,
+      "scale": 0,
+      "mysql": {
+        "columnName": "xoa",
+        "dataType": "tinyint"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "QTTacNhan": {
+      "type":"belongsTo",
+      "model": "QTTacNhan",
+      "foreignKey": "qtTacNhanId",
+      "primaryKey": "id",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "QTChucNangPhanMem": {
+      "type":"belongsTo",
+      "model": "QTChucNangPhanMem",
+      "foreignKey": "qtChucNangPhanMemId",
+      "primaryKey": "id",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {},
+  "foreignKeys": {
+    "qtTacNhanId": {
+      "name": "qt_tac_nhan_chuc_nang_phan_mem_qt_tac_nhan_fk",
+      "foreignKey": "qtTacNhanId",
+      "entityKey": "id",
+      "entity": "QTTacNhan"
+    },
+    "qtChucNangPhanMemId": {
+      "name": "qt_tac_nhan_chuc_nang_phan_mem_qt_chuc_nang_phan_mem_fk",
+      "foreignKey": "qtChucNangPhanMemId",
+      "entityKey": "id",
+      "entity": "QTChucNangPhanMem"
     }
   }
 }

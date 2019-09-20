@@ -1,7 +1,8 @@
 {
   "name": "QTTacNhan",
+  "base": "Model",
+  "idInjection": true,
   "options": {
-    "idInjection": true,
     "mysql": {
       "table": "qt_tac_nhan"
     }
@@ -10,6 +11,7 @@
     "uid": {
       "type": "String",
       "required": true,
+      "index": { "unique": true },
       "length": 250,
       "mysql": {
         "columnName": "uid",
@@ -20,6 +22,7 @@
     "ma": {
       "type": "String",
       "required": true,
+      "index": { "unique": true },
       "length": 250,
       "mysql": {
         "columnName": "ma",
@@ -118,11 +121,18 @@
       "options": {
         "nestRemoting": true
       }
+    },
+    "QTTacNhan_ChucNangPhanMem": {
+      "type": "hasMany",
+      "model": "QTTacNhan_ChucNangPhanMem",
+      "options": {
+        "nestRemoting": true
+      }
     }
   },
   "foreignKeys": {
     "sysCapHanhChinhId": {
-      "name": "QTTacNhan_SysCapHanhChinh",
+      "name": "qt_tac_nhan_sys_cap_hanh_chinh_fk",
       "foreignKey": "sysCapHanhChinhId",
       "entityKey": "id",
       "entity": "SysCapHanhChinh"
