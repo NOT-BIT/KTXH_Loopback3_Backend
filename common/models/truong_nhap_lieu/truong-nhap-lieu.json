@@ -127,6 +127,13 @@
       "options": {
         "nestRemoting": true
       }
+    },
+    "BieuNhapLieu_TruongNhapLieu": {
+      "type": "hasMany",
+      "model": "BieuNhapLieu_TruongNhapLieu",
+      "options": {
+        "nestRemoting": true
+      }
     }
   },
 

@@ -12,10 +12,11 @@
       "type": "String",
       "required": true,
       "index": { "unique": true },
-      "length": 50,
+      "length": 250,
       "mysql": {
         "columnName": "uid",
-        "dataType": "varchar"
+        "dataType": "varchar",
+        "dataLength": 250
       }
     },
 
@@ -26,7 +27,8 @@
       "length": 250,
       "mysql": {
         "columnName": "ma",
-        "dataType": "varchar"
+        "dataType": "varchar",
+        "dataLength": 250
       }
     },
 
@@ -36,7 +38,8 @@
       "length": 250,
       "mysql": {
         "columnName": "ten",
-        "dataType": "varchar"
+        "dataType": "varchar",
+        "dataLength": 250
       }
     },
 
@@ -59,7 +62,6 @@
 
     "updatedAt": {
       "type": "Date",
-      "required": false,
       "mysql": {
         "columnName": "updated_at",
         "dataType": "date"
@@ -77,7 +79,6 @@
 
     "updatedBy": {
       "type": "Number",
-      "required": false,
       "mysql": {
         "columnName": "updated_by",
         "dataType": "int"
@@ -87,8 +88,6 @@
     "hieuLuc": {
       "type": "Boolean",
       "default": 1,
-      "precision": 3,
-      "scale": 0,
       "mysql": {
         "columnName": "hieu_luc",
         "dataType": "tinyint"
@@ -98,8 +97,6 @@
     "xoa": {
       "type": "Boolean",
       "default": 0,
-      "precision": 3,
-      "scale": 0,
       "mysql": {
         "columnName": "xoa",
         "dataType": "tinyint"

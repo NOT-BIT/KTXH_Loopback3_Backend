@@ -32,7 +32,6 @@
 
     "ten": {
       "type": "String",
-      "required": false,
       "length": 250,
       "mysql": {
         "columnName": "ten",
@@ -115,7 +114,6 @@
 
     "updatedAt": {
       "type": "Date",
-      "required": false,
       "mysql": {
         "columnName": "updated_at",
         "dataType": "date"
@@ -133,7 +131,6 @@
 
     "updatedBy": {
       "type": "Number",
-      "required": false,
       "mysql": {
         "columnName": "updated_by",
         "dataType": "int"
@@ -142,9 +139,7 @@
 
     "hieuLuc": {
       "type": "Boolean",
-      "default": 1,
-      "precision": 3,
-      "scale": 0,
+      "default": true,
       "mysql": {
         "columnName": "hieu_luc",
         "dataType": "tinyint"
@@ -153,9 +148,7 @@
 
     "xoa": {
       "type": "Boolean",
-      "default": 0,
-      "precision": false,
-      "scale": 0,
+      "default": false,
       "mysql": {
         "columnName": "xoa",
         "dataType": "tinyint"
@@ -165,10 +158,10 @@
 
   "validations": [],
   "relations": {
-    "QTNamLamViec": {
+    "QLNamLamViec": {
       "type": "belongsTo",
-      "model": "QTNamLamViec",
-      "foreignKey": "qtNamLamViecId",
+      "model": "QLNamLamViec",
+      "foreignKey": "qlNamLamViecId",
       "primaryKey": "id",
       "options": {
         "nestRemoting": true
@@ -191,25 +184,32 @@
       "options": {
         "nestRemoting": true
       }
+    },
+    "BieuNhapLieu_KyBaoCao": {
+      "type": "hasMany",
+      "model": "BieuNhapLieu_KyBaoCao",
+      "options": {
+        "nestRemoting": true
+      }
     }
   },
   "acls": [],
   "methods": {},
   "foreignKeys": {
-    "qtNamLamViecId": {
-      "name": "QLKyBaoCao_QTNamLamViec",
-      "foreignKey": "qtNamLamViecId",
+    "qlNamLamViecId": {
+      "name": "ql_ky_bao_cao_ql_nam_lam_viec_fk",
+      "foreignKey": "qlNamLamViecId",
       "entityKey": "id",
-      "entity": "QTNamLamViec"
+      "entity": "QLNamLamViec"
     },
     "sysKyBaoCaoId": {
-      "name": "QLKyBaoCao_SysKyBaoCao",
+      "name": "ql_ky_bao_cao_sys_ky_bao_cao_fk",
       "foreignKey": "sysKyBaoCaoId",
       "entityKey": "id",
       "entity": "SysKyBaoCao"
     },
     "sysTrangThaiDongMoId": {
-      "name": "QLKyBaoCao_SysTrangThaiDongMo",
+      "name": "ql_ky_bao_cao_sys_trang_thai_dong_mo_fk",
       "foreignKey": "sysTrangThaiDongMoId",
       "entityKey": "id",
       "entity": "SysTrangThaiDongMo"

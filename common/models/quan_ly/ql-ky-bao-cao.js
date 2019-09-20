@@ -95,7 +95,6 @@ module.exports = function(QLKyBaoCao) {
     ngayMo,
     ngayTongHop,
     ghiChu,
-    createdBy,
     qlNamLamViecId,
     sysKyBaoCaoId,
     sysTrangThaiDongMoId
@@ -113,7 +112,7 @@ module.exports = function(QLKyBaoCao) {
       ngayTongHop: ngayTongHop,
       ghiChu: ghiChu,
       createdAt: new Date(),
-      createdBy: createdBy,
+      createdBy: 0,
       qlNamLamViecId: qlNamLamViecId,
       sysKyBaoCaoId: sysKyBaoCaoId,
       sysTrangThaiDongMoId: sysTrangThaiDongMoId
@@ -140,7 +139,6 @@ module.exports = function(QLKyBaoCao) {
     ngayMo,
     ngayTongHop,
     ghiChu,
-    updatedBy,
     qlNamLamViecId,
     sysKyBaoCaoId,
     sysTrangThaiDongMoId
@@ -158,7 +156,7 @@ module.exports = function(QLKyBaoCao) {
       ngayTongHop: ngayTongHop,
       ghiChu: ghiChu,
       updatedAt: new Date(),
-      updatedBy: updatedBy,
+      updatedBy: 0,
       qlNamLamViecId: qlNamLamViecId,
       sysKyBaoCaoId: sysKyBaoCaoId,
       sysTrangThaiDongMoId: sysTrangThaiDongMoId
@@ -306,12 +304,6 @@ module.exports = function(QLKyBaoCao) {
         arg: 'ghiChu',
         type: 'string'
       },
-
-      {
-        arg: 'createdBy',
-        type: 'number',
-        required: true
-      },
       {
         arg: 'qlNamLamViecId',
         type: 'number',
@@ -378,11 +370,6 @@ module.exports = function(QLKyBaoCao) {
       {
         arg: 'ghiChu',
         type: 'string'
-      },
-      {
-        arg: 'updatedBy',
-        type: 'number',
-        required: true
       },
       {
         arg: 'qlNamLamViecId',

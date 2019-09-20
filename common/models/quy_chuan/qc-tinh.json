@@ -166,7 +166,7 @@
   },
   "foreignKeys": {
     "capDonViHanhChinh": {
-      "name": "QCTinh_SysCapHanhChinh",
+      "name": "qc_tinh_sys_cap_don_vi_hanh_chinh_fk",
       "foreignKey": "capDonViHanhChinh",
       "entityKey": "id",
       "entity": "SysCapHanhChinh"

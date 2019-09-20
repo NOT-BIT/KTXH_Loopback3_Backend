@@ -325,10 +325,17 @@
         "nestRemoting": true
       }
     },
-    "idCha": {
+    "ChiTieuCha": {
       "type": "belongsTo",
       "model": "ChiTieuNhom",
       "foreignKey": "idCha",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "BieuNhapLieu_ChiTieu": {
+      "type": "hasMany",
+      "model": "BieuNhapLieu_ChiTieu",
       "options": {
         "nestRemoting": true
       }

@@ -85,8 +85,7 @@ module.exports = function(ChiTieuNhom) {
     uid,
     ma,
     ten,
-    ghiChu,
-    createdBy
+    ghiChu
   ) {
     const chiTieuNhom = {
       uid: uid,
@@ -94,7 +93,7 @@ module.exports = function(ChiTieuNhom) {
       ten: ten,
       ghiChu: ghiChu,
       createdAt: new Date(),
-      createdBy: createdBy
+      createdBy: 0
     }
 
     try {
@@ -110,8 +109,7 @@ module.exports = function(ChiTieuNhom) {
     id,
     ma,
     ten,
-    ghiChu,
-    updatedBy
+    ghiChu
   ) {
     const chiTieuNhom = {
       id: id,
@@ -119,7 +117,7 @@ module.exports = function(ChiTieuNhom) {
       ten: ten,
       ghiChu: ghiChu,
       updatedAt: new Date(),
-      updatedBy: updatedBy
+      updatedBy: 0
     }
 
     try {
@@ -241,12 +239,6 @@ module.exports = function(ChiTieuNhom) {
       {
         arg: 'ghiChu',
         type: 'string'
-      },
-
-      {
-        arg: 'createdBy',
-        type: 'number',
-        required: true
       }
     ],
     returns: { arg: 'data' },
@@ -272,12 +264,6 @@ module.exports = function(ChiTieuNhom) {
       {
         arg: 'ghiChu',
         type: 'string'
-      },
-
-      {
-        arg: 'updatedBy',
-        type: 'number',
-        required: true
       }
     ],
     returns: { arg: 'data' },

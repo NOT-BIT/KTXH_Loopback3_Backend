@@ -178,13 +178,13 @@
   },
   "foreignKeys": {
     "qcHuyenId": {
-      "name": "QCXa_QCHuyen",
+      "name": "qc_xa_qc_huyen_fk",
       "foreignKey": "qcHuyenId",
       "entityKey": "id",
       "entity": "QCHuyen"
     },
     "capDonViHanhChinh": {
-      "name": "QCXa_SysCapHanhChinh",
+      "name": "qc_xa_sys_cap_don_vi_hanh_chinh_fk",
       "foreignKey": "capDonViHanhChinh",
       "entityKey": "id",
       "entity": "SysCapHanhChinh"

@@ -14,6 +14,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
             qtTacNhanId: qtTacNhanId,
             qtChucNangPhanMemId: qtChucNangPhanMemId,
             createdAt: new Date(),
+            createdBy: 0,
             ghiChu:ghiChu
         }
         try {
@@ -52,6 +53,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
             qtChucNangPhanMemId: qtChucNangPhanMemId,
             ghiChu:ghiChu,
             updatedAt: new Date(),
+            updatedBy: 0,
             hieuLuc: hieuLuc
         }
         try {

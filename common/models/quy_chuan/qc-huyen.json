@@ -183,13 +183,13 @@
   },
   "foreignKeys": {
     "qcTinhId": {
-      "name": "QCHuyen_QCTinh",
+      "name": "qc_huyen_qc_tinh_fk",
       "foreignKey": "qcTinhId",
       "entityKey": "id",
       "entity": "QCTinh"
     },
     "capDonViHanhChinh": {
-      "name": "QCHuyen_SysCapHanhChinh",
+      "name": "qc_huyen_sys_cap_hanh_chinh_fk",
       "foreignKey": "capDonViHanhChinh",
       "entityKey": "id",
       "entity": "SysCapHanhChinh"
