@@ -43,21 +43,24 @@
       "type": "String",
       "mysql": {
         "columnName": "mat_khau",
-        "dataType": "varchar"
+        "dataType": "varchar",
+        "dataLength": 50
       }
     },
     "soDienThoai": {
       "type": "String",
       "mysql": {
         "columnName": "so_dien_thoai",
-        "dataType": "varchar"
+        "dataType": "varchar",
+        "dataLength": 12
       }
     },
     "email": {
       "type": "String",
       "mysql": {
         "columnName": "email",
-        "dataType": "varchar"
+        "dataType": "varchar",
+        "dataLength": 50
       }
     },
     "qtDonViId": {

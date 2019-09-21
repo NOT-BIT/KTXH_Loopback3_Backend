@@ -1,95 +1,97 @@
-module.exports = function(BieuNhapLieu_KyBaoCao) {
+module.exports = function(QTChucNangPhanMem) {
     const Promise = require('bluebird')
 
-    BieuNhapLieu_KyBaoCao.createBK = async function(uid, ma, bieuNhapLieuId, qlKyBaoCaoId, ten, ghiChu){
-        const BKData = {
-            uid: uid,
-            ma: ma,
-            bieuNhapLieuId: bieuNhapLieuId,
-            qlKyBaoCaoId: qlKyBaoCaoId,
-            ten: ten,
-            ghiChu: ghiChu,
+    QTChucNangPhanMem.createCNPM = async function(uid, ma, ten, chucNangChaId, path, icon, ghiChu){
+        const CNPMData = {
+            uid,
+            ma,
+            ten,
+            chucNangChaId,
+            path,
+            icon,
+            ghiChu,
             hieuLuc: 1,
             xoa: 0
         }
         try {
-            const data = await BieuNhapLieu_KyBaoCao.create(BKData)
+            const data = await QTChucNangPhanMem.create(CNPMData)
             return data
         } catch (err) {
-            console.log('createBieuNhapLieu_KyBaoCao', err)
+            console.log('createQTChucNangPhanMem', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.updateBK = async function(id, ma, bieuNhapLieuId, qlKyBaoCaoId, ten, ghiChu, hieuLuc){
+    QTChucNangPhanMem.updateCNPM = async function(id, ma, ten, chucNangChaId, path, icon, ghiChu, hieuLuc){
         try {
-            const BK = await BieuNhapLieu_KyBaoCao.findById(id)
-            if (BK.xoa == 1){
+            const CNPM = await QTChucNangPhanMem.findById(id)
+            if (CNPM.xoa == 1){
                 return null
             }
-            const BKData = {
-                id: id,
-                ma: ma,
-                bieuNhapLieuId: bieuNhapLieuId,
-                qlKyBaoCaoId: qlKyBaoCaoId,
-                ten: ten,
-                ghiChu: ghiChu,
-                hieuLuc: hieuLuc
+            const CNPMData = {
+                id,
+                ma,
+                ten,
+                chucNangChaId,
+                path,
+                icon,
+                ghiChu,
+                hieuLuc
             }
             try {
-                const data = await BieuNhapLieu_KyBaoCao.upsertWithWhere({id: BKData.id}, BKData)
+                const data = await QTChucNangPhanMem.upsertWithWhere({id: CNPMData.id}, CNPMData)
                 return data
             } catch (err) {
-                console.log('updateBieuNhapLieu_KyBaoCao', err)
+                console.log('updateQTChucNangPhanMem', err)
                 throw err
             }
         } catch (err) {
-            console.log('findBK', err)
+            console.log('findQTChucNangPhanMem', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.deleteBK = async function(id){
+    QTChucNangPhanMem.deleteCNPM = async function(id){
         try {
-            const data = await BieuNhapLieu_KyBaoCao.upsertWithWhere({id: id},{ xoa: true })
+            const data = await QTChucNangPhanMem.upsertWithWhere({id: id},{ xoa: true })
             return data
         } catch (err) {
-            console.log('deleteBieuNhapLieu_KyBaoCao', err)
+            console.log('deleteQTChucNangPhanMem', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.restoreBK = async function(id){
+    QTChucNangPhanMem.restoreCNPM = async function(id){
         try {
-            const data = await BieuNhapLieu_KyBaoCao.upsertWithWhere({id: id}, { xoa: false })
+            const data = await QTChucNangPhanMem.upsertWithWhere({id: id}, { xoa: false })
             return data
         } catch (err) {
-            console.log('restoreBieuNhapLieu_KyBaoCao', err)
+            console.log('restoreQTChucNangPhanMem', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.readBK = async function(id){
+    QTChucNangPhanMem.readCNPM = async function(id){
         try {
-            const data = await BieuNhapLieu_KyBaoCao.findById(id, {where: {xoa: false}})
+            const data = await QTChucNangPhanMem.findById(id, {where: {xoa: false}})
             return data
         } catch (err) {
-            console.log('readBieuNhapLieu_KyBaoCao', err)
+            console.log('readQTChucNangPhanMem', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.listBK= async function(queryData, page, pageSize){
+    QTChucNangPhanMem.listCNPM= async function(queryData, page, pageSize){
         try {
             const [data, total] = await Promise.all([
-                BieuNhapLieu_KyBaoCao.find({
+                QTChucNangPhanMem.find({
                 where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, qlKyBaoCaoId: true, hieuLuc: true},
-                include: ['QLKyBaoCao'],
+                fields: {ma: true, ten: true, ghiChu: true, chucNangChaId: true, hieuLuc: true},
+                // include: ['QTChucNangPhanMem'],
                 limit: pageSize,
                 skip: page
               }),
-              BieuNhapLieu_KyBaoCao.count({xoa: false})
+              QTChucNangPhanMem.count({xoa: false})
             ])
             return {
               rows: data,
@@ -98,22 +100,22 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
               total: total
             }
         } catch (err) {
-            console.log('listBieuNhapLieu_KyBaoCao', err)
+            console.log('listQTChucNangPhanMem', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.listDeletedBK = async function(queryData, page, pageSize){
+    QTChucNangPhanMem.listDeletedCNPM = async function(queryData, page, pageSize){
         try {
             const [data, total] = await Promise.all([
-              BieuNhapLieu_KyBaoCao.find({
+              QTChucNangPhanMem.find({
                 where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, qlKyBaoCaoId: true, hieuLuc: true},
-                include: ['QLKyBaoCao'],
+                fields: {ma: true, ten: true, ghiChu: true, chucNangChaId: true, hieuLuc: true},
+                // include: ['QTChucNangPhanMem'],
                 limit: pageSize,
                 skip: page
               }),
-              BieuNhapLieu_KyBaoCao.count({xoa: true})
+              QTChucNangPhanMem.count({xoa: true})
             ])
             return {
               rows: data,
@@ -122,35 +124,37 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
               total: total
             }
         } catch (err) {
-            console.log('listDeletedBieuNhapLieu_KyBaoCao', err)
+            console.log('listDeletedQTChucNangPhanMem', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'createBK', {
+    QTChucNangPhanMem.remoteMethod(
+        'createCNPM', {
             http: {path: '/create', verb: 'post'},
             accepts: [
                 {arg: 'uid', type: 'string', required: true},
                 {arg: 'ma', type: 'string', required: true},
-                {arg: 'bieuNhapLieuId', type: 'number', required: true},
-                {arg: 'qlKyBaoCaoId', type: 'number', required: true},
                 {arg: 'ten', type: 'string', required: false},
+                {arg: 'chucNangChaId', type: 'number', required: false},
+                {arg: 'path', type: 'string', required: false},
+                {arg: 'icon', type: 'string', required: false},
                 {arg: 'ghiChu', type: 'string', required: false}
             ],
             returns: {arg: 'data', type: 'object'},
         }
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'updateBK', {
+    QTChucNangPhanMem.remoteMethod(
+        'updateCNPM', {
             http: {path: '/update', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true},
                 {arg: 'ma', type: 'string', required: false},
-                {arg: 'bieuNhapLieuId', type: 'number', required: false},
-                {arg: 'qlKyBaoCaoId', type: 'number', required: false},
                 {arg: 'ten', type: 'string', required: false},
+                {arg: 'chucNangChaId', type: 'number', required: false},
+                {arg: 'path', type: 'string', required: false},
+                {arg: 'icon', type: 'string', required: false},
                 {arg: 'ghiChu', type: 'string', required: false},
                 {arg: 'hieuLuc', type: 'number', required: false}
             ],
@@ -158,8 +162,8 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         }
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'deleteBK', {
+    QTChucNangPhanMem.remoteMethod(
+        'deleteCNPM', {
             http: {path: '/delete', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
@@ -168,8 +172,8 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         },
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'restoreBK', {
+    QTChucNangPhanMem.remoteMethod(
+        'restoreCNPM', {
             http: {path: '/restore', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
@@ -178,8 +182,8 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         },
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'readBK', {
+    QTChucNangPhanMem.remoteMethod(
+        'readCNPM', {
             http: {path: '/read', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
@@ -188,25 +192,25 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         },
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'listBK', {
+    QTChucNangPhanMem.remoteMethod(
+        'listCNPM', {
             http: {path: '/list', verb: 'post'},
             accepts: [
                 {arg: 'queryData', type: 'object', required: false},
-                { arg: 'page', type: 'number', default: '0'},
-                { arg: 'pageSize', type: 'number', default: '20'}
+                {arg: 'page', type: 'number', default: '0'},
+                {arg: 'pageSize', type: 'number', default: '20'}
             ],
             returns: {arg: 'data', type: 'object'},
         },
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'listDeletedBK', {
+    QTChucNangPhanMem.remoteMethod(
+        'listDeletedCNPM', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
                 {arg: 'queryData', type: 'object', required: false},
-                { arg: 'page', type: 'number', default: '0'},
-                { arg: 'pageSize', type: 'number', default: '20'}
+                {arg: 'page', type: 'number', default: '0'},
+                {arg: 'pageSize', type: 'number', default: '20'}
             ],
             returns: {arg: 'data', type: 'object'},
         },

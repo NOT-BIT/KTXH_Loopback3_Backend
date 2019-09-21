@@ -57,7 +57,8 @@
       "type": "String",
       "mysql": {
         "columnName": "icon",
-        "dataType": "varchar"
+        "dataType": "varchar",
+        "dataLength": 250
       }
     },
     "ghiChu": {

@@ -94,8 +94,8 @@ module.exports = function(QCXa) {
             const [data, total] = await Promise.all([
                 QCXa.find({
                 where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, qcHuyenId: true, hieuLuc: true},
-                include: ['QCHuyen'],
+                fields: {ma: true, ten: true, ghiChu: true, qcHuyenId: true, capDonViHanhChinh: true, hieuLuc: true},
+                include: ['QCHuyen', 'SysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
               }),
@@ -118,8 +118,8 @@ module.exports = function(QCXa) {
             const [data, total] = await Promise.all([
                 QCXa.find({
                 where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, qcHuyenId: true, hieuLuc: true},
-                include: ['QCHuyen'],
+                fields: {ma: true, ten: true, ghiChu: true, qcHuyenId: true, capDonViHanhChinh: true, hieuLuc: true},
+                include: ['QCHuyen', 'SysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
               }),
@@ -159,7 +159,7 @@ module.exports = function(QCXa) {
 
     QCXa.remoteMethod(
         'updateXa', {
-            http: {path: '/:id/update', verb: 'post'},
+            http: {path: '/update', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true},
                 {arg: 'ma', type: 'string', required: false},
@@ -180,7 +180,7 @@ module.exports = function(QCXa) {
 
     QCXa.remoteMethod(
         'deleteXa', {
-            http: {path: '/:id/delete', verb: 'post'},
+            http: {path: '/delete', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
@@ -190,7 +190,7 @@ module.exports = function(QCXa) {
 
     QCXa.remoteMethod(
         'restoreXa', {
-            http: {path: '/:id/restore', verb: 'post'},
+            http: {path: '/restore', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
@@ -200,7 +200,7 @@ module.exports = function(QCXa) {
 
     QCXa.remoteMethod(
         'readXa', {
-            http: {path: '/:id/read', verb: 'post'},
+            http: {path: '/read', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],

@@ -1,5 +1,5 @@
 {
-  "name": "QTTacNhan-ChucNangPhanMem",
+  "name": "QTTacNhan_ChucNangPhanMem",
   "options": {
     "idInjection": true,
     "mysql": {
@@ -16,7 +16,8 @@
       "mysql": {
         "columnName": "uid",
         "dataType": "varchar",
-        "nullable": "N"
+        "nullable": "N",
+        "dataLength": 50
       }
     },
     "ten": {
@@ -25,7 +26,8 @@
       "length": 250,
       "mysql": {
         "columnName": "ten",
-        "dataType": "varchar"
+        "dataType": "varchar",
+        "dataLength": 250
       }
     },
     "ma": {
@@ -34,7 +36,8 @@
       "length": 50,
       "mysql": {
         "columnName": "ma",
-        "dataType": "varchar"
+        "dataType": "varchar",
+        "dataLength": 50
       }
     },
     "qtTacNhanId": {

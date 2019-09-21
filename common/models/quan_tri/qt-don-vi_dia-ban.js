@@ -1,95 +1,101 @@
-module.exports = function(BieuNhapLieu_KyBaoCao) {
+module.exports = function(QTDonVi_DiaBan) {
     const Promise = require('bluebird')
 
-    BieuNhapLieu_KyBaoCao.createBK = async function(uid, ma, bieuNhapLieuId, qlKyBaoCaoId, ten, ghiChu){
-        const BKData = {
-            uid: uid,
-            ma: ma,
-            bieuNhapLieuId: bieuNhapLieuId,
-            qlKyBaoCaoId: qlKyBaoCaoId,
-            ten: ten,
-            ghiChu: ghiChu,
+    QTDonVi_DiaBan.createDonVi_DiaBan = async function(uid, ma, ten, qtDonviId, qcTinhId, qcHuyenId, qcXaId, tatCaNutCon, ghiChu){
+        const DonVi_DiaBanData = {
+            uid,
+            ma,
+            ten,
+            qtDonviId,
+            qcTinhId,
+            qcHuyenId,
+            qcXaId,
+            tatCaNutCon,
+            ghiChu,
             hieuLuc: 1,
             xoa: 0
         }
         try {
-            const data = await BieuNhapLieu_KyBaoCao.create(BKData)
+            const data = await QTDonVi_DiaBan.create(DonVi_DiaBanData)
             return data
         } catch (err) {
-            console.log('createBieuNhapLieu_KyBaoCao', err)
+            console.log('createQTDonVi_DiaBan', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.updateBK = async function(id, ma, bieuNhapLieuId, qlKyBaoCaoId, ten, ghiChu, hieuLuc){
+    QTDonVi_DiaBan.updateDonVi_DiaBan = async function(id, ma, ten, qtDonviId, qcTinhId, qcHuyenId, qcXaId, tatCaNutCon, ghiChu, hieuLuc){
         try {
-            const BK = await BieuNhapLieu_KyBaoCao.findById(id)
-            if (BK.xoa == 1){
+            const DonVi_DiaBan = await QTDonVi_DiaBan.findById(id)
+            if (DonVi_DiaBan.xoa == 1){
                 return null
             }
-            const BKData = {
-                id: id,
-                ma: ma,
-                bieuNhapLieuId: bieuNhapLieuId,
-                qlKyBaoCaoId: qlKyBaoCaoId,
-                ten: ten,
-                ghiChu: ghiChu,
-                hieuLuc: hieuLuc
+            const DonVi_DiaBanData = {
+                id,
+                ma,
+                ten,
+                qtDonviId,
+                qcTinhId,
+                qcHuyenId,
+                qcXaId,
+                tatCaNutCon,
+                ghiChu,
+                hieuLuc
             }
             try {
-                const data = await BieuNhapLieu_KyBaoCao.upsertWithWhere({id: BKData.id}, BKData)
+                const data = await QTDonVi_DiaBan.upsertWithWhere({id: DonVi_DiaBanData.id}, DonVi_DiaBanData)
                 return data
             } catch (err) {
-                console.log('updateBieuNhapLieu_KyBaoCao', err)
+                console.log('updateQTDonVi_DiaBan', err)
                 throw err
             }
         } catch (err) {
-            console.log('findBK', err)
+            console.log('findDonVi_DiaBan', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.deleteBK = async function(id){
+    QTDonVi_DiaBan.deleteDonVi_DiaBan = async function(id){
         try {
-            const data = await BieuNhapLieu_KyBaoCao.upsertWithWhere({id: id},{ xoa: true })
+            const data = await QTDonVi_DiaBan.upsertWithWhere({id: id},{ xoa: true })
             return data
         } catch (err) {
-            console.log('deleteBieuNhapLieu_KyBaoCao', err)
+            console.log('deleteQTDonVi_DiaBan', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.restoreBK = async function(id){
+    QTDonVi_DiaBan.restoreDonVi_DiaBan = async function(id){
         try {
-            const data = await BieuNhapLieu_KyBaoCao.upsertWithWhere({id: id}, { xoa: false })
+            const data = await QTDonVi_DiaBan.upsertWithWhere({id: id}, { xoa: false })
             return data
         } catch (err) {
-            console.log('restoreBieuNhapLieu_KyBaoCao', err)
+            console.log('restoreQTDonVi_DiaBan', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.readBK = async function(id){
+    QTDonVi_DiaBan.readDonVi_DiaBan = async function(id){
         try {
-            const data = await BieuNhapLieu_KyBaoCao.findById(id, {where: {xoa: false}})
+            const data = await QTDonVi_DiaBan.findById(id, {where: {xoa: false}})
             return data
         } catch (err) {
-            console.log('readBieuNhapLieu_KyBaoCao', err)
+            console.log('readQTDonVi_DiaBan', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.listBK= async function(queryData, page, pageSize){
+    QTDonVi_DiaBan.listDonVi_DiaBan= async function(queryData, page, pageSize){
         try {
             const [data, total] = await Promise.all([
-                BieuNhapLieu_KyBaoCao.find({
+                QTDonVi_DiaBan.find({
                 where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, qlKyBaoCaoId: true, hieuLuc: true},
-                include: ['QLKyBaoCao'],
+                fields: {ma: true, ten: true, ghiChu: true, qtDonviId: true, hieuLuc: true},
+                include: ['QTDonVi'],
                 limit: pageSize,
                 skip: page
               }),
-              BieuNhapLieu_KyBaoCao.count({xoa: false})
+              QTDonVi_DiaBan.count({xoa: false})
             ])
             return {
               rows: data,
@@ -98,22 +104,22 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
               total: total
             }
         } catch (err) {
-            console.log('listBieuNhapLieu_KyBaoCao', err)
+            console.log('listQTDonVi_DiaBan', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.listDeletedBK = async function(queryData, page, pageSize){
+    QTDonVi_DiaBan.listDeletedDonVi_DiaBan = async function(queryData, page, pageSize){
         try {
             const [data, total] = await Promise.all([
-              BieuNhapLieu_KyBaoCao.find({
+              QTDonVi_DiaBan.find({
                 where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, qlKyBaoCaoId: true, hieuLuc: true},
-                include: ['QLKyBaoCao'],
+                fields: {ma: true, ten: true, ghiChu: true, qtDonviId: true, hieuLuc: true},
+                include: ['QTDonVi'],
                 limit: pageSize,
                 skip: page
               }),
-              BieuNhapLieu_KyBaoCao.count({xoa: true})
+              QTDonVi_DiaBan.count({xoa: true})
             ])
             return {
               rows: data,
@@ -122,35 +128,41 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
               total: total
             }
         } catch (err) {
-            console.log('listDeletedBieuNhapLieu_KyBaoCao', err)
+            console.log('listDeletedQTDonVi_DiaBan', err)
             throw err
         }
     }
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'createBK', {
+    QTDonVi_DiaBan.remoteMethod(
+        'createDonVi_DiaBan', {
             http: {path: '/create', verb: 'post'},
             accepts: [
                 {arg: 'uid', type: 'string', required: true},
                 {arg: 'ma', type: 'string', required: true},
-                {arg: 'bieuNhapLieuId', type: 'number', required: true},
-                {arg: 'qlKyBaoCaoId', type: 'number', required: true},
                 {arg: 'ten', type: 'string', required: false},
+                {arg: 'qtDonviId', type: 'number', required: true},
+                {arg: 'qcTinhId', type: 'number', required: false},
+                {arg: 'qcHuyenId', type: 'number', required: false},
+                {arg: 'qcXaId', type: 'number', required: false},
+                {arg: 'tatCaNutCon', type: 'number', required: false},
                 {arg: 'ghiChu', type: 'string', required: false}
             ],
             returns: {arg: 'data', type: 'object'},
         }
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'updateBK', {
+    QTDonVi_DiaBan.remoteMethod(
+        'updateDonVi_DiaBan', {
             http: {path: '/update', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true},
                 {arg: 'ma', type: 'string', required: false},
-                {arg: 'bieuNhapLieuId', type: 'number', required: false},
-                {arg: 'qlKyBaoCaoId', type: 'number', required: false},
                 {arg: 'ten', type: 'string', required: false},
+                {arg: 'qtDonviId', type: 'number', required: false},
+                {arg: 'qcTinhId', type: 'number', required: false},
+                {arg: 'qcHuyenId', type: 'number', required: false},
+                {arg: 'qcXaId', type: 'number', required: false},
+                {arg: 'tatCaNutCon', type: 'number', required: false},
                 {arg: 'ghiChu', type: 'string', required: false},
                 {arg: 'hieuLuc', type: 'number', required: false}
             ],
@@ -158,8 +170,8 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         }
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'deleteBK', {
+    QTDonVi_DiaBan.remoteMethod(
+        'deleteDonVi_DiaBan', {
             http: {path: '/delete', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
@@ -168,8 +180,8 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         },
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'restoreBK', {
+    QTDonVi_DiaBan.remoteMethod(
+        'restoreDonVi_DiaBan', {
             http: {path: '/restore', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
@@ -178,8 +190,8 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         },
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'readBK', {
+    QTDonVi_DiaBan.remoteMethod(
+        'readDonVi_DiaBan', {
             http: {path: '/read', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
@@ -188,8 +200,8 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         },
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'listBK', {
+    QTDonVi_DiaBan.remoteMethod(
+        'listDonVi_DiaBan', {
             http: {path: '/list', verb: 'post'},
             accepts: [
                 {arg: 'queryData', type: 'object', required: false},
@@ -200,8 +212,8 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         },
     )
 
-    BieuNhapLieu_KyBaoCao.remoteMethod(
-        'listDeletedBK', {
+    QTDonVi_DiaBan.remoteMethod(
+        'listDeletedDonVi_DiaBan', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
                 {arg: 'queryData', type: 'object', required: false},

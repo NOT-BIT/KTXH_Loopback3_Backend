@@ -1,105 +1,93 @@
-module.exports = function(QCHuyen) {
+module.exports = function(QTTacNhan) {
     const Promise = require('bluebird')
 
-    QCHuyen.createHuyen = async function(uid, ma, qcTinhId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk){
-        const huyenData = {
+    QTTacNhan.createTacNhan = async function(uid, ma, ten, sysCapHanhChinhId, ghiChu){
+        const tacNhanData = {
             uid: uid,
             ma: ma,
-            qcTinhId: qcTinhId,
             ten: ten,
+            sysCapHanhChinhId: sysCapHanhChinhId,
             ghiChu: ghiChu,
-            capDonViHanhChinh: cap,
-            loaiDonViHanhChinh: loai,
-            nongThon: nt,
-            bienGioi: bg,
-            haiDao: hd,
-            vungDBKhoKhan: dbkk,
             hieuLuc: 1,
             xoa: 0
         }
         try {
-            const data = await QCHuyen.create(huyenData)
+            const data = await QTTacNhan.create(tacNhanData)
             return data
         } catch (err) {
-            console.log('createQCHuyen', err)
+            console.log('createQTTacNhan', err)
             throw err
         }
     }
 
-    QCHuyen.updateHuyen = async function(id, ma, qcTinhId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
+    QTTacNhan.updateTacNhan = async function(id, ma, ten, sysCapHanhChinhId, ghiChu, hieuLuc){
         try {
-            const huyen = await QCHuyen.findById(id)
-            if (huyen.xoa == 1){
+            const tacNhan = await QTTacNhan.findById(id)
+            if (tacNhan.xoa == 1){
                 return null
             }
-            const huyenData = {
+            const tacNhanData = {
                 id: id,
                 ma: ma,
-                qcTinhId: qcTinhId,
                 ten: ten,
                 ghiChu: ghiChu,
-                capDonViHanhChinh: cap,
-                loaiDonViHanhChinh: loai,
-                nongThon: nt,
-                bienGioi: bg,
-                haiDao: hd,
-                vungDBKhoKhan: dbkk,
+                sysCapHanhChinhId: sysCapHanhChinhId,
                 hieuLuc: hieuLuc
             }
             try {
-                const data = await QCHuyen.upsertWithWhere({id: huyenData.id}, huyenData)
+                const data = await QTTacNhan.upsertWithWhere({id: TacNhanData.id}, tacNhanData)
                 return data
             } catch (err) {
-                console.log('updateQCHuyen', err)
+                console.log('updateQTTacNhan', err)
                 throw err
             }
         } catch (err) {
-            console.log('findHuyen', err)
+            console.log('findTacNhan', err)
             throw err
         }
     }
 
-    QCHuyen.deleteHuyen = async function(id){
+    QTTacNhan.deleteTacNhan = async function(id){
         try {
-            const data = await QCHuyen.upsertWithWhere({id: id},{ xoa: true })
+            const data = await QTTacNhan.upsertWithWhere({id: id},{ xoa: true })
             return data
         } catch (err) {
-            console.log('deleteQCHuyen', err)
+            console.log('deleteQTTacNhan', err)
             throw err
         }
     }
     
-    QCHuyen.restoreHuyen = async function(id){
+    QTTacNhan.restoreTacNhan = async function(id){
         try {
-            const data = await QCHuyen.upsertWithWhere({id: id}, { xoa: false })
+            const data = await QTTacNhan.upsertWithWhere({id: id}, { xoa: false })
             return data
         } catch (err) {
-            console.log('restoreQCHuyen', err)
+            console.log('restoreQTTacNhan', err)
             throw err
         }
     }
 
-    QCHuyen.readHuyen = async function(id){
+    QTTacNhan.readTacNhan = async function(id){
         try {
-            const data = await QCHuyen.findById(id, {where: {xoa: false}})
+            const data = await QTTacNhan.findById(id, {where: {xoa: false}})
             return data
         } catch (err) {
-            console.log('readQCHuyen', err)
+            console.log('readQTTacNhan', err)
             throw err
         }
     }
 
-    QCHuyen.listHuyen = async function(queryData, page, pageSize){
+    QTTacNhan.listTacNhan = async function(queryData, page, pageSize){
         try {
             const [data, total] = await Promise.all([
-                QCHuyen.find({
+              QTTacNhan.find({
                 where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, qcTinhId: true, capDonViHanhChinh: true, hieuLuc: true},
-                include: ['QCTinh', 'SysCapHanhChinh'],
+                fields: {ma: true, ten: true, ghiChu: true, sysCapHanhChinhId: true, hieuLuc: true},
+                include: ['SysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
               }),
-              QCHuyen.count({xoa: false})
+              QTTacNhan.count({xoa: false})
             ])
             return {
               rows: data,
@@ -108,22 +96,22 @@ module.exports = function(QCHuyen) {
               total: total
             }
         } catch (err) {
-            console.log('listQCHuyen', err)
+            console.log('listQTTacNhan', err)
             throw err
         }
     }
 
-    QCHuyen.listDeletedHuyen = async function(queryData, page, pageSize){
+    QTTacNhan.listDeletedTacNhan = async function(queryData, page, pageSize){
         try {
             const [data, total] = await Promise.all([
-              QCHuyen.find({
+              QTTacNhan.find({
                 where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, qcTinhId: true, capDonViHanhChinh: true, hieuLuc: true},
-                include: ['QCTinh', 'SysCapHanhChinh'],
+                fields: {ma: true, ten: true, ghiChu: true, sysCapHanhChinhId: true, hieuLuc: true},
+                include: ['SysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
               }),
-              QCHuyen.count({xoa: true})
+              QTTacNhan.count({xoa: true})
             ])
             return {
               rows: data,
@@ -132,54 +120,42 @@ module.exports = function(QCHuyen) {
               total: total
             }
         } catch (err) {
-            console.log('listDeletedQCHuyen', err)
+            console.log('listDeletedQTTacNhan', err)
             throw err
         }
     }
 
-    QCHuyen.remoteMethod(
-        'createHuyen', {
+    QTTacNhan.remoteMethod(
+        'createTacNhan', {
             http: {path: '/create', verb: 'post'},
             accepts: [
                 {arg: 'uid', type: 'string', required: true},
                 {arg: 'ma', type: 'string', required: true},
-                {arg: 'qcTinhId', type: 'number', required: true},
                 {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'cap', type: 'number', required: true},
-                {arg: 'loai', type: 'string', required: true},
-                {arg: 'nt', type: 'string', required: false},
-                {arg: 'bg', type: 'string', required: false},
-                {arg: 'hd', type: 'string', required: false},
-                {arg: 'dbkk', type: 'string', required: false}
+                {arg: 'sysCapHanhChinhId', type: 'number', required: false},
+                {arg: 'ghiChu', type: 'string', required: false}
             ],
             returns: {arg: 'data', type: 'object'},
         },
     )
 
-    QCHuyen.remoteMethod(
-        'updateHuyen', {
+    QTTacNhan.remoteMethod(
+        'updateTacNhan', {
             http: {path: '/update', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true},
                 {arg: 'ma', type: 'string', required: false},
-                {arg: 'qcTinhId', type: 'number', required: false},
                 {arg: 'ten', type: 'string', required: false},
+                {arg: 'sysCapHanhChinhId', type: 'number', required: false},
                 {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'cap', type: 'number', required: false},
-                {arg: 'loai', type: 'string', required: false},
-                {arg: 'nt', type: 'string', required: false},
-                {arg: 'bg', type: 'string', required: false},
-                {arg: 'hd', type: 'string', required: false},
-                {arg: 'dbkk', type: 'string', required: false},
                 {arg: 'hieuLuc', type: 'number', required: false}
             ],
             returns: {arg: 'data', type: 'object'},
         },
     )
 
-    QCHuyen.remoteMethod(
-        'deleteHuyen', {
+    QTTacNhan.remoteMethod(
+        'deleteTacNhan', {
             http: {path: '/delete', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
@@ -188,8 +164,8 @@ module.exports = function(QCHuyen) {
         },
     )
 
-    QCHuyen.remoteMethod(
-        'restoreHuyen', {
+    QTTacNhan.remoteMethod(
+        'restoreTacNhan', {
             http: {path: '/restore', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
@@ -198,8 +174,8 @@ module.exports = function(QCHuyen) {
         },
     )
 
-    QCHuyen.remoteMethod(
-        'readHuyen', {
+    QTTacNhan.remoteMethod(
+        'readTacNhan', {
             http: {path: '/read', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
@@ -208,8 +184,8 @@ module.exports = function(QCHuyen) {
         },
     )
 
-    QCHuyen.remoteMethod(
-        'listHuyen', {
+    QTTacNhan.remoteMethod(
+        'listTacNhan', {
             http: {path: '/list', verb: 'post'},
             accepts: [
                 {arg: 'queryData', type: 'object', required: false},
@@ -220,8 +196,8 @@ module.exports = function(QCHuyen) {
         },
     )
 
-    QCHuyen.remoteMethod(
-        'listDeletedHuyen', {
+    QTTacNhan.remoteMethod(
+        'listDeletedTacNhan', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
                 {arg: 'queryData', type: 'object', required: false},
