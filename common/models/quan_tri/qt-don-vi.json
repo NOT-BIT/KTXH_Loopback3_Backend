@@ -150,6 +150,8 @@
     "QTDonVi_DiaBan": {
       "type": "hasMany",
       "model": "QTDonVi_DiaBan",
+      "foreignKey": "qtDonViId",
+      "primaryKey": "id",
       "options": {
         "nestRemoting": true
       }
@@ -157,6 +159,8 @@
     "QTUsers": {
       "type": "hasMany",
       "model": "QTUsers",
+      "foreignKey": "qtDonViId",
+      "primaryKey": "id",
       "options": {
         "nestRemoting": true
       }
@@ -164,6 +168,8 @@
     "QTHopThuHoiDoi": {
       "type": "hasMany",
       "model": "QTHopThuHoiDap",
+      "foreignKey": "qtDonViId",
+      "primaryKey": "id",
       "options": {
         "nestRemoting": true
       }

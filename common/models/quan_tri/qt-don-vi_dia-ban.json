@@ -145,7 +145,7 @@
     "qtDonVi": {
       "type": "belongsTo",
       "model": "QTDonVi",
-      "foreignKey": "qtDonViId2",
+      "foreignKey": "qtDonViId",
       "primaryKey": "id",
       "options": {
         "nestRemoting": true
