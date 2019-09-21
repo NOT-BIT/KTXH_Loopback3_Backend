@@ -44,6 +44,14 @@
       }
     },
 
+    "sysLoaiTruongNhapLieuId": {
+      "type": "Number",
+      "mysql": {
+        "columnName": "sys_loai_truong_nhap_lieu_id",
+        "dataType": "int"
+      }
+    },
+
     "donViTinh": {
       "type": "String",
       "length": 50,
