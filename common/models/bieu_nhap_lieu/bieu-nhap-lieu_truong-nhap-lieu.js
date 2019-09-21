@@ -1,13 +1,13 @@
 module.exports = function(BieuNhapLieu_TruongNhapLieu) {
     const Promise = require('bluebird')
 
-    BieuNhapLieu_TruongNhapLieu.createBT = async function(uid, ma, bieuNhapLieuId, truongNhapLieuId, ten, ghiChu){
+    BieuNhapLieu_TruongNhapLieu.createBT = async function(uid, ma, ten, bieuNhapLieuId, truongNhapLieuId, ghiChu){
         const BTData = {
             uid: uid,
             ma: ma,
+            ten: ten,
             bieuNhapLieuId: bieuNhapLieuId,
             truongNhapLieuId: truongNhapLieuId,
-            ten: ten,
             ghiChu: ghiChu,
             hieuLuc: 1,
             xoa: 0
@@ -21,7 +21,7 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
         }
     }
 
-    BieuNhapLieu_TruongNhapLieu.updateBT = async function(id, ma, bieuNhapLieuId, truongNhapLieuId, ten, ghiChu, hieuLuc){
+    BieuNhapLieu_TruongNhapLieu.updateBT = async function(id, ma, ten, bieuNhapLieuId, truongNhapLieuId, ghiChu, hieuLuc){
         try {
             const BT = await BieuNhapLieu_TruongNhapLieu.findById(id)
             if (BT.xoa == 1){
@@ -30,9 +30,9 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
             const BTData = {
                 id: id,
                 ma: ma,
+                ten: ten,
                 bieuNhapLieuId: bieuNhapLieuId,
                 truongNhapLieuId: truongNhapLieuId,
-                ten: ten,
                 ghiChu: ghiChu,
                 hieuLuc: hieuLuc
             }
@@ -133,9 +133,9 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
             accepts: [
                 {arg: 'uid', type: 'string', required: true},
                 {arg: 'ma', type: 'string', required: true},
+                {arg: 'ten', type: 'string', required: false},
                 {arg: 'bieuNhapLieuId', type: 'number', required: true},
                 {arg: 'truongNhapLieuId', type: 'number', required: true},
-                {arg: 'ten', type: 'string', required: false},
                 {arg: 'ghiChu', type: 'string', required: false}
             ],
             returns: {arg: 'data', type: 'object'},
@@ -148,9 +148,9 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
             accepts: [
                 {arg: 'id', type: 'number', required: true},
                 {arg: 'ma', type: 'string', required: false},
+                {arg: 'ten', type: 'string', required: false},
                 {arg: 'bieuNhapLieuId', type: 'number', required: false},
                 {arg: 'truongNhapLieuId', type: 'number', required: false},
-                {arg: 'ten', type: 'string', required: false},
                 {arg: 'ghiChu', type: 'string', required: false},
                 {arg: 'hieuLuc', type: 'number', required: false}
             ],
@@ -160,7 +160,7 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
 
     BieuNhapLieu_TruongNhapLieu.remoteMethod(
         'deleteBT', {
-            http: {path: '/:id/delete', verb: 'post'},
+            http: {path: '/delete', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
@@ -170,7 +170,7 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
 
     BieuNhapLieu_TruongNhapLieu.remoteMethod(
         'restoreBT', {
-            http: {path: '/:id/restore', verb: 'post'},
+            http: {path: '/restore', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],
@@ -180,7 +180,7 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
 
     BieuNhapLieu_TruongNhapLieu.remoteMethod(
         'readBT', {
-            http: {path: '/:id/read', verb: 'post'},
+            http: {path: '/read', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true}
             ],

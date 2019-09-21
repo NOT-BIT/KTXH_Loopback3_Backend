@@ -242,7 +242,7 @@
       }
     }
   },
-  "QTNamLamViec": {
+  "QLNamLamViec": {
     "dataSource": "mysql",
     "public": true,
     "options": {

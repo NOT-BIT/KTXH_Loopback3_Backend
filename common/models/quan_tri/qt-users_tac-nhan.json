@@ -1,5 +1,5 @@
 {
-  "name": "QTUsers-TacNhan",
+  "name": "QTUsers_TacNhan",
   "options": {
     "mysql": {
       "table": "qt_users-tac_nhan"

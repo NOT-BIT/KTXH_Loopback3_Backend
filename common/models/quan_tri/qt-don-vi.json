@@ -11,7 +11,9 @@
     "uid": {
       "type": "String",
       "required": true,
-      "index": { "unique": true },
+      "index": {
+        "unique": true
+      },
       "length": 50,
       "mysql": {
         "columnName": "uid",
@@ -22,12 +24,15 @@
     "ma": {
       "type": "String",
       "required": true,
-      "index": { "unique": true },
+      "index": {
+        "unique": true
+      },
       "length": 50,
       "mysql": {
         "columnName": "ma",
         "dataType": "varchar",
-        "nullable": "N"
+        "nullable": "N",
+        "dataLength": 50
       }
     },
     "ten": {
@@ -35,7 +40,8 @@
       "length": 250,
       "mysql": {
         "columnName": "ten",
-        "dataType": "varchar"
+        "dataType": "varchar",
+        "dataLength": 250
       }
     },
     "idCha": {
@@ -49,21 +55,24 @@
       "type": "String",
       "mysql": {
         "columnName": "dia_chi",
-        "dataType": "varchar"
+        "dataType": "varchar",
+        "dataLength": 250
       }
     },
     "soDienThoai": {
       "type": "String",
       "mysql": {
         "columnName": "so_dien_thoai",
-        "dataType": "varchar"
+        "dataType": "varchar",
+        "dataLength": 250
       }
     },
     "email": {
       "type": "String",
       "mysql": {
         "columnName": "email",
-        "dataType": "varchar"
+        "dataType": "varchar",
+        "dataLength": 250
       }
     },
     "laDonVi": {
@@ -130,17 +139,13 @@
       }
     }
   },
-
   "validations": [],
   "relations": {
     "QTDonVi": {
-      "type":"belongsTo",
+      "type": "belongsTo",
       "model": "QTDonVi",
       "foreignKey": "idCha",
-      "primaryKey": "id",
-      "options": {
-        "nestRemoting": true
-      }
+      "primaryKey": "id"
     },
     "QTDonVi_DiaBan": {
       "type": "hasMany",
@@ -152,6 +157,13 @@
     "QTUsers": {
       "type": "hasMany",
       "model": "QTUsers",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "QTHopThuHoiDoi": {
+      "type": "hasMany",
+      "model": "QTHopThuHoiDap",
       "options": {
         "nestRemoting": true
       }
@@ -167,5 +179,4 @@
       "entity": "QTDonVi"
     }
   }
-
 }

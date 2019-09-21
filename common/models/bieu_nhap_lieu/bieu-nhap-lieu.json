@@ -58,14 +58,10 @@
       "type": "String",
       "required": false,
       "length": 50,
-      "precision": null,
-      "scale": null,
       "mysql": {
         "columnName": "ky_hieu_bieu",
         "dataType": "varchar",
         "dataLength": 50,
-        "dataPrecision": null,
-        "dataScale": null,
         "nullable": "Y"
       }
     },
@@ -73,60 +69,40 @@
       "type": "String",
       "required": false,
       "length": 250,
-      "precision": null,
-      "scale": null,
       "mysql": {
         "columnName": "ky_bao_cao",
         "dataType": "varchar",
-        "dataLength": 250,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "dataLength": 250
       }
     },
     "donViNhapLieu": {
       "type": "String",
       "required": false,
       "length": 250,
-      "precision": null,
-      "scale": null,
       "mysql": {
         "columnName": "don_vi_nhap_lieu",
         "dataType": "varchar",
-        "dataLength": 250,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "dataLength": 250
       }
     },
     "donViNhanBaoCao": {
       "type": "String",
       "required": false,
       "length": 250,
-      "precision": null,
-      "scale": null,
       "mysql": {
         "columnName": "don_vi_nhan_bao_cao",
         "dataType": "varchar",
-        "dataLength": 250,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "dataLength": 250
       }
     },
     "donViTongHop": {
       "type": "String",
       "required": false,
       "length": 250,
-      "precision": null,
-      "scale": null,
       "mysql": {
         "columnName": "don_vi_tong_hop",
         "dataType": "varchar",
-        "dataLength": 250,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
+        "dataLength": 250
       }
     },
     "ghiChu": {
