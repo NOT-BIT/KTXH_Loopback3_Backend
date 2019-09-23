@@ -4,123 +4,154 @@
     "idInjection": true,
     "mysql": {
       "table": "ql_nam_lam_viec"
-    },
-    "relations": {}
+    }
   },
   "properties": {
     "hieuLuc": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 3,
-      "scale": 0,
-      "mysql": {
-        "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "dataLength": null,
-        "dataPrecision": 3,
-        "dataScale": 0,
-        "nullable": "Y"
+      "uid": {
+        "type": "String",
+        "required": true,
+        "index": { "unique": true },
+        "length": 250,
+        "mysql": {
+          "columnName": "uid",
+          "dataType": "varchar",
+          "dataLength": 250
+        }
+      },
+      "ma": {
+        "type": "String",
+        "required": true,
+        "index": { "unique": true },
+        "length": 250,
+        "mysql": {
+          "columnName": "ma",
+          "dataType": "varchar",
+          "dataLength": 250
+        }
+      },
+      "ten": {
+        "type": "String",
+        "length": 250,
+        "mysql": {
+          "columnName": "ten",
+          "dataType": "varchar",
+          "dataLength": 250
+        }
+      },
+      "nam": {
+        "type": "Number",
+        "mysql": {
+          "columnName": "nam",
+          "dataType": "int"
+        }
+      },
+      "ngayMoNam": {
+        "type": "Date",
+        "mysql": {
+          "columnName": "ngay_mo_nam",
+          "dataType": "date"
+        }
+      },
+      "ngayDongNam": {
+        "type": "Date",
+        "mysql": {
+          "columnName": "ngay_dong_nam",
+          "dataType": "date"
+        }
+      },
+      "sysTrangThaiDongMoId": {
+        "type": "Number",
+        "mysql": {
+          "columnName": "sys_trang_thai_dong_mo_id",
+          "dataType": "int"
+        }
+      },
+      "ghiChu": {
+        "type": "String",
+        "mysql": {
+          "columnName": "ghi_chu",
+          "dataType": "longtext",
+          "nullable": "Y"
+        }
+      },
+      "createdAt": {
+        "type": "Date",
+        "required": true,
+        "mysql": {
+          "columnName": "created_at",
+          "dataType": "date",
+          "nullable": "N"
+        }
+      },
+      "createdBy": {
+        "type": "Number",
+        "required": true,
+        "mysql": {
+          "columnName": "created_by",
+          "dataType": "int",
+          "nullable": "N"
+        }
+      },
+      "updatedAt": {
+        "type": "Date",
+        "mysql": {
+          "columnName": "updated_at",
+          "dataType": "date"
+        }
+      },
+      "updatedBy": {
+        "type": "Number",
+        "mysql": {
+          "columnName": "updated_by",
+          "dataType": "int"
+        }
+      },
+      "hieuLuc": {
+        "type": "Boolean",
+        "required": true,
+        "default": true,
+        "mysql": {
+          "columnName": "hieu_luc",
+          "dataType": "tinyint",
+          "nullable": "N"
+        }
+      },
+      "xoa": {
+        "type": "Boolean",
+        "required": true,
+        "default": false,
+        "mysql": {
+          "columnName": "xoa",
+          "dataType": "tinyint",
+          "nullable": "N"
+        }
       }
     },
-    "id": {
-      "type": "Number",
-      "required": true,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
-      "id": 1,
-      "mysql": {
-        "columnName": "id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "N"
+    "relations": {
+      "hasManyQLKyBaoCao": {
+        "type": "hasMany",
+        "model": "QLKyBaoCao",
+        "foreignKey": "qlNamLamViecId",
+        "options": {
+          "nestRemoting": true
+        }
+      },
+      "belongsToSysTrangThaiDongMo": {
+        "type": "belongsTo",
+        "model": "SysTrangThaiDongMo",
+        "foreignKey": "sysTrangThaiDongMoId",
+        "options": {
+          "nestRemoting": true
+        }
       }
     },
-    "ngayDongNam": {
-      "type": "Date",
-      "required": false,
-      "length": null,
-      "precision": null,
-      "scale": null,
-      "mysql": {
-        "columnName": "ngay_dong_nam",
-        "dataType": "date",
-        "dataLength": null,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
-      }
-    },
-    "ngayMoNam": {
-      "type": "Date",
-      "required": false,
-      "length": null,
-      "precision": null,
-      "scale": null,
-      "mysql": {
-        "columnName": "ngay_mo_nam",
-        "dataType": "date",
-        "dataLength": null,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
-      }
-    },
-    "nam": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
-      "mysql": {
-        "columnName": "nam",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
-      }
-    },
-    "sysTrangThaiDongMoId": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
-      "mysql": {
-        "columnName": "sys_trang_thai_dong_mo_id",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
-        "nullable": "Y"
-      }
-    },
-    "xoa": {
-      "type": "Number",
-      "required": false,
-      "length": null,
-      "precision": 3,
-      "scale": 0,
-      "mysql": {
-        "columnName": "xoa",
-        "dataType": "tinyint",
-        "dataLength": null,
-        "dataPrecision": 3,
-        "dataScale": 0,
-        "nullable": "Y"
-      }
-    }
-  },
-  "relations": {
-    "QLKyBaoCao": {
-      "type": "hasMany",
-      "model": "QLKyBaoCao",
-      "options": {
-        "nestRemoting": true
+    "foreignKeys": {
+      "sysTrangThaiDongMoIdFk": {
+        "name": "ql_nam_lam_viec_sys_trang_thai_dong_mo",
+        "foreignKey": "sysTrangThaiDongMoId",
+        "entityKey": "id",
+        "entity": "SysTrangThaiDongMo"
       }
     }
   }

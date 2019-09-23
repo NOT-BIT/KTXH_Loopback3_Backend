@@ -14,7 +14,7 @@
       "index": {
         "unique": true
       },
-      "length": 50,
+      "length": 250,
       "mysql": {
         "columnName": "uid",
         "dataType": "varchar",
@@ -27,12 +27,12 @@
       "index": {
         "unique": true
       },
-      "length": 50,
+      "length": 250,
       "mysql": {
         "columnName": "ma",
         "dataType": "varchar",
         "nullable": "N",
-        "dataLength": 50
+        "dataLength": 250
       }
     },
     "ten": {
@@ -44,7 +44,7 @@
         "dataLength": 250
       }
     },
-    "idCha": {
+    "donViChaId": {
       "type": "Number",
       "mysql": {
         "columnName": "id_cha",
@@ -89,7 +89,8 @@
       "type": "String",
       "mysql": {
         "columnName": "ghi_chu",
-        "dataType": "longtext"
+        "dataType": "longtext",
+        "nullable": "Y"
       }
     },
     "createdAt": {
@@ -97,14 +98,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date"
-      }
-    },
-    "updatedAt": {
-      "type": "Date",
-      "mysql": {
-        "columnName": "updated_at",
-        "dataType": "date"
+        "dataType": "date",
+        "nullable": "N"
       }
     },
     "createdBy": {
@@ -112,7 +107,15 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
+      }
+    },
+    "updatedAt": {
+      "type": "Date",
+      "mysql": {
+        "columnName": "updated_at",
+        "dataType": "date"
       }
     },
     "updatedBy": {
@@ -124,28 +127,43 @@
     },
     "hieuLuc": {
       "type": "Boolean",
+      "required": true,
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     },
     "xoa": {
       "type": "Boolean",
+      "required": true,
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     }
   },
   "validations": [],
   "relations": {
-    "QTDonVi": {
+    "belongsToQTDonVi": {
       "type": "belongsTo",
       "model": "QTDonVi",
-      "foreignKey": "idCha",
-      "primaryKey": "id"
+      "foreignKey": "donViChaId",
+      "primaryKey": "id",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "hasManyToQTDonVi": {
+      "type": "hasMany",
+      "model": "QTDonVi",
+      "foreignKey": "donViChaId",
+      "options": {
+        "nestRemoting": true
+      }
     },
     "QTDonVi_DiaBan": {
       "type": "hasMany",
@@ -164,23 +182,14 @@
       "options": {
         "nestRemoting": true
       }
-    },
-    "QTHopThuHoiDoi": {
-      "type": "hasMany",
-      "model": "QTHopThuHoiDap",
-      "foreignKey": "qtDonViId",
-      "primaryKey": "id",
-      "options": {
-        "nestRemoting": true
-      }
     }
   },
   "acls": [],
   "methods": {},
   "foreignKeys": {
-    "idCha": {
+    "donViChaIdFk": {
       "name": "qt_don_vi_qt_don_vi_fk",
-      "foreignKey": "idCha",
+      "foreignKey": "donViChaId",
       "entityKey": "id",
       "entity": "QTDonVi"
     }

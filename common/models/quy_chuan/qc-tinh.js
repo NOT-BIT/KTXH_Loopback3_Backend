@@ -7,7 +7,7 @@ module.exports = function(QCTinh) {
             ma: ma,
             ten: ten,
             ghiChu: ghiChu,
-            capDonViHanhChinh: cap,
+            sysCapDonViHanhChinhId: cap,
             loaiDonViHanhChinh: loai,
             nongThon: nt,
             bienGioi: bg,
@@ -36,7 +36,7 @@ module.exports = function(QCTinh) {
                 ma: ma,
                 ten: ten,
                 ghiChu: ghiChu,
-                capDonViHanhChinh: cap,
+                sysCapDonViHanhChinhId: cap,
                 loaiDonViHanhChinh: loai,
                 nongThon: nt,
                 bienGioi: bg,
@@ -92,7 +92,7 @@ module.exports = function(QCTinh) {
             const [data, total] = await Promise.all([
               QCTinh.find({
                 where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, capDonViHanhChinh: true, hieuLuc: true},
+                fields: {ma: true, ten: true, ghiChu: true, sysCapDonViHanhChinhId: true, hieuLuc: true},
                 include: ['SysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
@@ -116,7 +116,7 @@ module.exports = function(QCTinh) {
             const [data, total] = await Promise.all([
               QCTinh.find({
                 where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, capDonViHanhChinh: true, hieuLuc: true},
+                fields: {ma: true, ten: true, ghiChu: true, sysCapDonViHanhChinhId: true, hieuLuc: true},
                 include: ['SysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
