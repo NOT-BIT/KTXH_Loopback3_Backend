@@ -8,7 +8,7 @@ module.exports = function(QCHuyen) {
             qcTinhId: qcTinhId,
             ten: ten,
             ghiChu: ghiChu,
-            capDonViHanhChinh: cap,
+            sysCapDonViHanhChinhId: cap,
             loaiDonViHanhChinh: loai,
             nongThon: nt,
             bienGioi: bg,
@@ -38,7 +38,7 @@ module.exports = function(QCHuyen) {
                 qcTinhId: qcTinhId,
                 ten: ten,
                 ghiChu: ghiChu,
-                capDonViHanhChinh: cap,
+                sysCapDonViHanhChinhId: cap,
                 loaiDonViHanhChinh: loai,
                 nongThon: nt,
                 bienGioi: bg,
@@ -94,7 +94,7 @@ module.exports = function(QCHuyen) {
             const [data, total] = await Promise.all([
                 QCHuyen.find({
                 where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, qcTinhId: true, capDonViHanhChinh: true, hieuLuc: true},
+                fields: {ma: true, ten: true, ghiChu: true, qcTinhId: true, sysCapDonViHanhChinhId: true, hieuLuc: true},
                 include: ['QCTinh', 'SysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
@@ -118,7 +118,7 @@ module.exports = function(QCHuyen) {
             const [data, total] = await Promise.all([
               QCHuyen.find({
                 where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, qcTinhId: true, capDonViHanhChinh: true, hieuLuc: true},
+                fields: {ma: true, ten: true, ghiChu: true, qcTinhId: true, sysCapDonViHanhChinhId: true, hieuLuc: true},
                 include: ['QCTinh', 'SysCapHanhChinh'],
                 limit: pageSize,
                 skip: page

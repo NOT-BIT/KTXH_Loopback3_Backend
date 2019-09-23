@@ -4,13 +4,13 @@ const Promise = require('bluebird')
 
 module.exports = function(QTDonVi) {
 	  //create Quan Tri Don Vi
-    QTDonVi.createQTDonVi = async function(uid, ma, ten, idCha,
+    QTDonVi.createQTDonVi = async function(uid, ma, ten, donViChaId,
       diaChi, soDienThoai, email, laDonVi, ghiChu) {
         const qtDonViData = {
           uid: uid,
           ma: ma,
           ten: ten,
-          idCha: idCha,
+          donViChaId: donViChaId,
           diaChi: diaChi,
           soDienThoai: soDienThoai,
           email: email,
@@ -50,13 +50,13 @@ module.exports = function(QTDonVi) {
     }
 
     //update Quan Tri Don Vi
-    QTDonVi.updateQTDonVi = async function(id, ma, ten, idCha,
+    QTDonVi.updateQTDonVi = async function(id, ma, ten, donViChaId,
       diaChi, soDienThoai, email, laDonVi, ghiChu, hieuLuc) {
         const qtDonViData = {
           id: id,
           ma: ma,
           ten: ten,
-          idCha: idCha,
+          donViChaId: donViChaId,
           diaChi: diaChi,
           soDienThoai: soDienThoai,
           email: email,
@@ -180,7 +180,7 @@ module.exports = function(QTDonVi) {
             {arg: 'uid', type: 'string', required: true},
             {arg: 'ma', type: 'string', required: true},
             {arg: 'ten', type: 'string'},
-            {arg: 'idCha', type: 'number'},
+            {arg: 'iddonViChaId', type: 'number'},
             {arg: 'diaChi', type: 'string'},
             {arg: 'soDienThoai', type: 'string'},
             {arg: 'email', type: 'string'},
@@ -208,7 +208,7 @@ module.exports = function(QTDonVi) {
             {arg: 'id', type: 'number', required: true},
             {arg: 'ma', type: 'string', required: true},
             {arg: 'ten', type:' string'},
-            {arg: 'idCha', type: 'number'},
+            {arg: 'donViChaId', type: 'number'},
             {arg: 'noiDung', type: 'string'},
             {arg: 'diaChi', type: 'string'},
             {arg: 'soDienThoai', type: 'string'},

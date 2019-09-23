@@ -44,7 +44,7 @@
       "mysql": {
         "columnName": "mat_khau",
         "dataType": "varchar",
-        "dataLength": 50
+        "dataLength": 250
       }
     },
     "soDienThoai": {
@@ -60,7 +60,7 @@
       "mysql": {
         "columnName": "email",
         "dataType": "varchar",
-        "dataLength": 50
+        "dataLength": 250
       }
     },
     "qtDonViId": {
@@ -72,7 +72,6 @@
     },
     "ghiChu": {
       "type": "String",
-      "required": false,
       "mysql": {
         "columnName": "ghi_chu",
         "dataType": "longtext",
@@ -84,7 +83,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date"
+        "dataType": "date",
+        "nullable": "N"
       }
     },
     "createdBy": {
@@ -92,7 +92,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "updatedAt": {
@@ -112,24 +113,26 @@
     "hieuLuc": {
       "type": "Boolean",
       "required": true,
-      "default": 1,
+      "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     },
     "xoa": {
       "type": "Boolean",
       "required": true,
-      "default": 0,
+      "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     }
   },
   "relations": {
-    "QTDonVi": {
+    "belongsToQTDonVi": {
       "type": "belongsTo",
       "model": "QTDonVi",
       "foreignKey": "qtDonViId",

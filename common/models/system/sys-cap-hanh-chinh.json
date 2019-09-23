@@ -12,11 +12,11 @@
       "type": "String",
       "required": true,
       "index": { "unique": true },
-      "length": 50,
+      "length": 250,
       "mysql": {
         "columnName": "uid",
         "dataType": "varchar",
-        "dataLength": 50,
+        "dataLength": 250,
         "nullable": "N"
       }
     },
@@ -24,11 +24,11 @@
       "type": "String",
       "required": true,  
       "index": { "unique": true },    
-      "length": 50,
+      "length": 250,
       "mysql": {
         "columnName": "ma",
         "dataType": "varchar",
-        "dataLength": 50,
+        "dataLength": 250,
         "nullable": "N"
       }
     },

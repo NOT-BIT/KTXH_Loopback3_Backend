@@ -55,13 +55,13 @@
     "ma": {
       "type": "Binary",
       "required": false,
-      "length": 50,
+      "length": 250,
       "precision": null,
       "scale": null,
       "mysql": {
         "columnName": "ma",
         "dataType": "varbinary",
-        "dataLength": 50,
+        "dataLength": 250,
         "dataPrecision": null,
         "dataScale": null,
         "nullable": "Y"

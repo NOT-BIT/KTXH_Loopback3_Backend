@@ -48,18 +48,17 @@
         "nullable": "N"
       }
     },
-    "donViId": {
+    "donViTongHopCapHuyenId": {
       "type": "Number",
       "required": true,
       "mysql": {
-        "columnName": "don_vi_id",
+        "columnName": "don_vi_tong_hop_cap_huyen_id",
         "dataType": "int",
         "nullable": "N"
       }
     },
     "ghiChu": {
       "type": "String",
-      "required": false,
       "mysql": {
         "columnName": "ghi_chu",
         "dataType": "longtext",
@@ -71,7 +70,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date"
+        "dataType": "date",
+        "nullable": "N"
       }
     },
     "createdBy": {
@@ -79,7 +79,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "updatedAt": {
@@ -99,24 +100,26 @@
     "hieuLuc": {
       "type": "Boolean",
       "required": true,
-      "default": 1,
+      "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     },
     "xoa": {
       "type": "Boolean",
       "required": true,
-      "default": 0,
+      "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     }
   },
   "relations": {
-    "bieuNhapLieu": {
+    "belongsToBieuNhapLieu": {
       "type": "belongsTo",
       "model": "BieuNhapLieu",
       "foreignKey": "bieuNhapLieuId",
@@ -124,25 +127,25 @@
         "nestRemoting": true
       }
     },
-    "donVi": {
+    "belongsToDonVi": {
       "type": "belongsTo",
       "model": "DonVi",
-      "foreignKey": "donViId",
+      "foreignKey": "donViTongHopCapHuyenId",
       "options": {
         "nestRemoting": true
       }
     }
   },
   "foreignKeys": {
-    "bieuNhapLieuId": {
-      "name": "BieuNhapLieu_DonViTongHopCapHuyen-BieuNhapLieu",
+    "bieuNhapLieuIdFk": {
+      "name": "bieu_nhap_lieu_don_vi_tong_hop_cap_huyen_bieu_nhap_lieu_fk",
       "foreignKey": "bieuNhapLieuId",
       "entityKey": "id",
       "entity": "BieuNhapLieu"
     },
-    "truongNhapLieuId": {
-      "name": "BieuNhapLieu_DonViTongHopCapHuyen-DonViTongHopCapHuyen",
-      "foreignKey": "donViId",
+    "donViTongHopCapHuyenIdFk": {
+      "name": "bieu_nhap_lieu_don_vi_tong_hop_cap_huyen_don_vi_tong_hop_cap_huyen_fk",
+      "foreignKey": "donViTongHopCapHuyenId",
       "entityKey": "id",
       "entity": "DonVi"
     }

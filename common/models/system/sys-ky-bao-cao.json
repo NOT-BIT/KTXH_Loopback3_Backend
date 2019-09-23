@@ -57,13 +57,13 @@
     "ma": {
       "type": "String",
       "required": false,
-      "length": 50,
+      "length": 250,
       "precision": null,
       "scale": null,
       "mysql": {
         "columnName": "ma",
         "dataType": "varchar",
-        "dataLength": 50,
+        "dataLength": 250,
         "dataPrecision": null,
         "dataScale": null,
         "nullable": "Y"
