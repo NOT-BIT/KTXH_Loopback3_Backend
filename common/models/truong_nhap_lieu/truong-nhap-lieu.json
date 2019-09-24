@@ -35,7 +35,6 @@
 
     "ten": {
       "type": "String",
-      "required": false,
       "length": 250,
       "mysql": {
         "columnName": "ten",

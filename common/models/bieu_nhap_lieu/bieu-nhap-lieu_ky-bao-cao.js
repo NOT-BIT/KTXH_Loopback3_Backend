@@ -135,8 +135,8 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
                 {arg: 'ma', type: 'string', required: true},
                 {arg: 'bieuNhapLieuId', type: 'number', required: true},
                 {arg: 'qlKyBaoCaoId', type: 'number', required: true},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false}
+                {arg: 'ten', type: 'string'},
+                {arg: 'ghiChu', type: 'string'}
             ],
             returns: {arg: 'data', type: 'object'},
         }
@@ -152,7 +152,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
                 {arg: 'qlKyBaoCaoId', type: 'number'},
                 {arg: 'ten', type: 'string'},
                 {arg: 'ghiChu', type: 'string'},
-                {arg: 'hieuLuc', type: 'number'}
+                {arg: 'hieuLuc', type: 'boolean'}
             ],
             returns: {arg: 'data', type: 'object'},
         }

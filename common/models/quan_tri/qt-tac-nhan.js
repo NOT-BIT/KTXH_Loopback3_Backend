@@ -131,9 +131,9 @@ module.exports = function(QTTacNhan) {
             accepts: [
                 {arg: 'uid', type: 'string', required: true},
                 {arg: 'ma', type: 'string', required: true},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'sysCapHanhChinhId', type: 'number', required: false},
-                {arg: 'ghiChu', type: 'string', required: false}
+                {arg: 'ten', type: 'string'},
+                {arg: 'sysCapHanhChinhId', type: 'number'},
+                {arg: 'ghiChu', type: 'string'}
             ],
             returns: {arg: 'data', type: 'object'},
         },
@@ -144,11 +144,11 @@ module.exports = function(QTTacNhan) {
             http: {path: '/update', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true},
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'sysCapHanhChinhId', type: 'number', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'ma', type: 'string'},
+                {arg: 'ten', type: 'string'},
+                {arg: 'sysCapHanhChinhId', type: 'number'},
+                {arg: 'ghiChu', type: 'string'},
+                {arg: 'hieuLuc', type: 'boolean'}
             ],
             returns: {arg: 'data', type: 'object'},
         },
@@ -188,7 +188,7 @@ module.exports = function(QTTacNhan) {
         'listTacNhan', {
             http: {path: '/list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
@@ -200,7 +200,7 @@ module.exports = function(QTTacNhan) {
         'listDeletedTacNhan', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],

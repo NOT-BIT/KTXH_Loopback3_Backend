@@ -139,13 +139,13 @@ module.exports = function(QTDonVi_DiaBan) {
             accepts: [
                 {arg: 'uid', type: 'string', required: true},
                 {arg: 'ma', type: 'string', required: true},
-                {arg: 'ten', type: 'string', required: false},
+                {arg: 'ten', type: 'string'},
                 {arg: 'qtDonviId', type: 'number', required: true},
-                {arg: 'qcTinhId', type: 'number', required: false},
-                {arg: 'qcHuyenId', type: 'number', required: false},
-                {arg: 'qcXaId', type: 'number', required: false},
-                {arg: 'tatCaNutCon', type: 'number', required: false},
-                {arg: 'ghiChu', type: 'string', required: false}
+                {arg: 'qcTinhId', type: 'number'},
+                {arg: 'qcHuyenId', type: 'number'},
+                {arg: 'qcXaId', type: 'number'},
+                {arg: 'tatCaNutCon', type: 'number'},
+                {arg: 'ghiChu', type: 'string'}
             ],
             returns: {arg: 'data', type: 'object'},
         }
@@ -156,15 +156,15 @@ module.exports = function(QTDonVi_DiaBan) {
             http: {path: '/update', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true},
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'qtDonviId', type: 'number', required: false},
-                {arg: 'qcTinhId', type: 'number', required: false},
-                {arg: 'qcHuyenId', type: 'number', required: false},
-                {arg: 'qcXaId', type: 'number', required: false},
-                {arg: 'tatCaNutCon', type: 'number', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'ma', type: 'string'},
+                {arg: 'ten', type: 'string'},
+                {arg: 'qtDonviId', type: 'number'},
+                {arg: 'qcTinhId', type: 'number'},
+                {arg: 'qcHuyenId', type: 'number'},
+                {arg: 'qcXaId', type: 'number'},
+                {arg: 'tatCaNutCon', type: 'number'},
+                {arg: 'ghiChu', type: 'string'},
+                {arg: 'hieuLuc', type: 'boolean'}
             ],
             returns: {arg: 'data', type: 'object'},
         }
@@ -204,7 +204,7 @@ module.exports = function(QTDonVi_DiaBan) {
         'listDonVi_DiaBan', {
             http: {path: '/list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 { arg: 'page', type: 'number', default: '0'},
                 { arg: 'pageSize', type: 'number', default: '20'}
             ],
@@ -216,7 +216,7 @@ module.exports = function(QTDonVi_DiaBan) {
         'listDeletedDonVi_DiaBan', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 { arg: 'page', type: 'number', default: '0'},
                 { arg: 'pageSize', type: 'number', default: '20'}
             ],

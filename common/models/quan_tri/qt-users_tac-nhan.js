@@ -133,10 +133,10 @@ module.exports = function(QTUsers_TacNhan) {
             accepts: [
                 {arg: 'uid', type: 'string', required: true},
                 {arg: 'ma', type: 'string', required: true},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'qtUsersId', type: 'number', required: false},
-                {arg: 'qtTacNhanId', type: 'number', required: false},
-                {arg: 'ghiChu', type: 'string', required: false}
+                {arg: 'ten', type: 'string'},
+                {arg: 'qtUsersId', type: 'number'},
+                {arg: 'qtTacNhanId', type: 'number'},
+                {arg: 'ghiChu', type: 'string'}
             ],
             returns: {arg: 'data', type: 'object'},
         },
@@ -147,12 +147,12 @@ module.exports = function(QTUsers_TacNhan) {
             http: {path: '/update', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true},
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'qtUsersId', type: 'number', required: false},
-                {arg: 'qtTacNhanId', type: 'number', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'ma', type: 'string'},
+                {arg: 'ten', type: 'string'},
+                {arg: 'qtUsersId', type: 'number'},
+                {arg: 'qtTacNhanId', type: 'number'},
+                {arg: 'ghiChu', type: 'string'},
+                {arg: 'hieuLuc', type: 'boolean'}
             ],
             returns: {arg: 'data', type: 'object'},
         },
@@ -192,7 +192,7 @@ module.exports = function(QTUsers_TacNhan) {
         'listUsers_TacNhan', {
             http: {path: '/list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
@@ -204,7 +204,7 @@ module.exports = function(QTUsers_TacNhan) {
         'listDeletedUsers_TacNhan', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],

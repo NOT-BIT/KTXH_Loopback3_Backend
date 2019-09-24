@@ -135,11 +135,11 @@ module.exports = function(QTChucNangPhanMem) {
             accepts: [
                 {arg: 'uid', type: 'string', required: true},
                 {arg: 'ma', type: 'string', required: true},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'chucNangChaId', type: 'number', required: false},
-                {arg: 'path', type: 'string', required: false},
-                {arg: 'icon', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false}
+                {arg: 'ten', type: 'string'},
+                {arg: 'chucNangChaId', type: 'number'},
+                {arg: 'path', type: 'string'},
+                {arg: 'icon', type: 'string'},
+                {arg: 'ghiChu', type: 'string'}
             ],
             returns: {arg: 'data', type: 'object'},
         }
@@ -150,13 +150,13 @@ module.exports = function(QTChucNangPhanMem) {
             http: {path: '/update', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true},
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'chucNangChaId', type: 'number', required: false},
-                {arg: 'path', type: 'string', required: false},
-                {arg: 'icon', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'ma', type: 'string'},
+                {arg: 'ten', type: 'string'},
+                {arg: 'chucNangChaId', type: 'number'},
+                {arg: 'path', type: 'string'},
+                {arg: 'icon', type: 'string'},
+                {arg: 'ghiChu', type: 'string'},
+                {arg: 'hieuLuc', type: 'boolean'}
             ],
             returns: {arg: 'data', type: 'object'},
         }
@@ -196,7 +196,7 @@ module.exports = function(QTChucNangPhanMem) {
         'listCNPM', {
             http: {path: '/list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
@@ -208,7 +208,7 @@ module.exports = function(QTChucNangPhanMem) {
         'listDeletedCNPM', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],

@@ -141,14 +141,14 @@ module.exports = function(QCTinh) {
             accepts: [
                 {arg: 'uid', type: 'string', required: true},
                 {arg: 'ma', type: 'string', required: true},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
+                {arg: 'ten', type: 'string'},
+                {arg: 'ghiChu', type: 'string'},
                 {arg: 'cap', type: 'number', required: true},
                 {arg: 'loai', type: 'string', required: true},
-                {arg: 'nt', type: 'string', required: false},
-                {arg: 'bg', type: 'string', required: false},
-                {arg: 'hd', type: 'string', required: false},
-                {arg: 'dbkk', type: 'string', required: false}
+                {arg: 'nt', type: 'string'},
+                {arg: 'bg', type: 'string'},
+                {arg: 'hd', type: 'string'},
+                {arg: 'dbkk', type: 'string'}
             ],
             returns: {arg: 'data', type: 'object'},
         },
@@ -159,16 +159,16 @@ module.exports = function(QCTinh) {
             http: {path: '/update', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true},
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'cap', type: 'number', required: false},
-                {arg: 'loai', type: 'string', required: false},
-                {arg: 'nt', type: 'string', required: false},
-                {arg: 'bg', type: 'string', required: false},
-                {arg: 'hd', type: 'string', required: false},
-                {arg: 'dbkk', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'ma', type: 'string'},
+                {arg: 'ten', type: 'string'},
+                {arg: 'ghiChu', type: 'string'},
+                {arg: 'cap', type: 'number'},
+                {arg: 'loai', type: 'string'},
+                {arg: 'nt', type: 'string'},
+                {arg: 'bg', type: 'string'},
+                {arg: 'hd', type: 'string'},
+                {arg: 'dbkk', type: 'string'},
+                {arg: 'hieuLuc', type: 'number'}
             ],
             returns: {arg: 'data', type: 'object'},
         },
@@ -208,7 +208,7 @@ module.exports = function(QCTinh) {
         'listTinh', {
             http: {path: '/list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
@@ -220,7 +220,7 @@ module.exports = function(QCTinh) {
         'listDeletedTinh', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],

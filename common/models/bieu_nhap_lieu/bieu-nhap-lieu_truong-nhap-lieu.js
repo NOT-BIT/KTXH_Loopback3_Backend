@@ -152,7 +152,7 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
                 {arg: 'bieuNhapLieuId', type: 'number'},
                 {arg: 'truongNhapLieuId', type: 'number'},
                 {arg: 'ghiChu', type: 'string'},
-                {arg: 'hieuLuc', type: 'number'}
+                {arg: 'hieuLuc', type: 'boolean'}
             ],
             returns: {arg: 'data', type: 'object'},
         }

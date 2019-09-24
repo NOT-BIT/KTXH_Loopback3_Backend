@@ -32,7 +32,6 @@
     },
     "ten": {
       "type": "String",
-      "required": false,
       "length": 250,
       "mysql": {
         "columnName": "ten",
@@ -51,7 +50,6 @@
     },
     "qcTinhId": {
       "type": "Number",
-      "required": false,
       "mysql": {
         "columnName": "qc_tinh_id",
         "dataType": "int"
@@ -59,7 +57,6 @@
     },
     "qcHuyenId": {
       "type": "Number",
-      "required": false,
       "mysql": {
         "columnName": "qc_huyen_id",
         "dataType": "int"
@@ -67,7 +64,6 @@
     },
     "qcXaId": {
       "type": "Number",
-      "required": false,
       "mysql": {
         "columnName": "qc_xa_id",
         "dataType": "int"

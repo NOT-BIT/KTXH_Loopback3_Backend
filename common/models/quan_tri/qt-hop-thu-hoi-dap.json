@@ -10,7 +10,6 @@
   "properties": {
     "ngayHoi": {
       "type": "Date",
-      "required": false,
       "length": null,
       "precision": null,
       "scale": null,
@@ -25,7 +24,6 @@
     },
     "ngayTraLoi": {
       "type": "Date",
-      "required": false,
       "length": null,
       "precision": null,
       "scale": null,
@@ -40,7 +38,6 @@
     },
     "nguoiHoiId": {
       "type": "Number",
-      "required": false,
       "length": null,
       "precision": 10,
       "scale": 0,
@@ -55,7 +52,6 @@
     },
     "nguoiTraLoiId": {
       "type": "Number",
-      "required": false,
       "length": null,
       "precision": 10,
       "scale": 0,
@@ -70,7 +66,6 @@
     },
     "noiDungHoi": {
       "type": "String",
-      "required": false,
       "precision": null,
       "scale": null,
       "mysql": {
@@ -83,7 +78,6 @@
     },
     "noiDungTraLoi": {
       "type": "String",
-      "required": false,
       "precision": null,
       "scale": null,
       "mysql": {
@@ -96,7 +90,6 @@
     },
     "qtDonViId": {
       "type": "Number",
-      "required": false,
       "length": null,
       "precision": 10,
       "scale": 0,
@@ -111,7 +104,6 @@
     },
     "sysDanhGiaTraLoiId": {
       "type": "Number",
-      "required": false,
       "length": null,
       "precision": 10,
       "scale": 0,
@@ -126,7 +118,6 @@
     },
     "tieuDe": {
       "type": "String",
-      "required": false,
       "length": 250,
       "precision": null,
       "scale": null,
@@ -141,7 +132,6 @@
     },
     "trangThaiHopThuId": {
       "type": "Number",
-      "required": false,
       "length": null,
       "precision": 10,
       "scale": 0,

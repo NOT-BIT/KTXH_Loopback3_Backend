@@ -10,7 +10,6 @@
   "properties": {
     "ghiChu": {
       "type": "String",
-      "required": false,
       "precision": null,
       "scale": null,
       "mysql": {
@@ -23,7 +22,6 @@
     },
     "hieuLuc": {
       "type": "Number",
-      "required": false,
       "length": null,
       "precision": 3,
       "scale": 0,
@@ -54,7 +52,6 @@
     },
     "ma": {
       "type": "String",
-      "required": false,
       "length": 250,
       "precision": null,
       "scale": null,
@@ -69,7 +66,6 @@
     },
     "noiDung": {
       "type": "String",
-      "required": false,
       "length": 250,
       "precision": null,
       "scale": null,
@@ -84,7 +80,6 @@
     },
     "xoa": {
       "type": "Number",
-      "required": false,
       "length": null,
       "precision": 3,
       "scale": 0,

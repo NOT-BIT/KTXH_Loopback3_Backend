@@ -41,7 +41,6 @@
     },
     "sysCapHanhChinhId": {
       "type": "Number",
-      "required": false,
       "length": null,
       "precision": 10,
       "scale": 0,

@@ -144,14 +144,14 @@ module.exports = function(QCHuyen) {
                 {arg: 'uid', type: 'string', required: true},
                 {arg: 'ma', type: 'string', required: true},
                 {arg: 'qcTinhId', type: 'number', required: true},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
+                {arg: 'ten', type: 'string'},
+                {arg: 'ghiChu', type: 'string'},
                 {arg: 'cap', type: 'number', required: true},
                 {arg: 'loai', type: 'string', required: true},
-                {arg: 'nt', type: 'string', required: false},
-                {arg: 'bg', type: 'string', required: false},
-                {arg: 'hd', type: 'string', required: false},
-                {arg: 'dbkk', type: 'string', required: false}
+                {arg: 'nt', type: 'string'},
+                {arg: 'bg', type: 'string'},
+                {arg: 'hd', type: 'string'},
+                {arg: 'dbkk', type: 'string'}
             ],
             returns: {arg: 'data', type: 'object'},
         },
@@ -162,17 +162,17 @@ module.exports = function(QCHuyen) {
             http: {path: '/update', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true},
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'qcTinhId', type: 'number', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'cap', type: 'number', required: false},
-                {arg: 'loai', type: 'string', required: false},
-                {arg: 'nt', type: 'string', required: false},
-                {arg: 'bg', type: 'string', required: false},
-                {arg: 'hd', type: 'string', required: false},
-                {arg: 'dbkk', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'ma', type: 'string'},
+                {arg: 'qcTinhId', type: 'number'},
+                {arg: 'ten', type: 'string'},
+                {arg: 'ghiChu', type: 'string'},
+                {arg: 'cap', type: 'number'},
+                {arg: 'loai', type: 'string'},
+                {arg: 'nt', type: 'string'},
+                {arg: 'bg', type: 'string'},
+                {arg: 'hd', type: 'string'},
+                {arg: 'dbkk', type: 'string'},
+                {arg: 'hieuLuc', type: 'number'}
             ],
             returns: {arg: 'data', type: 'object'},
         },
@@ -212,7 +212,7 @@ module.exports = function(QCHuyen) {
         'listHuyen', {
             http: {path: '/list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
@@ -224,7 +224,7 @@ module.exports = function(QCHuyen) {
         'listDeletedHuyen', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],

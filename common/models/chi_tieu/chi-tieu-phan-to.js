@@ -142,7 +142,7 @@ module.exports = function(ChiTieuPhanTo){
                 {arg: 'ma', type: 'string'},
                 {arg: 'ten', type: 'string'},
                 {arg: 'ghiChu', type: 'string'},
-                {arg: 'hieuLuc', type: 'number'}
+                {arg: 'hieuLuc', type: 'boolean'}
             ],
             returns: {arg: 'data', type: 'object'},
         },

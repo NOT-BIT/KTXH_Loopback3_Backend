@@ -168,7 +168,7 @@ module.exports = function(BieuNhapLieu) {
                 {arg: 'donViNhanBaoCao', type: 'string'},
                 {arg: 'donViTongHop', type: 'string'},
                 {arg: 'ghiChu', type: 'string'},
-                {arg: 'hieuLuc', type: 'number'}
+                {arg: 'hieuLuc', type: 'boolean'}
             ],
             returns: {arg: 'data', type: 'object'},
         }
@@ -208,7 +208,7 @@ module.exports = function(BieuNhapLieu) {
         'listBNL', {
             http: {path: '/list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 { arg: 'page', type: 'number', default: '0'},
                 { arg: 'pageSize', type: 'number', default: '20'}
             ],
@@ -220,7 +220,7 @@ module.exports = function(BieuNhapLieu) {
         'listDeletedBNL', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 { arg: 'page', type: 'number', default: '0'},
                 { arg: 'pageSize', type: 'number', default: '20'}
             ],
