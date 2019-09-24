@@ -17,7 +17,7 @@ module.exports = function(TruongNhapLieu) {
             ghiChu: true,
             sysLoaiTruongNhapLieu: true
           },
-          include: ['SysLoaiTruongNhapLieu']
+          include: ['belongsToSysLoaiTruongNhapLieu']
         }),
         TruongNhapLieu.count({
           xoa: false
@@ -52,7 +52,7 @@ module.exports = function(TruongNhapLieu) {
             noidung: true,
             sysLoaiTruongNhapLieu: true
           },
-          include: ['SysLoaiTruongNhapLieu']
+          include: ['belongsToSysLoaiTruongNhapLieu']
         }),
         TruongNhapLieu.count({
           xoa: true

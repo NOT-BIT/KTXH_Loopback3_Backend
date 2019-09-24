@@ -93,7 +93,7 @@ module.exports = function(QCTinh) {
               QCTinh.find({
                 where: {xoa: 0},
                 fields: {ma: true, ten: true, ghiChu: true, sysCapDonViHanhChinhId: true, hieuLuc: true},
-                include: ['SysCapHanhChinh'],
+                include: ['belongsToSysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
               }),
@@ -117,7 +117,7 @@ module.exports = function(QCTinh) {
               QCTinh.find({
                 where: {xoa: 1},
                 fields: {ma: true, ten: true, ghiChu: true, sysCapDonViHanhChinhId: true, hieuLuc: true},
-                include: ['SysCapHanhChinh'],
+                include: ['belongsToSysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
               }),

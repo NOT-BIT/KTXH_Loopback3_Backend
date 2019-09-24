@@ -180,7 +180,7 @@
         "nestRemoting": true
       }
     },
-    "capHanhChinh": {
+    "belongsToSysCapHanhChinh": {
       "type": "belongsTo",
       "model": "SysCapHanhChinh",
       "foreignKey": "sysCapDonViHanhChinhId",

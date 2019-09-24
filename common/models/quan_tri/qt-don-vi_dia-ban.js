@@ -91,7 +91,7 @@ module.exports = function(QTDonVi_DiaBan) {
                 QTDonVi_DiaBan.find({
                 where: {xoa: 0},
                 fields: {ma: true, ten: true, ghiChu: true, qtDonviId: true, hieuLuc: true},
-                include: ['QTDonVi'],
+                include: ['belongsToQTDonVi'],
                 limit: pageSize,
                 skip: page
               }),
@@ -115,7 +115,7 @@ module.exports = function(QTDonVi_DiaBan) {
               QTDonVi_DiaBan.find({
                 where: {xoa: 1},
                 fields: {ma: true, ten: true, ghiChu: true, qtDonviId: true, hieuLuc: true},
-                include: ['QTDonVi'],
+                include: ['belongsToQTDonVi'],
                 limit: pageSize,
                 skip: page
               }),

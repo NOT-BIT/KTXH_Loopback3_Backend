@@ -85,7 +85,7 @@ module.exports = function(QTUsers_TacNhan) {
               QTUsers_TacNhan.find({
                 where: {xoa: 0},
                 fields: {ma: true, ten: true, ghiChu: true, qtUsersId: true, qtTacNhanId: true, hieuLuc: true},
-                include: ['QTUsers', 'QTTacNhan'],
+                include: ['belongsToQTUsers', 'belongsToQTTacNhan'],
                 limit: pageSize,
                 skip: page
               }),
@@ -109,7 +109,7 @@ module.exports = function(QTUsers_TacNhan) {
               QTUsers_TacNhan.find({
                 where: {xoa: 1},
                 fields: {ma: true, ten: true, ghiChu: true, qtUsersId: true, qtTacNhanId: true, hieuLuc: true},
-                include: ['QTUsers', 'QTTacNhan'],
+                include: ['belongsToQTUsers', 'belongsToQTTacNhan'],
                 limit: pageSize,
                 skip: page
               }),

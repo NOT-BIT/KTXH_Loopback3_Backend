@@ -85,7 +85,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
                 BieuNhapLieu_KyBaoCao.find({
                 where: {xoa: 0},
                 fields: {ma: true, ten: true, ghiChu: true, qlKyBaoCaoId: true, hieuLuc: true},
-                include: ['QLKyBaoCao'],
+                include: ['belongsToBieuNhapLieu', 'belongsToQLKyBaoCao'],
                 limit: pageSize,
                 skip: page
               }),
@@ -109,7 +109,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
               BieuNhapLieu_KyBaoCao.find({
                 where: {xoa: 1},
                 fields: {ma: true, ten: true, ghiChu: true, qlKyBaoCaoId: true, hieuLuc: true},
-                include: ['QLKyBaoCao'],
+                include: ['belongsToBieuNhapLieu', 'belongsToQLKyBaoCao'],
                 limit: pageSize,
                 skip: page
               }),

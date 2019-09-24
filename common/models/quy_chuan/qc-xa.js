@@ -95,7 +95,7 @@ module.exports = function(QCXa) {
                 QCXa.find({
                 where: {xoa: 0},
                 fields: {ma: true, ten: true, ghiChu: true, qcHuyenId: true, sysCapDonViHanhChinhId: true, hieuLuc: true},
-                include: ['QCHuyen', 'SysCapHanhChinh'],
+                include: ['belongsToQCHuyen', 'belongsToSysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
               }),
@@ -119,7 +119,7 @@ module.exports = function(QCXa) {
                 QCXa.find({
                 where: {xoa: 1},
                 fields: {ma: true, ten: true, ghiChu: true, qcHuyenId: true, sysCapDonViHanhChinhId: true, hieuLuc: true},
-                include: ['QCHuyen', 'SysCapHanhChinh'],
+                include: ['belongsToQCHuyen', 'belongsToSysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
               }),

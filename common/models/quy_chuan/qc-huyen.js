@@ -95,7 +95,7 @@ module.exports = function(QCHuyen) {
                 QCHuyen.find({
                 where: {xoa: 0},
                 fields: {ma: true, ten: true, ghiChu: true, qcTinhId: true, sysCapDonViHanhChinhId: true, hieuLuc: true},
-                include: ['QCTinh', 'SysCapHanhChinh'],
+                include: ['belongsToQCTinh', 'belongsToSysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
               }),
@@ -119,7 +119,7 @@ module.exports = function(QCHuyen) {
               QCHuyen.find({
                 where: {xoa: 1},
                 fields: {ma: true, ten: true, ghiChu: true, qcTinhId: true, sysCapDonViHanhChinhId: true, hieuLuc: true},
-                include: ['QCTinh', 'SysCapHanhChinh'],
+                include: ['belongsToQCTinh', 'belongsToSysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
               }),

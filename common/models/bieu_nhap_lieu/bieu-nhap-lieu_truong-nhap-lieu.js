@@ -85,7 +85,7 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
                 BieuNhapLieu_TruongNhapLieu.find({
                 where: {xoa: 0},
                 fields: {ma: true, ten: true, ghiChu: true, bieuNhapLieuId: true, truongNhapLieuId: true, hieuLuc: true},
-                include: ['BieuNhapLieu', 'TruongNhapLieu'],
+                include: ['belongsToBieuNhapLieu', 'belongsToTruongNhapLieu'],
                 limit: pageSize,
                 skip: page
               }),
@@ -109,7 +109,7 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
               BieuNhapLieu_TruongNhapLieu.find({
                 where: {xoa: 1},
                 fields: {ma: true, ten: true, ghiChu: true, bieuNhapLieuId: true, truongNhapLieuId: true, hieuLuc: true},
-                include: ['BieuNhapLieu', 'TruongNhapLieu'],
+                include: ['belongsToTruongNhapLieu', 'belongsToTruongNhapLieu'],
                 limit: pageSize,
                 skip: page
               }),

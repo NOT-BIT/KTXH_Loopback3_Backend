@@ -93,7 +93,7 @@ module.exports = function(BieuNhapLieu) {
                 BieuNhapLieu.find({
                 where: {xoa: 0},
                 fields: {ma: true, ten: true, ghiChu: true, sysLoaiBieuNhapLieuId: true, hieuLuc: true},
-                include: ['SysLoaiBieuNhapLieu'],
+                include: ['belongsToSysLoaiBieuNhapLieu'],
                 limit: pageSize,
                 skip: page
               }),
@@ -117,7 +117,7 @@ module.exports = function(BieuNhapLieu) {
               BieuNhapLieu.find({
                 where: {xoa: 1},
                 fields: {ma: true, ten: true, ghiChu: true, sysLoaiBieuNhapLieuId: true, hieuLuc: true},
-                include: ['SysLoaiBieuNhapLieu'],
+                include: ['belongsToSysLoaiBieuNhapLieu'],
                 limit: pageSize,
                 skip: page
               }),

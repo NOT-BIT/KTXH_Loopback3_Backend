@@ -17,7 +17,7 @@ module.exports = function(QLKyBaoCao) {
             sysKyBaoCaoId: true,
             qtNamLamViecId: true
           },
-          include: ['SysKyBaoCao', 'QTNamLamViec', 'SysTrangThaiDongMo'],
+          include: ['belongsToSysKyBaoCao', 'belongsToQLNamLamViec', 'belongsToSysTrangThaiDongMo'],
           limit: pageSize,
           skip: page
         }),
