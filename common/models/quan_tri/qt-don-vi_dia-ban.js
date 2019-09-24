@@ -12,8 +12,8 @@ module.exports = function(QTDonVi_DiaBan) {
             qcXaId,
             tatCaNutCon,
             ghiChu,
-            hieuLuc: 1,
-            xoa: 0
+            createdAt: new Date(),
+            createdBy: 0
         }
         try {
             const data = await QTDonVi_DiaBan.create(DonVi_DiaBanData)

@@ -1,6 +1,6 @@
 {
   "name": "BieuNhapLieu_DonViTongHopCapTinh",
-  "base": "Model",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "mysql": {
@@ -127,7 +127,7 @@
         "nestRemoting": true
       }
     },
-    "belongsToDonVi": {
+    "belongsToDonViTongHopCapTinh": {
       "type": "belongsTo",
       "model": "DonVi",
       "foreignKey": "donViTongHopCapTinhId",

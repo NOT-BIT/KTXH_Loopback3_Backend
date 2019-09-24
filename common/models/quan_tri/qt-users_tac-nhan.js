@@ -9,8 +9,8 @@ module.exports = function(QTUsers_TacNhan) {
             qtUsersId: qtUsersId,
             qtTacNhanId: qtTacNhanId,
             ghiChu: ghiChu,
-            hieuLuc: 1,
-            xoa: 0
+            createdAt: new Date(),
+            createdBy: 0
         }
         try {
             const data = await QTUsers_TacNhan.create(UTData)

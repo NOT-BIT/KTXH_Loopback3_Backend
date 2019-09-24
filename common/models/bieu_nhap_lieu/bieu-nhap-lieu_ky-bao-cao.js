@@ -9,8 +9,8 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
             qlKyBaoCaoId: qlKyBaoCaoId,
             ten: ten,
             ghiChu: ghiChu,
-            hieuLuc: 1,
-            xoa: 0
+            createdAt: new Date(),
+            createdBy: 0
         }
         try {
             const data = await BieuNhapLieu_KyBaoCao.create(BKData)
@@ -147,12 +147,12 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
             http: {path: '/update', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true},
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'bieuNhapLieuId', type: 'number', required: false},
-                {arg: 'qlKyBaoCaoId', type: 'number', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'ma', type: 'string'},
+                {arg: 'bieuNhapLieuId', type: 'number'},
+                {arg: 'qlKyBaoCaoId', type: 'number'},
+                {arg: 'ten', type: 'string'},
+                {arg: 'ghiChu', type: 'string'},
+                {arg: 'hieuLuc', type: 'number'}
             ],
             returns: {arg: 'data', type: 'object'},
         }
@@ -192,7 +192,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         'listBK', {
             http: {path: '/list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 { arg: 'page', type: 'number', default: '0'},
                 { arg: 'pageSize', type: 'number', default: '20'}
             ],
@@ -204,7 +204,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
         'listDeletedBK', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 { arg: 'page', type: 'number', default: '0'},
                 { arg: 'pageSize', type: 'number', default: '20'}
             ],

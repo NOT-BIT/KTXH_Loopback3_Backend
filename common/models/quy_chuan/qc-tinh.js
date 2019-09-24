@@ -13,8 +13,8 @@ module.exports = function(QCTinh) {
             bienGioi: bg,
             haiDao: hd,
             vungDBKhoKhan: dbkk,
-            hieuLuc: 1,
-            xoa: 0
+            createdAt: new Date(),
+            createdBy: 0
         }
         try {
             const data = await QCTinh.create(tinhData)

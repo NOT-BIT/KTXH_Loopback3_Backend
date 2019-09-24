@@ -8,8 +8,8 @@ module.exports = function(QTTacNhan) {
             ten: ten,
             sysCapHanhChinhId: sysCapHanhChinhId,
             ghiChu: ghiChu,
-            hieuLuc: 1,
-            xoa: 0
+            createdAt: new Date(),
+            createdBy: 0
         }
         try {
             const data = await QTTacNhan.create(tacNhanData)

@@ -1,6 +1,6 @@
 {
   "name": "QTDonVi_DiaBan",
-  "base": "Model",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "mysql": {

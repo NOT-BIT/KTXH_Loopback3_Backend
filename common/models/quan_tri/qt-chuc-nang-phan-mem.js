@@ -10,8 +10,8 @@ module.exports = function(QTChucNangPhanMem) {
             path,
             icon,
             ghiChu,
-            hieuLuc: 1,
-            xoa: 0
+            createdAt: new Date(),
+            createdBy: 0
         }
         try {
             const data = await QTChucNangPhanMem.create(CNPMData)

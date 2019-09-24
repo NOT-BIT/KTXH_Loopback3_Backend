@@ -1,6 +1,6 @@
 {
   "name": "QTDonVi",
-  "base": "Model",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "mysql": {
@@ -165,7 +165,7 @@
         "nestRemoting": true
       }
     },
-    "QTDonVi_DiaBan": {
+    "hasManyQTDonVi_DiaBan": {
       "type": "hasMany",
       "model": "QTDonVi_DiaBan",
       "foreignKey": "qtDonViId",
@@ -174,7 +174,7 @@
         "nestRemoting": true
       }
     },
-    "QTUsers": {
+    "hasManyQTUsers": {
       "type": "hasMany",
       "model": "QTUsers",
       "foreignKey": "qtDonViId",

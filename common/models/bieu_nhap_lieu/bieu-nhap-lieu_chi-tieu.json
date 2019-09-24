@@ -1,6 +1,6 @@
 {
   "name": "BieuNhapLieu_ChiTieu",
-  "base": "Model",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "mysql": {
@@ -145,7 +145,7 @@
       "entityKey": "id",
       "entity": "BieuNhapLieu"
     },
-    "truongNhapLieuIdFk": {
+    "chiTieuIdFk": {
       "name": "bieu_nhap_lieu_chi_tieu_chi_tieu_fk",
       "foreignKey": "chiTieuId",
       "entityKey": "id",

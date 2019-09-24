@@ -9,8 +9,8 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
             bieuNhapLieuId: bieuNhapLieuId,
             truongNhapLieuId: truongNhapLieuId,
             ghiChu: ghiChu,
-            hieuLuc: 1,
-            xoa: 0
+            createdAt: new Date(),
+            createdBy: 0
         }
         try {
             const data = await BieuNhapLieu_TruongNhapLieu.create(BTData)
@@ -133,10 +133,10 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
             accepts: [
                 {arg: 'uid', type: 'string', required: true},
                 {arg: 'ma', type: 'string', required: true},
-                {arg: 'ten', type: 'string', required: false},
+                {arg: 'ten', type: 'string'},
                 {arg: 'bieuNhapLieuId', type: 'number', required: true},
                 {arg: 'truongNhapLieuId', type: 'number', required: true},
-                {arg: 'ghiChu', type: 'string', required: false}
+                {arg: 'ghiChu', type: 'string'}
             ],
             returns: {arg: 'data', type: 'object'},
         }
@@ -147,12 +147,12 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
             http: {path: '/update', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true},
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'bieuNhapLieuId', type: 'number', required: false},
-                {arg: 'truongNhapLieuId', type: 'number', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'ma', type: 'string'},
+                {arg: 'ten', type: 'string'},
+                {arg: 'bieuNhapLieuId', type: 'number'},
+                {arg: 'truongNhapLieuId', type: 'number'},
+                {arg: 'ghiChu', type: 'string'},
+                {arg: 'hieuLuc', type: 'number'}
             ],
             returns: {arg: 'data', type: 'object'},
         }
@@ -192,7 +192,7 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
         'listBT', {
             http: {path: '/list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 { arg: 'page', type: 'number', default: '0'},
                 { arg: 'pageSize', type: 'number', default: '20'}
             ],
@@ -204,7 +204,7 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
         'listDeletedBT', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 { arg: 'page', type: 'number', default: '0'},
                 { arg: 'pageSize', type: 'number', default: '20'}
             ],

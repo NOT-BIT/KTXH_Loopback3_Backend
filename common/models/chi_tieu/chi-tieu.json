@@ -1,6 +1,6 @@
 {
   "name": "ChiTieu",
-  "base": "Model",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "mysql": {
@@ -265,7 +265,7 @@
         "nestRemoting": true
       }
     },
-    "belongsToChiTieu": {
+    "belongsToChiTieuCha": {
       "type": "belongsTo",
       "model": "ChiTieu",
       "foreignKey": "chiTieuChaId",

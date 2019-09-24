@@ -1,6 +1,6 @@
 {
   "name": "QLKyBaoCao",
-  "base": "Model",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "mysql": {

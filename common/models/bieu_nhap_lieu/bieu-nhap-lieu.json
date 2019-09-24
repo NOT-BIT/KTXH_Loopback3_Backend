@@ -1,6 +1,6 @@
 {
   "name": "BieuNhapLieu",
-  "base": "Model",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "mysql": {

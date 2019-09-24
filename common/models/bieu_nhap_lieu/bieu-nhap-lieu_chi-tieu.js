@@ -9,25 +9,20 @@ module.exports = function(BieuNhapLieuChiTieu) {
         uid, 
         ma,
         ten,
-        noiDung,
-        ghiChu,
         bieuNhapLieuId, 
-        chiTieuId, 
-        createdBy
+        chiTieuId,
+        ghiChu
         ) {
        
         const bnlChiTieuData = {
             uid: uid,
             ma: ma,
             ten: ten,
-            noiDung: noiDung,
-            ghiChu:ghiChu,
             bieuNhapLieuId: bieuNhapLieuId,
             chiTieuId: chiTieuId,
+            ghiChu:ghiChu,
             createdAt: new Date(),
-            createdBy: createdBy,
-            hieuLuc: 1,
-            xoa: 0
+            createdBy: 0
         }
         try {
             const data = await BieuNhapLieuChiTieu.create(bnlChiTieuData)
@@ -58,22 +53,19 @@ module.exports = function(BieuNhapLieuChiTieu) {
         id, 
         ma,
         ten,
-        noiDung,
-        ghiChu,
         bieuNhapLieuId, 
-        chiTieuId, 
-        updatedBy ) {
+        chiTieuId,
+        ghiChu) {
     	
         const bnlChiTieuData = {
             id: id,
             ma: ma,
             ten: ten,
-            noiDung: noiDung,
-            ghiChu:ghiChu,
             bieuNhapLieuId: bieuNhapLieuId,
             chiTieuId: chiTieuId,
+            ghiChu:ghiChu,
             updatedAt: new Date(),
-            updatedBy: updatedBy
+            updatedBy: 0
         }
         try {
             const data = await BieuNhapLieuChiTieu.upsertWithWhere(
@@ -186,14 +178,12 @@ module.exports = function(BieuNhapLieuChiTieu) {
       {
         http: {path: '/create', verb: 'post'},
         accepts: [
-            {arg: 'uid', type: 'number', required: true},
-            {arg: 'ma', type: 'string', required: false},
-            {arg: 'ten', type: 'string', required: false},
-            {arg: 'noiDung', type: 'string', required: false},
-            {arg: 'ghiChu', type: 'string', required: false},
-            {arg: 'bieuNhapLieuId', type: 'number', required: false},
-            {arg: 'chiTieuId', type: 'number', required: false},
-            {arg: 'createdBy', type: 'number', required: true}
+            {arg: 'uid', type: 'string', required: true},
+            {arg: 'ma', type: 'string', required: true},
+            {arg: 'ten', type: 'string'},
+            {arg: 'bieuNhapLieuId', type: 'number', required: true},
+            {arg: 'chiTieuId', type: 'number', required: true},
+            {arg: 'ghiChu', type: 'string'}
         ],
         returns: { arg: 'data' },
       }
@@ -213,13 +203,11 @@ module.exports = function(BieuNhapLieuChiTieu) {
         http: {path: '/update', verb: 'post'},
         accepts: [
             {arg: 'id', type: 'number', required: true},
-            {arg: 'ma', type: 'string', required: false},
-            {arg: 'ten', type: 'string', required: false},
-            {arg: 'noiDung', type: 'string', required: false},
-            {arg: 'ghiChu', type: 'string', required: false},
-            {arg: 'bieuNhapLieuId', type: 'number', required: false},
-            {arg: 'chiTieuId', type: 'number', required: false},
-            {arg: 'updatedBy', type: 'number', required: true}
+            {arg: 'ma', type: 'string'},
+            {arg: 'ten', type: 'string'},
+            {arg: 'bieuNhapLieuId', type: 'number'},
+            {arg: 'chiTieuId', type: 'number'},
+            {arg: 'ghiChu', type: 'string'}
         ],
         returns: { arg: 'data' },
       },

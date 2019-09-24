@@ -207,7 +207,7 @@ module.exports = function(QTDonVi) {
         accepts: [
             {arg: 'id', type: 'number', required: true},
             {arg: 'ma', type: 'string', required: true},
-            {arg: 'ten', type:' string'},
+            {arg: 'ten', type:'string'},
             {arg: 'donViChaId', type: 'number'},
             {arg: 'noiDung', type: 'string'},
             {arg: 'diaChi', type: 'string'},

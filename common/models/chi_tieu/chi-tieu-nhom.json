@@ -1,7 +1,7 @@
 {
   "name": "ChiTieuNhom",
   "idInjection": true,
-  "base": "Model",
+  "base": "PersistedModel",
   "options": {
     "mysql": {
       "table": "chi_tieu_nhom"

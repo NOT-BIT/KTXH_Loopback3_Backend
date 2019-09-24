@@ -13,8 +13,8 @@ module.exports = function(BieuNhapLieu) {
             donViNhanBaoCao,
             donViTongHop,
             ghiChu,
-            hieuLuc: 1,
-            xoa: 0
+            createdAt: new Date(),
+            createdBy: 0
         }
         try {
             const data = await BieuNhapLieu.create(BNLData)
@@ -141,14 +141,14 @@ module.exports = function(BieuNhapLieu) {
             accepts: [
                 {arg: 'uid', type: 'string', required: true},
                 {arg: 'ma', type: 'string', required: true},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'sysLoaiBieuNhapLieuId', type: 'number', required: false},
-                {arg: 'kyHieuBieu', type: 'string', required: false},
-                {arg: 'kyBaoCao', type: 'string', required: false},
-                {arg: 'donViNhapLieu', type: 'string', required: false},
-                {arg: 'donViNhanBaoCao', type: 'string', required: false},
-                {arg: 'donViTongHop', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false}
+                {arg: 'ten', type: 'string'},
+                {arg: 'sysLoaiBieuNhapLieuId', type: 'number'},
+                {arg: 'kyHieuBieu', type: 'string'},
+                {arg: 'kyBaoCao', type: 'string'},
+                {arg: 'donViNhapLieu', type: 'string'},
+                {arg: 'donViNhanBaoCao', type: 'string'},
+                {arg: 'donViTongHop', type: 'string'},
+                {arg: 'ghiChu', type: 'string'}
             ],
             returns: {arg: 'data', type: 'object'},
         }
@@ -159,16 +159,16 @@ module.exports = function(BieuNhapLieu) {
             http: {path: '/update', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true},
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'sysLoaiBieuNhapLieuId', type: 'number', required: false},
-                {arg: 'kyHieuBieu', type: 'string', required: false},
-                {arg: 'kyBaoCao', type: 'string', required: false},
-                {arg: 'donViNhapLieu', type: 'string', required: false},
-                {arg: 'donViNhanBaoCao', type: 'string', required: false},
-                {arg: 'donViTongHop', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'ma', type: 'string'},
+                {arg: 'ten', type: 'string'},
+                {arg: 'sysLoaiBieuNhapLieuId', type: 'number'},
+                {arg: 'kyHieuBieu', type: 'string'},
+                {arg: 'kyBaoCao', type: 'string'},
+                {arg: 'donViNhapLieu', type: 'string'},
+                {arg: 'donViNhanBaoCao', type: 'string'},
+                {arg: 'donViTongHop', type: 'string'},
+                {arg: 'ghiChu', type: 'string'},
+                {arg: 'hieuLuc', type: 'number'}
             ],
             returns: {arg: 'data', type: 'object'},
         }

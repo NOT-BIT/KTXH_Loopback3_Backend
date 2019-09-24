@@ -1,6 +1,6 @@
 {
   "name": "SysCapHanhChinh",
-  "base": "Model",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "mysql": {

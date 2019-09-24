@@ -254,8 +254,7 @@ module.exports = function(ChiTieuNhom) {
       },
       {
         arg: 'ma',
-        type: 'string',
-        required: true
+        type: 'string'
       },
       {
         arg: 'ten',

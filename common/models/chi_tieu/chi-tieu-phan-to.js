@@ -7,8 +7,8 @@ module.exports = function(ChiTieuPhanTo){
             ma: ma,
             ten: ten,
             ghiChu: ghiChu,
-            hieuLuc: 1,
-            xoa: 0
+            createdAt: new Date(),
+            createdBy: 0
         }
         try {
             const data = await ChiTieuPhanTo.create(CTPTData)
@@ -127,8 +127,8 @@ module.exports = function(ChiTieuPhanTo){
             accepts: [
                 {arg: 'uid', type: 'string', required: true},
                 {arg: 'ma', type: 'string', required: true},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false}
+                {arg: 'ten', type: 'string'},
+                {arg: 'ghiChu', type: 'string'}
             ],
             returns: {arg: 'data', type: 'object'},
         },
@@ -139,10 +139,10 @@ module.exports = function(ChiTieuPhanTo){
             http: {path: '/update', verb: 'post'},
             accepts: [
                 {arg: 'id', type: 'number', required: true},
-                {arg: 'ma', type: 'string', required: false},
-                {arg: 'ten', type: 'string', required: false},
-                {arg: 'ghiChu', type: 'string', required: false},
-                {arg: 'hieuLuc', type: 'number', required: false}
+                {arg: 'ma', type: 'string'},
+                {arg: 'ten', type: 'string'},
+                {arg: 'ghiChu', type: 'string'},
+                {arg: 'hieuLuc', type: 'number'}
             ],
             returns: {arg: 'data', type: 'object'},
         },
@@ -182,7 +182,7 @@ module.exports = function(ChiTieuPhanTo){
         'listCTPT', {
             http: {path: '/list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],
@@ -194,7 +194,7 @@ module.exports = function(ChiTieuPhanTo){
         'listDeletedCTPT', {
             http: {path: '/deleted_list', verb: 'post'},
             accepts: [
-                {arg: 'queryData', type: 'object', required: false},
+                {arg: 'queryData', type: 'object'},
                 {arg: 'page', type: 'number', default: '0'},
                 {arg: 'pageSize', type: 'number', default: '20'}
             ],

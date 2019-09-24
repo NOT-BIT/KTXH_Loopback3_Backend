@@ -13,9 +13,9 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
             ten: ten,
             qtTacNhanId: qtTacNhanId,
             qtChucNangPhanMemId: qtChucNangPhanMemId,
+            ghiChu: ghiChu,
             createdAt: new Date(),
-            createdBy: 0,
-            ghiChu:ghiChu
+            createdBy: 0
         }
         try {
             const data = await QTTacNhanChucNangPhanMem.create(qtTNCNPMdata)
