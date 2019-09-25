@@ -55,7 +55,9 @@ module.exports = function(BieuNhapLieuChiTieu) {
         ten,
         bieuNhapLieuId, 
         chiTieuId,
-        ghiChu) {
+        ghiChu,
+        hieuLuc
+        ) {
     	
         const bnlChiTieuData = {
             id: id,
@@ -64,13 +66,15 @@ module.exports = function(BieuNhapLieuChiTieu) {
             bieuNhapLieuId: bieuNhapLieuId,
             chiTieuId: chiTieuId,
             ghiChu:ghiChu,
+            hieuLuc: hieuLuc,
             updatedAt: new Date(),
             updatedBy: 0
         }
         try {
             const data = await BieuNhapLieuChiTieu.upsertWithWhere(
               {
-                id: BieuNhapLieuChiTieu.id
+                id: BieuNhapLieuChiTieu.id, 
+                xoa: false
               },
               bnlChiTieuData
             )
@@ -115,7 +119,7 @@ module.exports = function(BieuNhapLieuChiTieu) {
     }
 
     //list Bieu Nhap Lieu Chi Tieu
-    BieuNhapLieuChiTieu.listBieuNhapLieuChiTieu = async function(page, pageSize) {
+    BieuNhapLieuChiTieu.listBieuNhapLieuChiTieu = async function(queryData, page, pageSize) {
         try {
           const [data, total] = await Promise.all([
             BieuNhapLieuChiTieu.find({
@@ -123,9 +127,9 @@ module.exports = function(BieuNhapLieuChiTieu) {
                 xoa: 0
               },
               fields: {
-                ten: true,
-                noidung: true
-              }
+                ma: true, ten: true, ghiChu: true, hieuLuc: true, bieuNhapLieuId: true, chiTieuId: true
+              },
+              include: ['belongsToBieuNhapLieu', 'belongsToChiTieu']
             }),
             BieuNhapLieuChiTieu.count({
               xoa: 0
@@ -145,7 +149,7 @@ module.exports = function(BieuNhapLieuChiTieu) {
     }
 
     //list deleted Bieu Nhap Lieu Chi Tieu
-    BieuNhapLieuChiTieu.listDeleteBieuNhapLieuChiTieu = async function(page, pageSize) {
+    BieuNhapLieuChiTieu.listDeleteBieuNhapLieuChiTieu = async function(queryData, page, pageSize) {
       try {
         const [data, total] = await Promise.all([
           BieuNhapLieuChiTieu.find({
@@ -153,9 +157,9 @@ module.exports = function(BieuNhapLieuChiTieu) {
               xoa: 1
             },
             fields: {
-              ten: true,
-              noidung: true
-            }
+              ma: true, ten: true, ghiChu: true, hieuLuc: true, bieuNhapLieuId: true, chiTieuId: true
+            },
+            include: ['belongsToBieuNhapLieu', 'belongsToChiTieu']
           }),
           BieuNhapLieuChiTieu.count({
             xoa: 1
@@ -207,7 +211,8 @@ module.exports = function(BieuNhapLieuChiTieu) {
             {arg: 'ten', type: 'string'},
             {arg: 'bieuNhapLieuId', type: 'number'},
             {arg: 'chiTieuId', type: 'number'},
-            {arg: 'ghiChu', type: 'string'}
+            {arg: 'ghiChu', type: 'string'},
+            {arg: 'hieuLuc', type: 'boolean'}
         ],
         returns: { arg: 'data' },
       },
@@ -237,6 +242,7 @@ module.exports = function(BieuNhapLieuChiTieu) {
       {
         http: { verb: 'post', path: '/list' },
         accepts: [
+          { arg: 'queryData', type: 'object'},
           { arg: 'page', type: 'number', default: '0'},
           { arg: 'pageSize', type: 'number', default: '20'}],
         returns: { arg: 'data' }
@@ -246,6 +252,7 @@ module.exports = function(BieuNhapLieuChiTieu) {
       {
         http: { verb: 'post', path: '/deleted_list' },
         accepts: [
+          { arg: 'queryData', type: 'object'},
           { arg: 'page', type: 'number', default: '0'},
           { arg: 'pageSize', type: 'number', default: '20'}],
         returns: { arg: 'data' }

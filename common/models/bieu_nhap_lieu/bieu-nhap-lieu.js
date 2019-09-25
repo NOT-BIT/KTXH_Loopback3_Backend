@@ -26,33 +26,24 @@ module.exports = function(BieuNhapLieu) {
     }
 
     BieuNhapLieu.updateBNL = async function(id, ma, ten, sysLoaiBieuNhapLieuId, kyHieuBieu, kyBaoCao, donViNhapLieu, donViNhanBaoCao, donViTongHop, ghiChu, hieuLuc){
+       const BNLData = {
+            id,
+            ma,
+            ten,
+            sysLoaiBieuNhapLieuId,
+            kyHieuBieu,
+            kyBaoCao,
+            donViNhapLieu,
+            donViNhanBaoCao,                
+            donViTongHop,
+            ghiChu,
+            hieuLuc
+        }
         try {
-            const BNL = await BieuNhapLieu.findById(id)
-            if (BNL.xoa == 1){
-                return null
-            }
-            const BNLData = {
-                id,
-                ma,
-                ten,
-                sysLoaiBieuNhapLieuId,
-                kyHieuBieu,
-                kyBaoCao,
-                donViNhapLieu,
-                donViNhanBaoCao,
-                donViTongHop,
-                ghiChu,
-                hieuLuc
-            }
-            try {
-                const data = await BieuNhapLieu.upsertWithWhere({id: BNLData.id}, BNLData)
-                return data
-            } catch (err) {
-                console.log('updateBieuNhapLieu', err)
-                throw err
-            }
+            const data = await BieuNhapLieu.upsertWithWhere({id: BNLData.id, xoa: false}, BNLData)
+            return data
         } catch (err) {
-            console.log('findBNL', err)
+            console.log('updateBieuNhapLieu', err)
             throw err
         }
     }

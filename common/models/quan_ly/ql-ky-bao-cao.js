@@ -43,17 +43,23 @@ module.exports = function(QLKyBaoCao) {
       const [data, total] = await Promise.all([
         QLKyBaoCao.find({
           where: {
-            xoa: false
+            xoa: true
           },
           fields: {
+            ma: true,
             ten: true,
-            ghiChu: true
+            ghiChu: true,
+            ngayDong: true,
+            ngayMo: true,
+            sysKyBaoCaoId: true,
+            qtNamLamViecId: true
           },
+          include: ['belongsToSysKyBaoCao', 'belongsToQLNamLamViec', 'belongsToSysTrangThaiDongMo'],
           limit: pageSize,
           skip: page
         }),
         QLKyBaoCao.count({
-          xoa: false
+          xoa: true
         })
       ])
 
@@ -141,7 +147,8 @@ module.exports = function(QLKyBaoCao) {
     ghiChu,
     qlNamLamViecId,
     sysKyBaoCaoId,
-    sysTrangThaiDongMoId
+    sysTrangThaiDongMoId, 
+    hieuLuc
   ) {
     const qlKyBaoCao = {
       id: id,
@@ -159,11 +166,12 @@ module.exports = function(QLKyBaoCao) {
       updatedBy: 0,
       qlNamLamViecId: qlNamLamViecId,
       sysKyBaoCaoId: sysKyBaoCaoId,
-      sysTrangThaiDongMoId: sysTrangThaiDongMoId
+      sysTrangThaiDongMoId: sysTrangThaiDongMoId,
+      hieuLuc: hieuLuc
     }
 
     try {
-      const data = await QLKyBaoCao.upsertWithWhere({ id: id }, qlKyBaoCao)
+      const data = await QLKyBaoCao.upsertWithWhere({ id: id, xoa: false }, qlKyBaoCao)
 
       return data
     } catch (err) {
@@ -382,6 +390,10 @@ module.exports = function(QLKyBaoCao) {
       {
         arg: 'sysTrangThaiDongMoId',
         type: 'number'
+      },
+      {
+        arg: "hieuLuc",
+        type: "boolean"
       }
     ],
     returns: { arg: 'data' },

@@ -23,30 +23,21 @@ module.exports = function(QTChucNangPhanMem) {
     }
 
     QTChucNangPhanMem.updateCNPM = async function(id, ma, ten, chucNangChaId, path, icon, ghiChu, hieuLuc){
+        const CNPMData = {
+            id,
+            ma,
+            ten,
+            chucNangChaId,
+            path,
+            icon,
+            ghiChu,
+            hieuLuc
+        }
         try {
-            const CNPM = await QTChucNangPhanMem.findById(id)
-            if (CNPM.xoa == 1){
-                return null
-            }
-            const CNPMData = {
-                id,
-                ma,
-                ten,
-                chucNangChaId,
-                path,
-                icon,
-                ghiChu,
-                hieuLuc
-            }
-            try {
-                const data = await QTChucNangPhanMem.upsertWithWhere({id: CNPMData.id}, CNPMData)
-                return data
-            } catch (err) {
-                console.log('updateQTChucNangPhanMem', err)
-                throw err
-            }
+            const data = await QTChucNangPhanMem.upsertWithWhere({id: CNPMData.id, xoa: false}, CNPMData)
+            return data
         } catch (err) {
-            console.log('findQTChucNangPhanMem', err)
+            console.log('updateQTChucNangPhanMem', err)
             throw err
         }
     }

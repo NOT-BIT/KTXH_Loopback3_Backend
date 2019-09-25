@@ -41,7 +41,7 @@ module.exports = function(ChiTieuNhom) {
       const [data, total] = await Promise.all([
         ChiTieuNhom.find({
           where: {
-            xoa: 0
+            xoa: 1
           },
           fields: {
             ma: true,
@@ -93,7 +93,9 @@ module.exports = function(ChiTieuNhom) {
       ten: ten,
       ghiChu: ghiChu,
       createdAt: new Date(),
-      createdBy: 0
+      createdBy: 0,
+      hieuLuc: 1,
+      xoa: 0
     }
 
     try {
@@ -109,7 +111,8 @@ module.exports = function(ChiTieuNhom) {
     id,
     ma,
     ten,
-    ghiChu
+    ghiChu,
+    hieuLuc
   ) {
     const chiTieuNhom = {
       id: id,
@@ -117,13 +120,15 @@ module.exports = function(ChiTieuNhom) {
       ten: ten,
       ghiChu: ghiChu,
       updatedAt: new Date(),
-      updatedBy: 0
+      updatedBy: 0, 
+      hieuLuc: hieuLuc
     }
 
     try {
       const data = await ChiTieuNhom.upsertWithWhere(
         {
-          id: chiTieuNhom.id
+          id: chiTieuNhom.id,
+          xoa: false
         },
         chiTieuNhom
       )
@@ -263,6 +268,10 @@ module.exports = function(ChiTieuNhom) {
       {
         arg: 'ghiChu',
         type: 'string'
+      },
+      {
+        arg: 'hieuLuc',
+        type: 'boolean'
       }
     ],
     returns: { arg: 'data' },

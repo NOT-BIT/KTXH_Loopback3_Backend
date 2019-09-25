@@ -21,28 +21,19 @@ module.exports = function(QTTacNhan) {
     }
 
     QTTacNhan.updateTacNhan = async function(id, ma, ten, sysCapHanhChinhId, ghiChu, hieuLuc){
+        const tacNhanData = {
+            id: id,
+            ma: ma,
+            ten: ten,
+            ghiChu: ghiChu,
+            sysCapHanhChinhId: sysCapHanhChinhId,
+            hieuLuc: hieuLuc
+        }
         try {
-            const tacNhan = await QTTacNhan.findById(id)
-            if (tacNhan.xoa == 1){
-                return null
-            }
-            const tacNhanData = {
-                id: id,
-                ma: ma,
-                ten: ten,
-                ghiChu: ghiChu,
-                sysCapHanhChinhId: sysCapHanhChinhId,
-                hieuLuc: hieuLuc
-            }
-            try {
-                const data = await QTTacNhan.upsertWithWhere({id: TacNhanData.id}, tacNhanData)
-                return data
-            } catch (err) {
-                console.log('updateQTTacNhan', err)
-                throw err
-            }
+            const data = await QTTacNhan.upsertWithWhere({id: tacNhanData.id, xoa: false}, tacNhanData)
+            return data
         } catch (err) {
-            console.log('findTacNhan', err)
+            console.log('updateQTTacNhan', err)
             throw err
         }
     }

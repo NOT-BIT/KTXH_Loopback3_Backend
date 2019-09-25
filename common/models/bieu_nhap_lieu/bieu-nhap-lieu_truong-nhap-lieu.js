@@ -22,29 +22,20 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
     }
 
     BieuNhapLieu_TruongNhapLieu.updateBT = async function(id, ma, ten, bieuNhapLieuId, truongNhapLieuId, ghiChu, hieuLuc){
+        const BTData = {
+            id: id,
+            ma: ma,
+            ten: ten,
+            bieuNhapLieuId: bieuNhapLieuId,
+            truongNhapLieuId: truongNhapLieuId,
+            ghiChu: ghiChu,
+            hieuLuc: hieuLuc
+        }
         try {
-            const BT = await BieuNhapLieu_TruongNhapLieu.findById(id)
-            if (BT.xoa == 1){
-                return null
-            }
-            const BTData = {
-                id: id,
-                ma: ma,
-                ten: ten,
-                bieuNhapLieuId: bieuNhapLieuId,
-                truongNhapLieuId: truongNhapLieuId,
-                ghiChu: ghiChu,
-                hieuLuc: hieuLuc
-            }
-            try {
-                const data = await BieuNhapLieu_TruongNhapLieu.upsertWithWhere({id: BTData.id}, BTData)
-                return data
-            } catch (err) {
-                console.log('updateBieuNhapLieu_TruongNhapLieu', err)
-                throw err
-            }
+            const data = await BieuNhapLieu_TruongNhapLieu.upsertWithWhere({id: BTData.id, xoa: false}, BTData)
+            return data
         } catch (err) {
-            console.log('findBT', err)
+            console.log('updateBieuNhapLieu_TruongNhapLieu', err)
             throw err
         }
     }

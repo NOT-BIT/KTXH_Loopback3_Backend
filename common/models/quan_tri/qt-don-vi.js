@@ -52,32 +52,26 @@ module.exports = function(QTDonVi) {
     //update Quan Tri Don Vi
     QTDonVi.updateQTDonVi = async function(id, ma, ten, donViChaId,
       diaChi, soDienThoai, email, laDonVi, ghiChu, hieuLuc) {
-        const qtDonViData = {
-          id: id,
-          ma: ma,
-          ten: ten,
-          donViChaId: donViChaId,
-          diaChi: diaChi,
-          soDienThoai: soDienThoai,
-          email: email,
-          laDonVi: laDonVi,
-          ghiChu: ghiChu,
-          updatedAt: new Date(),
-          hieuLuc: hieuLuc
-        }
-
-        try {
-            const data = await QTDonVi.upsertWithWhere(
-              {
-                id: QTDonVi.id
-              },
-              qtDonViData
-            )
-            return data
-          } catch (err) {
-            console.log('update QT-Don-Vi', err)
-            throw err
-          }
+            const qtDonViData = {
+              id: id,
+              ma: ma,
+              ten: ten,
+              donViChaId: donViChaId,
+              diaChi: diaChi,
+              soDienThoai: soDienThoai,
+              email: email,
+              laDonVi: laDonVi,
+              ghiChu: ghiChu,
+              updatedAt: new Date(),
+              hieuLuc: hieuLuc
+            }
+            try {
+                const data = await QTDonVi.upsertWithWhere({id: qtDonViData.id, xoa: false}, qtDonViData)
+                return data
+            } catch (err) {
+                console.log('update QT-Don-Vi', err)
+                throw err
+            }
     }
 
     //delete Quan Tri Don Vi 
@@ -185,8 +179,7 @@ module.exports = function(QTDonVi) {
             {arg: 'soDienThoai', type: 'string'},
             {arg: 'email', type: 'string'},
             {arg: 'laDonVi', type: 'boolean'},
-            {arg: 'ghiChu', type: 'string'},
-            {arg: 'hieuLuc', type: 'boolean'}
+            {arg: 'ghiChu', type: 'string'}
         ],
         returns: { arg: 'data' },
       }
@@ -206,15 +199,15 @@ module.exports = function(QTDonVi) {
         http: {path: '/update', verb: 'post'},
         accepts: [
             {arg: 'id', type: 'number', required: true},
-            {arg: 'ma', type: 'string', required: true},
+            {arg: 'ma', type: 'string'},
             {arg: 'ten', type:'string'},
             {arg: 'donViChaId', type: 'number'},
-            {arg: 'noiDung', type: 'string'},
             {arg: 'diaChi', type: 'string'},
             {arg: 'soDienThoai', type: 'string'},
             {arg: 'email', type: 'string'},
-            {arg: 'laDonVi', type: 'boolean',},
-            {arg: 'ghiChu', type: 'string'}
+            {arg: 'laDonVi', type: 'boolean'},
+            {arg: 'ghiChu', type: 'string'},
+            {arg: 'hieuLuc', type: 'boolean'},
         ],
         returns: { arg: 'data' }
       },

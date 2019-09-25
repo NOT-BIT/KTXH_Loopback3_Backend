@@ -22,29 +22,20 @@ module.exports = function(QTUsers_TacNhan) {
     }
 
     QTUsers_TacNhan.updateUsers_TacNhan = async function(id, ma, ten, qtUsersId, qtTacNhanId, ghiChu, hieuLuc){
+        const UTData = {
+            id: id,
+            ma: ma,
+            ten: ten,
+            ghiChu: ghiChu,                
+            qtUsersId: qtUsersId,
+            qtTacNhanId: qtTacNhanId,
+            hieuLuc: hieuLuc
+        }
         try {
-            const ut = await QTUsers_TacNhan.findById(id)
-            if (ut.xoa == 1){
-                return null
-            }
-            const UTData = {
-                id: id,
-                ma: ma,
-                ten: ten,
-                ghiChu: ghiChu,
-                qtUsersId: qtUsersId,
-                qtTacNhanId: qtTacNhanId,
-                hieuLuc: hieuLuc
-            }
-            try {
-                const data = await QTUsers_TacNhan.upsertWithWhere({id: UTData.id}, UTData)
-                return data
-            } catch (err) {
-                console.log('updateQTUsers_TacNhan', err)
-                throw err
-            }
+            const data = await QTUsers_TacNhan.upsertWithWhere({id: UTData.id, xoa: false}, UTData)
+            return data
         } catch (err) {
-            console.log('findUsers_TacNhan', err)
+            console.log('updateQTUsers_TacNhan', err)
             throw err
         }
     }

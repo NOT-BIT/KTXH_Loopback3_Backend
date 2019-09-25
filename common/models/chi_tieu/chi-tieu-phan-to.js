@@ -20,27 +20,18 @@ module.exports = function(ChiTieuPhanTo){
     }
 
     ChiTieuPhanTo.updateCTPT = async function(id, ma, ten, ghiChu, hieuLuc){
+       const CTPTData = {
+            id: id,
+            ma: ma,
+            ten: ten,
+            ghiChu: ghiChu,
+            hieuLuc: hieuLuc
+        }
         try {
-            const CTPT = await ChiTieuPhanTo.findById(id)
-            if (CTPT.xoa == 1){
-                return null
-            }
-            const CTPTData = {
-                id: id,
-                ma: ma,
-                ten: ten,
-                ghiChu: ghiChu,
-                hieuLuc: hieuLuc
-            }
-            try {
-                const data = await ChiTieuPhanTo.upsertWithWhere({id: CTPTData.id}, CTPTData)
-                return data
-            } catch (err) {
-                console.log('updateChiTieuPhanTo', err)
-                throw err
-            }
+            const data = await ChiTieuPhanTo.upsertWithWhere({id: CTPTData.id, xoa: false}, CTPTData)
+            return data
         } catch (err) {
-            console.log('findCTPT', err)
+            console.log('updateChiTieuPhanTo', err)
             throw err
         }
     }

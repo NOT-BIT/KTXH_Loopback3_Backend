@@ -15,7 +15,8 @@ module.exports = function(TruongNhapLieu) {
           fields: {
             ten: true,
             ghiChu: true,
-            sysLoaiTruongNhapLieu: true
+            sysLoaiTruongNhapLieuId: true,
+            hieuLuc: true
           },
           include: ['belongsToSysLoaiTruongNhapLieu']
         }),
@@ -45,12 +46,13 @@ module.exports = function(TruongNhapLieu) {
       const [data, total] = await Promise.all([
         TruongNhapLieu.find({
           where: {
-            xoa: 0
+            xoa: 1
           },
           fields: {
             ten: true,
             noidung: true,
-            sysLoaiTruongNhapLieu: true
+            sysLoaiTruongNhapLieuId: true,
+            hieuLuc: true
           },
           include: ['belongsToSysLoaiTruongNhapLieu']
         }),
@@ -99,6 +101,8 @@ module.exports = function(TruongNhapLieu) {
       ten: ten,
       donViTinh: donViTinh,
       ghiChu: ghiChu,
+      hieuLuc: 1,
+      xoa: 0,
       createdAt: new Date(),
       createdBy: 0,
       sysLoaiTruongNhapLieuId: sysLoaiTruongNhapLieuId
@@ -119,7 +123,8 @@ module.exports = function(TruongNhapLieu) {
     ten,
     donViTinh,
     ghiChu,
-    sysLoaiTruongNhapLieuId
+    sysLoaiTruongNhapLieuId,
+    hieuLuc
   ) {
     const truongNhapLieu = {
       id: id,
@@ -128,6 +133,7 @@ module.exports = function(TruongNhapLieu) {
       ghiChu: ghiChu,
       donViTinh: donViTinh,
       ghiChu: ghiChu,
+      hieuLuc: hieuLuc,
       sysLoaiTruongNhapLieuId: sysLoaiTruongNhapLieuId,
       updatedAt: new Date(),
       updatedBy: 0
@@ -294,6 +300,10 @@ module.exports = function(TruongNhapLieu) {
       {
         arg: 'sysLoaiTruongNhapLieuId',
         type: 'string'
+      },
+      {
+        arg: 'hieuLuc',
+        type: 'boolean'
       }
     ],
     returns: { arg: 'data' },

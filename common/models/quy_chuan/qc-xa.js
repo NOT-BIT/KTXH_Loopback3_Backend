@@ -27,34 +27,25 @@ module.exports = function(QCXa) {
     }
 
     QCXa.updateXa = async function(id, ma, qcHuyenId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
+       const xaData = {
+            id: id,
+            ma: ma,
+            qcHuyenId: qcHuyenId,
+            ten: ten,
+            ghiChu: ghiChu,
+            sysCapDonViHanhChinhId: cap,
+            loaiDonViHanhChinh: loai,
+            nongThon: nt,
+            bienGioi: bg,
+            haiDao: hd,
+            vungDBKhoKhan: dbkk,
+            hieuLuc: hieuLuc
+        }
         try {
-            const xa = await QCXa.findById(id)
-            if (xa.xoa == 1){
-                return null
-            }
-            const xaData = {
-                id: id,
-                ma: ma,
-                qcHuyenId: qcHuyenId,
-                ten: ten,
-                ghiChu: ghiChu,
-                sysCapDonViHanhChinhId: cap,
-                loaiDonViHanhChinh: loai,
-                nongThon: nt,
-                bienGioi: bg,
-                haiDao: hd,
-                vungDBKhoKhan: dbkk,
-                hieuLuc: hieuLuc
-            }
-            try {
-                const data = await QCXa.upsertWithWhere({id: xaData.id}, xaData)
-                return data
-            } catch (err) {
-                console.log('updateQCXa', err)
-                throw err
-            }
+            const data = await QCXa.upsertWithWhere({id: xaData.id, xoa: false}, xaData)
+            return data
         } catch (err) {
-            console.log('findQCXa', err)
+            console.log('updateQCXa', err)
             throw err
         }
     }

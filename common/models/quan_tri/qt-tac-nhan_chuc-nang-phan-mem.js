@@ -59,7 +59,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
         try {
             const data = await QTTacNhanChucNangPhanMem.upsertWithWhere(
               {
-                id: QTTacNhanChucNangPhanMem.id
+                id: QTTacNhanChucNangPhanMem.id, xoa: false
               },
               qtTacNhanChucNangPhanMemData
             )
@@ -103,7 +103,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
     }
 
     //list Quan Tri Tac Nhan Chuc Nang Phan Mem
-    QTTacNhanChucNangPhanMem.listQTTacNhanChucNangPhanMem = async function(page, pageSize) {
+    QTTacNhanChucNangPhanMem.listQTTacNhanChucNangPhanMem = async function(queryData, page, pageSize) {
         try {
           const [data, total] = await Promise.all([
             QTTacNhanChucNangPhanMem.find({
@@ -111,9 +111,14 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
                 xoa: 0
               },
               fields: {
+                ma: true,
                 ten: true,
-                noidung: true
-              }
+                ghiChu: true,
+                hieuLuc: true,
+                qtTacNhanId: true,
+                qtChucNangPhanMemId: true
+              },
+              include: ['belongsToQTTacNhan', 'belongsToQTChucNangPhanMem']
             }),
             QTTacNhanChucNangPhanMem.count({
               xoa: 0
@@ -133,7 +138,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
     }
 
     //list deleted Quan Tri Tac Nhan Chuc Nang Phan Mem
-    QTTacNhanChucNangPhanMem.listdeletedQTTacNhanChucNangPhanMem = async function(page, pageSize) {
+    QTTacNhanChucNangPhanMem.listdeletedQTTacNhanChucNangPhanMem = async function(queryData, page, pageSize) {
       try {
         const [data, total] = await Promise.all([
           QTTacNhanChucNangPhanMem.find({
@@ -141,9 +146,14 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
               xoa: 1
             },
             fields: {
+              ma: true,
               ten: true,
-              noidung: true
-            }
+              ghiChu: true,
+              hieuLuc: true,
+              qtTacNhanId: true,
+              qtChucNangPhanMemId: true
+            },
+            include: ['belongsToQTTacNhan', 'belongsToQTChucNangPhanMem']
           }),
           QTTacNhanChucNangPhanMem.count({
             xoa: 1
@@ -192,7 +202,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
         http: {path: '/update', verb: 'post'},
         accepts: [
           {arg: 'id', type: 'number', required: true},
-          {arg: 'ma', type: 'string', required: true},
+          {arg: 'ma', type: 'string'},
           {arg: 'ten', type: 'string'},
           {arg: 'qtTacNhanId', type: 'number'},
           {arg: 'qtChucNangPhanMemId', type: 'number'},
@@ -227,6 +237,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
       {
         http: { verb: 'post', path: '/list' },
         accepts: [
+          { arg: 'queryData', type: 'object'},
           { arg: 'page', type: 'number', default: '0'},
           { arg: 'pageSize', type: 'number', default: '20'}],
         returns: { arg: 'data' },
@@ -237,6 +248,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
       {
         http: { verb: 'post', path: '/deleted_list' },
         accepts: [
+          { arg: 'queryData', type: 'object'},
           { arg: 'page', type: 'number', default: '0'},
           { arg: 'pageSize', type: 'number', default: '20'}],
         returns: { arg: 'data' },

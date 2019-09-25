@@ -26,33 +26,24 @@ module.exports = function(QCTinh) {
     }
 
     QCTinh.updateTinh = async function(id, ma, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
+        const tinhData = {
+            id: id,
+            ma: ma,
+            ten: ten,
+            ghiChu: ghiChu,
+            sysCapDonViHanhChinhId: cap,
+            loaiDonViHanhChinh: loai,
+            nongThon: nt,
+            bienGioi: bg,
+            haiDao: hd,
+            vungDBKhoKhan: dbkk,
+            hieuLuc: hieuLuc
+        }
         try {
-            const tinh = await QCTinh.findById(id)
-            if (tinh.xoa == 1){
-                return null
-            }
-            const tinhData = {
-                id: id,
-                ma: ma,
-                ten: ten,
-                ghiChu: ghiChu,
-                sysCapDonViHanhChinhId: cap,
-                loaiDonViHanhChinh: loai,
-                nongThon: nt,
-                bienGioi: bg,
-                haiDao: hd,
-                vungDBKhoKhan: dbkk,
-                hieuLuc: hieuLuc
-            }
-            try {
-                const data = await QCTinh.upsertWithWhere({id: tinhData.id}, tinhData)
-                return data
-            } catch (err) {
-                console.log('updateQCTinh', err)
-                throw err
-            }
+            const data = await QCTinh.upsertWithWhere({id: tinhData.id, xoa: false}, tinhData)
+            return data
         } catch (err) {
-            console.log('findTinh', err)
+            console.log('updateQCTinh', err)
             throw err
         }
     }

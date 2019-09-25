@@ -25,32 +25,23 @@ module.exports = function(QTDonVi_DiaBan) {
     }
 
     QTDonVi_DiaBan.updateDonVi_DiaBan = async function(id, ma, ten, qtDonviId, qcTinhId, qcHuyenId, qcXaId, tatCaNutCon, ghiChu, hieuLuc){
+        const DonVi_DiaBanData = {
+            id,
+            ma,
+            ten,
+            qtDonviId,
+            qcTinhId,
+            qcHuyenId,
+            qcXaId,
+            tatCaNutCon,
+            ghiChu,
+            hieuLuc
+        }
         try {
-            const DonVi_DiaBan = await QTDonVi_DiaBan.findById(id)
-            if (DonVi_DiaBan.xoa == 1){
-                return null
-            }
-            const DonVi_DiaBanData = {
-                id,
-                ma,
-                ten,
-                qtDonviId,
-                qcTinhId,
-                qcHuyenId,
-                qcXaId,
-                tatCaNutCon,
-                ghiChu,
-                hieuLuc
-            }
-            try {
-                const data = await QTDonVi_DiaBan.upsertWithWhere({id: DonVi_DiaBanData.id}, DonVi_DiaBanData)
-                return data
-            } catch (err) {
-                console.log('updateQTDonVi_DiaBan', err)
-                throw err
-            }
+            const data = await QTDonVi_DiaBan.upsertWithWhere({id: DonVi_DiaBanData.id, xoa: false}, DonVi_DiaBanData)
+            return data
         } catch (err) {
-            console.log('findDonVi_DiaBan', err)
+            console.log('updateQTDonVi_DiaBan', err)
             throw err
         }
     }

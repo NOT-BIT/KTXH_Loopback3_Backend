@@ -22,29 +22,20 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
     }
 
     BieuNhapLieu_KyBaoCao.updateBK = async function(id, ma, bieuNhapLieuId, qlKyBaoCaoId, ten, ghiChu, hieuLuc){
+       const BKData = {
+            id: id,
+            ma: ma,
+            bieuNhapLieuId: bieuNhapLieuId,
+            qlKyBaoCaoId: qlKyBaoCaoId,
+            ten: ten,
+            ghiChu: ghiChu,
+            hieuLuc: hieuLuc
+        }
         try {
-            const BK = await BieuNhapLieu_KyBaoCao.findById(id)
-            if (BK.xoa == 1){
-                return null
-            }
-            const BKData = {
-                id: id,
-                ma: ma,
-                bieuNhapLieuId: bieuNhapLieuId,
-                qlKyBaoCaoId: qlKyBaoCaoId,
-                ten: ten,
-                ghiChu: ghiChu,
-                hieuLuc: hieuLuc
-            }
-            try {
-                const data = await BieuNhapLieu_KyBaoCao.upsertWithWhere({id: BKData.id}, BKData)
-                return data
-            } catch (err) {
-                console.log('updateBieuNhapLieu_KyBaoCao', err)
-                throw err
-            }
+            const data = await BieuNhapLieu_KyBaoCao.upsertWithWhere({id: BKData.id, xoa: false}, BKData)
+            return data
         } catch (err) {
-            console.log('findBK', err)
+            console.log('updateBieuNhapLieu_KyBaoCao', err)
             throw err
         }
     }

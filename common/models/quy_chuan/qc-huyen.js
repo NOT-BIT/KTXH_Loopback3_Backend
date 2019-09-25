@@ -27,34 +27,25 @@ module.exports = function(QCHuyen) {
     }
 
     QCHuyen.updateHuyen = async function(id, ma, qcTinhId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk, hieuLuc){
+        const huyenData = {
+            id: id,
+            ma: ma,
+            qcTinhId: qcTinhId,
+            ten: ten,
+            ghiChu: ghiChu,
+            sysCapDonViHanhChinhId: cap,
+            loaiDonViHanhChinh: loai,
+            nongThon: nt,
+            bienGioi: bg,
+            haiDao: hd,
+            vungDBKhoKhan: dbkk,
+            hieuLuc: hieuLuc
+        }
         try {
-            const huyen = await QCHuyen.findById(id)
-            if (huyen.xoa == 1){
-                return null
-            }
-            const huyenData = {
-                id: id,
-                ma: ma,
-                qcTinhId: qcTinhId,
-                ten: ten,
-                ghiChu: ghiChu,
-                sysCapDonViHanhChinhId: cap,
-                loaiDonViHanhChinh: loai,
-                nongThon: nt,
-                bienGioi: bg,
-                haiDao: hd,
-                vungDBKhoKhan: dbkk,
-                hieuLuc: hieuLuc
-            }
-            try {
-                const data = await QCHuyen.upsertWithWhere({id: huyenData.id}, huyenData)
-                return data
-            } catch (err) {
-                console.log('updateQCHuyen', err)
-                throw err
-            }
+            const data = await QCHuyen.upsertWithWhere({id: huyenData.id, xoa: false}, huyenData)
+            return data
         } catch (err) {
-            console.log('findHuyen', err)
+            console.log('updateQCHuyen', err)
             throw err
         }
     }
