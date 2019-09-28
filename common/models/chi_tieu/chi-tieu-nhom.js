@@ -69,11 +69,7 @@ module.exports = function(ChiTieuNhom) {
 
   ChiTieuNhom.readChiTieuNhom = async function(id) {
     try {
-      const data = await ChiTieuNhom.findById(id, {
-        where: {
-          xoa: false
-        }
-      })
+      const data = await ChiTieuNhom.findOne({where: {id: id, xoa: false}})
       return data
     } catch (err) {
       console.log('readChiTieuNhom', err)

@@ -27,7 +27,8 @@ module.exports = function(QTTacNhan) {
             ten: ten,
             ghiChu: ghiChu,
             sysCapHanhChinhId: sysCapHanhChinhId,
-            hieuLuc: hieuLuc
+            hieuLuc: hieuLuc,
+            updatedAt: new Date()
         }
         try {
             const data = await QTTacNhan.upsertWithWhere({id: tacNhanData.id, xoa: false}, tacNhanData)
@@ -60,7 +61,7 @@ module.exports = function(QTTacNhan) {
 
     QTTacNhan.readTacNhan = async function(id){
         try {
-            const data = await QTTacNhan.findById(id, {where: {xoa: false}})
+            const data = await QTTacNhan.findOne({where: {id: id, xoa: false}})
             return data
         } catch (err) {
             console.log('readQTTacNhan', err)

@@ -29,7 +29,8 @@ module.exports = function(QTUsers_TacNhan) {
             ghiChu: ghiChu,                
             qtUsersId: qtUsersId,
             qtTacNhanId: qtTacNhanId,
-            hieuLuc: hieuLuc
+            hieuLuc: hieuLuc,
+            updatedAt: new Date()
         }
         try {
             const data = await QTUsers_TacNhan.upsertWithWhere({id: UTData.id, xoa: false}, UTData)
@@ -62,7 +63,7 @@ module.exports = function(QTUsers_TacNhan) {
 
     QTUsers_TacNhan.readUsers_TacNhan = async function(id){
         try {
-            const data = await QTUsers_TacNhan.findById(id, {where: {xoa: false}})
+            const data = await QTUsers_TacNhan.findOne({where: {id: id, xoa: false}})
             return data
         } catch (err) {
             console.log('readQTUsers_TacNhan', err)

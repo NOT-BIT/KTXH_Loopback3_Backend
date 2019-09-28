@@ -29,7 +29,8 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
             qlKyBaoCaoId: qlKyBaoCaoId,
             ten: ten,
             ghiChu: ghiChu,
-            hieuLuc: hieuLuc
+            hieuLuc: hieuLuc,
+            updatedAt: new Date()
         }
         try {
             const data = await BieuNhapLieu_KyBaoCao.upsertWithWhere({id: BKData.id, xoa: false}, BKData)
@@ -62,7 +63,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
 
     BieuNhapLieu_KyBaoCao.readBK = async function(id){
         try {
-            const data = await BieuNhapLieu_KyBaoCao.findById(id, {where: {xoa: false}})
+            const data = await BieuNhapLieu_KyBaoCao.findOne({where: {id: id, xoa: false}})
             return data
         } catch (err) {
             console.log('readBieuNhapLieu_KyBaoCao', err)

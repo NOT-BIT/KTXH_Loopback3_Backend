@@ -31,7 +31,8 @@ module.exports = function(QTChucNangPhanMem) {
             path,
             icon,
             ghiChu,
-            hieuLuc
+            hieuLuc,
+            updatedAt: new Date()
         }
         try {
             const data = await QTChucNangPhanMem.upsertWithWhere({id: CNPMData.id, xoa: false}, CNPMData)
@@ -64,7 +65,7 @@ module.exports = function(QTChucNangPhanMem) {
 
     QTChucNangPhanMem.readCNPM = async function(id){
         try {
-            const data = await QTChucNangPhanMem.findById(id, {where: {xoa: false}})
+            const data = await QTChucNangPhanMem.findOne({where: {id: id, xoa: false}})
             return data
         } catch (err) {
             console.log('readQTChucNangPhanMem', err)

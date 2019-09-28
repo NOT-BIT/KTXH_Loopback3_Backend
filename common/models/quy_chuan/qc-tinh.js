@@ -37,7 +37,8 @@ module.exports = function(QCTinh) {
             bienGioi: bg,
             haiDao: hd,
             vungDBKhoKhan: dbkk,
-            hieuLuc: hieuLuc
+            hieuLuc: hieuLuc,
+            updatedAt: new Date()
         }
         try {
             const data = await QCTinh.upsertWithWhere({id: tinhData.id, xoa: false}, tinhData)
@@ -70,7 +71,7 @@ module.exports = function(QCTinh) {
 
     QCTinh.readTinh = async function(id){
         try {
-            const data = await QCTinh.findById(id, {where: {xoa: false}})
+            const data = await QCTinh.findOne({where: {id: id, xoa: false}})
             return data
         } catch (err) {
             console.log('readQCTinh', err)

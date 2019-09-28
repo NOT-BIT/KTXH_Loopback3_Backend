@@ -39,7 +39,8 @@ module.exports = function(QCXa) {
             bienGioi: bg,
             haiDao: hd,
             vungDBKhoKhan: dbkk,
-            hieuLuc: hieuLuc
+            hieuLuc: hieuLuc,
+            updatedAt: new Date()
         }
         try {
             const data = await QCXa.upsertWithWhere({id: xaData.id, xoa: false}, xaData)
@@ -72,7 +73,7 @@ module.exports = function(QCXa) {
 
     QCXa.readXa = async function(id){
         try {
-            const data = await QCXa.findById(id, {where: {xoa: false}})
+            const data = await QCXa.findOne({where: {id: id, xoa: false}})
             return data
         } catch (err) {
             console.log('readQCXa', err)

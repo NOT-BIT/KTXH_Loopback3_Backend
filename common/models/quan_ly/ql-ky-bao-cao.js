@@ -77,11 +77,7 @@ module.exports = function(QLKyBaoCao) {
 
   QLKyBaoCao.readKyBaoCao = async function(id) {
     try {
-      const data = await QLKyBaoCao.findById(id, {
-        where: {
-          xoa: false
-        }
-      })
+      const data = await QLKyBaoCao.findOne({where: {id: id, xoa: false}})
       return data
     } catch (err) {
       console.log('readBaoCaoBy', err)

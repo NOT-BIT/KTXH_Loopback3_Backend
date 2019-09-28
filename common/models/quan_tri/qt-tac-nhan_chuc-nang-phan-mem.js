@@ -1,10 +1,10 @@
 let to = require('await-to-js').to;
 'use_strict';
 
-module.exports = function(QTTacNhanChucNangPhanMem) {
+module.exports = function(QTTacNhan_ChucNangPhanMem) {
   const Promise = require('bluebird')
 	  //create Quan Tri Tac Nhan Chuc Nang Phan Mem
-    QTTacNhanChucNangPhanMem.createQTTacNhanChucNangPhanMem = async function(uid, ma, ten,
+    QTTacNhan_ChucNangPhanMem.createQTTacNhanChucNangPhanMem = async function(uid, ma, ten,
       qtTacNhanId, qtChucNangPhanMemId, ghiChu
         ) {
         const qtTNCNPMdata = {
@@ -18,7 +18,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
             createdBy: 0
         }
         try {
-            const data = await QTTacNhanChucNangPhanMem.create(qtTNCNPMdata)
+            const data = await QTTacNhan_ChucNangPhanMem.create(qtTNCNPMdata)
             return data
           } catch (err) {
             console.log('create QT_tac-nhan_chuc-nang-phan-mem', err)
@@ -27,13 +27,9 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
     }
 
     //read Quan Tri Tac Nhan Chuc Nang Phan Mem
-    QTTacNhanChucNangPhanMem.readQTTacNhanChucNangPhanMem = async function(id) {
+    QTTacNhan_ChucNangPhanMem.readQTTacNhanChucNangPhanMem = async function(id) {
     	try {
-            const data = await QTTacNhanChucNangPhanMem.findById(id, {
-                where: {
-                xoa: 0
-                }
-            });
+            const data = await QTTacNhan_ChucNangPhanMem.findOne({where: {id: id, xoa: false}})
             return data;
         } catch (err) {
             console.log('read QT_tac-nhan_chuc-nang-phan-mem', err)
@@ -42,7 +38,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
     }
 
     //update Quan Tri Tac Nhan Chuc Nang Phan Mem
-    QTTacNhanChucNangPhanMem.updateQTTacNhanChucNangPhanMem = async function(id, ma, ten,
+    QTTacNhan_ChucNangPhanMem.updateQTTacNhanChucNangPhanMem = async function(id, ma, ten,
       qtTacNhanId, qtChucNangPhanMemId, ghiChu, hieuLuc) {
 
         const qtTacNhanChucNangPhanMemData = {
@@ -57,9 +53,9 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
             hieuLuc: hieuLuc
         }
         try {
-            const data = await QTTacNhanChucNangPhanMem.upsertWithWhere(
+            const data = await QTTacNhan_ChucNangPhanMem.upsertWithWhere(
               {
-                id: QTTacNhanChucNangPhanMem.id, xoa: false
+                id: qtTacNhanChucNangPhanMemData.id, xoa: false
               },
               qtTacNhanChucNangPhanMemData
             )
@@ -71,9 +67,9 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
     }
 
     //delete Quan Tri Tac Nhan Chuc Nang Phan Mem --- change xoa 0 -> 1 
-    QTTacNhanChucNangPhanMem.deleteQTTacNhanChucNangPhanMem = async function(id) {
+    QTTacNhan_ChucNangPhanMem.deleteQTTacNhanChucNangPhanMem = async function(id) {
     	try {
-            const data = await QTTacNhanChucNangPhanMem.upsertWithWhere(
+            const data = await QTTacNhan_ChucNangPhanMem.upsertWithWhere(
               {
                 id: id
               },
@@ -87,9 +83,9 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
     }
 
     //restore Quan Tri Tac Nhan Chuc Nang Phan Mem
-    QTTacNhanChucNangPhanMem.restoreQTTacNhanChucNangPhanMem = async function(id) {
+    QTTacNhan_ChucNangPhanMem.restoreQTTacNhanChucNangPhanMem = async function(id) {
         try {
-            const data = await QTTacNhanChucNangPhanMem.upsertWithWhere(
+            const data = await QTTacNhan_ChucNangPhanMem.upsertWithWhere(
               {
                 id: id
               },
@@ -103,10 +99,10 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
     }
 
     //list Quan Tri Tac Nhan Chuc Nang Phan Mem
-    QTTacNhanChucNangPhanMem.listQTTacNhanChucNangPhanMem = async function(queryData, page, pageSize) {
+    QTTacNhan_ChucNangPhanMem.listQTTacNhanChucNangPhanMem = async function(queryData, page, pageSize) {
         try {
           const [data, total] = await Promise.all([
-            QTTacNhanChucNangPhanMem.find({
+            QTTacNhan_ChucNangPhanMem.find({
               where: {
                 xoa: 0
               },
@@ -120,7 +116,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
               },
               include: ['belongsToQTTacNhan', 'belongsToQTChucNangPhanMem']
             }),
-            QTTacNhanChucNangPhanMem.count({
+            QTTacNhan_ChucNangPhanMem.count({
               xoa: 0
             })
           ])
@@ -138,10 +134,10 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
     }
 
     //list deleted Quan Tri Tac Nhan Chuc Nang Phan Mem
-    QTTacNhanChucNangPhanMem.listdeletedQTTacNhanChucNangPhanMem = async function(queryData, page, pageSize) {
+    QTTacNhan_ChucNangPhanMem.listdeletedQTTacNhanChucNangPhanMem = async function(queryData, page, pageSize) {
       try {
         const [data, total] = await Promise.all([
-          QTTacNhanChucNangPhanMem.find({
+          QTTacNhan_ChucNangPhanMem.find({
             where: {
               xoa: 1
             },
@@ -155,7 +151,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
             },
             include: ['belongsToQTTacNhan', 'belongsToQTChucNangPhanMem']
           }),
-          QTTacNhanChucNangPhanMem.count({
+          QTTacNhan_ChucNangPhanMem.count({
             xoa: 1
           })
         ])
@@ -172,7 +168,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
       }
     }
 
-    QTTacNhanChucNangPhanMem.remoteMethod('createQTTacNhanChucNangPhanMem', 
+    QTTacNhan_ChucNangPhanMem.remoteMethod('createQTTacNhanChucNangPhanMem', 
       {
         http: {path: '/create', verb: 'post'},
         accepts: [
@@ -187,7 +183,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
       },
     )
 
-    QTTacNhanChucNangPhanMem.remoteMethod('readQTTacNhanChucNangPhanMem', 
+    QTTacNhan_ChucNangPhanMem.remoteMethod('readQTTacNhanChucNangPhanMem', 
       {
             http: {path: '/read', verb: 'post'},
             accepts: [
@@ -197,7 +193,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
       },
     )
 
-    QTTacNhanChucNangPhanMem.remoteMethod('updateQTTacNhanChucNangPhanMem', 
+    QTTacNhan_ChucNangPhanMem.remoteMethod('updateQTTacNhanChucNangPhanMem', 
       {
         http: {path: '/update', verb: 'post'},
         accepts: [
@@ -213,7 +209,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
       },
     )
 
-    QTTacNhanChucNangPhanMem.remoteMethod('deleteQTTacNhanChucNangPhanMem', 
+    QTTacNhan_ChucNangPhanMem.remoteMethod('deleteQTTacNhanChucNangPhanMem', 
       {
         http: {path: '/delete', verb: 'post'},
         accepts: [
@@ -223,7 +219,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
       },
     )
 
-    QTTacNhanChucNangPhanMem.remoteMethod('restoreQTTacNhanChucNangPhanMem', 
+    QTTacNhan_ChucNangPhanMem.remoteMethod('restoreQTTacNhanChucNangPhanMem', 
       {
         http: {path: '/restore', verb: 'post'},
         accepts: [
@@ -233,7 +229,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
       }
     )
     
-    QTTacNhanChucNangPhanMem.remoteMethod('listQTTacNhanChucNangPhanMem',
+    QTTacNhan_ChucNangPhanMem.remoteMethod('listQTTacNhanChucNangPhanMem',
       {
         http: { verb: 'post', path: '/list' },
         accepts: [
@@ -244,7 +240,7 @@ module.exports = function(QTTacNhanChucNangPhanMem) {
       }
     )
 
-    QTTacNhanChucNangPhanMem.remoteMethod('listdeletedQTTacNhanChucNangPhanMem',
+    QTTacNhan_ChucNangPhanMem.remoteMethod('listdeletedQTTacNhanChucNangPhanMem',
       {
         http: { verb: 'post', path: '/deleted_list' },
         accepts: [

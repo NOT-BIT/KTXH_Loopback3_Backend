@@ -36,8 +36,9 @@ module.exports = function(BieuNhapLieuChiTieu) {
     //read Bieu Nhap Lieu Chi Tieu
     BieuNhapLieuChiTieu.readBieuNhapLieuChiTieu = async function(id) {
     	try {
-            const data = await BieuNhapLieuChiTieu.findById(id, {
+            const data = await BieuNhapLieuChiTieu.findOne( {
                 where: {
+                id: id,
                 xoa: 0
                 }
             });
@@ -178,7 +179,7 @@ module.exports = function(BieuNhapLieuChiTieu) {
       }
     }
 
-    BieuNhapLieuChiTieu.remoteMethod('createBieuNhapLieuChiTieui', 
+    BieuNhapLieuChiTieu.remoteMethod('createBieuNhapLieuChiTieu', 
       {
         http: {path: '/create', verb: 'post'},
         accepts: [

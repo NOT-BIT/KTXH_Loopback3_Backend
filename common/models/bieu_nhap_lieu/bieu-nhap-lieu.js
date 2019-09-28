@@ -37,7 +37,8 @@ module.exports = function(BieuNhapLieu) {
             donViNhanBaoCao,                
             donViTongHop,
             ghiChu,
-            hieuLuc
+            hieuLuc,
+            updatedAt: new Date()
         }
         try {
             const data = await BieuNhapLieu.upsertWithWhere({id: BNLData.id, xoa: false}, BNLData)
@@ -70,7 +71,7 @@ module.exports = function(BieuNhapLieu) {
 
     BieuNhapLieu.readBNL = async function(id){
         try {
-            const data = await BieuNhapLieu.findById(id, {where: {xoa: false}})
+            const data = await BieuNhapLieu.findOne({where: {id: id, xoa: false}})
             return data
         } catch (err) {
             console.log('readBieuNhapLieu', err)

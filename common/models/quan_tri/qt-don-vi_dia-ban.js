@@ -25,7 +25,7 @@ module.exports = function(QTDonVi_DiaBan) {
     }
 
     QTDonVi_DiaBan.updateDonVi_DiaBan = async function(id, ma, ten, qtDonviId, qcTinhId, qcHuyenId, qcXaId, tatCaNutCon, ghiChu, hieuLuc){
-        const DonVi_DiaBanData = {
+        const dvdbData = {
             id,
             ma,
             ten,
@@ -35,10 +35,11 @@ module.exports = function(QTDonVi_DiaBan) {
             qcXaId,
             tatCaNutCon,
             ghiChu,
-            hieuLuc
+            hieuLuc,
+            updatedAt: new Date()
         }
         try {
-            const data = await QTDonVi_DiaBan.upsertWithWhere({id: DonVi_DiaBanData.id, xoa: false}, DonVi_DiaBanData)
+            const data = await QTDonVi_DiaBan.upsertWithWhere({id: id, xoa: false}, dvdbData)
             return data
         } catch (err) {
             console.log('updateQTDonVi_DiaBan', err)
@@ -68,7 +69,7 @@ module.exports = function(QTDonVi_DiaBan) {
 
     QTDonVi_DiaBan.readDonVi_DiaBan = async function(id){
         try {
-            const data = await QTDonVi_DiaBan.findById(id, {where: {xoa: false}})
+            const data = await QTDonVi_DiaBan.findOne({where: {id: id, xoa: false}})
             return data
         } catch (err) {
             console.log('readQTDonVi_DiaBan', err)

@@ -75,11 +75,7 @@ module.exports = function(TruongNhapLieu) {
 
   TruongNhapLieu.readTruongNhapLieu = async function(id) {
     try {
-      const data = await TruongNhapLieu.findById(id, {
-        where: {
-          xoa: false
-        }
-      })
+      const data = await TruongNhapLieu.findOne({where: {id: id, xoa: false}})
       return data
     } catch (err) {
       console.log('readTruongNhapLieu', err)
@@ -207,7 +203,7 @@ module.exports = function(TruongNhapLieu) {
     http: { verb: 'post', path: '/list' }
   })
 
-  TruongNhapLieu.remoteMethod('deleteListTruongNhapLieu', {
+  TruongNhapLieu.remoteMethod('deletedListTruongNhapLieu', {
     accepts: [
       {
         arg: 'page',

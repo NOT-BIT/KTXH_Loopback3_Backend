@@ -37,11 +37,7 @@ module.exports = function(QTDonVi) {
     //read Quan Tri Don Vi
     QTDonVi.readQTDonVi = async function(id) {
         try {
-            const data = await QTDonVi.findById(id, {
-                where: {
-                xoa: 0
-                }
-            });
+            const data = await QTDonVi.findOne({where: {id: id, xoa: false}})
             return data;
         } catch (err) {
             console.log('read QT-Don-Vi', err)
@@ -66,7 +62,7 @@ module.exports = function(QTDonVi) {
               hieuLuc: hieuLuc
             }
             try {
-                const data = await QTDonVi.upsertWithWhere({id: qtDonViData.id, xoa: false}, qtDonViData)
+                const data = await QTDonVi.upsertWithWhere({id: id, xoa: 0}, qtDonViData)
                 return data
             } catch (err) {
                 console.log('update QT-Don-Vi', err)
@@ -209,7 +205,7 @@ module.exports = function(QTDonVi) {
             {arg: 'ghiChu', type: 'string'},
             {arg: 'hieuLuc', type: 'boolean'},
         ],
-        returns: { arg: 'data' }
+        returns: { arg: 'data', type: 'object' }
       },
     )
 
@@ -237,6 +233,7 @@ module.exports = function(QTDonVi) {
       {
         http: { verb: 'post', path: '/list' },
         accepts: [
+          { arg: 'queryData', type: 'object'},
           { arg: 'page', type: 'number', default: '0'},
           { arg: 'pageSize', type: 'number', default: '20'}],
         returns: { arg: 'data' },
@@ -247,6 +244,7 @@ module.exports = function(QTDonVi) {
       {
         http: { verb: 'post', path: '/deleted_list' },
         accepts: [
+          { arg: 'queryData', type: 'object'},
           { arg: 'page', type: 'number', default: '0'},
           { arg: 'pageSize', type: 'number', default: '20'}],
         returns: { arg: 'data' },

@@ -25,7 +25,8 @@ module.exports = function(ChiTieuPhanTo){
             ma: ma,
             ten: ten,
             ghiChu: ghiChu,
-            hieuLuc: hieuLuc
+            hieuLuc: hieuLuc,
+            updatedAt: new Date()
         }
         try {
             const data = await ChiTieuPhanTo.upsertWithWhere({id: CTPTData.id, xoa: false}, CTPTData)
@@ -58,7 +59,7 @@ module.exports = function(ChiTieuPhanTo){
 
     ChiTieuPhanTo.readCTPT = async function(id){
         try {
-            const data = await ChiTieuPhanTo.findById(id, {where: {xoa: false}})
+            const data = await ChiTieuPhanTo.findOne({where: {id: id, xoa: false}})
             return data
         } catch (err) {
             console.log('readChiTieuPhanTo', err)

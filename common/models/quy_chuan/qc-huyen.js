@@ -39,7 +39,8 @@ module.exports = function(QCHuyen) {
             bienGioi: bg,
             haiDao: hd,
             vungDBKhoKhan: dbkk,
-            hieuLuc: hieuLuc
+            hieuLuc: hieuLuc,
+            updatedAt: new Date()
         }
         try {
             const data = await QCHuyen.upsertWithWhere({id: huyenData.id, xoa: false}, huyenData)
@@ -72,7 +73,7 @@ module.exports = function(QCHuyen) {
 
     QCHuyen.readHuyen = async function(id){
         try {
-            const data = await QCHuyen.findById(id, {where: {xoa: false}})
+            const data = await QCHuyen.findOne({where: {id: id, xoa: false}})
             return data
         } catch (err) {
             console.log('readQCHuyen', err)
