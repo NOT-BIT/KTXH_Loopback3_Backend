@@ -1,0 +1,13 @@
+{
+    "name": "CustomUser",
+    "options": {},
+    "http": {
+      "path": "user"
+    },
+    "properties": {},
+    "validations": [],
+    "relations": {},
+    "acls": [],
+    "methods": {}
+  }
+  

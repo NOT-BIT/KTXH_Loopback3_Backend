@@ -17,7 +17,7 @@ module.exports = function(Test) {
     Test.remoteMethod(
         'test',
         {
-            http: {path: '/test', verb: 'get'}
+            http: {path: '/test', verb: 'post'}
         }
     )
 }

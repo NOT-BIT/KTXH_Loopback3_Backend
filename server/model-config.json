@@ -12,6 +12,7 @@
       "../common/models/quy_chuan",
       "../common/models/system",
       "../common/models/truong_nhap_lieu",
+      "../common/models/security",
       "../common/models/test",
       "./models"
     ],
@@ -23,6 +24,18 @@
     ]
   },
   "Test": {
+    "dataSource": null,
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": true
+        }
+      }
+    }
+  },
+
+  "CustomUser": {
     "dataSource": null,
     "public": true,
     "options": {
