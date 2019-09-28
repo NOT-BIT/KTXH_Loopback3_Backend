@@ -7,6 +7,9 @@
       "table": "ql_ky_bao_cao"
     }
   },
+  "http": {
+    "path": "qlkybaocao"
+  },
   "properties": {
     "uid": {
       "type": "String",

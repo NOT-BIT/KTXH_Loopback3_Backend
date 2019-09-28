@@ -7,6 +7,9 @@
       "table": "bieu_nhap_lieu-don_vi_tong_hop"
     }
   },
+  "http": {
+    "path": "bieunhaplieu-donvitonghop"
+  },
   "properties": {
     "uid": {
       "type": "String",

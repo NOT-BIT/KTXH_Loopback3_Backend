@@ -7,6 +7,9 @@
     },
     "relations": {}
   },
+  "http": {
+    "path": "chitieuphantochitiet"
+  },
   "properties": {
     "uid": {
       "type": "String",

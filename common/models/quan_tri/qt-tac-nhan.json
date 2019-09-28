@@ -7,6 +7,9 @@
       "table": "qt_tac_nhan"
     }
   },
+  "http": {
+    "path": "qttacnhan"
+  },
   "properties": {
     "uid": {
       "type": "String",

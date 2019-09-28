@@ -7,6 +7,9 @@
       "table": "qc_don_vi_nhom"
     }
   },
+  "http": {
+    "path": "qcdonvinhom"
+  },
   "properties": {
     "uid": {
       "type": "String",

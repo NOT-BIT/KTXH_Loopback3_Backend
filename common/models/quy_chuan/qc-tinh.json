@@ -7,6 +7,9 @@
       "table": "qc_tinh"
     }
   },
+  "http": {
+    "path": "qctinh"
+  },
   "properties": {
     "uid": {
       "type": "String",

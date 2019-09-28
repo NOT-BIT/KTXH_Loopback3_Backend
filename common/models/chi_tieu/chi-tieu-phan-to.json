@@ -7,6 +7,9 @@
       "table": "chi_tieu_phan_to"
     }
   },
+  "http": {
+    "path": "chitieuphanto"
+  },
   "properties": {
     "uid": {
       "type": "String",

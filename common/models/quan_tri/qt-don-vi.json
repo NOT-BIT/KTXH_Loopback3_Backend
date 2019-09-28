@@ -7,6 +7,9 @@
       "table": "qt_don_vi"
     }
   },
+  "http": {
+    "path": "qtdonvi"
+  },
   "properties": {
     "uid": {
       "type": "String",

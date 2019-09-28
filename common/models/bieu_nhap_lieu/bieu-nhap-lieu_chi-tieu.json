@@ -7,6 +7,9 @@
       "table": "bieu_nhap_lieu-chi_tieu"
     }
   },
+  "http": {
+    "path": "bieunhaplieu-chitieu"
+  },
   "properties": {
     "uid": {
       "type": "String",

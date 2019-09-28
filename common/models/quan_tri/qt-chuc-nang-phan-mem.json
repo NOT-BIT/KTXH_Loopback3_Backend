@@ -7,6 +7,9 @@
       "table": "qt_chuc_nang_phan_mem"
     }
   },
+  "http": {
+    "path": "qtchucnangphanmem"
+  },
   "properties": {
     "uid": {
       "type": "String",

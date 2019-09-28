@@ -7,6 +7,9 @@
       "table": "qc_xa"
     }
   },
+  "http": {
+    "path": "qcxa"
+  },
   "properties": {
     "uid": {
       "type": "String",

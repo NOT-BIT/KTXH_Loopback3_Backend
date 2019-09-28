@@ -7,6 +7,9 @@
     },
     "relations": {}
   },
+  "http": {
+    "path": "systrangthaidongmo"
+  },
   "properties": {
     "uid": {
       "type": "String",

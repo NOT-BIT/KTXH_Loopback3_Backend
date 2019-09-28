@@ -7,6 +7,9 @@
       "table": "qt_don_vi-dia_ban"
     }
   },
+  "http": {
+    "path": "qtdonvidiaban"
+  },
   "properties": {
     "uid": {
       "type": "String",

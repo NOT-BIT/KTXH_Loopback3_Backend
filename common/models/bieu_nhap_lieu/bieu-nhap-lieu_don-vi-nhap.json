@@ -7,6 +7,9 @@
       "table": "bieu_nhap_lieu-don_vi_nhap"
     }
   },
+  "http": {
+    "path": "bieunhaplieu-donvinhap"
+  },
   "properties": {
     "uid": {
       "type": "String",

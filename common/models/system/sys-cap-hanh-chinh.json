@@ -7,6 +7,9 @@
       "table": "sys_cap_hanh_chinh"
     }
   },
+  "http": {
+    "path": "syscaphanhchinh"
+  },
   "properties": {
     "uid": {
       "type": "String",

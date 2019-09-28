@@ -7,6 +7,9 @@
     },
     "relations": {}
   },
+  "http": {
+    "path": "sysnguonsolieu"
+  },
   "properties": {
     "uid": {
       "type": "String",

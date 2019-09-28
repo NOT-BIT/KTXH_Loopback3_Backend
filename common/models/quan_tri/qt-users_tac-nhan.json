@@ -5,6 +5,9 @@
       "table": "qt_users-tac_nhan"
     }
   },
+  "http": {
+    "path": "qtusers-tacnhan"
+  },
   "properties": {
     "uid": {
       "type": "String",

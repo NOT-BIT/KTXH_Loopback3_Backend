@@ -6,6 +6,9 @@
       "table": "ql_nam_lam_viec"
     }
   },
+  "http": {
+    "path": "qlnamlamviec"
+  },
   "properties": {
     "hieuLuc": {
       "uid": {
