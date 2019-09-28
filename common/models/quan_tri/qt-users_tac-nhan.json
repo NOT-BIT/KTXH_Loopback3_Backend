@@ -26,6 +26,9 @@
         "columnName": "ma",
         "dataType": "varchar",
         "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "ten": {
@@ -35,6 +38,9 @@
         "columnName": "ten",
         "dataType": "varchar",
         "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "qtUsersId": {
@@ -49,6 +55,9 @@
       "mysql": {
         "columnName": "qt_tac_nhan",
         "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "ghiChu": {
@@ -57,6 +66,9 @@
         "columnName": "ghi_chu",
         "dataType": "longtext",
         "nullable": "Y"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "createdAt": {

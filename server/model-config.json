@@ -12,6 +12,7 @@
       "../common/models/quy_chuan",
       "../common/models/system",
       "../common/models/truong_nhap_lieu",
+      "../common/models/test",
       "./models"
     ],
     "mixins": [
@@ -20,6 +21,17 @@
       "../common/mixins",
       "./mixins"
     ]
+  },
+  "Test": {
+    "dataSource": null,
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": true
+        }
+      }
+    }
   },
 
   "BieuNhapLieu_ChiTieu": {

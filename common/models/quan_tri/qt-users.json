@@ -28,6 +28,9 @@
         "columnName": "ma",
         "dataType": "varchar",
         "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "ten": {
@@ -37,6 +40,9 @@
         "columnName": "ten",
         "dataType": "varchar",
         "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "matKhau": {
