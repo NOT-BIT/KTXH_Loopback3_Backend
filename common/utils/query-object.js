@@ -15,41 +15,52 @@ let app = require('../../server/server')
 //       return listFieldsFilter
 // }
 
-// async function listRelationsFilter() {
-//     relations = model.definition.relations
-//     console.log(relations)
-// }
+async function listRelationsFilter() {
+    relations = model.definition.settings.relations
+    listRelation = []
+    Object.keys(relations).forEach(item => {
+        if (relations[item].extendOptions != undefined && relations[item].extendOptions.showList == true) {
+            listRelation.push(item)
+        }
+    })
+    return listRelation
+}
 
-// async function readRelationsFilter() {
-
-// }
+async function readRelationsFilter() {
+    relations = model.definition.settings.relations
+    readRelation = []
+    Object.keys(relations).forEach(item => {
+        if (relations[item].extendOptions != undefined && relations[item].extendOptions.showRead == true) {
+            listObject.push(item)
+        }
+    })
+    return readRelation
+}
 
 async function listAPIReturns(model, object) {
+    // console.log(model)
     properties = model.definition.properties
     listObject = new Object();
     Object.keys(properties).forEach(item => {
         if (properties[item].extendOptions != undefined && properties[item].extendOptions.showList == true) {
-            // delete object[item]
-            // console.log(item)
             listObject[item] = object[item]
         }
       });
 
-      relations = model.definition.relations
+      relations = model.definition.settings.relations
       Object.keys(relations).forEach(item => {
           if (relations[item].extendOptions != undefined && relations[item].extendOptions.showList == true) {
-            //   delete object[item]
-            //   console.log(item)
-            listObject[item] = listAPIReturns(app.models[realtions.model], object[item])
+            //   console.log(object)
+            //   console.log(object.belongsToQTDonVi)
+            listObject[item] = listAPIReturns(app.models[relations[item].model], object[item])
           }
       })
-    //   console.log(object)
       return listObject
 }
 
 module.exports = {
     // listFieldsFilter: listFieldsFilter,
-    // listRelationsFilter: listRelationsFilter,
-    // readRelationsFilter: readRelationsFilter
+    listRelationsFilter: listRelationsFilter,
+    readRelationsFilter: readRelationsFilter,
     listAPIReturns: listAPIReturns
 }
