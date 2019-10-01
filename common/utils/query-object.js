@@ -15,18 +15,19 @@ let app = require('../../server/server')
 //       return listFieldsFilter
 // }
 
-async function listRelationsFilter() {
+function listRelationsFilter(model) {
     relations = model.definition.settings.relations
     listRelation = []
     Object.keys(relations).forEach(item => {
-        if (relations[item].extendOptions != undefined && relations[item].extendOptions.showList == true) {
+        if (relations[item] != undefined && relations[item].extendOptions != undefined && relations[item].extendOptions.showList == true) {
             listRelation.push(item)
         }
     })
+    console.log(listRelation)
     return listRelation
 }
 
-async function readRelationsFilter() {
+function readRelationsFilter(model) {
     relations = model.definition.settings.relations
     readRelation = []
     Object.keys(relations).forEach(item => {
@@ -37,21 +38,20 @@ async function readRelationsFilter() {
     return readRelation
 }
 
-async function listAPIReturns(model, object) {
+function listAPIReturns(model, object) {
     // console.log(model)
-    properties = model.definition.properties
-    listObject = new Object();
+    var properties = model.definition.properties
+    var listObject = new Object();
     Object.keys(properties).forEach(item => {
         if (properties[item].extendOptions != undefined && properties[item].extendOptions.showList == true) {
             listObject[item] = object[item]
         }
       });
 
-      relations = model.definition.settings.relations
+      var relations = model.definition.settings.relations
       Object.keys(relations).forEach(item => {
-          if (relations[item].extendOptions != undefined && relations[item].extendOptions.showList == true) {
-            //   console.log(object)
-            //   console.log(object.belongsToQTDonVi)
+        console.log(item)
+          if (relations[item] != undefined && relations[item].extendOptions != undefined && relations[item].extendOptions.showList == true) {
             listObject[item] = listAPIReturns(app.models[relations[item].model], object[item])
           }
       })

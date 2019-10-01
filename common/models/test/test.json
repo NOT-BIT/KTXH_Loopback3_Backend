@@ -1,5 +1,6 @@
 {
     "name": "Test",
+    "base": "Model",
     "options": {},
     "http": {
       "path": "test"

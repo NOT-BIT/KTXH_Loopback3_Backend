@@ -51,6 +51,9 @@
       "mysql": {
         "columnName": "qt_users_id",
         "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "qtTacNhanId": {
@@ -135,6 +138,9 @@
       "primaryKey": "id",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "belongsToQTTacNhan": {
@@ -144,6 +150,9 @@
       "primaryKey": "id",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     }
   },
