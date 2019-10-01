@@ -48,7 +48,7 @@
       "type": "String",
       "length": 250,
       "mysql": {
-        "columnName": "noi_dung",
+        "columnName": "ghi_chu",
         "dataType": "varchar",
         "dataLength": 250
       }
