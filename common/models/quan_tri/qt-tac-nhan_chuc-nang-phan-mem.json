@@ -4,8 +4,7 @@
     "idInjection": true,
     "mysql": {
       "table": "qt_tac_nhan-chuc_nang_phan_mem"
-    },
-    "relations": {}
+    }
   },
   "http": {
     "path": "qttacnhanchucnangphanmem"
