@@ -160,7 +160,7 @@
         "nestRemoting": true
       }
     },
-    "hasManyToQTDonVi": {
+    "hasManyQTDonVi": {
       "type": "hasMany",
       "model": "QTDonVi",
       "foreignKey": "donViChaId",
