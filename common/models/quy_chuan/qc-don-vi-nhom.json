@@ -1,6 +1,6 @@
 {
   "name": "QCDonViNhom",
-  "base": "PersistedModel",
+  "base": "Model",
   "idInjection": true,
   "options": {
     "mysql": {

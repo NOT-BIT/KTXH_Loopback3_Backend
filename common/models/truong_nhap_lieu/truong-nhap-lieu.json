@@ -1,7 +1,7 @@
 {
   "name": "TruongNhapLieu",
   "idInjection": true,
-  "base": "PersistedModel",
+  "base": "Model",
   "options": {
     "mysql": {
       "table": "truong_nhap_lieu"

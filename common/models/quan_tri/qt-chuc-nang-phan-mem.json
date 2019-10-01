@@ -1,6 +1,6 @@
 {
   "name": "QTChucNangPhanMem",
-  "base": "PersistedModel",
+  "base": "Model",
   "idInjection": true,
   "options": {
     "mysql": {
