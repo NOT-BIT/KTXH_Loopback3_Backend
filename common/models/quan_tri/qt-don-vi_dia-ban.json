@@ -42,7 +42,7 @@
         "dataLength": 250
       }
     },
-    "qtDonviId": {
+    "qtDonViId": {
       "type": "Number",
       "required": true,
       "mysql": {

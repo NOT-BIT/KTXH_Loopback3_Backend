@@ -146,7 +146,7 @@
     "hasManyQTTacNhan_ChucNangPhanMem": {
       "type": "hasMany",
       "model": "QTTacNhan_ChucNangPhanMem",
-      "foreignKey": "chucNangPhanMemId",
+      "foreignKey": "qtChucNangPhanMemId",
       "options": {
         "nestRemoting": true
       }
