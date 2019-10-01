@@ -10,8 +10,7 @@
     "path": "qlnamlamviec"
   },
   "properties": {
-    "hieuLuc": {
-      "uid": {
+    "uid": {
         "type": "String",
         "required": true,
         "index": { "unique": true },
@@ -21,8 +20,8 @@
           "dataType": "varchar",
           "dataLength": 250
         }
-      },
-      "ma": {
+    },
+    "ma": {
         "type": "String",
         "required": true,
         "index": { "unique": true },
@@ -32,8 +31,8 @@
           "dataType": "varchar",
           "dataLength": 250
         }
-      },
-      "ten": {
+    },
+    "ten": {
         "type": "String",
         "length": 250,
         "mysql": {
@@ -41,44 +40,44 @@
           "dataType": "varchar",
           "dataLength": 250
         }
-      },
-      "nam": {
+    },
+    "nam": {
         "type": "Number",
         "mysql": {
           "columnName": "nam",
           "dataType": "int"
         }
-      },
-      "ngayMoNam": {
+    },
+    "ngayMoNam": {
         "type": "Date",
         "mysql": {
           "columnName": "ngay_mo_nam",
           "dataType": "date"
         }
-      },
-      "ngayDongNam": {
+    },
+    "ngayDongNam": {
         "type": "Date",
         "mysql": {
           "columnName": "ngay_dong_nam",
           "dataType": "date"
         }
-      },
-      "sysTrangThaiDongMoId": {
+    },
+    "sysTrangThaiDongMoId": {
         "type": "Number",
         "mysql": {
           "columnName": "sys_trang_thai_dong_mo_id",
           "dataType": "int"
         }
-      },
-      "ghiChu": {
+    },
+    "ghiChu": {
         "type": "String",
         "mysql": {
           "columnName": "ghi_chu",
           "dataType": "longtext",
           "nullable": "Y"
         }
-      },
-      "createdAt": {
+    },
+    "createdAt": {
         "type": "Date",
         "required": true,
         "mysql": {
@@ -86,8 +85,8 @@
           "dataType": "date",
           "nullable": "N"
         }
-      },
-      "createdBy": {
+    },
+    "createdBy": {
         "type": "Number",
         "required": true,
         "mysql": {
@@ -95,22 +94,22 @@
           "dataType": "int",
           "nullable": "N"
         }
-      },
-      "updatedAt": {
+    },
+    "updatedAt": {
         "type": "Date",
         "mysql": {
           "columnName": "updated_at",
           "dataType": "date"
         }
-      },
-      "updatedBy": {
+    },
+    "updatedBy": {
         "type": "Number",
         "mysql": {
           "columnName": "updated_by",
           "dataType": "int"
         }
-      },
-      "hieuLuc": {
+    },
+    "hieuLuc": {
         "type": "Boolean",
         "required": true,
         "default": true,
@@ -119,8 +118,8 @@
           "dataType": "tinyint",
           "nullable": "N"
         }
-      },
-      "xoa": {
+    },
+    "xoa": {
         "type": "Boolean",
         "required": true,
         "default": false,
@@ -129,9 +128,9 @@
           "dataType": "tinyint",
           "nullable": "N"
         }
-      }
-    },
-    "relations": {
+    }
+  },
+  "relations": {
       "hasManyQLKyBaoCao": {
         "type": "hasMany",
         "model": "QLKyBaoCao",
@@ -148,14 +147,13 @@
           "nestRemoting": true
         }
       }
-    },
-    "foreignKeys": {
+  },
+  "foreignKeys": {
       "sysTrangThaiDongMoIdFk": {
         "name": "ql_nam_lam_viec_sys_trang_thai_dong_mo",
         "foreignKey": "sysTrangThaiDongMoId",
         "entityKey": "id",
         "entity": "SysTrangThaiDongMo"
       }
-    }
   }
 }
