@@ -1,6 +1,6 @@
 module.exports = function(ChiTieuPhanTo){
     const Promise = require('bluebird')
-
+    let queryObject = require("../../utils/query-object")
     ChiTieuPhanTo.createCTPT = async function(uid, ma, ten, ghiChu){
         const CTPTData = {
             uid: uid,
@@ -69,17 +69,17 @@ module.exports = function(ChiTieuPhanTo){
 
     ChiTieuPhanTo.listCTPT = async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 0
             const [data, total] = await Promise.all([
               ChiTieuPhanTo.find({
-                where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, hieuLuc: true},
+                where: {queryData},
                 limit: pageSize,
                 skip: page
               }),
               ChiTieuPhanTo.count({xoa: false})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(ChiTieuPhanTo, data),
               page: page,
               pageSize: pageSize,
               total: total
@@ -92,17 +92,17 @@ module.exports = function(ChiTieuPhanTo){
 
     ChiTieuPhanTo.listDeletedCTPT = async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 1
             const [data, total] = await Promise.all([
               ChiTieuPhanTo.find({
-                where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, hieuLuc: true},
+                where: {queryData},
                 limit: pageSize,
                 skip: page
               }),
               ChiTieuPhanTo.count({xoa: true})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(ChiTieuPhanTo, data),
               page: page,
               pageSize: pageSize,
               total: total

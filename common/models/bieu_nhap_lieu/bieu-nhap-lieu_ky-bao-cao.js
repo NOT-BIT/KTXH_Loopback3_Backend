@@ -1,5 +1,6 @@
 module.exports = function(BieuNhapLieu_KyBaoCao) {
     const Promise = require('bluebird')
+    let queryObject = require("../../utils/query-object")
 
     BieuNhapLieu_KyBaoCao.createBK = async function(uid, ma, bieuNhapLieuId, qlKyBaoCaoId, ten, ghiChu){
         const BKData = {
@@ -73,10 +74,10 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
 
     BieuNhapLieu_KyBaoCao.listBK= async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 0
             const [data, total] = await Promise.all([
                 BieuNhapLieu_KyBaoCao.find({
-                where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, qlKyBaoCaoId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToBieuNhapLieu', 'belongsToQLKyBaoCao'],
                 limit: pageSize,
                 skip: page
@@ -84,7 +85,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
               BieuNhapLieu_KyBaoCao.count({xoa: false})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(BieuNhapLieu_KyBaoCao, data),
               page: page,
               pageSize: pageSize,
               total: total
@@ -97,10 +98,10 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
 
     BieuNhapLieu_KyBaoCao.listDeletedBK = async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 1
             const [data, total] = await Promise.all([
               BieuNhapLieu_KyBaoCao.find({
-                where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, qlKyBaoCaoId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToBieuNhapLieu', 'belongsToQLKyBaoCao'],
                 limit: pageSize,
                 skip: page
@@ -108,7 +109,7 @@ module.exports = function(BieuNhapLieu_KyBaoCao) {
               BieuNhapLieu_KyBaoCao.count({xoa: true})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(BieuNhapLieu_KyBaoCao, data),
               page: page,
               pageSize: pageSize,
               total: total

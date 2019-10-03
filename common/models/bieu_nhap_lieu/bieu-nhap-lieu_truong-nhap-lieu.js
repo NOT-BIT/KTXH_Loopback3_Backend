@@ -1,5 +1,6 @@
 module.exports = function(BieuNhapLieu_TruongNhapLieu) {
     const Promise = require('bluebird')
+    let queryObject = require("../../utils/query-object")
 
     BieuNhapLieu_TruongNhapLieu.createBT = async function(uid, ma, ten, bieuNhapLieuId, truongNhapLieuId, ghiChu){
         const BTData = {
@@ -73,10 +74,10 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
 
     BieuNhapLieu_TruongNhapLieu.listBT= async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 0
             const [data, total] = await Promise.all([
                 BieuNhapLieu_TruongNhapLieu.find({
-                where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, bieuNhapLieuId: true, truongNhapLieuId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToBieuNhapLieu', 'belongsToTruongNhapLieu'],
                 limit: pageSize,
                 skip: page
@@ -84,7 +85,7 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
               BieuNhapLieu_TruongNhapLieu.count({xoa: false})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(BieuNhapLieu_TruongNhapLieu, data),
               page: page,
               pageSize: pageSize,
               total: total
@@ -97,10 +98,10 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
 
     BieuNhapLieu_TruongNhapLieu.listDeletedBT = async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 1
             const [data, total] = await Promise.all([
               BieuNhapLieu_TruongNhapLieu.find({
-                where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, bieuNhapLieuId: true, truongNhapLieuId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToTruongNhapLieu', 'belongsToTruongNhapLieu'],
                 limit: pageSize,
                 skip: page
@@ -108,7 +109,7 @@ module.exports = function(BieuNhapLieu_TruongNhapLieu) {
               BieuNhapLieu_TruongNhapLieu.count({xoa: true})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(BieuNhapLieu_TruongNhapLieu, data),
               page: page,
               pageSize: pageSize,
               total: total

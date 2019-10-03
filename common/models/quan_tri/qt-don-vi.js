@@ -1,6 +1,7 @@
 let to = require('await-to-js').to;
 let constants = require('../../constants/constants')
 const Promise = require('bluebird')
+    let queryObject = require("../../utils/query-object")
 
 module.exports = function(QTDonVi) {
 	  //create Quan Tri Don Vi
@@ -105,15 +106,10 @@ module.exports = function(QTDonVi) {
     // list Quan Tri Don Vi
     QTDonVi.listQTDonVi = async function(page, pageSize) {
         try {
+          queryData.xoa = 0
           const [data, total] = await Promise.all([
             QTDonVi.find({
-              where: {
-                xoa: 0
-              },
-              fields: {
-                ten: true,
-                noidung: true
-              }
+              where: {queryData}
             }),
             QTDonVi.count({
               xoa: 0
@@ -121,7 +117,7 @@ module.exports = function(QTDonVi) {
           ])
     
           return {
-            rows: data,
+            rows: queryObject.listAPIReturnsList(QTDonVi, data),
             page: page,
             pageSize: pageSize,
             total: total
@@ -135,15 +131,10 @@ module.exports = function(QTDonVi) {
     // list  deleted Quan Tri Don Vi
     QTDonVi.listdeletedQTDonVi = async function(page, pageSize) {
       try {
+        queryData.xoa = 1
         const [data, total] = await Promise.all([
           QTDonVi.find({
-            where: {
-              xoa: 1
-            },
-            fields: {
-              ten: true,
-              noidung: true
-            }
+            where: {queryData}
           }),
           QTDonVi.count({
             xoa: 1
@@ -151,7 +142,7 @@ module.exports = function(QTDonVi) {
         ])
   
         return {
-          rows: data,
+          rows: queryObject.listAPIReturnsList(QTDonVi, data),
           page: page,
           pageSize: pageSize,
           total: total

@@ -1,5 +1,6 @@
 module.exports = function(QTDonVi_DiaBan) {
     const Promise = require('bluebird')
+    let queryObject = require("../../utils/query-object")
 
     QTDonVi_DiaBan.createDonVi_DiaBan = async function(uid, ma, ten, qtDonviId, qcTinhId, qcHuyenId, qcXaId, tatCaNutCon, ghiChu){
         const DonVi_DiaBanData = {
@@ -79,10 +80,10 @@ module.exports = function(QTDonVi_DiaBan) {
 
     QTDonVi_DiaBan.listDonVi_DiaBan= async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 0
             const [data, total] = await Promise.all([
                 QTDonVi_DiaBan.find({
-                where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, qtDonviId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToQTDonVi'],
                 limit: pageSize,
                 skip: page
@@ -90,7 +91,7 @@ module.exports = function(QTDonVi_DiaBan) {
               QTDonVi_DiaBan.count({xoa: false})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(QTDonVi_DiaBan, data),
               page: page,
               pageSize: pageSize,
               total: total
@@ -103,10 +104,10 @@ module.exports = function(QTDonVi_DiaBan) {
 
     QTDonVi_DiaBan.listDeletedDonVi_DiaBan = async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 1
             const [data, total] = await Promise.all([
               QTDonVi_DiaBan.find({
-                where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, qtDonviId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToQTDonVi'],
                 limit: pageSize,
                 skip: page
@@ -114,7 +115,7 @@ module.exports = function(QTDonVi_DiaBan) {
               QTDonVi_DiaBan.count({xoa: true})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(QTDonVi_DiaBan, data),
               page: page,
               pageSize: pageSize,
               total: total

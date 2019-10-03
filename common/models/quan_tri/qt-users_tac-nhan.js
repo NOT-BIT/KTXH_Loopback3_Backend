@@ -1,5 +1,6 @@
 module.exports = function(QTUsers_TacNhan) {
     const Promise = require('bluebird')
+    let queryObject = require("../../utils/query-object")
 
     QTUsers_TacNhan.createUsers_TacNhan = async function(uid, ma, ten, qtUsersId, qtTacNhanId, ghiChu){
         const UTData = {
@@ -73,10 +74,10 @@ module.exports = function(QTUsers_TacNhan) {
 
     QTUsers_TacNhan.listUsers_TacNhan = async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 0
             const [data, total] = await Promise.all([
               QTUsers_TacNhan.find({
-                where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, qtUsersId: true, qtTacNhanId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToQTUsers', 'belongsToQTTacNhan'],
                 limit: pageSize,
                 skip: page
@@ -84,7 +85,7 @@ module.exports = function(QTUsers_TacNhan) {
               QTUsers_TacNhan.count({xoa: false})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(QTTacNhan, data),
               page: page,
               pageSize: pageSize,
               total: total
@@ -97,10 +98,10 @@ module.exports = function(QTUsers_TacNhan) {
 
     QTUsers_TacNhan.listDeletedUsers_TacNhan = async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 1
             const [data, total] = await Promise.all([
               QTUsers_TacNhan.find({
-                where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, qtUsersId: true, qtTacNhanId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToQTUsers', 'belongsToQTTacNhan'],
                 limit: pageSize,
                 skip: page
@@ -108,7 +109,7 @@ module.exports = function(QTUsers_TacNhan) {
               QTUsers_TacNhan.count({xoa: true})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(QTTacNhan, data),
               page: page,
               pageSize: pageSize,
               total: total

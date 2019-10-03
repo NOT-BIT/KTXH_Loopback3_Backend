@@ -4,6 +4,7 @@ let to = require('await-to-js').to;
 
 module.exports = function(BieuNhapLieuChiTieu) {
   const Promise = require('bluebird')
+    let queryObject = require("../../utils/query-object")
 	  //create Bieu Nhap Lieu Chi Tieu
 	  BieuNhapLieuChiTieu.createBieuNhapLieuChiTieu = async function(
         uid, 
@@ -122,14 +123,10 @@ module.exports = function(BieuNhapLieuChiTieu) {
     //list Bieu Nhap Lieu Chi Tieu
     BieuNhapLieuChiTieu.listBieuNhapLieuChiTieu = async function(queryData, page, pageSize) {
         try {
+          queryData.xoa = 0
           const [data, total] = await Promise.all([
             BieuNhapLieuChiTieu.find({
-              where: {
-                xoa: 0
-              },
-              fields: {
-                ma: true, ten: true, ghiChu: true, hieuLuc: true, bieuNhapLieuId: true, chiTieuId: true
-              },
+              where: {queryData},
               include: ['belongsToBieuNhapLieu', 'belongsToChiTieu']
             }),
             BieuNhapLieuChiTieu.count({
@@ -138,7 +135,7 @@ module.exports = function(BieuNhapLieuChiTieu) {
           ])
     
           return {
-            rows: data,
+            rows: queryObject.listAPIReturnsList(BieuNhapLieuChiTieu, data),
             page: page,
             pageSize: pageSize,
             total: total
@@ -152,14 +149,10 @@ module.exports = function(BieuNhapLieuChiTieu) {
     //list deleted Bieu Nhap Lieu Chi Tieu
     BieuNhapLieuChiTieu.listDeleteBieuNhapLieuChiTieu = async function(queryData, page, pageSize) {
       try {
+        queryData.xoa = 1
         const [data, total] = await Promise.all([
           BieuNhapLieuChiTieu.find({
-            where: {
-              xoa: 1
-            },
-            fields: {
-              ma: true, ten: true, ghiChu: true, hieuLuc: true, bieuNhapLieuId: true, chiTieuId: true
-            },
+            where: {queryData},
             include: ['belongsToBieuNhapLieu', 'belongsToChiTieu']
           }),
           BieuNhapLieuChiTieu.count({
@@ -168,7 +161,7 @@ module.exports = function(BieuNhapLieuChiTieu) {
         ])
   
         return {
-          rows: data,
+          rows: queryObject.listAPIReturnsList(BieuNhapLieuChiTieu, data),
           page: page,
           pageSize: pageSize,
           total: total

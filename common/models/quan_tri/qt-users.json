@@ -85,6 +85,9 @@
         "columnName": "ghi_chu",
         "dataType": "longtext",
         "nullable": "Y"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "createdAt": {

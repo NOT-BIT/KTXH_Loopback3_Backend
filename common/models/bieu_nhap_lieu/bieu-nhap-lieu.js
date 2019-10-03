@@ -1,5 +1,6 @@
 module.exports = function(BieuNhapLieu) {
     const Promise = require('bluebird')
+    let queryObject = require("../../utils/query-object")
 
     BieuNhapLieu.createBNL = async function(uid, ma, ten, sysLoaiBieuNhapLieuId, kyHieuBieu, kyBaoCao, donViNhapLieu, donViNhanBaoCao, donViTongHop, ghiChu){
         const BNLData = {
@@ -81,10 +82,10 @@ module.exports = function(BieuNhapLieu) {
 
     BieuNhapLieu.listBNL= async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 0
             const [data, total] = await Promise.all([
                 BieuNhapLieu.find({
-                where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, sysLoaiBieuNhapLieuId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToSysLoaiBieuNhapLieu'],
                 limit: pageSize,
                 skip: page
@@ -92,7 +93,7 @@ module.exports = function(BieuNhapLieu) {
               BieuNhapLieu.count({xoa: false})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(BieuNhapLieu, data),
               page: page,
               pageSize: pageSize,
               total: total
@@ -105,10 +106,10 @@ module.exports = function(BieuNhapLieu) {
 
     BieuNhapLieu.listDeletedBNL = async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 1
             const [data, total] = await Promise.all([
               BieuNhapLieu.find({
-                where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, sysLoaiBieuNhapLieuId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToSysLoaiBieuNhapLieu'],
                 limit: pageSize,
                 skip: page
@@ -116,7 +117,7 @@ module.exports = function(BieuNhapLieu) {
               BieuNhapLieu.count({xoa: true})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(BieuNhapLieu, data),
               page: page,
               pageSize: pageSize,
               total: total

@@ -34,6 +34,9 @@
         "dataType": "varchar",
         "dataLength": 250,
         "nullable": "N"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "ten": {
@@ -43,6 +46,9 @@
         "columnName": "ten",
         "dataType": "varchar",
         "dataLength": 100
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "ghiChu": {
@@ -52,6 +58,9 @@
         "columnName": "ghi_chu",
         "dataType": "varchar",
         "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "createdAt":{

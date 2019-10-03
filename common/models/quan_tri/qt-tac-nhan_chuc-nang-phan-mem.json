@@ -29,15 +29,23 @@
         "columnName": "ten",
         "dataType": "varchar",
         "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "ma": {
       "type": "String",
+      "required": true,
+      "index": { "unique": true },
       "length": 250,
       "mysql": {
         "columnName": "ma",
         "dataType": "varchar",
         "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "qtTacNhanId": {
@@ -64,6 +72,9 @@
         "columnName": "ghi_chu",
         "dataType": "longtext",
         "nullable": "Y"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "createdAt": {

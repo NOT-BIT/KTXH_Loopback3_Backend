@@ -25,16 +25,18 @@
 
     "ma": {
       "type": "String",
-      "require": true,
+      "required": true,
       "index": { "unique": true },
       "length": 250,
       "mysql": {
         "columnName": "ma",
         "dataType": "varchar",
         "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
-
     "ten": {
       "type": "String",
       "length": 250,
@@ -42,6 +44,9 @@
         "columnName": "ten",
         "dataType": "varchar",
         "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "ghiChu": {
@@ -50,6 +55,9 @@
         "columnName": "ghi_chu",
         "dataType": "longtext",
         "nullable": "Y"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "createdAt": {

@@ -1,5 +1,6 @@
 module.exports = function(QCTinh) {
     const Promise = require('bluebird')
+    let queryObject = require("../../utils/query-object")
 
     QCTinh.createTinh = async function(uid, ma, ten, ghiChu, cap, loai, nt, bg, hd, dbkk){
         const tinhData = {
@@ -81,10 +82,10 @@ module.exports = function(QCTinh) {
 
     QCTinh.listTinh = async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 0
             const [data, total] = await Promise.all([
               QCTinh.find({
-                where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, sysCapDonViHanhChinhId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToSysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
@@ -92,7 +93,7 @@ module.exports = function(QCTinh) {
               QCTinh.count({xoa: false})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(QCTinh, data),
               page: page,
               pageSize: pageSize,
               total: total
@@ -105,10 +106,10 @@ module.exports = function(QCTinh) {
 
     QCTinh.listDeletedTinh = async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 1
             const [data, total] = await Promise.all([
               QCTinh.find({
-                where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, sysCapDonViHanhChinhId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToSysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
@@ -116,7 +117,7 @@ module.exports = function(QCTinh) {
               QCTinh.count({xoa: true})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(QCTinh, data),
               page: page,
               pageSize: pageSize,
               total: total

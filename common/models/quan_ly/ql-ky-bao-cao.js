@@ -1,22 +1,13 @@
 module.exports = function(QLKyBaoCao) {
   const Promise = require('bluebird')
+    let queryObject = require("../../utils/query-object")
 
   QLKyBaoCao.listKyBaoCao = async function(page, pageSize, queryData) {
     try {
+      queryData.xoa = 0
       const [data, total] = await Promise.all([
         QLKyBaoCao.find({
-          where: {
-            xoa: false
-          },
-          fields: {
-            ma: true,
-            ten: true,
-            ghiChu: true,
-            ngayDong: true,
-            ngayMo: true,
-            sysKyBaoCaoId: true,
-            qtNamLamViecId: true
-          },
+          where: {queryData},
           include: ['belongsToSysKyBaoCao', 'belongsToQLNamLamViec', 'belongsToSysTrangThaiDongMo'],
           limit: pageSize,
           skip: page
@@ -27,7 +18,7 @@ module.exports = function(QLKyBaoCao) {
       ])
 
       return {
-        rows: data,
+        rows: queryObject.listAPIReturnsList(QLKyBaoCao, data),
         page: page,
         pageSize: pageSize,
         total: total
@@ -40,20 +31,10 @@ module.exports = function(QLKyBaoCao) {
 
   QLKyBaoCao.deletedListKyBaoCao = async function(page, pageSize, queryData) {
     try {
+      queryData.xoa = 1
       const [data, total] = await Promise.all([
         QLKyBaoCao.find({
-          where: {
-            xoa: true
-          },
-          fields: {
-            ma: true,
-            ten: true,
-            ghiChu: true,
-            ngayDong: true,
-            ngayMo: true,
-            sysKyBaoCaoId: true,
-            qtNamLamViecId: true
-          },
+          where: {queryData},
           include: ['belongsToSysKyBaoCao', 'belongsToQLNamLamViec', 'belongsToSysTrangThaiDongMo'],
           limit: pageSize,
           skip: page
@@ -64,7 +45,7 @@ module.exports = function(QLKyBaoCao) {
       ])
 
       return {
-        rows: data,
+        rows: queryObject.listAPIReturnsList(QLKyBaoCao, data),
         page: page,
         pageSize: pageSize,
         total: total

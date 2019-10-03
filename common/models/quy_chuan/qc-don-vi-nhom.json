@@ -24,22 +24,28 @@
     },
     "ma": {
       "type": "String",
-      "required": true,      
+      "required": true,
+      "index": { "unique": true },
       "length": 250,
       "mysql": {
         "columnName": "ma",
         "dataType": "varchar",
-        "dataLength": 250,
-        "nullable": "N"
+        "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "ten": {
       "type": "String",
-      "length": 100,
+      "length": 250,
       "mysql": {
         "columnName": "ten",
         "dataType": "varchar",
-        "dataLength": 100
+        "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "ghiChu": {
@@ -48,6 +54,9 @@
         "columnName": "ghi_chu",
         "dataType": "longtext",
         "nullable": "Y"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "createdAt": {

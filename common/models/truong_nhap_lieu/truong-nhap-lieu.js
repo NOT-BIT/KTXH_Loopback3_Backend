@@ -1,5 +1,6 @@
 module.exports = function(TruongNhapLieu) {
   const Promise = require('bluebird')
+    let queryObject = require("../../utils/query-object")
 
   TruongNhapLieu.listTruongNhapLieu = async function(
     page,
@@ -7,17 +8,10 @@ module.exports = function(TruongNhapLieu) {
     queryData
   ) {
     try {
+      queryData.xoa = 0
       const [data, total] = await Promise.all([
         TruongNhapLieu.find({
-          where: {
-            xoa: 0
-          },
-          fields: {
-            ten: true,
-            ghiChu: true,
-            sysLoaiTruongNhapLieuId: true,
-            hieuLuc: true
-          },
+          where: {queryData},
           include: ['belongsToSysLoaiTruongNhapLieu']
         }),
         TruongNhapLieu.count({
@@ -26,7 +20,7 @@ module.exports = function(TruongNhapLieu) {
       ])
 
       return {
-        rows: data,
+        rows: queryObject.listAPIReturnsList(TruongNhapLieu, data),
         page: page,
         pageSize: pageSize,
         total: total
@@ -43,17 +37,10 @@ module.exports = function(TruongNhapLieu) {
     queryData
   ) {
     try {
+      queryData.xoa = 1
       const [data, total] = await Promise.all([
         TruongNhapLieu.find({
-          where: {
-            xoa: 1
-          },
-          fields: {
-            ten: true,
-            noidung: true,
-            sysLoaiTruongNhapLieuId: true,
-            hieuLuc: true
-          },
+          where: {queryData},
           include: ['belongsToSysLoaiTruongNhapLieu']
         }),
         TruongNhapLieu.count({
@@ -62,7 +49,7 @@ module.exports = function(TruongNhapLieu) {
       ])
 
       return {
-        rows: data,
+        rows: queryObject.listAPIReturnsList(TruongNhapLieu, data),
         page: page,
         pageSize: pageSize,
         total: total

@@ -36,6 +36,9 @@
         "dataType": "varchar",
         "nullable": "N",
         "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "ten": {
@@ -45,6 +48,9 @@
         "columnName": "ten",
         "dataType": "varchar",
         "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "donViChaId": {
@@ -94,6 +100,9 @@
         "columnName": "ghi_chu",
         "dataType": "longtext",
         "nullable": "Y"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "createdAt": {

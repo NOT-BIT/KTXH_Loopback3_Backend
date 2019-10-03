@@ -4,6 +4,7 @@ let to = require('await-to-js').to;
 
 module.exports = function(BieuNhapLieuDonViNhap) {
   const Promise = require('bluebird')
+    let queryObject = require("../../utils/query-object")
 	  //create Bieu Nhap Lieu Don Vi Nhap
 	  BieuNhapLieuDonViNhap.createBieuNhapLieuDonViNhap = async function(
         uid, 
@@ -122,14 +123,10 @@ module.exports = function(BieuNhapLieuDonViNhap) {
     //list Bieu Nhap Lieu Chi Tieu
     BieuNhapLieuDonViNhap.listBieuNhapLieuDonViNhap = async function(queryData, page, pageSize) {
         try {
+          queryData.xoa = 0
           const [data, total] = await Promise.all([
             BieuNhapLieuDonViNhap.find({
-              where: {
-                xoa: 0
-              },
-              fields: {
-                ma: true, ten: true, ghiChu: true, hieuLuc: true, bieuNhapLieuId: true, donViNhapId: true
-              },
+              where: {queryData},
               include: ['belongsToBieuNhapLieu', 'belongsToDonViNhap']
             }),
             BieuNhapLieuDonViNhap.count({
@@ -138,7 +135,7 @@ module.exports = function(BieuNhapLieuDonViNhap) {
           ])
     
           return {
-            rows: data,
+            rows: queryObject.listAPIReturnsList(BieuNhapLieuDonViNhap, data),
             page: page,
             pageSize: pageSize,
             total: total
@@ -152,14 +149,10 @@ module.exports = function(BieuNhapLieuDonViNhap) {
     //list deleted Bieu Nhap Lieu Chi Tieu
     BieuNhapLieuDonViNhap.listDeleteBieuNhapLieuDonViNhap = async function(queryData, page, pageSize) {
       try {
+        queryData.xoa = 1
         const [data, total] = await Promise.all([
           BieuNhapLieuDonViNhap.find({
-            where: {
-              xoa: 1
-            },
-            fields: {
-              ma: true, ten: true, ghiChu: true, hieuLuc: true, bieuNhapLieuId: true, donViNhapId: true
-            },
+            where: {queryData},
             include: ['belongsToBieuNhapLieu', 'belongsToDonViNhap']
           }),
           BieuNhapLieuDonViNhap.count({
@@ -168,7 +161,7 @@ module.exports = function(BieuNhapLieuDonViNhap) {
         ])
   
         return {
-          rows: data,
+          rows: queryObject.listAPIReturnsList(BieuNhapLieuDonViNhap, data),
           page: page,
           pageSize: pageSize,
           total: total

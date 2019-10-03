@@ -1,5 +1,6 @@
 module.exports = function(QTChucNangPhanMem) {
     const Promise = require('bluebird')
+    let queryObject = require("../../utils/query-object")
 
     QTChucNangPhanMem.createCNPM = async function(uid, ma, ten, chucNangChaId, path, icon, ghiChu){
         const CNPMData = {
@@ -75,10 +76,10 @@ module.exports = function(QTChucNangPhanMem) {
 
     QTChucNangPhanMem.listCNPM= async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 0
             const [data, total] = await Promise.all([
                 QTChucNangPhanMem.find({
-                where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, chucNangChaId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToQTChucNangPhanMem'],
                 limit: pageSize,
                 skip: page
@@ -86,7 +87,7 @@ module.exports = function(QTChucNangPhanMem) {
               QTChucNangPhanMem.count({xoa: false})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(QTChucNangPhanMem, data),
               page: page,
               pageSize: pageSize,
               total: total
@@ -99,10 +100,10 @@ module.exports = function(QTChucNangPhanMem) {
 
     QTChucNangPhanMem.listDeletedCNPM = async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 1
             const [data, total] = await Promise.all([
               QTChucNangPhanMem.find({
-                where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, chucNangChaId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToQTChucNangPhanMem'],
                 limit: pageSize,
                 skip: page
@@ -110,7 +111,7 @@ module.exports = function(QTChucNangPhanMem) {
               QTChucNangPhanMem.count({xoa: true})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(QTChucNangPhanMem, data),
               page: page,
               pageSize: pageSize,
               total: total

@@ -33,13 +33,16 @@
         }
     },
     "ten": {
-        "type": "String",
-        "length": 250,
-        "mysql": {
-          "columnName": "ten",
-          "dataType": "varchar",
-          "dataLength": 250
-        }
+      "type": "String",
+      "length": 250,
+      "mysql": {
+        "columnName": "ten",
+        "dataType": "varchar",
+        "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
+      }
     },
     "nam": {
         "type": "Number",
@@ -75,6 +78,9 @@
           "columnName": "ghi_chu",
           "dataType": "longtext",
           "nullable": "Y"
+        },
+        "extendOptions": {
+          "showList": true
         }
     },
     "createdAt": {

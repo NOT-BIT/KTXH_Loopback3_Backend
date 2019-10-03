@@ -50,7 +50,7 @@ function listAPIReturns(model, object) {
 
       var relations = model.definition.settings.relations
       Object.keys(relations).forEach(item => {
-        console.log(item)
+        // console.log(item)
           if (relations[item] != undefined && relations[item].extendOptions != undefined && relations[item].extendOptions.showList == true) {
             listObject[item] = listAPIReturns(app.models[relations[item].model], object[item])
           }
@@ -58,9 +58,18 @@ function listAPIReturns(model, object) {
       return listObject
 }
 
+function listAPIReturnsList(model, listData){
+    let i
+    let listReturn = []
+    for (i in listData){
+        listReturn.push(listAPIReturns(model, listData[i]))
+    }
+    return listReturn
+}
 module.exports = {
     // listFieldsFilter: listFieldsFilter,
     listRelationsFilter: listRelationsFilter,
     readRelationsFilter: readRelationsFilter,
-    listAPIReturns: listAPIReturns
+    listAPIReturns: listAPIReturns,
+    listAPIReturnsList: listAPIReturnsList
 }

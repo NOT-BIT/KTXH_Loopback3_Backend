@@ -1,5 +1,6 @@
 module.exports = function(QTTacNhan) {
     const Promise = require('bluebird')
+    let queryObject = require("../../utils/query-object")
 
     QTTacNhan.createTacNhan = async function(uid, ma, ten, sysCapHanhChinhId, ghiChu){
         const tacNhanData = {
@@ -71,10 +72,10 @@ module.exports = function(QTTacNhan) {
 
     QTTacNhan.listTacNhan = async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 0
             const [data, total] = await Promise.all([
               QTTacNhan.find({
-                where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, sysCapHanhChinhId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToSysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
@@ -82,7 +83,7 @@ module.exports = function(QTTacNhan) {
               QTTacNhan.count({xoa: false})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(QTTacNhan, data),
               page: page,
               pageSize: pageSize,
               total: total
@@ -95,10 +96,10 @@ module.exports = function(QTTacNhan) {
 
     QTTacNhan.listDeletedTacNhan = async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 1
             const [data, total] = await Promise.all([
               QTTacNhan.find({
-                where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, sysCapHanhChinhId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToSysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
@@ -106,7 +107,7 @@ module.exports = function(QTTacNhan) {
               QTTacNhan.count({xoa: true})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(QTTacNhan, data),
               page: page,
               pageSize: pageSize,
               total: total

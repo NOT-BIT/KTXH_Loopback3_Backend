@@ -1,5 +1,6 @@
 module.exports = function(QCXa) {
     const Promise = require('bluebird')
+    let queryObject = require("../../utils/query-object")
 
     QCXa.createXa = async function(uid, ma, qcHuyenId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk){
         const xaData = {
@@ -83,10 +84,10 @@ module.exports = function(QCXa) {
 
     QCXa.listXa = async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 0
             const [data, total] = await Promise.all([
                 QCXa.find({
-                where: {xoa: 0},
-                fields: {ma: true, ten: true, ghiChu: true, qcHuyenId: true, sysCapDonViHanhChinhId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToQCHuyen', 'belongsToSysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
@@ -94,7 +95,7 @@ module.exports = function(QCXa) {
               QCXa.count({xoa: false})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(QCXa, data),
               page: page,
               pageSize: pageSize,
               total: total
@@ -107,10 +108,10 @@ module.exports = function(QCXa) {
 
     QCXa.listDeletedXa = async function(queryData, page, pageSize){
         try {
+            queryData.xoa = 1
             const [data, total] = await Promise.all([
                 QCXa.find({
-                where: {xoa: 1},
-                fields: {ma: true, ten: true, ghiChu: true, qcHuyenId: true, sysCapDonViHanhChinhId: true, hieuLuc: true},
+                where: {queryData},
                 include: ['belongsToQCHuyen', 'belongsToSysCapHanhChinh'],
                 limit: pageSize,
                 skip: page
@@ -118,7 +119,7 @@ module.exports = function(QCXa) {
               QCXa.count({xoa: true})
             ])
             return {
-              rows: data,
+              rows: queryObject.listAPIReturnsList(QCXa, data),
               page: page,
               pageSize: pageSize,
               total: total

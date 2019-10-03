@@ -1,19 +1,13 @@
 module.exports = function(ChiTieuNhom) {
   const Promise = require('bluebird')
+  let queryObject = require("../../utils/query-object")
 
   ChiTieuNhom.listChiTieuNhom = async function(page, pageSize, queryData) {
     try {
+      queryData.xoa = 0
       const [data, total] = await Promise.all([
         ChiTieuNhom.find({
-          where: {
-            xoa: 0
-          },
-          fields: {
-            ma: true,
-            ten: true,
-            ghiChu: true,
-            hieuLuc: true
-          }
+          where: {queryData},
         }),
         ChiTieuNhom.count({
           xoa: false
@@ -21,7 +15,7 @@ module.exports = function(ChiTieuNhom) {
       ])
 
       return {
-        rows: data,
+        rows: queryObject.listAPIReturnsList(ChiTieuNhom, data),
         page: page,
         pageSize: pageSize,
         total: total
@@ -38,17 +32,10 @@ module.exports = function(ChiTieuNhom) {
     queryData
   ) {
     try {
+      queryData.xoa = 1
       const [data, total] = await Promise.all([
         ChiTieuNhom.find({
-          where: {
-            xoa: 1
-          },
-          fields: {
-            ma: true,
-            ten: true,
-            ghiChu: true,
-            hieuLuc: true
-          }
+          where: {queryData}
         }),
         ChiTieuNhom.count({
           xoa: true
@@ -56,7 +43,7 @@ module.exports = function(ChiTieuNhom) {
       ])
 
       return {
-        rows: data,
+        rows: queryObject.listAPIReturnsList(ChiTieuNhom, data),
         page: page,
         pageSize: pageSize,
         total: total
