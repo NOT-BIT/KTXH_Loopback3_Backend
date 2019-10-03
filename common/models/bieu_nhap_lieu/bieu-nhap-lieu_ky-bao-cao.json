@@ -138,6 +138,9 @@
       "foreignKey": "bieuNhapLieuId",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "belongsToQLKyBaoCao": {
@@ -146,6 +149,9 @@
       "foreignKey": "qlKyBaoCaoId",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     }
   },

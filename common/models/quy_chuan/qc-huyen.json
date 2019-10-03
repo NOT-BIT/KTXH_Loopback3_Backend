@@ -182,6 +182,9 @@
       "foreignKey": "qcTinhId",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "hasManyQCXa": {
@@ -198,6 +201,9 @@
       "foreignKey": "sysCapDonViHanhChinhId",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     }
   },

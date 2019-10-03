@@ -77,6 +77,9 @@
       "mysql": {
         "columnName": "qt_don_vi_id",
         "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "ghiChu": {
@@ -151,7 +154,11 @@
       "primaryKey": "id",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
+
     }
   },
   "foreignKeys": {

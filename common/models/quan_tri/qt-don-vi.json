@@ -167,6 +167,9 @@
       "primaryKey": "id",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "hasManyQTDonVi": {

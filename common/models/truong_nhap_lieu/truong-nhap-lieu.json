@@ -142,6 +142,9 @@
       "primaryKey": "id",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "hasManyBieuNhapLieu_TruongNhapLieu": {

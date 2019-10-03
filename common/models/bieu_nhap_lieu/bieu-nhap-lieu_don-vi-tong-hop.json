@@ -137,6 +137,9 @@
       "foreignKey": "bieuNhapLieuId",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "belongsToDonViTongHop": {
@@ -145,6 +148,9 @@
       "foreignKey": "donViTongHopId",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     }
   },

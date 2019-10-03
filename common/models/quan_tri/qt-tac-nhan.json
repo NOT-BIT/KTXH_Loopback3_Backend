@@ -134,6 +134,9 @@
       "primaryKey": "id",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "hasManyQTTacNhan_ChucNangPhanMem": {

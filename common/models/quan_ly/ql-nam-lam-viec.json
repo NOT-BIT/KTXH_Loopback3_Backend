@@ -151,6 +151,9 @@
         "foreignKey": "sysTrangThaiDongMoId",
         "options": {
           "nestRemoting": true
+        },
+        "extendOptions": {
+          "showList": true
         }
       }
   },

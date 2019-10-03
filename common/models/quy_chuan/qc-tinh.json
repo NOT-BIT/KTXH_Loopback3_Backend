@@ -175,6 +175,9 @@
       "foreignKey": "sysCapDonViHanhChinhId",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     }
   },

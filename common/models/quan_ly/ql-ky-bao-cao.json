@@ -184,6 +184,9 @@
       "primaryKey": "id",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "belongsToSysKyBaoCao": {
@@ -193,6 +196,9 @@
       "primaryKey": "id",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "belongsToSysTrangThaiDongMo": {
@@ -202,6 +208,9 @@
       "primaryKey": "id",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "hasManyBieuNhapLieu_KyBaoCao": {

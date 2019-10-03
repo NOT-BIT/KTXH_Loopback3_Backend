@@ -137,6 +137,9 @@
       "foreignKey": "bieuNhapLieuId",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "belongsToTruongNhapLieu": {
@@ -145,6 +148,9 @@
       "foreignKey": "truongNhapLieuId",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     }
   },

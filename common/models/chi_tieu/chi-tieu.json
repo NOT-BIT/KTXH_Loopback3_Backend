@@ -248,6 +248,9 @@
       "foreignKey": "capNhapLieuId",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "belongsToSysCapHanhChinh2": {
@@ -256,6 +259,9 @@
       "foreignKey": "capTongHopId",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "belongsToChiTieuNhom": {
@@ -264,6 +270,9 @@
       "foreignKey": "chiTieuNhomId",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "belongsToChiTieuPhanTo": {
@@ -272,6 +281,9 @@
       "foreignKey": "chiTieuPhanToId",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "belongsToChiTieuCha": {
@@ -280,6 +292,9 @@
       "foreignKey": "chiTieuChaId",
       "options": {
         "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
       "hasManyChiTieu": {

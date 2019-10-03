@@ -44,7 +44,7 @@ function listAPIReturns(model, object) {
     var listObject = new Object();
     Object.keys(properties).forEach(item => {
         if (properties[item].extendOptions != undefined && properties[item].extendOptions.showList == true) {
-            listObject[item] = object[item]
+           listObject[item] = object[item] || null
         }
       });
 
@@ -66,6 +66,9 @@ function listAPIReturnsList(model, listData){
     }
     return listReturn
 }
+
+
+
 module.exports = {
     // listFieldsFilter: listFieldsFilter,
     listRelationsFilter: listRelationsFilter,
