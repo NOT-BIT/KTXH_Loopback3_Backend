@@ -1,5 +1,6 @@
 {
   "name": "SysTrangThaiDongMo",
+  "base": "Model",
   "options": {
     "idInjection": true,
     "mysql": {

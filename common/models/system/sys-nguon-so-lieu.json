@@ -1,5 +1,6 @@
 {
   "name": "SysNguonSoLieu",
+  "base": "Model",
   "options": {
     "idInjection": true,
     "mysql": {
