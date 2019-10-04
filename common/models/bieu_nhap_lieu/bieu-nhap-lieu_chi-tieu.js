@@ -2,11 +2,11 @@ let to = require('await-to-js').to;
 
 'use_strict';
 
-module.exports = function(BieuNhapLieuChiTieu) {
+module.exports = function(BieuNhapLieu_ChiTieu) {
   const Promise = require('bluebird')
     let queryObject = require("../../utils/query-object")
 	  //create Bieu Nhap Lieu Chi Tieu
-	  BieuNhapLieuChiTieu.createBieuNhapLieuChiTieu = async function(
+	  BieuNhapLieu_ChiTieu.createBieuNhapLieu_ChiTieu = async function(
         uid, 
         ma,
         ten,
@@ -26,7 +26,7 @@ module.exports = function(BieuNhapLieuChiTieu) {
             createdBy: 0
         }
         try {
-            const data = await BieuNhapLieuChiTieu.create(bnlChiTieuData)
+            const data = await BieuNhapLieu_ChiTieu.create(bnlChiTieuData)
             return data
           } catch (err) {
             console.log('create Bieu-Nhap-Lieu-Chi-Tieu', err)
@@ -35,9 +35,9 @@ module.exports = function(BieuNhapLieuChiTieu) {
     }
 
     //read Bieu Nhap Lieu Chi Tieu
-    BieuNhapLieuChiTieu.readBieuNhapLieuChiTieu = async function(id) {
+    BieuNhapLieu_ChiTieu.readBieuNhapLieu_ChiTieu = async function(id) {
     	try {
-            const data = await BieuNhapLieuChiTieu.findOne( {
+            const data = await BieuNhapLieu_ChiTieu.findOne( {
                 where: {
                 id: id,
                 xoa: 0
@@ -51,7 +51,7 @@ module.exports = function(BieuNhapLieuChiTieu) {
     }
 
     //update Bieu Nhap Lieu Chi Tieu
-    BieuNhapLieuChiTieu.updateBieuNhapLieuChiTieu = async function(
+    BieuNhapLieu_ChiTieu.updateBieuNhapLieu_ChiTieu = async function(
         id, 
         ma,
         ten,
@@ -73,9 +73,9 @@ module.exports = function(BieuNhapLieuChiTieu) {
             updatedBy: 0
         }
         try {
-            const data = await BieuNhapLieuChiTieu.upsertWithWhere(
+            const data = await BieuNhapLieu_ChiTieu.upsertWithWhere(
               {
-                id: BieuNhapLieuChiTieu.id, 
+                id: BieuNhapLieu_ChiTieu.id, 
                 xoa: false
               },
               bnlChiTieuData
@@ -88,9 +88,9 @@ module.exports = function(BieuNhapLieuChiTieu) {
     }
 
     //delete Bieu Nhap Lieu Chi Tieu 
-    BieuNhapLieuChiTieu.deleteBieuNhapLieuChiTieu = async function(id) {
+    BieuNhapLieu_ChiTieu.deleteBieuNhapLieu_ChiTieu = async function(id) {
     	try {
-            const data = await BieuNhapLieuChiTieu.upsertWithWhere(
+            const data = await BieuNhapLieu_ChiTieu.upsertWithWhere(
               {
                 id: id
               },
@@ -104,9 +104,9 @@ module.exports = function(BieuNhapLieuChiTieu) {
     }
 
     // Restore Bieu Nhap Lieu Chi Tieu
-    BieuNhapLieuChiTieu.restoreBieuNhapLieuChiTieu = async function(id) {
+    BieuNhapLieu_ChiTieu.restoreBieuNhapLieu_ChiTieu = async function(id) {
     	try {
-            const data = await BieuNhapLieuChiTieu.upsertWithWhere(
+            const data = await BieuNhapLieu_ChiTieu.upsertWithWhere(
               {
                 id: id
               },
@@ -121,21 +121,21 @@ module.exports = function(BieuNhapLieuChiTieu) {
     }
 
     //list Bieu Nhap Lieu Chi Tieu
-    BieuNhapLieuChiTieu.listBieuNhapLieuChiTieu = async function(queryData, page, pageSize) {
+    BieuNhapLieu_ChiTieu.listBieuNhapLieu_ChiTieu = async function(queryData, page, pageSize) {
         try {
           queryData.xoa = 0
           const [data, total] = await Promise.all([
-            BieuNhapLieuChiTieu.find({
+            BieuNhapLieu_ChiTieu.find({
               where: {queryData},
               include: ['belongsToBieuNhapLieu', 'belongsToChiTieu']
             }),
-            BieuNhapLieuChiTieu.count({
+            BieuNhapLieu_ChiTieu.count({
               xoa: 0
             })
           ])
     
           return {
-            rows: queryObject.listAPIReturnsList(BieuNhapLieuChiTieu, data),
+            rows: queryObject.listAPIReturnsList(BieuNhapLieu_ChiTieu, data),
             page: page,
             pageSize: pageSize,
             total: total
@@ -147,21 +147,21 @@ module.exports = function(BieuNhapLieuChiTieu) {
     }
 
     //list deleted Bieu Nhap Lieu Chi Tieu
-    BieuNhapLieuChiTieu.listDeleteBieuNhapLieuChiTieu = async function(queryData, page, pageSize) {
+    BieuNhapLieu_ChiTieu.listDeleteBieuNhapLieu_ChiTieu = async function(queryData, page, pageSize) {
       try {
         queryData.xoa = 1
         const [data, total] = await Promise.all([
-          BieuNhapLieuChiTieu.find({
+          BieuNhapLieu_ChiTieu.find({
             where: {queryData},
             include: ['belongsToBieuNhapLieu', 'belongsToChiTieu']
           }),
-          BieuNhapLieuChiTieu.count({
+          BieuNhapLieu_ChiTieu.count({
             xoa: 1
           })
         ])
   
         return {
-          rows: queryObject.listAPIReturnsList(BieuNhapLieuChiTieu, data),
+          rows: queryObject.listAPIReturnsList(BieuNhapLieu_ChiTieu, data),
           page: page,
           pageSize: pageSize,
           total: total
@@ -172,7 +172,7 @@ module.exports = function(BieuNhapLieuChiTieu) {
       }
     }
 
-    BieuNhapLieuChiTieu.remoteMethod('createBieuNhapLieuChiTieu', 
+    BieuNhapLieu_ChiTieu.remoteMethod('createBieuNhapLieu_ChiTieu', 
       {
         http: {path: '/create', verb: 'post'},
         accepts: [
@@ -187,7 +187,7 @@ module.exports = function(BieuNhapLieuChiTieu) {
       }
     )
 
-    BieuNhapLieuChiTieu.remoteMethod('readBieuNhapLieuChiTieu', 
+    BieuNhapLieu_ChiTieu.remoteMethod('readBieuNhapLieu_ChiTieu', 
       {
         http: {path: '/read', verb: 'post'},
         accepts: [
@@ -196,7 +196,7 @@ module.exports = function(BieuNhapLieuChiTieu) {
       },
     )
 
-    BieuNhapLieuChiTieu.remoteMethod('updateBieuNhapLieuChiTieu', 
+    BieuNhapLieu_ChiTieu.remoteMethod('updateBieuNhapLieu_ChiTieu', 
       {
         http: {path: '/update', verb: 'post'},
         accepts: [
@@ -212,7 +212,7 @@ module.exports = function(BieuNhapLieuChiTieu) {
       },
     )
 
-    BieuNhapLieuChiTieu.remoteMethod('deleteBieuNhapLieuChiTieu', 
+    BieuNhapLieu_ChiTieu.remoteMethod('deleteBieuNhapLieu_ChiTieu', 
       {
         http: {path: '/delete', verb: 'post'},
         accepts: [
@@ -222,7 +222,7 @@ module.exports = function(BieuNhapLieuChiTieu) {
       },
     )
 
-    BieuNhapLieuChiTieu.remoteMethod('restoreBieuNhapLieuChiTieu', 
+    BieuNhapLieu_ChiTieu.remoteMethod('restoreBieuNhapLieu_ChiTieu', 
       {
         http: {path: '/restore', verb: 'post'},
         accepts: [
@@ -232,7 +232,7 @@ module.exports = function(BieuNhapLieuChiTieu) {
       },
     )
 
-    BieuNhapLieuChiTieu.remoteMethod('listBieuNhapLieuChiTieu', 
+    BieuNhapLieu_ChiTieu.remoteMethod('listBieuNhapLieu_ChiTieu', 
       {
         http: { verb: 'post', path: '/list' },
         accepts: [
@@ -242,7 +242,7 @@ module.exports = function(BieuNhapLieuChiTieu) {
         returns: { arg: 'data' }
       })
 
-    BieuNhapLieuChiTieu.remoteMethod('listDeleteBieuNhapLieuChiTieu', 
+    BieuNhapLieu_ChiTieu.remoteMethod('listDeleteBieuNhapLieu_ChiTieu', 
       {
         http: { verb: 'post', path: '/deleted_list' },
         accepts: [

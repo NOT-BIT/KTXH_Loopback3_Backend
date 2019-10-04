@@ -2,11 +2,11 @@ let to = require('await-to-js').to;
 
 'use_strict';
 
-module.exports = function(BieuNhapLieuDonViNhap) {
+module.exports = function(BieuNhapLieu_DonViNhap) {
   const Promise = require('bluebird')
     let queryObject = require("../../utils/query-object")
 	  //create Bieu Nhap Lieu Don Vi Nhap
-	  BieuNhapLieuDonViNhap.createBieuNhapLieuDonViNhap = async function(
+	  BieuNhapLieu_DonViNhap.createBieuNhapLieu_DonViNhap = async function(
         uid, 
         ma,
         ten,
@@ -26,7 +26,7 @@ module.exports = function(BieuNhapLieuDonViNhap) {
             createdBy: 0
         }
         try {
-            const data = await BieuNhapLieuDonViNhap.create(bnlDonViNhapData)
+            const data = await BieuNhapLieu_DonViNhap.create(bnlDonViNhapData)
             return data
           } catch (err) {
             console.log('create Bieu-Nhap-Lieu-Don-Vi-Nhap', err)
@@ -35,9 +35,9 @@ module.exports = function(BieuNhapLieuDonViNhap) {
     }
 
     //read Bieu Nhap Lieu Chi Tieu
-    BieuNhapLieuDonViNhap.readBieuNhapLieuDonViNhap = async function(id) {
+    BieuNhapLieu_DonViNhap.readBieuNhapLieu_DonViNhap = async function(id) {
     	try {
-            const data = await BieuNhapLieuDonViNhap.findOne( {
+            const data = await BieuNhapLieu_DonViNhap.findOne( {
                 where: {
                 id: id,
                 xoa: 0
@@ -51,7 +51,7 @@ module.exports = function(BieuNhapLieuDonViNhap) {
     }
 
     //update Bieu Nhap Lieu Chi Tieu
-    BieuNhapLieuDonViNhap.updateBieuNhapLieuDonViNhap = async function(
+    BieuNhapLieu_DonViNhap.updateBieuNhapLieu_DonViNhap = async function(
         id, 
         ma,
         ten,
@@ -73,9 +73,9 @@ module.exports = function(BieuNhapLieuDonViNhap) {
             updatedBy: 0
         }
         try {
-            const data = await BieuNhapLieuDonViNhap.upsertWithWhere(
+            const data = await BieuNhapLieu_DonViNhap.upsertWithWhere(
               {
-                id: BieuNhapLieuDonViNhap.id, 
+                id: BieuNhapLieu_DonViNhap.id, 
                 xoa: false
               },
               bnlDonViNhapData
@@ -88,9 +88,9 @@ module.exports = function(BieuNhapLieuDonViNhap) {
     }
 
     //delete Bieu Nhap Lieu Chi Tieu 
-    BieuNhapLieuDonViNhap.deleteBieuNhapLieuDonViNhap = async function(id) {
+    BieuNhapLieu_DonViNhap.deleteBieuNhapLieu_DonViNhap = async function(id) {
     	try {
-            const data = await BieuNhapLieuDonViNhap.upsertWithWhere(
+            const data = await BieuNhapLieu_DonViNhap.upsertWithWhere(
               {
                 id: id
               },
@@ -104,9 +104,9 @@ module.exports = function(BieuNhapLieuDonViNhap) {
     }
 
     // Restore Bieu Nhap Lieu Chi Tieu
-    BieuNhapLieuDonViNhap.restoreBieuNhapLieuDonViNhap = async function(id) {
+    BieuNhapLieu_DonViNhap.restoreBieuNhapLieu_DonViNhap = async function(id) {
     	try {
-            const data = await BieuNhapLieuDonViNhap.upsertWithWhere(
+            const data = await BieuNhapLieu_DonViNhap.upsertWithWhere(
               {
                 id: id
               },
@@ -121,21 +121,21 @@ module.exports = function(BieuNhapLieuDonViNhap) {
     }
 
     //list Bieu Nhap Lieu Chi Tieu
-    BieuNhapLieuDonViNhap.listBieuNhapLieuDonViNhap = async function(queryData, page, pageSize) {
+    BieuNhapLieu_DonViNhap.listBieuNhapLieu_DonViNhap = async function(queryData, page, pageSize) {
         try {
           queryData.xoa = 0
           const [data, total] = await Promise.all([
-            BieuNhapLieuDonViNhap.find({
+            BieuNhapLieu_DonViNhap.find({
               where: {queryData},
               include: ['belongsToBieuNhapLieu', 'belongsToDonViNhap']
             }),
-            BieuNhapLieuDonViNhap.count({
+            BieuNhapLieu_DonViNhap.count({
               xoa: 0
             })
           ])
     
           return {
-            rows: queryObject.listAPIReturnsList(BieuNhapLieuDonViNhap, data),
+            rows: queryObject.listAPIReturnsList(BieuNhapLieu_DonViNhap, data),
             page: page,
             pageSize: pageSize,
             total: total
@@ -147,21 +147,21 @@ module.exports = function(BieuNhapLieuDonViNhap) {
     }
 
     //list deleted Bieu Nhap Lieu Chi Tieu
-    BieuNhapLieuDonViNhap.listDeleteBieuNhapLieuDonViNhap = async function(queryData, page, pageSize) {
+    BieuNhapLieu_DonViNhap.listDeleteBieuNhapLieu_DonViNhap = async function(queryData, page, pageSize) {
       try {
         queryData.xoa = 1
         const [data, total] = await Promise.all([
-          BieuNhapLieuDonViNhap.find({
+          BieuNhapLieu_DonViNhap.find({
             where: {queryData},
             include: ['belongsToBieuNhapLieu', 'belongsToDonViNhap']
           }),
-          BieuNhapLieuDonViNhap.count({
+          BieuNhapLieu_DonViNhap.count({
             xoa: 1
           })
         ])
   
         return {
-          rows: queryObject.listAPIReturnsList(BieuNhapLieuDonViNhap, data),
+          rows: queryObject.listAPIReturnsList(BieuNhapLieu_DonViNhap, data),
           page: page,
           pageSize: pageSize,
           total: total
@@ -172,7 +172,7 @@ module.exports = function(BieuNhapLieuDonViNhap) {
       }
     }
 
-    BieuNhapLieuDonViNhap.remoteMethod('createBieuNhapLieuDonViNhap', 
+    BieuNhapLieu_DonViNhap.remoteMethod('createBieuNhapLieu_DonViNhap', 
       {
         http: {path: '/create', verb: 'post'},
         accepts: [
@@ -187,7 +187,7 @@ module.exports = function(BieuNhapLieuDonViNhap) {
       }
     )
 
-    BieuNhapLieuDonViNhap.remoteMethod('readBieuNhapLieuDonViNhap', 
+    BieuNhapLieu_DonViNhap.remoteMethod('readBieuNhapLieu_DonViNhap', 
       {
         http: {path: '/read', verb: 'post'},
         accepts: [
@@ -196,7 +196,7 @@ module.exports = function(BieuNhapLieuDonViNhap) {
       },
     )
 
-    BieuNhapLieuDonViNhap.remoteMethod('updateBieuNhapLieuDonViNhap', 
+    BieuNhapLieu_DonViNhap.remoteMethod('updateBieuNhapLieu_DonViNhap', 
       {
         http: {path: '/update', verb: 'post'},
         accepts: [
@@ -212,7 +212,7 @@ module.exports = function(BieuNhapLieuDonViNhap) {
       },
     )
 
-    BieuNhapLieuDonViNhap.remoteMethod('deleteBieuNhapLieuDonViNhap', 
+    BieuNhapLieu_DonViNhap.remoteMethod('deleteBieuNhapLieu_DonViNhap', 
       {
         http: {path: '/delete', verb: 'post'},
         accepts: [
@@ -222,7 +222,7 @@ module.exports = function(BieuNhapLieuDonViNhap) {
       },
     )
 
-    BieuNhapLieuDonViNhap.remoteMethod('restoreBieuNhapLieuDonViNhap', 
+    BieuNhapLieu_DonViNhap.remoteMethod('restoreBieuNhapLieu_DonViNhap', 
       {
         http: {path: '/restore', verb: 'post'},
         accepts: [
@@ -232,7 +232,7 @@ module.exports = function(BieuNhapLieuDonViNhap) {
       },
     )
 
-    BieuNhapLieuDonViNhap.remoteMethod('listBieuNhapLieuDonViNhap', 
+    BieuNhapLieu_DonViNhap.remoteMethod('listBieuNhapLieu_DonViNhap', 
       {
         http: { verb: 'post', path: '/list' },
         accepts: [
@@ -242,7 +242,7 @@ module.exports = function(BieuNhapLieuDonViNhap) {
         returns: { arg: 'data' }
       })
 
-    BieuNhapLieuDonViNhap.remoteMethod('listDeleteBieuNhapLieuDonViNhap', 
+    BieuNhapLieu_DonViNhap.remoteMethod('listDeleteBieuNhapLieu_DonViNhap', 
       {
         http: { verb: 'post', path: '/deleted_list' },
         accepts: [
