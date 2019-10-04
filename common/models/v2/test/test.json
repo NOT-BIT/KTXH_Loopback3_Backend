@@ -1,0 +1,14 @@
+{
+    "name": "Test",
+    "base": "Model",
+    "options": {},
+    "http": {
+      "path": "test"
+    },
+    "properties": {},
+    "validations": [],
+    "relations": {},
+    "acls": [],
+    "methods": {}
+  }
+  

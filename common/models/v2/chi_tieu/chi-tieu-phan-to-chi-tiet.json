@@ -1,0 +1,151 @@
+{
+  "name": "ChiTieuPhanToChiTiet",
+  "options": {
+    "idInjection": true,
+    "mysql": {
+      "table": "chi_tieu_phan_to_chi_tiet"
+    },
+    "relations": {}
+  },
+  "http": {
+    "path": "chitieuphantochitiet"
+  },
+  "properties": {
+    "uid": {
+      "type": "String",
+      "required": true,
+      "index": { "unique": true },
+      "length": 250,
+      "mysql": {
+        "columnName": "uid",
+        "dataType": "varchar",
+        "dataLength": 250
+      }
+    },
+    "ma": {
+      "type": "String",
+      "required": true,
+      "index": { "unique": true },
+      "length": 250,
+      "mysql": {
+        "columnName": "ma",
+        "dataType": "varchar",
+        "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
+      }
+    },
+    "ten": {
+      "type": "String",
+      "length": 250,
+      "mysql": {
+        "columnName": "ten",
+        "dataType": "varchar",
+        "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
+      }
+    },
+    "chiTieuPhanToId": {
+      "type": "Number",
+      "required": true,
+      "mysql": {
+        "columnName": "chi_tieu_phan_to_id",
+        "dataType": "int",
+        "nullable": "N"
+      },
+      "extendOptions": {
+        "showList": true
+      }
+    },
+    "ghiChu": {
+      "type": "String",
+      "mysql": {
+        "columnName": "ghi_chu",
+        "dataType": "longtext",
+        "nullable": "Y"
+      },
+      "extendOptions": {
+        "showList": true
+      }
+    },
+    "createdAt": {
+      "type": "Date",
+      "required": true,
+      "mysql": {
+        "columnName": "created_at",
+        "dataType": "date",
+        "nullable": "N"
+      }
+    },
+    "createdBy": {
+      "type": "Number",
+      "required": true,
+      "mysql": {
+        "columnName": "created_by",
+        "dataType": "int",
+        "nullable": "N"
+      }
+    },
+    "updatedAt": {
+      "type": "Date",
+      "mysql": {
+        "columnName": "updated_at",
+        "dataType": "date"
+      }
+    },
+    "updatedBy": {
+      "type": "Number",
+      "mysql": {
+        "columnName": "updated_by",
+        "dataType": "int"
+      }
+    },
+    "hieuLuc": {
+      "type": "Boolean",
+      "required": true,
+      "default": true,
+      "mysql": {
+        "columnName": "hieu_luc",
+        "dataType": "tinyint",
+        "nullable": "N"
+      },
+      "extendOptions": {
+        "showList": true
+      }
+    },
+    "xoa": {
+      "type": "Boolean",
+      "required": true,
+      "default": false,
+      "mysql": {
+        "columnName": "xoa",
+        "dataType": "tinyint",
+        "nullable": "N"
+      }
+    }
+  },
+  "relations": {
+    "belongsToChiTieuPhanTo": {
+      "type": "belongsTo",
+      "model": "ChiTieuPhanTo",
+      "foreignKey": "chiTieuPhanToId",
+      "options": {
+        "nestRemoting": true
+      },
+      "extendOptions": {
+        "showList": true
+      }
+    }
+  },
+  "foreignKeys": {
+    "chiTieuPhanToIdFk": {
+      "name": "chi_tieu_phan_to_chi_tiet_chi_tieu_phan_to_fk",
+      "foreignKey": "chiTieuPhanToId",
+      "entityKey": "id",
+      "entity": "ChiTieuPhanTo"
+    }
+  }
+}

@@ -1,5 +1,20 @@
 let app = require('../../server/server')
 
+// async function listFieldsFilter(model) {
+//     console.log(model.definition)
+//     console.log(model.definition.relations)
+//     // properties = model.definition.rawProperties
+//     properties = model.definition.properties
+//     listFieldsFilter = new Object();
+//     Object.keys(properties).forEach(item => {
+//         if (properties[item].extendOptions != undefined && properties[item].extendOptions.showList == true) {
+//             listFieldsFilter[item] = true;
+//         }
+//       });
+//       console.log(listFieldsFilter)
+//       return listFieldsFilter
+// }
+
 function listRelationsFilter(model) {
     relations = model.definition.settings.relations
     listRelation = []
@@ -15,15 +30,13 @@ function listRelationsFilter(model) {
 
 function readRelationsFilter(model) {
     relations = model.definition.settings.relations
-    listRelation = []
+    readRelation = []
     Object.keys(relations).forEach(item => {
-        if (relations[item] != undefined
-            && relations[item].extendOptions != undefined
-            && relations[item].extendOptions.showRead == true) {
-            listRelation.push(item)
+        if (relations[item].extendOptions != undefined && relations[item].extendOptions.showRead == true) {
+            listObject.push(item)
         }
     })
-    return listRelation
+    return readRelation
 }
 
 function listAPIReturns(model, object) {

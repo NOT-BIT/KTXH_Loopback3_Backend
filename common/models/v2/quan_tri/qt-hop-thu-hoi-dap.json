@@ -1,0 +1,151 @@
+{
+  "name": "QTHopThuHoiDap",
+  "options": {
+    "idInjection": true,
+    "mysql": {
+      "table": "qt_hop_thu_hoi_dap"
+    },
+    "relations": {}
+  },
+  "http": {
+    "path": "qthopthuhoidap"
+  },
+  "properties": {
+    "ngayHoi": {
+      "type": "Date",
+      "length": null,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "ngay_hoi",
+        "dataType": "datetime",
+        "dataLength": null,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      }
+    },
+    "ngayTraLoi": {
+      "type": "Date",
+      "length": null,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "ngay_tra_loi",
+        "dataType": "datetime",
+        "dataLength": null,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      }
+    },
+    "nguoiHoiId": {
+      "type": "Number",
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "mysql": {
+        "columnName": "nguoi_hoi_id",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "Y"
+      }
+    },
+    "nguoiTraLoiId": {
+      "type": "Number",
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "mysql": {
+        "columnName": "nguoi_tra_loi_id",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "Y"
+      }
+    },
+    "noiDungHoi": {
+      "type": "String",
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "noi_dung_hoi",
+        "dataType": "longtext",
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      }
+    },
+    "noiDungTraLoi": {
+      "type": "String",
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "noi_dung_tra_loi",
+        "dataType": "longtext",
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      }
+    },
+    "qtDonViId": {
+      "type": "Number",
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "mysql": {
+        "columnName": "qt_don_vi_id",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "Y"
+      }
+    },
+    "sysDanhGiaTraLoiId": {
+      "type": "Number",
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "mysql": {
+        "columnName": "sys_danh_gia_tra_loi_id",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "Y"
+      }
+    },
+    "tieuDe": {
+      "type": "String",
+      "length": 250,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "tieu_de",
+        "dataType": "varchar",
+        "dataLength": 250,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      }
+    },
+    "trangThaiHopThuId": {
+      "type": "Number",
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "mysql": {
+        "columnName": "trang_thai_hop_thu_id",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "Y"
+      }
+    }
+  }
+}
