@@ -23,7 +23,6 @@ function listRelationsFilter(model) {
             listRelation.push(item)
         }
     })
-    console.log(listRelation)
     return listRelation
 }
 
@@ -39,20 +38,23 @@ function readRelationsFilter(model) {
 }
 
 function listAPIReturns(model, object) {
-    // console.log(model)
     var properties = model.definition.properties
-    var listObject = new Object();
+    let listObject = {};
     Object.keys(properties).forEach(item => {
-        if (properties[item].extendOptions != undefined && properties[item].extendOptions.showList == true) {
-           listObject[item] = object[item] || null
+        if (object[item] != undefined
+            && properties[item].extendOptions != undefined
+            && properties[item].extendOptions.showList == true) {
+           listObject[item] = object[item]
         }
       });
 
       var relations = model.definition.settings.relations
       Object.keys(relations).forEach(item => {
-        // console.log(item)
-          if (relations[item] != undefined && relations[item].extendOptions != undefined && relations[item].extendOptions.showList == true) {
-            listObject[item] = listAPIReturns(app.models[relations[item].model], object[item])
+          if (object[item]
+              && relations[item] != undefined
+              && relations[item].extendOptions != undefined
+              && relations[item].extendOptions.showList == true) {
+                  listObject[item] = listAPIReturns(app.models[relations[item].model], object[item])
           }
       })
       return listObject
@@ -68,11 +70,27 @@ function listAPIReturnsList(model, listData){
 }
 
 
+function test () {
+    let a = {
+        age: 1,
+        name: 'vuong'
+    }
+
+    let b = {
+        age: 2,
+        name: 'vuong2'
+    }
+
+    a.noname = b;
+    return a;
+    
+}
+
 
 module.exports = {
-    // listFieldsFilter: listFieldsFilter,
     listRelationsFilter: listRelationsFilter,
     readRelationsFilter: readRelationsFilter,
     listAPIReturns: listAPIReturns,
-    listAPIReturnsList: listAPIReturnsList
+    listAPIReturnsList: listAPIReturnsList,
+    test: test
 }
