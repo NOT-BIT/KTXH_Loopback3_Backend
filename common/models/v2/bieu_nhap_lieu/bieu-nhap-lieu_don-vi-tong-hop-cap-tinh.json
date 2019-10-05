@@ -8,7 +8,7 @@
     }
   },
   "http": {
-    "path": "bieunhaplieu-donvitonghopcaptinh"
+    "path": "v2/crud/bieunhaplieu-donvitonghopcaptinh"
   },
   "properties": {
     "uid": {

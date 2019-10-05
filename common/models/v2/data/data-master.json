@@ -8,7 +8,7 @@
     "relations": {}
   },
   "http": {
-    "path": "datamaster"
+    "path": "v2/crud/datamaster"
   },
   "properties": {
     "bieuNhapLieuId": {

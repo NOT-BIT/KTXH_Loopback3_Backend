@@ -8,7 +8,7 @@
     }
   },
   "http": {
-    "path": "qcxa"
+    "path": "v2/crud/qcxa"
   },
   "properties": {
     "uid": {

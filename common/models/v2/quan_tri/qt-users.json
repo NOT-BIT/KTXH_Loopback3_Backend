@@ -8,7 +8,7 @@
     }
   },
   "http": {
-    "path": "qtusers"
+    "path": "v2/crud/qtusers"
   },
   "properties": {
     "uid": {

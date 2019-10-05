@@ -8,7 +8,7 @@
     }
   },
   "http": {
-    "path": "bieunhaplieu-donvitonghop"
+    "path": "v2/crud/bieunhaplieu-donvitonghop"
   },
   "properties": {
     "uid": {
@@ -56,7 +56,7 @@
         "dataType": "int"
       }
     },
-    "donViId": {
+    "donViTongHopId": {
       "type": "Number",
       "required": true,
       "mysql": {

@@ -3,7 +3,7 @@
     "base": "Model",
     "options": {},
     "http": {
-      "path": "test"
+      "path": "v2/crud/test"
     },
     "properties": {},
     "validations": [],

@@ -8,7 +8,7 @@
     "relations": {}
   },
   "http": {
-    "path": "datastatus"
+    "path": "v2/crud/datastatus"
   },
   "properties": {
     "dataMasterId": {

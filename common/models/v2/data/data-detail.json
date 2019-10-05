@@ -8,7 +8,7 @@
     "relations": {}
   },
   "http": {
-    "path": "datadetail"
+    "path": "v2/crud/datadetail"
   },
   "properties": {
     "chiTieuId": {

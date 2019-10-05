@@ -8,7 +8,7 @@
     }
   },
   "http": {
-    "path": "truongnhaplieu"
+    "path": "v2/crud/truongnhaplieu"
   },
   "properties": {
     "uid": {

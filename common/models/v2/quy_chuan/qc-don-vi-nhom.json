@@ -8,7 +8,7 @@
     }
   },
   "http": {
-    "path": "qcdonvinhom"
+    "path": "v2/crud/qcdonvinhom"
   },
   "properties": {
     "uid": {

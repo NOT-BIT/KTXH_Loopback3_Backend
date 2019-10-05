@@ -9,7 +9,7 @@
     "relations": {}
   },
   "http": {
-    "path": "sysdatastatus"
+    "path": "v2/crud/sysdatastatus"
   },
   "properties": {
     "uid": {

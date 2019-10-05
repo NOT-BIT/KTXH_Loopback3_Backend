@@ -9,7 +9,7 @@
     "relations": {}
   },
   "http": {
-    "path": "systrangthaidongmo"
+    "path": "v2/crud/systrangthaidongmo"
   },
   "properties": {
     "uid": {

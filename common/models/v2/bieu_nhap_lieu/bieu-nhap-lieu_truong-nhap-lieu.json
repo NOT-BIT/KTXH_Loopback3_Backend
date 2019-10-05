@@ -8,7 +8,7 @@
     }
   },
   "http": {
-    "path": "bieunhaplieu-truongnhaplieu"
+    "path": "v2/crud/bieunhaplieu-truongnhaplieu"
   },
   "properties": {
     "uid": {

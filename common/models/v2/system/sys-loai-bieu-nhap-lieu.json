@@ -9,7 +9,7 @@
     "relations": {}
   },
   "http": {
-    "path": "sysloaibieunhaplieu"
+    "path": "v2/crud/sysloaibieunhaplieu"
   },
   "properties": {
     "uid": {

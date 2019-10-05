@@ -41,7 +41,7 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false
         }
       }
     }
@@ -53,7 +53,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -64,7 +71,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -75,7 +89,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -86,7 +107,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -97,7 +125,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -108,7 +143,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -119,7 +161,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -130,7 +179,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -141,7 +197,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -152,7 +215,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -163,7 +233,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -174,7 +251,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -185,7 +269,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -196,7 +287,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -207,7 +305,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -218,7 +323,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -229,7 +341,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -240,7 +359,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -251,7 +377,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -262,7 +395,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -273,7 +413,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -284,7 +431,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -295,7 +449,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -306,7 +467,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -317,7 +485,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -328,7 +503,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -339,7 +521,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -350,7 +539,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -361,7 +557,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -372,7 +575,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -383,7 +593,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -394,7 +611,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -405,7 +629,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -416,7 +647,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -427,7 +665,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -438,7 +683,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }
@@ -449,7 +701,14 @@
     "options": {
       "remoting": {
         "sharedMethods": {
-          "*": true
+          "*": false,
+          "customCreate": true,
+          "customRead": true,
+          "customList": true,
+          "customListDeleted": true,
+          "customUpdate": true,
+          "customDelete": true,
+          "customRestore": true
         }
       }
     }

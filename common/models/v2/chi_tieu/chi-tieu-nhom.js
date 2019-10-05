@@ -1,286 +1,134 @@
-module.exports = function(ChiTieuNhom) {
-  const Promise = require('bluebird')
+let customCRUD = require('../../../utils/custom-crud')
+let app = require('../../../../server/server')
 
-  ChiTieuNhom.listChiTieuNhom = async function(page, pageSize, queryData) {
-    try {
-      queryData.xoa = 0
-      const [data, total] = await Promise.all([
-        ChiTieuNhom.find({
-          where: {queryData},
-        }),
-        ChiTieuNhom.count({
-          xoa: false
-        })
-      ])
+'use_strict';
 
-      return {
-        rows: queryObject.listAPIReturnsList(ChiTieuNhom, data),
-        page: page,
-        pageSize: pageSize,
-        total: total
-      }
-    } catch (err) {
-      console.log('listChiTieuNhom', err)
-      throw err
-    }
+module.exports = function (ThisModel) {
+  //create Bieu Nhap Lieu Chi Tieu
+  ThisModel.customCreate = async function (uid, ma, ten, ghiChu) {
+        const queryData = {
+            uid: uid,
+            ma: ma,
+            ten: ten,
+            ghiChu: ghiChu,
+            updatedAt: new Date(),
+            updatedBy: 0
+          }
+          return await customCRUD.create(ThisModel, queryData)
   }
 
-  ChiTieuNhom.deletedListChiTieuNhom = async function(
-    page,
-    pageSize,
-    queryData
-  ) {
-    try {
-      queryData.xoa = 1
-      const [data, total] = await Promise.all([
-        ChiTieuNhom.find({
-          where: {queryData}
-        }),
-        ChiTieuNhom.count({
-          xoa: true
-        })
-      ])
-
-      return {
-        rows: queryObject.listAPIReturnsList(ChiTieuNhom, data),
-        page: page,
-        pageSize: pageSize,
-        total: total
-      }
-    } catch (err) {
-      console.log('deletedListChiTieuNhom', err)
-      throw err
-    }
+  //list Bieu Nhap Lieu Chi Tieu
+  ThisModel.customList = async function (queryData, page, pageSize) {
+    return await customCRUD.list(ThisModel, queryData, page, pageSize)
   }
 
-  ChiTieuNhom.readChiTieuNhom = async function(id) {
-    try {
-      const data = await ChiTieuNhom.findOne({where: {id: id, xoa: false}})
-      return data
-    } catch (err) {
-      console.log('readChiTieuNhom', err)
-      throw err
-    }
+  //list deleted Bieu Nhap Lieu Chi Tieu
+  ThisModel.customListDeleted = async function (queryData, page, pageSize) {
+    return await customCRUD.listDeleted(ThisModel, queryData, page, pageSize)
   }
 
-  ChiTieuNhom.createChiTieuNhom = async function(
-    uid,
-    ma,
-    ten,
-    ghiChu
-  ) {
-    const chiTieuNhom = {
-      uid: uid,
-      ma: ma,
-      ten: ten,
-      ghiChu: ghiChu,
-      createdAt: new Date(),
-      createdBy: 0,
-      hieuLuc: 1,
-      xoa: 0
-    }
-
-    try {
-      const data = await ChiTieuNhom.create(chiTieuNhom)
-      return data
-    } catch (err) {
-      console.log('createChiTieuNhom', err)
-      throw err
-    }
+  //read Bieu Nhap Lieu Chi Tieu
+  ThisModel.customRead = async function (id) {
+    return await customCRUD.read(ThisModel, id)
   }
 
-  ChiTieuNhom.updateChiTieuNhom = async function(
-    id,
-    ma,
-    ten,
-    ghiChu,
-    hieuLuc
-  ) {
-    const chiTieuNhom = {
-      id: id,
-      ma: ma,
-      ten: ten,
-      ghiChu: ghiChu,
-      updatedAt: new Date(),
-      updatedBy: 0, 
-      hieuLuc: hieuLuc
-    }
-
-    try {
-      const data = await ChiTieuNhom.upsertWithWhere(
-        {
-          id: chiTieuNhom.id,
-          xoa: false
-        },
-        chiTieuNhom
-      )
-      return data
-    } catch (err) {
-      console.log('updateChiTieuNhom', err)
-      throw err
-    }
+  //update Bieu Nhap Lieu Chi Tieu
+  ThisModel.customUpdate = async function (id, ma, ten, ghiChu, hieuLuc) {
+        const queryData = {
+            id: id,
+            ma: ma,
+            ten: ten,
+            ghiChu: ghiChu,
+            hieuLuc: hieuLuc,
+            updatedAt: new Date(),
+            updatedBy: 0
+          }
+          return await customCRUD.update(ThisModel, queryData)
   }
 
-  ChiTieuNhom.deleteChiTieuNhom = async function(id) {
-    try {
-      const data = await ChiTieuNhom.upsertWithWhere(
-        {
-          id: id
-        },
-        { xoa: true }
-      )
-      return data
-    } catch (err) {
-      console.log('deleteChiTieuNhom', err)
-      throw err
-    }
+  //delete Bieu Nhap Lieu Chi Tieu 
+  ThisModel.customDelete = async function (id) {
+    return await customCRUD.delete(ThisModel, id)
   }
 
-  ChiTieuNhom.reStoreChiTieuNhom = async function(id) {
-    try {
-      const data = await ChiTieuNhom.upsertWithWhere(
-        {
-          id: id
-        },
-        {
-          xoa: false
-        }
-      )
-      return data
-    } catch (err) {
-      console.log('reStoreChiTieuNhom', err)
-      throw err
-    }
+  // Restore Bieu Nhap Lieu Chi Tieu
+  ThisModel.customRestore = async function (id) {
+    return await customCRUD.restore(ThisModel, id)
   }
 
-  ChiTieuNhom.remoteMethod('listChiTieuNhom', {
-    accepts: [
-      {
-        arg: 'page',
-        type: 'number',
-        default: '0'
-      },
-      {
-        arg: 'pageSize',
-        type: 'number',
-        default: '20'
-      },
-      {
-        arg: 'queryData',
-        type: 'object'
-      }
-    ],
-    returns: { arg: 'data' },
-    http: { verb: 'post', path: '/list' }
-  })
+  ThisModel.remoteMethod('customCreate',
+    {
+      http: { path: '/create', verb: 'post' },
+      accepts: [
+        { arg: 'uid', type: 'string', required: true },
+        { arg: 'ma', type: 'string', required: true },
+        { arg: 'ten', type: 'string' },
+        { arg: 'ghiChu', type: 'string' }
+      ],
+      returns: { arg: 'data' },
+    }
+  )
 
-  ChiTieuNhom.remoteMethod('deletedListChiTieuNhom', {
-    accepts: [
-      {
-        arg: 'page',
-        type: 'number',
-        default: '0'
-      },
-      {
-        arg: 'pageSize',
-        type: 'number',
-        default: '20'
-      },
-      {
-        arg: 'queryData',
-        type: 'object'
-      }
-    ],
-    returns: { arg: 'data' },
-    http: { verb: 'post', path: '/deleted-list' }
-  })
+  ThisModel.remoteMethod('customList',
+    {
+      http: { verb: 'post', path: '/list' },
+      accepts: [
+        { arg: 'queryData', type: 'object' },
+        { arg: 'page', type: 'number', default: '0' },
+        { arg: 'pageSize', type: 'number', default: '20' }],
+      returns: { arg: 'data' }
+    })
 
-  ChiTieuNhom.remoteMethod('readChiTieuNhom', {
-    accepts: [
-      {
-        arg: 'id',
-        type: 'number',
-        required: true
-      }
-    ],
-    returns: { arg: 'data' },
-    http: { verb: 'get', path: '/read' }
-  })
+    ThisModel.remoteMethod('customListDeleted',
+    {
+      http: { verb: 'post', path: '/list_deleted' },
+      accepts: [
+        { arg: 'queryData', type: 'object' },
+        { arg: 'page', type: 'number', default: '0' },
+        { arg: 'pageSize', type: 'number', default: '20' }],
+      returns: { arg: 'data' }
+    })
 
-  ChiTieuNhom.remoteMethod('createChiTieuNhom', {
-    accepts: [
-      {
-        arg: 'uid',
-        type: 'string',
-        required: true
-      },
-      {
-        arg: 'ma',
-        type: 'string',
-        required: true
-      },
-      {
-        arg: 'ten',
-        type: 'string'
-      },
-      {
-        arg: 'ghiChu',
-        type: 'string'
-      }
-    ],
-    returns: { arg: 'data' },
-    http: { verb: 'post', path: '/create' }
-  })
+  ThisModel.remoteMethod('customRead',
+    {
+      http: { path: '/read', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }],
+      returns: { arg: 'data' }
+    },
+  )
 
-  ChiTieuNhom.remoteMethod('updateChiTieuNhom', {
-    accepts: [
-      {
-        arg: 'id',
-        type: 'number',
-        required: true
-      },
-      {
-        arg: 'ma',
-        type: 'string'
-      },
-      {
-        arg: 'ten',
-        type: 'string'
-      },
-      {
-        arg: 'ghiChu',
-        type: 'string'
-      },
-      {
-        arg: 'hieuLuc',
-        type: 'boolean'
-      }
-    ],
-    returns: { arg: 'data' },
-    http: { verb: 'post', path: '/update' }
-  })
+  ThisModel.remoteMethod('customUpdate',
+    {
+      http: { path: '/update', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true },
+        { arg: 'ma', type: 'string' },
+        { arg: 'ten', type: 'string' },
+        { arg: 'ghiChu', type: 'string' },
+        { arg: 'hieuLuc', type: 'boolean' }
+      ],
+      returns: { arg: 'data' },
+    },
+  )
 
-  ChiTieuNhom.remoteMethod('deleteChiTieuNhom', {
-    accepts: [
-      {
-        arg: 'id',
-        type: 'number',
-        required: true
-      }
-    ],
-    returns: { arg: 'data' },
-    http: { verb: 'post', path: '/delete' }
-  })
+  ThisModel.remoteMethod('customDelete',
+    {
+      http: { path: '/delete', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }
+      ],
+      returns: { arg: 'data' }
+    },
+  )
 
-  ChiTieuNhom.remoteMethod('reStoreChiTieuNhom', {
-    accepts: [
-      {
-        arg: 'id',
-        type: 'number',
-        required: true
-      }
-    ],
-    returns: { arg: 'data' },
-    http: { verb: 'post', path: '/restore' }
-  })
-}
+  ThisModel.remoteMethod('customRestore',
+    {
+      http: { path: '/restore', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }
+      ],
+      returns: { arg: 'data' }
+    },
+  )
+};

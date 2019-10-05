@@ -7,7 +7,7 @@
     }
   },
   "http": {
-    "path": "qttacnhanchucnangphanmem"
+    "path": "v2/crud/qttacnhanchucnangphanmem"
   },
   "properties": {
     "uid": {

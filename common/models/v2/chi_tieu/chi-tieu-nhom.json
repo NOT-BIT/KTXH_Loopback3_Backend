@@ -8,7 +8,7 @@
     }
   },
   "http": {
-    "path": "chitieunhom"
+    "path": "v2/crud/chitieunhom"
   },
   "properties": {
     "uid": {

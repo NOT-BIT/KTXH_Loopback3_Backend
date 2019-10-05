@@ -1,20 +1,12 @@
-let to = require('await-to-js').to;
+let customCRUD = require('../../../utils/custom-crud')
+let app = require('../../../../server/server')
 
 'use_strict';
 
-module.exports = function (BieuNhapLieu_ChiTieu) {
-  const Promise = require('bluebird')
+module.exports = function (ThisModel) {
   //create Bieu Nhap Lieu Chi Tieu
-  BieuNhapLieu_ChiTieu.createBieuNhapLieu_ChiTieu = async function (
-    uid,
-    ma,
-    ten,
-    bieuNhapLieuId,
-    chiTieuId,
-    ghiChu
-  ) {
-
-    const bnlChiTieuData = {
+  ThisModel.customCreate = async function (uid, ma, ten, bieuNhapLieuId, chiTieuId, ghiChu) {
+    const queryData = {
       uid: uid,
       ma: ma,
       ten: ten,
@@ -24,43 +16,27 @@ module.exports = function (BieuNhapLieu_ChiTieu) {
       createdAt: new Date(),
       createdBy: 0
     }
-    try {
-      const data = await BieuNhapLieu_ChiTieu.create(bnlChiTieuData)
-      return data
-    } catch (err) {
-      console.log('create Bieu-Nhap-Lieu-Chi-Tieu', err)
-      throw err
-    }
+    return await customCRUD.create(ThisModel, queryData)
+  }
+
+  //list Bieu Nhap Lieu Chi Tieu
+  ThisModel.customList = async function (queryData, page, pageSize) {
+    return await customCRUD.list(ThisModel, queryData, page, pageSize)
+  }
+
+  //list deleted Bieu Nhap Lieu Chi Tieu
+  ThisModel.customListDeleted = async function (queryData, page, pageSize) {
+    return await customCRUD.listDeleted(ThisModel, queryData, page, pageSize)
   }
 
   //read Bieu Nhap Lieu Chi Tieu
-  BieuNhapLieu_ChiTieu.readBieuNhapLieu_ChiTieu = async function (id) {
-    try {
-      const data = await BieuNhapLieu_ChiTieu.findOne({
-        where: {
-          id: id,
-          xoa: 0
-        }
-      });
-      return data;
-    } catch (err) {
-      console.log('read Bieu-Nhap-Lieu-Chi-Tieu', err)
-      throw err
-    }
+  ThisModel.customRead = async function (id) {
+    return await customCRUD.read(ThisModel, id)
   }
 
   //update Bieu Nhap Lieu Chi Tieu
-  BieuNhapLieu_ChiTieu.updateBieuNhapLieu_ChiTieu = async function (
-    id,
-    ma,
-    ten,
-    bieuNhapLieuId,
-    chiTieuId,
-    ghiChu,
-    hieuLuc
-  ) {
-
-    const bnlChiTieuData = {
+  ThisModel.customUpdate = async function (id, ma, ten, bieuNhapLieuId, chiTieuId, ghiChu, hieuLuc) {
+    const queryData = {
       id: id,
       ma: ma,
       ten: ten,
@@ -71,107 +47,20 @@ module.exports = function (BieuNhapLieu_ChiTieu) {
       updatedAt: new Date(),
       updatedBy: 0
     }
-    try {
-      const data = await BieuNhapLieu_ChiTieu.upsertWithWhere(
-        {
-          id: BieuNhapLieu_ChiTieu.id,
-          xoa: false
-        },
-        bnlChiTieuData
-      )
-      return data
-    } catch (err) {
-      console.log('update Bieu-Nhap-Lieu-Chi-Tieu', err)
-      throw err
-    }
+    return await customCRUD.update(ThisModel, queryData)
   }
 
   //delete Bieu Nhap Lieu Chi Tieu 
-  BieuNhapLieu_ChiTieu.deleteBieuNhapLieu_ChiTieu = async function (id) {
-    try {
-      const data = await BieuNhapLieu_ChiTieu.upsertWithWhere(
-        {
-          id: id
-        },
-        { xoa: 1 }
-      )
-      return data
-    } catch (err) {
-      console.log('delete Bieu-Nhap-Lieu-Chi-Tieu', err)
-      throw err
-    }
+  ThisModel.customDelete = async function (id) {
+    return await customCRUD.delete(ThisModel, id)
   }
 
   // Restore Bieu Nhap Lieu Chi Tieu
-  BieuNhapLieu_ChiTieu.restoreBieuNhapLieu_ChiTieu = async function (id) {
-    try {
-      const data = await BieuNhapLieu_ChiTieu.upsertWithWhere(
-        {
-          id: id
-        },
-        { xoa: 0 }
-      )
-      return data
-    } catch (err) {
-      console.log('restore Bieu-Nhap-Lieu-Chi-Tieu', err)
-      throw err
-    }
-
+  ThisModel.customRestore = async function (id) {
+    return await customCRUD.restore(ThisModel, id)
   }
 
-  //list Bieu Nhap Lieu Chi Tieu
-  BieuNhapLieu_ChiTieu.listBieuNhapLieu_ChiTieu = async function (queryData, page, pageSize) {
-    try {
-      queryData.xoa = 0
-      const [data, total] = await Promise.all([
-        BieuNhapLieu_ChiTieu.find({
-          where: { queryData },
-          include: ['belongsToBieuNhapLieu', 'belongsToChiTieu']
-        }),
-        BieuNhapLieu_ChiTieu.count({
-          xoa: 0
-        })
-      ])
-
-      return {
-        rows: queryObject.listAPIReturnsList(BieuNhapLieu_ChiTieu, data),
-        page: page,
-        pageSize: pageSize,
-        total: total
-      }
-    } catch (err) {
-      console.log('list Bieu-Nhap-Lieu-Chi-Tieu', err)
-      throw err
-    }
-  }
-
-  //list deleted Bieu Nhap Lieu Chi Tieu
-  BieuNhapLieu_ChiTieu.listDeleteBieuNhapLieu_ChiTieu = async function (queryData, page, pageSize) {
-    try {
-      queryData.xoa = 1
-      const [data, total] = await Promise.all([
-        BieuNhapLieu_ChiTieu.find({
-          where: { queryData },
-          include: ['belongsToBieuNhapLieu', 'belongsToChiTieu']
-        }),
-        BieuNhapLieu_ChiTieu.count({
-          xoa: 1
-        })
-      ])
-
-      return {
-        rows: queryObject.listAPIReturnsList(BieuNhapLieu_ChiTieu, data),
-        page: page,
-        pageSize: pageSize,
-        total: total
-      }
-    } catch (err) {
-      console.log('list delete Bieu-Nhap-Lieu-Chi-Tieu', err)
-      throw err
-    }
-  }
-
-  BieuNhapLieu_ChiTieu.remoteMethod('createBieuNhapLieu_ChiTieu',
+  ThisModel.remoteMethod('customCreate',
     {
       http: { path: '/create', verb: 'post' },
       accepts: [
@@ -186,7 +75,27 @@ module.exports = function (BieuNhapLieu_ChiTieu) {
     }
   )
 
-  BieuNhapLieu_ChiTieu.remoteMethod('readBieuNhapLieu_ChiTieu',
+  ThisModel.remoteMethod('customList',
+    {
+      http: { verb: 'post', path: '/list' },
+      accepts: [
+        { arg: 'queryData', type: 'object' },
+        { arg: 'page', type: 'number', default: '0' },
+        { arg: 'pageSize', type: 'number', default: '20' }],
+      returns: { arg: 'data' }
+    })
+
+    ThisModel.remoteMethod('customListDeleted',
+    {
+      http: { verb: 'post', path: '/list_deleted' },
+      accepts: [
+        { arg: 'queryData', type: 'object' },
+        { arg: 'page', type: 'number', default: '0' },
+        { arg: 'pageSize', type: 'number', default: '20' }],
+      returns: { arg: 'data' }
+    })
+
+  ThisModel.remoteMethod('customRead',
     {
       http: { path: '/read', verb: 'post' },
       accepts: [
@@ -195,7 +104,7 @@ module.exports = function (BieuNhapLieu_ChiTieu) {
     },
   )
 
-  BieuNhapLieu_ChiTieu.remoteMethod('updateBieuNhapLieu_ChiTieu',
+  ThisModel.remoteMethod('customUpdate',
     {
       http: { path: '/update', verb: 'post' },
       accepts: [
@@ -211,7 +120,7 @@ module.exports = function (BieuNhapLieu_ChiTieu) {
     },
   )
 
-  BieuNhapLieu_ChiTieu.remoteMethod('deleteBieuNhapLieu_ChiTieu',
+  ThisModel.remoteMethod('customDelete',
     {
       http: { path: '/delete', verb: 'post' },
       accepts: [
@@ -221,7 +130,7 @@ module.exports = function (BieuNhapLieu_ChiTieu) {
     },
   )
 
-  BieuNhapLieu_ChiTieu.remoteMethod('restoreBieuNhapLieu_ChiTieu',
+  ThisModel.remoteMethod('customRestore',
     {
       http: { path: '/restore', verb: 'post' },
       accepts: [
@@ -230,26 +139,4 @@ module.exports = function (BieuNhapLieu_ChiTieu) {
       returns: { arg: 'data' }
     },
   )
-
-  BieuNhapLieu_ChiTieu.remoteMethod('listBieuNhapLieu_ChiTieu',
-    {
-      http: { verb: 'post', path: '/list' },
-      accepts: [
-        { arg: 'queryData', type: 'object' },
-        { arg: 'page', type: 'number', default: '0' },
-        { arg: 'pageSize', type: 'number', default: '20' }],
-      returns: { arg: 'data' }
-    })
-
-  BieuNhapLieu_ChiTieu.remoteMethod('listDeleteBieuNhapLieu_ChiTieu',
-    {
-      http: { verb: 'post', path: '/deleted_list' },
-      accepts: [
-        { arg: 'queryData', type: 'object' },
-        { arg: 'page', type: 'number', default: '0' },
-        { arg: 'pageSize', type: 'number', default: '20' }],
-      returns: { arg: 'data' }
-    })
-
-
 };

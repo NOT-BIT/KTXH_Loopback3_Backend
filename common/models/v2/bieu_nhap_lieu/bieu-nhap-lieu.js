@@ -1,222 +1,160 @@
-module.exports = function(BieuNhapLieu) {
-    const Promise = require('bluebird')
+let customCRUD = require('../../../utils/custom-crud')
+let app = require('../../../../server/server')
 
-    BieuNhapLieu.createBNL = async function(uid, ma, ten, sysLoaiBieuNhapLieuId, kyHieuBieu, kyBaoCao, donViNhapLieu, donViNhanBaoCao, donViTongHop, ghiChu){
-        const BNLData = {
-            uid,
-            ma,
-            ten,
-            sysLoaiBieuNhapLieuId,
-            kyHieuBieu,
-            kyBaoCao,
-            donViNhapLieu,
-            donViNhanBaoCao,
-            donViTongHop,
-            ghiChu,
-            createdAt: new Date(),
-            createdBy: 0
-        }
-        try {
-            const data = await BieuNhapLieu.create(BNLData)
-            return data
-        } catch (err) {
-            console.log('createBieuNhapLieu', err)
-            throw err
-        }
+'use_strict';
+
+module.exports = function (ThisModel) {
+  //create Bieu Nhap Lieu Chi Tieu
+  ThisModel.customCreate = async function (uid, ma, ten, sysLoaiBieuNhapLieuId, kyHieuBieu, kyBaoCao,
+    donViNhapLieu, donViNhanBaoCao, donViTongHop, ghiChu) {
+        const queryData = {
+            uid: uid,
+            ma: ma,
+            ten: ten,
+            sysLoaiBieuNhapLieuId: sysLoaiBieuNhapLieuId,
+            kyHieuBieu: kyHieuBieu,
+            kyBaoCao: kyBaoCao,
+            donViNhapLieu: donViNhapLieu,
+            donViNhanBaoCao: donViNhanBaoCao,
+            donViTongHop: donViTongHop,
+            ghiChu: ghiChu,
+            updatedAt: new Date(),
+            updatedBy: 0
+          }
+          return await customCRUD.create(ThisModel, queryData)
+  }
+
+  //list Bieu Nhap Lieu Chi Tieu
+  ThisModel.customList = async function (queryData, page, pageSize) {
+    return await customCRUD.list(ThisModel, queryData, page, pageSize)
+  }
+
+  //list deleted Bieu Nhap Lieu Chi Tieu
+  ThisModel.customListDeleted = async function (queryData, page, pageSize) {
+    return await customCRUD.listDeleted(ThisModel, queryData, page, pageSize)
+  }
+
+  //read Bieu Nhap Lieu Chi Tieu
+  ThisModel.customRead = async function (id) {
+    return await customCRUD.read(ThisModel, id)
+  }
+
+  //update Bieu Nhap Lieu Chi Tieu
+  ThisModel.customUpdate = async function (id, ma, ten, sysLoaiBieuNhapLieuId, kyHieuBieu, kyBaoCao,
+    donViNhapLieu, donViNhanBaoCao, donViTongHop, ghiChu, hieuLuc) {
+        const queryData = {
+            id: id,
+            ma: ma,
+            ten: ten,
+            sysLoaiBieuNhapLieuId: sysLoaiBieuNhapLieuId,
+            kyHieuBieu: kyHieuBieu,
+            kyBaoCao: kyBaoCao,
+            donViNhapLieu: donViNhapLieu,
+            donViNhanBaoCao: donViNhanBaoCao,
+            donViTongHop: donViTongHop,
+            ghiChu: ghiChu,
+            hieuLuc: hieuLuc,
+            updatedAt: new Date(),
+            updatedBy: 0
+          }
+          return await customCRUD.update(ThisModel, queryData)
+  }
+
+  //delete Bieu Nhap Lieu Chi Tieu 
+  ThisModel.customDelete = async function (id) {
+    return await customCRUD.delete(ThisModel, id)
+  }
+
+  // Restore Bieu Nhap Lieu Chi Tieu
+  ThisModel.customRestore = async function (id) {
+    return await customCRUD.restore(ThisModel, id)
+  }
+
+  ThisModel.remoteMethod('customCreate',
+    {
+      http: { path: '/create', verb: 'post' },
+      accepts: [
+        { arg: 'uid', type: 'string', required: true },
+        { arg: 'ma', type: 'string', required: true },
+        { arg: 'ten', type: 'string' },
+        { arg: 'sysLoaiBieuNhapLieuId', type: 'number', required: true },
+        { arg: 'kyHieuBieu', type: 'string'},
+        { arg: 'kyBaoCao', type: 'string' },
+        { arg: 'donViNhapLieu', type: 'string' },
+        { arg: 'donViNhanBaoCao', type: 'string' },
+        { arg: 'donViTongHop', type: 'string' },
+        { arg: 'ghiChu', type: 'string' }
+      ],
+      returns: { arg: 'data' },
     }
+  )
 
-    BieuNhapLieu.updateBNL = async function(id, ma, ten, sysLoaiBieuNhapLieuId, kyHieuBieu, kyBaoCao, donViNhapLieu, donViNhanBaoCao, donViTongHop, ghiChu, hieuLuc){
-       const BNLData = {
-            id,
-            ma,
-            ten,
-            sysLoaiBieuNhapLieuId,
-            kyHieuBieu,
-            kyBaoCao,
-            donViNhapLieu,
-            donViNhanBaoCao,                
-            donViTongHop,
-            ghiChu,
-            hieuLuc,
-            updatedAt: new Date()
-        }
-        try {
-            const data = await BieuNhapLieu.upsertWithWhere({id: BNLData.id, xoa: false}, BNLData)
-            return data
-        } catch (err) {
-            console.log('updateBieuNhapLieu', err)
-            throw err
-        }
-    }
+  ThisModel.remoteMethod('customList',
+    {
+      http: { verb: 'post', path: '/list' },
+      accepts: [
+        { arg: 'queryData', type: 'object' },
+        { arg: 'page', type: 'number', default: '0' },
+        { arg: 'pageSize', type: 'number', default: '20' }],
+      returns: { arg: 'data' }
+    })
 
-    BieuNhapLieu.deleteBNL = async function(id){
-        try {
-            const data = await BieuNhapLieu.upsertWithWhere({id: id},{ xoa: true })
-            return data
-        } catch (err) {
-            console.log('deleteBieuNhapLieu', err)
-            throw err
-        }
-    }
+    ThisModel.remoteMethod('customListDeleted',
+    {
+      http: { verb: 'post', path: '/list_deleted' },
+      accepts: [
+        { arg: 'queryData', type: 'object' },
+        { arg: 'page', type: 'number', default: '0' },
+        { arg: 'pageSize', type: 'number', default: '20' }],
+      returns: { arg: 'data' }
+    })
 
-    BieuNhapLieu.restoreBNL = async function(id){
-        try {
-            const data = await BieuNhapLieu.upsertWithWhere({id: id}, { xoa: false })
-            return data
-        } catch (err) {
-            console.log('restoreBieuNhapLieu', err)
-            throw err
-        }
-    }
+  ThisModel.remoteMethod('customRead',
+    {
+      http: { path: '/read', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }],
+      returns: { arg: 'data' }
+    },
+  )
 
-    BieuNhapLieu.readBNL = async function(id){
-        try {
-            const data = await BieuNhapLieu.findOne({where: {id: id, xoa: false}})
-            return data
-        } catch (err) {
-            console.log('readBieuNhapLieu', err)
-            throw err
-        }
-    }
+  ThisModel.remoteMethod('customUpdate',
+    {
+      http: { path: '/update', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true },
+        { arg: 'ma', type: 'string' },
+        { arg: 'ten', type: 'string' },
+        { arg: 'sysLoaiBieuNhapLieuId', type: 'number', required: true },
+        { arg: 'kyHieuBieu', type: 'string'},
+        { arg: 'kyBaoCao', type: 'string' },
+        { arg: 'donViNhapLieu', type: 'string' },
+        { arg: 'donViNhanBaoCao', type: 'string' },
+        { arg: 'donViTongHop', type: 'string' },
+        { arg: 'ghiChu', type: 'string' },
+        { arg: 'hieuLuc', type: 'boolean' }
+      ],
+      returns: { arg: 'data' },
+    },
+  )
 
-    BieuNhapLieu.listBNL= async function(queryData, page, pageSize){
-        try {
-            queryData.xoa = 0
-            const [data, total] = await Promise.all([
-                BieuNhapLieu.find({
-                where: {queryData},
-                include: ['belongsToSysLoaiBieuNhapLieu'],
-                limit: pageSize,
-                skip: page
-              }),
-              BieuNhapLieu.count({xoa: false})
-            ])
-            return {
-              rows: queryObject.listAPIReturnsList(BieuNhapLieu, data),
-              page: page,
-              pageSize: pageSize,
-              total: total
-            }
-        } catch (err) {
-            console.log('listBieuNhapLieu', err)
-            throw err
-        }
-    }
+  ThisModel.remoteMethod('customDelete',
+    {
+      http: { path: '/delete', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }
+      ],
+      returns: { arg: 'data' }
+    },
+  )
 
-    BieuNhapLieu.listDeletedBNL = async function(queryData, page, pageSize){
-        try {
-            queryData.xoa = 1
-            const [data, total] = await Promise.all([
-              BieuNhapLieu.find({
-                where: {queryData},
-                include: ['belongsToSysLoaiBieuNhapLieu'],
-                limit: pageSize,
-                skip: page
-              }),
-              BieuNhapLieu.count({xoa: true})
-            ])
-            return {
-              rows: queryObject.listAPIReturnsList(BieuNhapLieu, data),
-              page: page,
-              pageSize: pageSize,
-              total: total
-            }
-        } catch (err) {
-            console.log('listDeletedBieuNhapLieu', err)
-            throw err
-        }
-    }
-
-    BieuNhapLieu.remoteMethod(
-        'createBNL', {
-            http: {path: '/create', verb: 'post'},
-            accepts: [
-                {arg: 'uid', type: 'string', required: true},
-                {arg: 'ma', type: 'string', required: true},
-                {arg: 'ten', type: 'string'},
-                {arg: 'sysLoaiBieuNhapLieuId', type: 'number'},
-                {arg: 'kyHieuBieu', type: 'string'},
-                {arg: 'kyBaoCao', type: 'string'},
-                {arg: 'donViNhapLieu', type: 'string'},
-                {arg: 'donViNhanBaoCao', type: 'string'},
-                {arg: 'donViTongHop', type: 'string'},
-                {arg: 'ghiChu', type: 'string'}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        }
-    )
-
-    BieuNhapLieu.remoteMethod(
-        'updateBNL', {
-            http: {path: '/update', verb: 'post'},
-            accepts: [
-                {arg: 'id', type: 'number', required: true},
-                {arg: 'ma', type: 'string'},
-                {arg: 'ten', type: 'string'},
-                {arg: 'sysLoaiBieuNhapLieuId', type: 'number'},
-                {arg: 'kyHieuBieu', type: 'string'},
-                {arg: 'kyBaoCao', type: 'string'},
-                {arg: 'donViNhapLieu', type: 'string'},
-                {arg: 'donViNhanBaoCao', type: 'string'},
-                {arg: 'donViTongHop', type: 'string'},
-                {arg: 'ghiChu', type: 'string'},
-                {arg: 'hieuLuc', type: 'boolean'}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        }
-    )
-
-    BieuNhapLieu.remoteMethod(
-        'deleteBNL', {
-            http: {path: '/delete', verb: 'post'},
-            accepts: [
-                {arg: 'id', type: 'number', required: true}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
-
-    BieuNhapLieu.remoteMethod(
-        'restoreBNL', {
-            http: {path: '/restore', verb: 'post'},
-            accepts: [
-                {arg: 'id', type: 'number', required: true}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
-
-    BieuNhapLieu.remoteMethod(
-        'readBNL', {
-            http: {path: '/read', verb: 'post'},
-            accepts: [
-                {arg: 'id', type: 'number', required: true}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
-
-    BieuNhapLieu.remoteMethod(
-        'listBNL', {
-            http: {path: '/list', verb: 'post'},
-            accepts: [
-                {arg: 'queryData', type: 'object'},
-                { arg: 'page', type: 'number', default: '0'},
-                { arg: 'pageSize', type: 'number', default: '20'}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
-
-    BieuNhapLieu.remoteMethod(
-        'listDeletedBNL', {
-            http: {path: '/deleted_list', verb: 'post'},
-            accepts: [
-                {arg: 'queryData', type: 'object'},
-                { arg: 'page', type: 'number', default: '0'},
-                { arg: 'pageSize', type: 'number', default: '20'}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
-}
+  ThisModel.remoteMethod('customRestore',
+    {
+      http: { path: '/restore', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }
+      ],
+      returns: { arg: 'data' }
+    },
+  )
+};

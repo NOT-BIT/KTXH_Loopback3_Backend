@@ -8,7 +8,7 @@
     }
   },
   "http": {
-    "path": "crud/bieunhaplieu-chitieu"
+    "path": "v2/crud/bieunhaplieu-chitieu"
   },
   "properties": {
     "uid": {

@@ -7,7 +7,7 @@
     }
   },
   "http": {
-    "path": "qlnamlamviec"
+    "path": "v2/crud/qlnamlamviec"
   },
   "properties": {
     "uid": {

@@ -8,7 +8,7 @@
     "relations": {}
   },
   "http": {
-    "path": "chitieuphantochitiet"
+    "path": "v2/crud/chitieuphantochitiet"
   },
   "properties": {
     "uid": {

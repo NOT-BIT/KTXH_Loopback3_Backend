@@ -8,7 +8,7 @@
     }
   },
   "http": {
-    "path": "qtdonvi"
+    "path": "v2/crud/qtdonvi"
   },
   "properties": {
     "uid": {

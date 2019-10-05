@@ -6,7 +6,7 @@
     }
   },
   "http": {
-    "path": "qtusers-tacnhan"
+    "path": "v2/crud/qtusers-tacnhan"
   },
   "properties": {
     "uid": {

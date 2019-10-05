@@ -8,7 +8,7 @@
     }
   },
   "http": {
-    "path": "qchuyen"
+    "path": "v2/crud/qchuyen"
   },
   "properties": {
     "uid": {

@@ -9,7 +9,7 @@
     "relations": {}
   },
   "http": {
-    "path": "syskybaocao"
+    "path": "v2/crud/syskybaocao"
   },
   "properties": {
     "uid": {

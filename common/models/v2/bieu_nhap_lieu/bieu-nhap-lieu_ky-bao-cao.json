@@ -8,7 +8,7 @@
     }
   },
   "http": {
-    "path": "bieunhaplieu-kybaocao"
+    "path": "v2/crud/bieunhaplieu-kybaocao"
   },
   "properties": {
     "uid": {

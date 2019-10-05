@@ -8,7 +8,7 @@
     "relations": {}
   },
   "http": {
-    "path": "qthopthuhoidap"
+    "path": "v2/crud/qthopthuhoidap"
   },
   "properties": {
     "ngayHoi": {
