@@ -137,7 +137,7 @@
       "foreignKey": "chucNangChaId",
       "primaryKey": "id",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true
@@ -148,7 +148,7 @@
       "model": "QTChucNangPhanMem",
       "foreignKey": "chucNangChaId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       }
     },
     "hasManyQTTacNhan_ChucNangPhanMem": {
@@ -156,7 +156,7 @@
       "model": "QTTacNhan_ChucNangPhanMem",
       "foreignKey": "qtChucNangPhanMemId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       }
     }
   }

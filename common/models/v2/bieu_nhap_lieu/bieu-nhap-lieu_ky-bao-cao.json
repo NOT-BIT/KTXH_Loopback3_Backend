@@ -130,7 +130,7 @@
       "model": "BieuNhapLieu",
       "foreignKey": "bieuNhapLieuId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true
@@ -141,7 +141,7 @@
       "model": "QLKyBaoCao",
       "foreignKey": "qlKyBaoCaoId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true

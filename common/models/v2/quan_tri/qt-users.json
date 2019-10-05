@@ -149,7 +149,7 @@
       "foreignKey": "qtDonViId",
       "primaryKey": "id",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true

@@ -172,7 +172,7 @@
       "model": "QCTinh",
       "foreignKey": "qcTinhId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true
@@ -183,7 +183,7 @@
       "model": "QCXa",
       "foreignKey": "qcHuyenId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       }
     },
     "belongsToSysCapHanhChinh": {
@@ -191,7 +191,7 @@
       "model": "SysCapHanhChinh",
       "foreignKey": "sysCapDonViHanhChinhId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true

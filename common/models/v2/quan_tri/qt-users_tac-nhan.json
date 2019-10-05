@@ -133,7 +133,7 @@
       "foreignKey": "qtUsersId",
       "primaryKey": "id",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true
@@ -145,7 +145,7 @@
       "foreignKey": "qtTacNhanId",
       "primaryKey": "id",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true

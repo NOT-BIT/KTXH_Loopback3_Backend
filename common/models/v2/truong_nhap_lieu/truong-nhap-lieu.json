@@ -137,7 +137,7 @@
       "foreignKey": "sysLoaiTruongNhapLieuId",
       "primaryKey": "id",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true
@@ -148,7 +148,7 @@
       "model": "BieuNhapLieu_TruongNhapLieu",
       "foreignKey": "truongNhapLieuId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       }
     }
   }

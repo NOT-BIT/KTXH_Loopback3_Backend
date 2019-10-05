@@ -129,7 +129,7 @@
       "model": "BieuNhapLieu",
       "foreignKey": "bieuNhapLieuId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true
@@ -140,7 +140,7 @@
       "model": "DonVi",
       "foreignKey": "donViNhapId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true

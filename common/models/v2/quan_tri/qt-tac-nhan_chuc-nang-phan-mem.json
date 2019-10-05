@@ -132,7 +132,7 @@
       "foreignKey": "qtTacNhanId",
       "primaryKey": "id",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       }
     },
     "belongsToQTChucNangPhanMem": {
@@ -141,7 +141,7 @@
       "foreignKey": "qtChucNangPhanMemId",
       "primaryKey": "id",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       }
     }
   }

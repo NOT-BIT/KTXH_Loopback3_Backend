@@ -168,7 +168,7 @@
       "foreignKey": "sysLoaiBieuNhapLieuId",
       "primaryKey": "id",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true
@@ -179,7 +179,7 @@
       "model": "BieuNhapLieu_ChiTieu",
       "foreignKey": "bieuNhapLieuId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       }
     },
     "hasManyBieuNhapLieu_TruongNhapLieu": {
@@ -187,7 +187,7 @@
       "model": "BieuNhapLieu_TruongNhapLieu",
       "foreignKey": "bieuNhapLieuId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       }
     },
     "hasManyBieuNhapLieu_KyBaoCao": {
@@ -195,7 +195,7 @@
       "model": "BieuNhapLieu_KyBaoCao",
       "foreignKey": "bieuNhapLieuId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       }
     }
   }

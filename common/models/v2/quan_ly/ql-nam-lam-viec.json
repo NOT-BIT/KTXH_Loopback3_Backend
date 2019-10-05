@@ -142,7 +142,7 @@
         "model": "QLKyBaoCao",
         "foreignKey": "qlNamLamViecId",
         "options": {
-          "nestRemoting": true
+          "nestRemoting": false
         }
       },
       "belongsToSysTrangThaiDongMo": {
@@ -150,7 +150,7 @@
         "model": "SysTrangThaiDongMo",
         "foreignKey": "sysTrangThaiDongMoId",
         "options": {
-          "nestRemoting": true
+          "nestRemoting": false
         },
         "extendOptions": {
           "showList": true

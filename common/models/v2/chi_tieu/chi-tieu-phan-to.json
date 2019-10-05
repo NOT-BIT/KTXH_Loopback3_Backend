@@ -114,7 +114,7 @@
       "model": "ChiTieuPhanToChiTiet",
       "foreignKey": "chiTieuPhanToId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       }
     }
   }

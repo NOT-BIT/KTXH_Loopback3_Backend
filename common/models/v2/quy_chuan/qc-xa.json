@@ -172,7 +172,7 @@
       "model": "QCHuyen",
       "foreignKey": "qcHuyenId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true
@@ -183,7 +183,7 @@
       "model": "SysCapHanhChinh",
       "foreignKey": "sysCapDonViHanhChinhId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true

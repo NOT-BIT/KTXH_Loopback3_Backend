@@ -160,7 +160,7 @@
       "foreignKey": "donViChaId",
       "primaryKey": "id",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true
@@ -171,7 +171,7 @@
       "model": "QTDonVi",
       "foreignKey": "donViChaId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       }
     },
     "hasManyQTDonVi_DiaBan": {
@@ -180,7 +180,7 @@
       "foreignKey": "qtDonViId",
       "primaryKey": "id",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       }
     },
     "hasManyQTUsers": {
@@ -189,7 +189,7 @@
       "foreignKey": "qtDonViId",
       "primaryKey": "id",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       }
     }
   }

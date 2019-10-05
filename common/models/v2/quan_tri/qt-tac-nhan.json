@@ -129,7 +129,7 @@
       "foreignKey": "sysCapHanhChinhId",
       "primaryKey": "id",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true
@@ -140,7 +140,7 @@
       "model": "QTTacNhan_ChucNangPhanMem",
       "foreignKey": "qtTacNhanId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       }
     }
   }

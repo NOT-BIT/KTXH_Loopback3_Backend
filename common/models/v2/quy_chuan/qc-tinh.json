@@ -166,7 +166,7 @@
       "model": "SysCapHanhChinh",
       "foreignKey": "sysCapDonViHanhChinhId",
       "options": {
-        "nestRemoting": true
+        "nestRemoting": false
       },
       "extendOptions": {
         "showList": true
