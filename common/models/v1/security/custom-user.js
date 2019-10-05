@@ -1,5 +1,5 @@
-let app = require("../../../../server/server")
-let jwt = require("../../../utils/jwt")
+let app = require("../../../server/server")
+let jwt = require("../../utils/jwt")
 
 module.exports = function(CustomUser) {
     CustomUser.login = async function (username, password) {

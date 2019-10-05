@@ -20,7 +20,8 @@
       "length": 250,
       "mysql": {
         "columnName": "uid",
-        "dataType": "varchar"
+        "dataType": "varchar",
+        "nullable": "N"
       }
     },
     "ma": {
@@ -89,7 +90,8 @@
       "default": false,
       "mysql": {
         "columnName": "la_don_vi",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     },
     "ghiChu": {
@@ -108,7 +110,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date"
+        "dataType": "date",
+        "nullable": "N"
       }
     },
     "createdBy": {
@@ -116,7 +119,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "updatedAt": {
@@ -139,7 +143,8 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     },
     "xoa": {
@@ -148,7 +153,8 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     }
   },

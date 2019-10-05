@@ -53,7 +53,8 @@
       "required": true,
       "mysql": {
         "columnName": "chi_tieu_phan_to_id",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       },
       "extendOptions": {
         "showList": true
@@ -75,7 +76,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date"
+        "dataType": "date",
+        "nullable": "N"
       }
     },
     "createdBy": {
@@ -83,7 +85,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "updatedAt": {
@@ -106,7 +109,8 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       },
       "extendOptions": {
         "showList": true
@@ -118,7 +122,8 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     }
   },

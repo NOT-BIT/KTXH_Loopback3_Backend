@@ -19,7 +19,8 @@
       "mysql": {
         "columnName": "uid",
         "dataType": "varchar",
-        "dataLength": 250
+        "dataLength": 250,
+        "nullable": "N"
       }
     },
     "ma": {
@@ -30,7 +31,8 @@
       "mysql": {
         "columnName": "ma",
         "dataType": "varchar",
-        "dataLength": 250
+        "dataLength": 250,
+        "nullable": "N"
       },
       "extendOptions": {
         "showList": true
@@ -94,7 +96,8 @@
       "default": 1,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     },
     "xoa": {
@@ -103,7 +106,8 @@
       "default": 0,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     }
   }

@@ -1,6 +1,6 @@
 module.exports = function(BieuNhapLieu) {
     const Promise = require('bluebird')
-    let queryObject = require("../../../utils/query-object")
+    let queryObject = require("../../utils/query-object")
 
     BieuNhapLieu.createBNL = async function(uid, ma, ten, sysLoaiBieuNhapLieuId, kyHieuBieu, kyBaoCao, donViNhapLieu, donViNhanBaoCao, donViTongHop, ghiChu){
         const BNLData = {

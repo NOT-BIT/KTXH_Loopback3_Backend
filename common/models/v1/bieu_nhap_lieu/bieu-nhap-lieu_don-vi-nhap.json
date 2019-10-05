@@ -53,7 +53,8 @@
       "required": true,
       "mysql": {
         "columnName": "bieu_nhap_lieu_id",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "donViNhapId": {
@@ -61,7 +62,8 @@
       "required": true,
       "mysql": {
         "columnName": "don_vi_id",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "ghiChu": {
@@ -79,7 +81,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date"
+        "dataType": "date",
+        "nullable": "N"
       }
     },
     "createdBy": {
@@ -87,7 +90,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "updatedAt": {

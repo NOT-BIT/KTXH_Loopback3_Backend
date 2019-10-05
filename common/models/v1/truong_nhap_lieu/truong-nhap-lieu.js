@@ -1,6 +1,6 @@
 module.exports = function(TruongNhapLieu) {
   const Promise = require('bluebird')
-    let queryObject = require("../../../utils/query-object")
+    let queryObject = require("../../utils/query-object")
 
   TruongNhapLieu.listTruongNhapLieu = async function(
     page,

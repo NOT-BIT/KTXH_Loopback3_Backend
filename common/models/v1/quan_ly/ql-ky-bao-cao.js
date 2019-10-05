@@ -1,6 +1,6 @@
 module.exports = function(QLKyBaoCao) {
   const Promise = require('bluebird')
-    let queryObject = require("../../../utils/query-object")
+    let queryObject = require("../../utils/query-object")
 
   QLKyBaoCao.listKyBaoCao = async function(page, pageSize, queryData) {
     try {

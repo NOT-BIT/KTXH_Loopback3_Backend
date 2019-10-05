@@ -19,7 +19,8 @@
       "mysql": {
         "columnName": "uid",
         "dataType": "varchar",
-        "dataLength": 250
+        "dataLength": 250,
+        "nullable": "N"
       }
     },
     "ma": {
@@ -30,7 +31,8 @@
       "mysql": {
         "columnName": "ma",
         "dataType": "varchar",
-        "dataLength": 250
+        "dataLength": 250,
+        "nullable": "N"
       },
       "extendOptions": {
         "showList": true
@@ -53,7 +55,8 @@
       "required": true,
       "mysql": {
         "columnName": "cap_don_vi_hanh_chinh",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "loaiDonViHanhChinh": {
@@ -63,7 +66,8 @@
       "mysql": {
         "columnName": "loai_don_vi_hanh_chinh",
         "dataType": "varchar",
-        "dataLength": 250
+        "dataLength": 250,
+        "nullable": "N"
       }
     },
     "nongThon": {
@@ -111,7 +115,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date"
+        "dataType": "date",
+        "nullable": "N"
       }
     },
     "createdBy": {
@@ -119,7 +124,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "updatedAt": {
@@ -142,7 +148,8 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     },
     "xoa": {
@@ -151,7 +158,8 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     }
   },

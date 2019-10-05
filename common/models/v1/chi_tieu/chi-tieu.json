@@ -19,7 +19,8 @@
       "mysql": {
         "columnName": "uid",
         "dataType": "varchar",
-        "dataLength": 250
+        "dataLength": 250,
+        "nullable": "N"
       }
     },
     "ma": {
@@ -30,7 +31,8 @@
       "mysql": {
         "columnName": "ma",
         "dataType": "varchar",
-        "dataLength": 250
+        "dataLength": 250,
+        "nullable": "N"
       },
       "extendOptions": {
         "showList": true
@@ -53,7 +55,8 @@
       "required": true, 
       "mysql": {
         "columnName": "cap_nhap_lieu_id",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "capTongHopId": {
@@ -61,7 +64,8 @@
       "required": true, 
       "mysql": {
         "columnName": "cap_tong_hieu_id",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "chiTieuNhomId": {
@@ -69,7 +73,8 @@
       "required": true, 
       "mysql": {
         "columnName": "chi_tieu_nhom_id",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "chiTieuPhanToId": {
@@ -77,7 +82,8 @@
       "required": true, 
       "mysql": {
         "columnName": "chi_tieu_phan_to_id",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "chiTieuChaId": {
@@ -85,7 +91,8 @@
       "required": true, 
       "mysql": {
         "columnName": "chi_tieu_cha_id",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
 
@@ -95,7 +102,8 @@
       "default": true,
       "mysql": {
         "columnName": "cong_don_tu_duoi_len",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     },
     "congTheoMa": {
@@ -118,7 +126,8 @@
       "default": false,
       "mysql": {
         "columnName": "co_phan_to_khong",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     },
     "donViTinh": {
@@ -159,7 +168,8 @@
       "default": true,
       "mysql": {
         "columnName": "tinh_phan_tram",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     },
     "tuSo": {
@@ -183,7 +193,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date"
+        "dataType": "date",
+        "nullable": "N"
       }
     },
     "createdBy": {
@@ -191,7 +202,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "updatedAt": {
@@ -214,7 +226,8 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     },
     "xoa": {
@@ -223,7 +236,8 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     }
   },

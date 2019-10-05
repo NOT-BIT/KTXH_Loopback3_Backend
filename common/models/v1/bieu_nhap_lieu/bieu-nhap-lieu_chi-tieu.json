@@ -19,7 +19,8 @@
       "mysql": {
         "columnName": "uid",
         "dataType": "varchar",
-        "dataLength": 250
+        "dataLength": 250,
+        "nullable": "N"
       }
     },
     "ma": {
@@ -30,7 +31,8 @@
       "mysql": {
         "columnName": "ma",
         "dataType": "varchar",
-        "dataLength": 250
+        "dataLength": 250,
+        "nullable": "N"
       },
       "extendOptions": {
         "showList": true
@@ -53,7 +55,8 @@
       "required": true,
       "mysql": {
         "columnName": "bieu_nhap_lieu_id",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "chiTieuId": {
@@ -61,7 +64,8 @@
       "required": true,
       "mysql": {
         "columnName": "chi_tieu_id",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "ghiChu": {
@@ -80,7 +84,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date"
+        "dataType": "date",
+        "nullable": "N"
       }
     },
     "createdBy": {
@@ -88,7 +93,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "updatedAt": {
@@ -111,7 +117,8 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     },
     "xoa": {
@@ -120,7 +127,8 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     }
   },

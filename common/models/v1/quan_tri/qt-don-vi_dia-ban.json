@@ -53,7 +53,8 @@
       "required": true,
       "mysql": {
         "columnName": "qt_don_vi_id",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "qcTinhId": {
@@ -83,7 +84,8 @@
       "default": false,
       "mysql": {
         "columnName": "tat_ca_nut_con",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     },
     "ghiChu": {
@@ -102,7 +104,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date"
+        "dataType": "date",
+        "nullable": "N"
       }
     },
     "createdBy": {
@@ -110,7 +113,8 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int"
+        "dataType": "int",
+        "nullable": "N"
       }
     },
     "updatedAt": {
@@ -133,7 +137,8 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     },
     "xoa": {
@@ -142,7 +147,8 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint"
+        "dataType": "tinyint",
+        "nullable": "N"
       }
     }
   },

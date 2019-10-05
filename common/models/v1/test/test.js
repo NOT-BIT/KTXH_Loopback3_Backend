@@ -1,5 +1,5 @@
-let queryObject = require("../../../utils/query-object")
-let app = require("../../../../server/server")
+let queryObject = require("../../utils/query-object")
+let app = require("../../../server/server")
 
 module.exports = function(Test) {
     Test.test = async function () {
