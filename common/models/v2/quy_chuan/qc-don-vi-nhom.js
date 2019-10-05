@@ -1,6 +1,5 @@
 module.exports = function(QCDonViNhom) {
     const Promise = require('bluebird')
-    let queryObject = require("../../utils/query-object")
 
     QCDonViNhom.createDVN = async function(uid, ma, ten, ghiChu){
         const donViNhomData = {

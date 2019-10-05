@@ -19,8 +19,7 @@
       "mysql": {
         "columnName": "uid",
         "dataType": "varchar",
-        "dataLength": 250,
-        "nullable": "N"
+        "dataLength": 250
       }
     },
     "ma": {
@@ -31,8 +30,7 @@
       "mysql": {
         "columnName": "ma",
         "dataType": "varchar",
-        "dataLength": 250,
-        "nullable": "N"
+        "dataLength": 250
       },
       "extendOptions": {
         "showList": true
@@ -55,8 +53,7 @@
       "required": true, 
       "mysql": {
         "columnName": "cap_nhap_lieu_id",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "capTongHopId": {
@@ -64,8 +61,7 @@
       "required": true, 
       "mysql": {
         "columnName": "cap_tong_hieu_id",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "chiTieuNhomId": {
@@ -73,8 +69,7 @@
       "required": true, 
       "mysql": {
         "columnName": "chi_tieu_nhom_id",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "chiTieuPhanToId": {
@@ -82,8 +77,7 @@
       "required": true, 
       "mysql": {
         "columnName": "chi_tieu_phan_to_id",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "chiTieuChaId": {
@@ -91,8 +85,7 @@
       "required": true, 
       "mysql": {
         "columnName": "chi_tieu_cha_id",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
 
@@ -102,8 +95,7 @@
       "default": true,
       "mysql": {
         "columnName": "cong_don_tu_duoi_len",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     },
     "congTheoMa": {
@@ -126,8 +118,7 @@
       "default": false,
       "mysql": {
         "columnName": "co_phan_to_khong",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     },
     "donViTinh": {
@@ -168,8 +159,7 @@
       "default": true,
       "mysql": {
         "columnName": "tinh_phan_tram",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     },
     "tuSo": {
@@ -193,8 +183,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date",
-        "nullable": "N"
+        "dataType": "date"
       }
     },
     "createdBy": {
@@ -202,8 +191,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "updatedAt": {
@@ -226,8 +214,7 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     },
     "xoa": {
@@ -236,8 +223,7 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     }
   },
@@ -312,38 +298,6 @@
       "options": {
         "nestRemoting": true
       }
-    }
-  },
-  "foreignKeys": {
-    "capNhapLieuIdFk": {
-      "name": "chi_tieu_sys_cap_hanh_chinh_fk",
-      "foreignKey": "capNhapLieuId",
-      "entityKey": "id",
-      "entity": "SysCapHanhChinh"
-    },
-    "capTongHopIdFk": {
-      "name": "chi_tieu_sys_cap_tong_hop_fk",
-      "foreignKey": "capTongHopId",
-      "entityKey": "id",
-      "entity": "SysCapHanhChinh"
-    },
-    "chiTieuNhomIdFk": {
-      "name": "chi_tieu_chi_tieu_nhom_fk",
-      "foreignKey": "chiTieuNhomId",
-      "entityKey": "id",
-      "entity": "ChiTieuNhom"
-    },
-    "chiTieuPhanToIdFk": {
-      "name": "chi_tieu_chi_tieu_phan_to_fk",
-      "foreignKey": "chiTieuPhanToId",
-      "entityKey": "id",
-      "entity": "ChiTieuPhanTo"
-    },
-    "chiTieuChaIdFk": {
-      "name": "chi_tieu_chi_tieu_cha_fk",
-      "foreignKey": "chiTieuChaId",
-      "entityKey": "id",
-      "entity": "ChiTieu"
     }
   }
 }

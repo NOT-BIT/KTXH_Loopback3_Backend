@@ -1,7 +1,6 @@
 let to = require('await-to-js').to;
-let constants = require('../../constants/constants')
+let constants = require('../../../constants/constants')
 const Promise = require('bluebird')
-    let queryObject = require("../../utils/query-object")
 
 module.exports = function(QTDonVi) {
 	  //create Quan Tri Don Vi

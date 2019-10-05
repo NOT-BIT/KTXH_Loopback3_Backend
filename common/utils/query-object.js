@@ -58,28 +58,9 @@ function listAPIReturnsList(model, listData){
     return listReturn
 }
 
-
-function test () {
-    let a = {
-        age: 1,
-        name: 'vuong'
-    }
-
-    let b = {
-        age: 2,
-        name: 'vuong2'
-    }
-
-    a.noname = b;
-    return a;
-    
-}
-
-
 module.exports = {
     listRelationsFilter: listRelationsFilter,
     readRelationsFilter: readRelationsFilter,
     listAPIReturns: listAPIReturns,
-    listAPIReturnsList: listAPIReturnsList,
-    test: test
+    listAPIReturnsList: listAPIReturnsList
 }

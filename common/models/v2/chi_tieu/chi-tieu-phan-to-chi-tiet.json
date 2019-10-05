@@ -53,8 +53,7 @@
       "required": true,
       "mysql": {
         "columnName": "chi_tieu_phan_to_id",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       },
       "extendOptions": {
         "showList": true
@@ -76,8 +75,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date",
-        "nullable": "N"
+        "dataType": "date"
       }
     },
     "createdBy": {
@@ -85,8 +83,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "updatedAt": {
@@ -109,8 +106,7 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       },
       "extendOptions": {
         "showList": true
@@ -122,8 +118,7 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     }
   },
@@ -138,14 +133,6 @@
       "extendOptions": {
         "showList": true
       }
-    }
-  },
-  "foreignKeys": {
-    "chiTieuPhanToIdFk": {
-      "name": "chi_tieu_phan_to_chi_tiet_chi_tieu_phan_to_fk",
-      "foreignKey": "chiTieuPhanToId",
-      "entityKey": "id",
-      "entity": "ChiTieuPhanTo"
     }
   }
 }

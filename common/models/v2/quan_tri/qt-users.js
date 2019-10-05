@@ -1,6 +1,5 @@
 module.exports = function(QTUsers) {
     const Promise = require('bluebird')
-    let queryObject = require("../../utils/query-object")
 
     QTUsers.createUsers = async function(uid, ma, ten, matKhau, soDienThoai, email, qtDonViId, ghiChu){
         const userData = {

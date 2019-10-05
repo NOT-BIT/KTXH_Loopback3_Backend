@@ -53,8 +53,7 @@
       "required": true,
       "mysql": {
         "columnName": "bieu_nhap_lieu_id",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "donViNhapId": {
@@ -62,8 +61,7 @@
       "required": true,
       "mysql": {
         "columnName": "don_vi_id",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "ghiChu": {
@@ -81,8 +79,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date",
-        "nullable": "N"
+        "dataType": "date"
       }
     },
     "createdBy": {
@@ -90,8 +87,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "updatedAt": {
@@ -149,20 +145,6 @@
       "extendOptions": {
         "showList": true
       }
-    }
-  },
-  "foreignKeys": {
-    "bieuNhapLieuIdFk": {
-      "name": "bieu_nhap_lieu_don_vi_nhap_bieu_nhap_lieu_fk",
-      "foreignKey": "bieuNhapLieuId",
-      "entityKey": "id",
-      "entity": "BieuNhapLieu"
-    },
-    "donViNhapIdFk": {
-      "name": "bieu_nhap_lieu_don_vi_nhap_truong_nhap_lieu_fk",
-      "foreignKey": "donViNhapId",
-      "entityKey": "id",
-      "entity": "DonVi"
     }
   }
 }

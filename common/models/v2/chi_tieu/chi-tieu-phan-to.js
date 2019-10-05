@@ -1,6 +1,5 @@
 module.exports = function(ChiTieuPhanTo){
     const Promise = require('bluebird')
-    let queryObject = require("../../utils/query-object")
     ChiTieuPhanTo.createCTPT = async function(uid, ma, ten, ghiChu){
         const CTPTData = {
             uid: uid,

@@ -1,6 +1,5 @@
 module.exports = function(QCHuyen) {
     const Promise = require('bluebird')
-    let queryObject = require("../../utils/query-object")
 
     QCHuyen.createHuyen = async function(uid, ma, qcTinhId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk){
         const huyenData = {

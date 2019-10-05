@@ -20,8 +20,7 @@
       "length": 250,
       "mysql": {
         "columnName": "uid",
-        "dataType": "varchar",
-        "nullable": "N"
+        "dataType": "varchar"
       }
     },
     "ma": {
@@ -90,8 +89,7 @@
       "default": false,
       "mysql": {
         "columnName": "la_don_vi",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     },
     "ghiChu": {
@@ -110,8 +108,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date",
-        "nullable": "N"
+        "dataType": "date"
       }
     },
     "createdBy": {
@@ -119,8 +116,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "updatedAt": {
@@ -143,8 +139,7 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     },
     "xoa": {
@@ -153,8 +148,7 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     }
   },
@@ -197,16 +191,6 @@
       "options": {
         "nestRemoting": true
       }
-    }
-  },
-  "acls": [],
-  "methods": {},
-  "foreignKeys": {
-    "donViChaIdFk": {
-      "name": "qt_don_vi_qt_don_vi_fk",
-      "foreignKey": "donViChaId",
-      "entityKey": "id",
-      "entity": "QTDonVi"
     }
   }
 }

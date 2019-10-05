@@ -1,6 +1,5 @@
 module.exports = function(ChiTieuNhom) {
   const Promise = require('bluebird')
-  let queryObject = require("../../utils/query-object")
 
   ChiTieuNhom.listChiTieuNhom = async function(page, pageSize, queryData) {
     try {

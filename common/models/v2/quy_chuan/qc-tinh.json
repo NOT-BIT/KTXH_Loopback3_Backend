@@ -19,8 +19,7 @@
       "mysql": {
         "columnName": "uid",
         "dataType": "varchar",
-        "dataLength": 250,
-        "nullable": "N"
+        "dataLength": 250
       }
     },
     "ma": {
@@ -31,8 +30,7 @@
       "mysql": {
         "columnName": "ma",
         "dataType": "varchar",
-        "dataLength": 250,
-        "nullable": "N"
+        "dataLength": 250
       },
       "extendOptions": {
         "showList": true
@@ -55,8 +53,7 @@
       "required": true,
       "mysql": {
         "columnName": "cap_don_vi_hanh_chinh",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "loaiDonViHanhChinh": {
@@ -66,8 +63,7 @@
       "mysql": {
         "columnName": "loai_don_vi_hanh_chinh",
         "dataType": "varchar",
-        "dataLength": 250,
-        "nullable": "N"
+        "dataLength": 250
       }
     },
     "nongThon": {
@@ -115,8 +111,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date",
-        "nullable": "N"
+        "dataType": "date"
       }
     },
     "createdBy": {
@@ -124,8 +119,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "updatedAt": {
@@ -148,8 +142,7 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     },
     "xoa": {
@@ -158,8 +151,7 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     }
   },
@@ -179,14 +171,6 @@
       "extendOptions": {
         "showList": true
       }
-    }
-  },
-  "foreignKeys": {
-    "sysCapDonViHanhChinhIdFk": {
-      "name": "qc_tinh_sys_cap_don_vi_hanh_chinh_fk",
-      "foreignKey": "sysCapDonViHanhChinhId",
-      "entityKey": "id",
-      "entity": "SysCapHanhChinh"
     }
   }
 }

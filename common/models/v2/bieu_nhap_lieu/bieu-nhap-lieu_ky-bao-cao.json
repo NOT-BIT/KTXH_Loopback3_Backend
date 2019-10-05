@@ -19,8 +19,7 @@
       "mysql": {
         "columnName": "uid",
         "dataType": "varchar",
-        "dataLength": 250,
-        "nullable": "N"
+        "dataLength": 250
       }
     },
     "ma": {
@@ -54,8 +53,7 @@
       "required": true, 
       "mysql": {
         "columnName": "bieu_nhap_lieu_id",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "qlKyBaoCaoId": {
@@ -63,8 +61,7 @@
       "required": true,
       "mysql": {
         "columnName": "ql_ky_bao_cao_id",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "ghiChu": {
@@ -83,8 +80,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date",
-        "nullable": "N"
+        "dataType": "date"
       }
     },
     "createdBy": {
@@ -92,8 +88,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "updatedAt": {
@@ -116,8 +111,7 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     },
     "xoa": {
@@ -126,8 +120,7 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     }
   },
@@ -153,20 +146,6 @@
       "extendOptions": {
         "showList": true
       }
-    }
-  },
-  "foreignKeys": {
-    "bieuNhapLieuIdFk": {
-      "name": "bieu_nhap_lieu_ky_bao_cao_bieu_nhap_lieu_fk",
-      "foreignKey": "bieuNhapLieuId",
-      "entityKey": "id",
-      "entity": "BieuNhapLieu"
-    },
-    "qlKyBaoCaoIdFk": {
-      "name": "bieu_nhap_lieu_ky_bao_cao_ky_bao_cao_fk",
-      "foreignKey": "qlKyBaoCaoId",
-      "entityKey": "id",
-      "entity": "QLKyBaoCao"
     }
   }
 }

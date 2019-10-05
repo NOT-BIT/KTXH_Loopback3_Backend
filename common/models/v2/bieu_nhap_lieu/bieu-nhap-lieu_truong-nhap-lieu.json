@@ -53,8 +53,7 @@
       "required": true,
       "mysql": {
         "columnName": "bieu_nhap_lieu_id",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "truongNhapLieuId": {
@@ -62,8 +61,7 @@
       "required": true,
       "mysql": {
         "columnName": "truong_nhap_lieu_id",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "ghiChu": {
@@ -82,8 +80,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date",
-        "nullable": "N"
+        "dataType": "date"
       }
     },
     "createdBy": {
@@ -91,8 +88,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "updatedAt": {
@@ -115,8 +111,7 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     },
     "xoa": {
@@ -125,8 +120,7 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     }
   },
@@ -152,20 +146,6 @@
       "extendOptions": {
         "showList": true
       }
-    }
-  },
-  "foreignKeys": {
-    "bieuNhapLieuIdFk": {
-      "name": "bieu_nhap_lieu_truong_nhap_lieu_bieu_nhap_lieu_fk",
-      "foreignKey": "bieuNhapLieuId",
-      "entityKey": "id",
-      "entity": "BieuNhapLieu"
-    },
-    "truongNhapLieuIdFk": {
-      "name": "bieu_nhap_lieu_truong_nhap_lieu_truong_nhap_lieu_fk",
-      "foreignKey": "truongNhapLieuId",
-      "entityKey": "id",
-      "entity": "TruongNhapLieu"
     }
   }
 }

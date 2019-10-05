@@ -1,6 +1,5 @@
 module.exports = function(QTUsers_TacNhan) {
     const Promise = require('bluebird')
-    let queryObject = require("../../utils/query-object")
 
     QTUsers_TacNhan.createUsers_TacNhan = async function(uid, ma, ten, qtUsersId, qtTacNhanId, ghiChu){
         const UTData = {

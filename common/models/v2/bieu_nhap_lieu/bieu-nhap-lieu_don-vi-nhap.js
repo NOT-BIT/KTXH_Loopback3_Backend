@@ -4,7 +4,6 @@ let to = require('await-to-js').to;
 
 module.exports = function(BieuNhapLieu_DonViNhap) {
   const Promise = require('bluebird')
-    let queryObject = require("../../utils/query-object")
 	  //create Bieu Nhap Lieu Don Vi Nhap
 	  BieuNhapLieu_DonViNhap.createBieuNhapLieu_DonViNhap = async function(
         uid, 

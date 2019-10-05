@@ -1,6 +1,5 @@
 module.exports = function(QLNamLamViec) {
     const Promise = require('bluebird')
-      let queryObject = require("../../utils/query-object")
   
     QLNamLamViec.listNamLamViec = async function(page, pageSize, queryData) {
       try {

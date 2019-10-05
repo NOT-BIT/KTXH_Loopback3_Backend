@@ -156,13 +156,5 @@
           "showList": true
         }
       }
-  },
-  "foreignKeys": {
-      "sysTrangThaiDongMoIdFk": {
-        "name": "ql_nam_lam_viec_sys_trang_thai_dong_mo",
-        "foreignKey": "sysTrangThaiDongMoId",
-        "entityKey": "id",
-        "entity": "SysTrangThaiDongMo"
-      }
   }
 }

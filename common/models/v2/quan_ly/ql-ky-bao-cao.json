@@ -158,8 +158,7 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     },
 
@@ -169,8 +168,7 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     }
   },
@@ -220,26 +218,6 @@
       "options": {
         "nestRemoting": true
       }
-    }
-  },
-  "foreignKeys": {
-    "qlNamLamViecIdFk": {
-      "name": "ql_ky_bao_cao_ql_nam_lam_viec_fk",
-      "foreignKey": "qlNamLamViecId",
-      "entityKey": "id",
-      "entity": "QLNamLamViec"
-    },
-    "sysKyBaoCaoIdFk": {
-      "name": "ql_ky_bao_cao_sys_ky_bao_cao_fk",
-      "foreignKey": "sysKyBaoCaoId",
-      "entityKey": "id",
-      "entity": "SysKyBaoCao"
-    },
-    "sysTrangThaiDongMoIdFk": {
-      "name": "ql_ky_bao_cao_sys_trang_thai_dong_mo_fk",
-      "foreignKey": "sysTrangThaiDongMoId",
-      "entityKey": "id",
-      "entity": "SysTrangThaiDongMo"
     }
   }
 }

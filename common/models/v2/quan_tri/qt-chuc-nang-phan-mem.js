@@ -1,6 +1,5 @@
 module.exports = function(QTChucNangPhanMem) {
     const Promise = require('bluebird')
-    let queryObject = require("../../utils/query-object")
 
     QTChucNangPhanMem.createCNPM = async function(uid, ma, ten, chucNangChaId, path, icon, ghiChu){
         const CNPMData = {

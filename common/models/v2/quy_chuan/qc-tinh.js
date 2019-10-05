@@ -1,6 +1,5 @@
 module.exports = function(QCTinh) {
     const Promise = require('bluebird')
-    let queryObject = require("../../utils/query-object")
 
     QCTinh.createTinh = async function(uid, ma, ten, ghiChu, cap, loai, nt, bg, hd, dbkk){
         const tinhData = {

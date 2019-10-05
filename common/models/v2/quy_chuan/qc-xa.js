@@ -1,6 +1,5 @@
 module.exports = function(QCXa) {
     const Promise = require('bluebird')
-    let queryObject = require("../../utils/query-object")
 
     QCXa.createXa = async function(uid, ma, qcHuyenId, ten, ghiChu, cap, loai, nt, bg, hd, dbkk){
         const xaData = {

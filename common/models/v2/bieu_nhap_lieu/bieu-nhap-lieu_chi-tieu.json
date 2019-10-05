@@ -19,8 +19,7 @@
       "mysql": {
         "columnName": "uid",
         "dataType": "varchar",
-        "dataLength": 250,
-        "nullable": "N"
+        "dataLength": 250
       }
     },
     "ma": {
@@ -31,8 +30,7 @@
       "mysql": {
         "columnName": "ma",
         "dataType": "varchar",
-        "dataLength": 250,
-        "nullable": "N"
+        "dataLength": 250
       },
       "extendOptions": {
         "showList": true
@@ -55,8 +53,7 @@
       "required": true,
       "mysql": {
         "columnName": "bieu_nhap_lieu_id",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "chiTieuId": {
@@ -64,8 +61,7 @@
       "required": true,
       "mysql": {
         "columnName": "chi_tieu_id",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "ghiChu": {
@@ -84,8 +80,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date",
-        "nullable": "N"
+        "dataType": "date"
       }
     },
     "createdBy": {
@@ -93,8 +88,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "updatedAt": {
@@ -117,8 +111,7 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     },
     "xoa": {
@@ -127,8 +120,7 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     }
   },
@@ -154,20 +146,6 @@
       "extendOptions": {
         "showList": true
       }
-    }
-  },
-  "foreignKeys": {
-    "bieuNhapLieuIdFk": {
-      "name": "bieu_nhap_lieu_chi_tieu_bieu_nhap_lieu_fk",
-      "foreignKey": "bieuNhapLieuId",
-      "entityKey": "id",
-      "entity": "BieuNhapLieu"
-    },
-    "chiTieuIdFk": {
-      "name": "bieu_nhap_lieu_chi_tieu_chi_tieu_fk",
-      "foreignKey": "chiTieuId",
-      "entityKey": "id",
-      "entity": "ChiTieu"
     }
   }
 }

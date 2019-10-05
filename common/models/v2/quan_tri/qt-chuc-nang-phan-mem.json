@@ -86,8 +86,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date",
-        "nullable": "N"
+        "dataType": "date"
       }
     },
     "createdBy": {
@@ -95,8 +94,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "updatedAt": {
@@ -119,8 +117,7 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     },
     "xoa": {
@@ -129,8 +126,7 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     }
   },
@@ -162,14 +158,6 @@
       "options": {
         "nestRemoting": true
       }
-    }
-  },
-  "foreignKeys": {
-    "chucNangChaIdFk": {
-      "name": "qt_chuc_nang_phan_mem_qt_chuc_nang_phan_mem_fk",
-      "foreignKey": "chucNangChaId",
-      "entityKey": "id",
-      "entity": "QTChucNangPhanMem"
     }
   }
 }

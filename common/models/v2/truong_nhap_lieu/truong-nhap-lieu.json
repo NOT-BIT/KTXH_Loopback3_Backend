@@ -84,8 +84,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date",
-        "nullable": "N"
+        "dataType": "date"
       }
     },
     "createdBy": {
@@ -93,8 +92,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "updatedAt": {
@@ -117,8 +115,7 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     },
     "xoa": {
@@ -127,8 +124,7 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     }
   },
@@ -154,17 +150,6 @@
       "options": {
         "nestRemoting": true
       }
-    }
-  },
-
-  "acls": [],
-  "methods": {},
-  "foreignKeys": {
-    "sysLoaiTruongNhapLieuIdFk": {
-      "name": "chi_tieu_nhom_sys_loai_truong_nhap_lieu",
-      "foreignKey": "sysLoaiTruongNhapLieuId",
-      "entityKey": "id",
-      "entity": "SysLoaiTruongNhapLieu"
     }
   }
 }

@@ -82,8 +82,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_at",
-        "dataType": "date",
-        "nullable": "N"
+        "dataType": "date"
       }
     },
     "createdBy": {
@@ -91,8 +90,7 @@
       "required": true,
       "mysql": {
         "columnName": "created_by",
-        "dataType": "int",
-        "nullable": "N"
+        "dataType": "int"
       }
     },
     "updatedAt": {
@@ -115,8 +113,7 @@
       "default": true,
       "mysql": {
         "columnName": "hieu_luc",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     },
     "xoa": {
@@ -125,8 +122,7 @@
       "default": false,
       "mysql": {
         "columnName": "xoa",
-        "dataType": "tinyint",
-        "nullable": "N"
+        "dataType": "tinyint"
       }
     }
   },
@@ -154,20 +150,6 @@
       "extendOptions": {
         "showList": true
       }
-    }
-  },
-  "foreignKeys": {
-    "qtUsersIdFk": {
-      "name": "qt_users_tac_nhan_qt_users_fk",
-      "foreignKey": "qtUsersId",
-      "entityKey": "id",
-      "entity": "QTUsers"
-    },
-    "qtTacNhanIdFk": {
-      "name": "qt_users_tac_nhan_qt_tac_nhan_fk",
-      "foreignKey": "qtTacNhanId",
-      "entityKey": "id",
-      "entity": "QTTacNhan"
     }
   }
 }

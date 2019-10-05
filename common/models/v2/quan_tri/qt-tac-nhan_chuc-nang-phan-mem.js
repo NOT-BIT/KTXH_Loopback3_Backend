@@ -3,7 +3,6 @@ let to = require('await-to-js').to;
 
 module.exports = function(QTTacNhan_ChucNangPhanMem) {
   const Promise = require('bluebird')
-    let queryObject = require("../../utils/query-object")
 	  //create Quan Tri Tac Nhan Chuc Nang Phan Mem
     QTTacNhan_ChucNangPhanMem.createQTTacNhanChucNangPhanMem = async function(uid, ma, ten,
       qtTacNhanId, qtChucNangPhanMemId, ghiChu

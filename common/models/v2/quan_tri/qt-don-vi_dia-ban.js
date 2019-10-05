@@ -1,6 +1,5 @@
 module.exports = function(QTDonVi_DiaBan) {
     const Promise = require('bluebird')
-    let queryObject = require("../../utils/query-object")
 
     QTDonVi_DiaBan.createDonVi_DiaBan = async function(uid, ma, ten, qtDonviId, qcTinhId, qcHuyenId, qcXaId, tatCaNutCon, ghiChu){
         const DonVi_DiaBanData = {
