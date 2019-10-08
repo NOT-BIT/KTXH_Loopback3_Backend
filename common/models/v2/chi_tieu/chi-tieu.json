@@ -128,11 +128,10 @@
         "dataType": "longtext"
       }
     },
-    "maChiTieu": {
+    "tuSo": {
       "type": "String",
-      "length": 250,
       "mysql": {
-        "columnName": "ma_chi_tieu",
+        "columnName": "tu_so",
         "dataType": "varchar",
         "dataLength": 250
       }
@@ -146,13 +145,6 @@
         "dataLength": 250
       }
     },
-    "soThuTu": {
-      "type": "Number",
-      "mysql": {
-        "columnName": "so_thu_tu",
-        "dataType": "int"
-      }
-    },
     "tinhPhanTram": {
       "type": "Boolean",
       "required": true,
@@ -160,14 +152,6 @@
       "mysql": {
         "columnName": "tinh_phan_tram",
         "dataType": "tinyint"
-      }
-    },
-    "tuSo": {
-      "type": "String",
-      "mysql": {
-        "columnName": "tu_so",
-        "dataType": "varchar",
-        "dataLength": 250
       }
     },
     "ghiChu": {

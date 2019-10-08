@@ -5,11 +5,27 @@ let app = require('../../../../server/server')
 
 module.exports = function (ThisModel) {
   //create Bieu Nhap Lieu Chi Tieu
-  ThisModel.customCreate = async function (uid, ma, ten, ghiChu) {
+  ThisModel.customCreate = async function (uid, ma, ten, capNhapLieuId,
+    capTongHopId, chiTieuNhomId, chiTieuPhanToId, chiTieuChaId, congDonTuDuoiLen,
+    congTheoMa, congThucCong, coPhanToKhong, donViTinh, tuSo, mauSo,
+    tinhPhanTram, ghiChu) {
         const queryData = {
             uid: uid,
             ma: ma,
             ten: ten,
+            capNhapLieuId: capNhapLieuId,
+            capTongHopId: capTongHopId,
+            chiTieuNhomId: chiTieuNhomId,
+            chiTieuPhanToId: chiTieuPhanToId,
+            chiTieuChaId: chiTieuChaId,
+            congDonTuDuoiLen: congDonTuDuoiLen,
+            congTheoMa: congTheoMa,
+            congThucCong: congThucCong,
+            coPhanToKhong: coPhanToKhong,
+            donViTinh: donViTinh,
+            tuSo: tuSo,
+            mauSo: mauSo,
+            tinhPhanTram: tinhPhanTram,
             ghiChu: ghiChu,
             updatedAt: new Date(),
             updatedBy: 0
@@ -33,11 +49,27 @@ module.exports = function (ThisModel) {
   }
 
   //update Bieu Nhap Lieu Chi Tieu
-  ThisModel.customUpdate = async function (id, ma, ten, ghiChu, hieuLuc) {
+  ThisModel.customUpdate = async function (id, ma, ten, capNhapLieuId,
+    capTongHopId, chiTieuNhomId, chiTieuPhanToId, chiTieuChaId, congDonTuDuoiLen,
+    congTheoMa, congThucCong, coPhanToKhong, donViTinh, tuSo, mauSo,
+    tinhPhanTram, ghiChu, hieuLuc) {
         const queryData = {
             id: id,
             ma: ma,
             ten: ten,
+            capNhapLieuId: capNhapLieuId,
+            capTongHopId: capTongHopId,
+            chiTieuNhomId: chiTieuNhomId,
+            chiTieuPhanToId: chiTieuPhanToId,
+            chiTieuChaId: chiTieuChaId,
+            congDonTuDuoiLen: congDonTuDuoiLen,
+            congTheoMa: congTheoMa,
+            congThucCong: congThucCong,
+            coPhanToKhong: coPhanToKhong,
+            donViTinh: donViTinh,
+            tuSo: tuSo,
+            mauSo,
+            tinhPhanTram: tinhPhanTram,
             ghiChu: ghiChu,
             hieuLuc: hieuLuc,
             updatedAt: new Date(),
@@ -63,6 +95,19 @@ module.exports = function (ThisModel) {
         { arg: 'uid', type: 'string', required: true },
         { arg: 'ma', type: 'string', required: true },
         { arg: 'ten', type: 'string' },
+        { arg: 'capNhapLieuId', type: 'number', required: true },
+        { arg: 'capTongHopId', type: 'number', required: true },
+        { arg: 'chiTieuNhomId', type: 'number', required: true },
+        { arg: 'chiTieuPhanToId', type: 'chiTieuChaId', required: true },
+        { arg: 'chiTieuChaId', type: 'number', required: true },
+        { arg: 'congDonTuDuoiLen', type: 'boolean', required: true },
+        { arg: 'congTheoMa', type: 'boolean', required: true },
+        { arg: 'congThucCong', type: 'string', required: true },
+        { arg: 'coPhanToKhong', type: 'boolean', required: true },
+        { arg: 'donViTinh', type: 'string', required: true },
+        { arg: 'tuSo', type: 'number'},
+        { arg: 'mauSo', type: 'number'}
+        { arg: 'tinhPhanTram', type: 'boolean', required: true }
         { arg: 'ghiChu', type: 'string' }
       ],
       returns: { arg: 'data' },
@@ -105,6 +150,19 @@ module.exports = function (ThisModel) {
         { arg: 'id', type: 'number', required: true },
         { arg: 'ma', type: 'string' },
         { arg: 'ten', type: 'string' },
+        { arg: 'capNhapLieuId', type: 'number' },
+        { arg: 'capTongHopId', type: 'number' },
+        { arg: 'chiTieuNhomId', type: 'number' },
+        { arg: 'chiTieuPhanToId', type: 'chiTieuChaId' },
+        { arg: 'chiTieuChaId', type: 'number' },
+        { arg: 'congDonTuDuoiLen', type: 'boolean' },
+        { arg: 'congTheoMa', type: 'boolean' },
+        { arg: 'congThucCong', type: 'string' },
+        { arg: 'coPhanToKhong', type: 'boolean' },
+        { arg: 'donViTinh', type: 'string' },
+        { arg: 'tuSo', type: 'string'},
+        { arg: 'mauSo', type: 'string'}
+        { arg: 'tinhPhanTram', type: 'boolean' }
         { arg: 'ghiChu', type: 'string' },
         { arg: 'hieuLuc', type: 'boolean' }
       ],
