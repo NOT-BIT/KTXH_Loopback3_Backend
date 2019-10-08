@@ -106,8 +106,8 @@ module.exports = function (ThisModel) {
         { arg: 'coPhanToKhong', type: 'boolean', required: true },
         { arg: 'donViTinh', type: 'string', required: true },
         { arg: 'tuSo', type: 'number'},
-        { arg: 'mauSo', type: 'number'}
-        { arg: 'tinhPhanTram', type: 'boolean', required: true }
+        { arg: 'mauSo', type: 'number'},
+        { arg: 'tinhPhanTram', type: 'boolean', required: true },
         { arg: 'ghiChu', type: 'string' }
       ],
       returns: { arg: 'data' },
@@ -161,8 +161,8 @@ module.exports = function (ThisModel) {
         { arg: 'coPhanToKhong', type: 'boolean' },
         { arg: 'donViTinh', type: 'string' },
         { arg: 'tuSo', type: 'string'},
-        { arg: 'mauSo', type: 'string'}
-        { arg: 'tinhPhanTram', type: 'boolean' }
+        { arg: 'mauSo', type: 'string'},
+        { arg: 'tinhPhanTram', type: 'boolean' },
         { arg: 'ghiChu', type: 'string' },
         { arg: 'hieuLuc', type: 'boolean' }
       ],

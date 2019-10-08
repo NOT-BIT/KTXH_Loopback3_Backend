@@ -26,7 +26,7 @@ function readRelationsFilter(model) {
     return listRelation
 }
 
-function listAPIReturns(model, object) {
+function listAPIReturns(model, object, flag) {
     var properties = model.definition.properties
     let listObject = {};
     Object.keys(properties).forEach(item => {
@@ -36,24 +36,25 @@ function listAPIReturns(model, object) {
            listObject[item] = object[item]
         }
       });
-
+    if (flag == true){
       var relations = model.definition.settings.relations
       Object.keys(relations).forEach(item => {
           if (object[item]
               && relations[item] != undefined
               && relations[item].extendOptions != undefined
               && relations[item].extendOptions.showList == true) {
-                  listObject[item] = listAPIReturns(app.models[relations[item].model], object[item])
+                  listObject[item] = listAPIReturns(app.models[relations[item].model], object[item], true)
           }
       })
+    }
       return listObject
 }
 
-function listAPIReturnsList(model, listData){
+function listAPIReturnsList(model, listData, flag){
     let i
     let listReturn = []
     for (i in listData){
-        listReturn.push(listAPIReturns(model, listData[i]))
+        listReturn.push(listAPIReturns(model, listData[i], flag))
     }
     return listReturn
 }

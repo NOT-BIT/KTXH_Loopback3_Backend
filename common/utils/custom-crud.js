@@ -46,23 +46,23 @@ CustomCRUD.list = async function (model, queryData, page, pageSize) {
     queryData.xoa = 0
     const [data, total] = await Promise.all([
       model.find({where: queryData, skip: page * pageSize, limit: pageSize}),
-      model.count({xoa: 1})
+      model.count({xoa: 0})
     ])
     let listRelation = queryObject.listRelationsFilter(model)
     let relations = model.definition.settings.relations
+    let returnData =  queryObject.listAPIReturnsList(model, data, false)
     for (let i in data) {
-      let record = data[i] = JSON.parse(JSON.stringify(data[i]))
+      let record = returnData[i] = JSON.parse(JSON.stringify(returnData[i]))
       for (let j in listRelation) {
         let relation = listRelation[j]
         let rfModel = app.models[relations[relation].model]
         let fk = relations[relation].foreignKey
-        record[relation] = await rfModel.find({ where: { id: record[fk], xoa: 0 } })
+        let rfData = await rfModel.findOne({ where: { id: data[i][fk], xoa: 0 } })
+        record[relation] = queryObject.listAPIReturns(rfModel, rfData, false)
       }
-      record = queryObject.listAPIReturns(model, record)
     }
-
     return {
-      rows: data,
+      rows: returnData,
       page: page,
       pageSize: pageSize,
       total: total
@@ -85,19 +85,19 @@ CustomCRUD.listDeleted = async function (model, queryData, page, pageSize) {
     ])
     listRelation = queryObject.listRelationsFilter(model)
     relations = model.definition.settings.relations
+    let returnData =  queryObject.listAPIReturnsList(model, data, false)
     for (let i in data) {
-      let record = data[i] = JSON.parse(JSON.stringify(data[i]))
+      let record = returnData[i] = JSON.parse(JSON.stringify(returnData[i]))
       for (let j in listRelation) {
         let relation = listRelation[j]
         let rfModel = app.models[relations[relation].model]
         let fk = relations[relation].foreignKey
-        record[relation] = await rfModel.find({ where: { id: record[fk], xoa: 0 } })
+        let rfData = await rfModel.findOne({ where: { id: data[i][fk]} })
+        record[relation] = queryObject.listAPIReturns(rfModel, rfData, false)
       }
-      record = queryObject.listAPIReturns(model, record)
     }
-
     return {
-      rows: data,
+      rows: returnData,
       page: page,
       pageSize: pageSize,
       total: total
@@ -166,26 +166,27 @@ CustomCRUD.update = async function (model, queryData) {
 }
 
 CustomCRUD.delete = async function (model, id) {
-
   let curRecord = await model.findOne({ where: { id: id } })
   if (!curRecord) {
     let err = new Error()
     throw err
   }
-
   let relations = model.definition.settings.relations
-  Object.keys(relations).forEach(item => {
+  let relationsKey = Object.keys(relations)
+  for (let i in relationsKey) {
+    let item = relationsKey[i]
     if (item.match(/^hasMany/)) {
       let rfModel = app.models[relations[item].model]
       let fk = relations[item].foreignKey
       let whereFilter = JSON.parse(`{"${fk}" : ${id}, "xoa": 0}`)
-      let rfRecord = rfModel.findOne({ where: whereFilter })
-      if (rfRecord) {
-        let err = new Error()
-        throw err
+      let rfRecord =  await rfModel.findOne({ where: whereFilter })
+      console.log(relations[item].model, rfRecord)
+      if (rfRecord){
+        let err2 = new Error()
+        throw err2
       }
     }
-  })
+  }
   try {
     const queryData = {id: id,
     xoa: 1}

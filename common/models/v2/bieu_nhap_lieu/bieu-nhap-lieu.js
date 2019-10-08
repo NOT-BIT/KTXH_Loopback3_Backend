@@ -18,8 +18,8 @@ module.exports = function (ThisModel) {
             donViNhanBaoCao: donViNhanBaoCao,
             donViTongHop: donViTongHop,
             ghiChu: ghiChu,
-            updatedAt: new Date(),
-            updatedBy: 0
+            createdAt: new Date(),
+            createdBy: 0
           }
           return await customCRUD.create(ThisModel, queryData)
   }
@@ -125,7 +125,7 @@ module.exports = function (ThisModel) {
         { arg: 'id', type: 'number', required: true },
         { arg: 'ma', type: 'string' },
         { arg: 'ten', type: 'string' },
-        { arg: 'sysLoaiBieuNhapLieuId', type: 'number', required: true },
+        { arg: 'sysLoaiBieuNhapLieuId', type: 'number', required: false },
         { arg: 'kyHieuBieu', type: 'string'},
         { arg: 'kyBaoCao', type: 'string' },
         { arg: 'donViNhapLieu', type: 'string' },
