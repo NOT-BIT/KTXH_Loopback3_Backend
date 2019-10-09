@@ -21,6 +21,9 @@
     "loopback-component-explorer": "^6.2.0",
     "loopback-connector-mysql": "^5.4.2",
     "njwt": "^1.0.0",
+    "node": "^12.11.1",
+    "nodemon": "^1.19.3",
+    "npm": "^6.12.0",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^3.0.0"
   },
