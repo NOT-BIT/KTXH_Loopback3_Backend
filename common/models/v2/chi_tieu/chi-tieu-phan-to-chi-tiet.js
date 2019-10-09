@@ -5,18 +5,17 @@ let app = require('../../../../server/server')
 
 module.exports = function (ThisModel) {
   //create Bieu Nhap Lieu Chi Tieu
-  ThisModel.customCreate = async function (uid, ma, ten, qtTacNhanId, qtChucNangPhanMemId, ghiChu) {
-    const queryData = {
-      uid: uid,
-      ma: ma,
-      ten: ten,
-      qtTacNhanId: qtTacNhanId,
-      qtChucNangPhanMemId: qtChucNangPhanMemId,
-      ghiChu: ghiChu,
-      createdAt: new Date(),
-      createdBy: 0
-    }
-    return await customCRUD.create(ThisModel, queryData)
+  ThisModel.customCreate = async function (uid, ma, ten, chiTieuPhanToId, ghiChu) {
+        const queryData = {
+            uid: uid,
+            ma: ma,
+            ten: ten,
+            chiTieuPhanToId: chiTieuPhanToId,
+            ghiChu: ghiChu,
+            updatedAt: new Date(),
+            updatedBy: 0
+          }
+          return await customCRUD.create(ThisModel, queryData)
   }
 
   //list Bieu Nhap Lieu Chi Tieu
@@ -35,19 +34,18 @@ module.exports = function (ThisModel) {
   }
 
   //update Bieu Nhap Lieu Chi Tieu
-  ThisModel.customUpdate = async function (id, ma, ten, qtTacNhanId, qtChucNangPhanMemId, ghiChu, hieuLuc) {
-    const queryData = {
-      id: id,
-      ma: ma,
-      ten: ten,
-      qtTacNhanId: qtTacNhanId,
-      qtChucNangPhanMemId: qtChucNangPhanMemId,
-      ghiChu: ghiChu,
-      hieuLuc: hieuLuc,
-      updatedAt: new Date(),
-      updatedBy: 0
-    }
-    return await customCRUD.update(ThisModel, queryData)
+  ThisModel.customUpdate = async function (id, ma, ten, chiTieuPhanToId, ghiChu, hieuLuc) {
+        const queryData = {
+            id: id,
+            ma: ma,
+            ten: ten,
+            chiTieuPhanToId: chiTieuPhanToId,
+            ghiChu: ghiChu,
+            hieuLuc: hieuLuc,
+            updatedAt: new Date(),
+            updatedBy: 0
+          }
+          return await customCRUD.update(ThisModel, queryData)
   }
 
   //delete Bieu Nhap Lieu Chi Tieu 
@@ -67,8 +65,7 @@ module.exports = function (ThisModel) {
         { arg: 'uid', type: 'string', required: true },
         { arg: 'ma', type: 'string', required: true },
         { arg: 'ten', type: 'string' },
-        { arg: 'qtTacNhanId', type: 'number', required: true },
-        { arg: 'qtChucNangPhanMemId', type: 'number', required: true },
+        { arg: 'chiTieuPhanToId', type: 'number', required: true },
         { arg: 'ghiChu', type: 'string' }
       ],
       returns: { arg: 'data' },
@@ -111,8 +108,7 @@ module.exports = function (ThisModel) {
         { arg: 'id', type: 'number', required: true },
         { arg: 'ma', type: 'string' },
         { arg: 'ten', type: 'string' },
-        { arg: 'qtTacNhanId', type: 'number' },
-        { arg: 'qtChucNangPhanMemId', type: 'number' },
+        { arg: 'chiTieuPhanToId', type: 'number' },
         { arg: 'ghiChu', type: 'string' },
         { arg: 'hieuLuc', type: 'boolean' }
       ],

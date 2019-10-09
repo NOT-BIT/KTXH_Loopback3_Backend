@@ -1,210 +1,146 @@
-module.exports = function(QTChucNangPhanMem) {
-    const Promise = require('bluebird')
+let customCRUD = require('../../../utils/custom-crud')
+let app = require('../../../../server/server')
 
-    QTChucNangPhanMem.createCNPM = async function(uid, ma, ten, chucNangChaId, path, icon, ghiChu){
-        const CNPMData = {
-            uid,
-            ma,
-            ten,
-            chucNangChaId,
-            path,
-            icon,
-            ghiChu,
-            createdAt: new Date(),
-            createdBy: 0
-        }
-        try {
-            const data = await QTChucNangPhanMem.create(CNPMData)
-            return data
-        } catch (err) {
-            console.log('createQTChucNangPhanMem', err)
-            throw err
-        }
+'use_strict';
+
+module.exports = function (ThisModel) {
+  //create Bieu Nhap Lieu Chi Tieu
+  ThisModel.customCreate = async function (uid, ma, ten, chucNangChaId, path, icon, ghiChu) {
+        const queryData = {
+            uid: uid,
+            ma: ma,
+            ten: ten,
+            chucNangChaId: chucNangChaId,
+            path: path,
+            icon: icon,
+            ghiChu: ghiChu,
+            updatedAt: new Date(),
+            updatedBy: 0
+          }
+          return await customCRUD.create(ThisModel, queryData)
+  }
+
+  //list Bieu Nhap Lieu Chi Tieu
+  ThisModel.customList = async function (queryData, page, pageSize) {
+    return await customCRUD.list(ThisModel, queryData, page, pageSize)
+  }
+
+  //list deleted Bieu Nhap Lieu Chi Tieu
+  ThisModel.customListDeleted = async function (queryData, page, pageSize) {
+    return await customCRUD.listDeleted(ThisModel, queryData, page, pageSize)
+  }
+
+  //read Bieu Nhap Lieu Chi Tieu
+  ThisModel.customRead = async function (id) {
+    return await customCRUD.read(ThisModel, id)
+  }
+
+  //update Bieu Nhap Lieu Chi Tieu
+  ThisModel.customUpdate = async function (id, ma, ten, chucNangChaId, path, icon, ghiChu, hieuLuc) {
+        const queryData = {
+            id: id,
+            ma: ma,
+            ten: ten,
+            chucNangChaId: chucNangChaId,
+            path: path,
+            icon: icon,
+            ghiChu: ghiChu,
+            hieuLuc: hieuLuc,
+            updatedAt: new Date(),
+            updatedBy: 0
+          }
+          return await customCRUD.update(ThisModel, queryData)
+  }
+
+  //delete Bieu Nhap Lieu Chi Tieu 
+  ThisModel.customDelete = async function (id) {
+    return await customCRUD.delete(ThisModel, id)
+  }
+
+  // Restore Bieu Nhap Lieu Chi Tieu
+  ThisModel.customRestore = async function (id) {
+    return await customCRUD.restore(ThisModel, id)
+  }
+
+  ThisModel.remoteMethod('customCreate',
+    {
+      http: { path: '/create', verb: 'post' },
+      accepts: [
+        { arg: 'uid', type: 'string', required: true },
+        { arg: 'ma', type: 'string', required: true },
+        { arg: 'ten', type: 'string' },
+        { arg: 'chucNangChaId', type: 'number' },
+        { arg: 'path', type: 'string' },
+        { arg: 'icon', type: 'string' },
+        { arg: 'ghiChu', type: 'string' }
+      ],
+      returns: { arg: 'data' },
     }
+  )
 
-    QTChucNangPhanMem.updateCNPM = async function(id, ma, ten, chucNangChaId, path, icon, ghiChu, hieuLuc){
-        const CNPMData = {
-            id,
-            ma,
-            ten,
-            chucNangChaId,
-            path,
-            icon,
-            ghiChu,
-            hieuLuc,
-            updatedAt: new Date()
-        }
-        try {
-            const data = await QTChucNangPhanMem.upsertWithWhere({id: CNPMData.id, xoa: false}, CNPMData)
-            return data
-        } catch (err) {
-            console.log('updateQTChucNangPhanMem', err)
-            throw err
-        }
-    }
+  ThisModel.remoteMethod('customList',
+    {
+      http: { verb: 'post', path: '/list' },
+      accepts: [
+        { arg: 'queryData', type: 'object' },
+        { arg: 'page', type: 'number', default: '0' },
+        { arg: 'pageSize', type: 'number', default: '20' }],
+      returns: { arg: 'data' }
+    })
 
-    QTChucNangPhanMem.deleteCNPM = async function(id){
-        try {
-            const data = await QTChucNangPhanMem.upsertWithWhere({id: id},{ xoa: true })
-            return data
-        } catch (err) {
-            console.log('deleteQTChucNangPhanMem', err)
-            throw err
-        }
-    }
+    ThisModel.remoteMethod('customListDeleted',
+    {
+      http: { verb: 'post', path: '/list_deleted' },
+      accepts: [
+        { arg: 'queryData', type: 'object' },
+        { arg: 'page', type: 'number', default: '0' },
+        { arg: 'pageSize', type: 'number', default: '20' }],
+      returns: { arg: 'data' }
+    })
 
-    QTChucNangPhanMem.restoreCNPM = async function(id){
-        try {
-            const data = await QTChucNangPhanMem.upsertWithWhere({id: id}, { xoa: false })
-            return data
-        } catch (err) {
-            console.log('restoreQTChucNangPhanMem', err)
-            throw err
-        }
-    }
+  ThisModel.remoteMethod('customRead',
+    {
+      http: { path: '/read', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }],
+      returns: { arg: 'data' }
+    },
+  )
 
-    QTChucNangPhanMem.readCNPM = async function(id){
-        try {
-            const data = await QTChucNangPhanMem.findOne({where: {id: id, xoa: false}})
-            return data
-        } catch (err) {
-            console.log('readQTChucNangPhanMem', err)
-            throw err
-        }
-    }
+  ThisModel.remoteMethod('customUpdate',
+    {
+      http: { path: '/update', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true },
+        { arg: 'ma', type: 'string' },
+        { arg: 'ten', type: 'string' },
+        { arg: 'chucNangChaId', type: 'number' },
+        { arg: 'path', type: 'string' },
+        { arg: 'icon', type: 'string' },
+        { arg: 'ghiChu', type: 'string' },
+        { arg: 'hieuLuc', type: 'boolean' }
+      ],
+      returns: { arg: 'data' },
+    },
+  )
 
-    QTChucNangPhanMem.listCNPM= async function(queryData, page, pageSize){
-        try {
-            queryData.xoa = 0
-            const [data, total] = await Promise.all([
-                QTChucNangPhanMem.find({
-                where: {queryData},
-                include: ['belongsToQTChucNangPhanMem'],
-                limit: pageSize,
-                skip: page
-              }),
-              QTChucNangPhanMem.count({xoa: false})
-            ])
-            return {
-              rows: queryObject.listAPIReturnsList(QTChucNangPhanMem, data),
-              page: page,
-              pageSize: pageSize,
-              total: total
-            }
-        } catch (err) {
-            console.log('listQTChucNangPhanMem', err)
-            throw err
-        }
-    }
+  ThisModel.remoteMethod('customDelete',
+    {
+      http: { path: '/delete', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }
+      ],
+      returns: { arg: 'data' }
+    },
+  )
 
-    QTChucNangPhanMem.listDeletedCNPM = async function(queryData, page, pageSize){
-        try {
-            queryData.xoa = 1
-            const [data, total] = await Promise.all([
-              QTChucNangPhanMem.find({
-                where: {queryData},
-                include: ['belongsToQTChucNangPhanMem'],
-                limit: pageSize,
-                skip: page
-              }),
-              QTChucNangPhanMem.count({xoa: true})
-            ])
-            return {
-              rows: queryObject.listAPIReturnsList(QTChucNangPhanMem, data),
-              page: page,
-              pageSize: pageSize,
-              total: total
-            }
-        } catch (err) {
-            console.log('listDeletedQTChucNangPhanMem', err)
-            throw err
-        }
-    }
-
-    QTChucNangPhanMem.remoteMethod(
-        'createCNPM', {
-            http: {path: '/create', verb: 'post'},
-            accepts: [
-                {arg: 'uid', type: 'string', required: true},
-                {arg: 'ma', type: 'string', required: true},
-                {arg: 'ten', type: 'string'},
-                {arg: 'chucNangChaId', type: 'number'},
-                {arg: 'path', type: 'string'},
-                {arg: 'icon', type: 'string'},
-                {arg: 'ghiChu', type: 'string'}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        }
-    )
-
-    QTChucNangPhanMem.remoteMethod(
-        'updateCNPM', {
-            http: {path: '/update', verb: 'post'},
-            accepts: [
-                {arg: 'id', type: 'number', required: true},
-                {arg: 'ma', type: 'string'},
-                {arg: 'ten', type: 'string'},
-                {arg: 'chucNangChaId', type: 'number'},
-                {arg: 'path', type: 'string'},
-                {arg: 'icon', type: 'string'},
-                {arg: 'ghiChu', type: 'string'},
-                {arg: 'hieuLuc', type: 'boolean'}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        }
-    )
-
-    QTChucNangPhanMem.remoteMethod(
-        'deleteCNPM', {
-            http: {path: '/delete', verb: 'post'},
-            accepts: [
-                {arg: 'id', type: 'number', required: true}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
-
-    QTChucNangPhanMem.remoteMethod(
-        'restoreCNPM', {
-            http: {path: '/restore', verb: 'post'},
-            accepts: [
-                {arg: 'id', type: 'number', required: true}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
-
-    QTChucNangPhanMem.remoteMethod(
-        'readCNPM', {
-            http: {path: '/read', verb: 'post'},
-            accepts: [
-                {arg: 'id', type: 'number', required: true}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
-
-    QTChucNangPhanMem.remoteMethod(
-        'listCNPM', {
-            http: {path: '/list', verb: 'post'},
-            accepts: [
-                {arg: 'queryData', type: 'object'},
-                {arg: 'page', type: 'number', default: '0'},
-                {arg: 'pageSize', type: 'number', default: '20'}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
-
-    QTChucNangPhanMem.remoteMethod(
-        'listDeletedCNPM', {
-            http: {path: '/deleted_list', verb: 'post'},
-            accepts: [
-                {arg: 'queryData', type: 'object'},
-                {arg: 'page', type: 'number', default: '0'},
-                {arg: 'pageSize', type: 'number', default: '20'}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
-}
+  ThisModel.remoteMethod('customRestore',
+    {
+      http: { path: '/restore', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }
+      ],
+      returns: { arg: 'data' }
+    },
+  )
+};

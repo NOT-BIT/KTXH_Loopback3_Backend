@@ -1,402 +1,162 @@
-module.exports = function(QLKyBaoCao) {
-  const Promise = require('bluebird')
+let customCRUD = require('../../../utils/custom-crud')
+let app = require('../../../../server/server')
 
-  QLKyBaoCao.listKyBaoCao = async function(page, pageSize, queryData) {
-    try {
-      queryData.xoa = 0
-      const [data, total] = await Promise.all([
-        QLKyBaoCao.find({
-          where: {queryData},
-          include: ['belongsToSysKyBaoCao', 'belongsToQLNamLamViec', 'belongsToSysTrangThaiDongMo'],
-          limit: pageSize,
-          skip: page
-        }),
-        QLKyBaoCao.count({
-          xoa: false
-        })
-      ])
+'use_strict';
 
-      return {
-        rows: queryObject.listAPIReturnsList(QLKyBaoCao, data),
-        page: page,
-        pageSize: pageSize,
-        total: total
-      }
-    } catch (err) {
-      console.log('listKyBaoCao', err)
-      throw err
-    }
+module.exports = function (ThisModel) {
+  //create Bieu Nhap Lieu Chi Tieu
+  ThisModel.customCreate = async function (uid, ma, ten, ngayBatDau, ngayBaoCaoHuyen, ngayBaoCaoTinh, ngayBaoCaoTW, ngayMo, ngayDong, ngayTongHop, ghiChu) {
+        const queryData = {
+            uid: uid,
+            ma: ma,
+            ten: ten,
+            ngayBatDau: ngayBatDau,
+            ngayBaoCaoHuyen: ngayBaoCaoHuyen,
+            ngayBaoCaoTinh: ngayBaoCaoTinh,
+            ngayBaoCaoTW: ngayBaoCaoTW,
+            ngayMo: ngayMo,
+            ngayDong: ngayDong,
+            ngayTongHop: ngayTongHop,
+            ghiChu: ghiChu,
+            updatedAt: new Date(),
+            updatedBy: 0
+          }
+          return await customCRUD.create(ThisModel, queryData)
   }
 
-  QLKyBaoCao.deletedListKyBaoCao = async function(page, pageSize, queryData) {
-    try {
-      queryData.xoa = 1
-      const [data, total] = await Promise.all([
-        QLKyBaoCao.find({
-          where: {queryData},
-          include: ['belongsToSysKyBaoCao', 'belongsToQLNamLamViec', 'belongsToSysTrangThaiDongMo'],
-          limit: pageSize,
-          skip: page
-        }),
-        QLKyBaoCao.count({
-          xoa: true
-        })
-      ])
-
-      return {
-        rows: queryObject.listAPIReturnsList(QLKyBaoCao, data),
-        page: page,
-        pageSize: pageSize,
-        total: total
-      }
-    } catch (err) {
-      console.log('deletedListKyBaoCao', err)
-      throw err
-    }
+  //list Bieu Nhap Lieu Chi Tieu
+  ThisModel.customList = async function (queryData, page, pageSize) {
+    return await customCRUD.list(ThisModel, queryData, page, pageSize)
   }
 
-  QLKyBaoCao.readKyBaoCao = async function(id) {
-    try {
-      const data = await QLKyBaoCao.findOne({where: {id: id, xoa: false}})
-      return data
-    } catch (err) {
-      console.log('readBaoCaoBy', err)
-      throw err
-    }
+  //list deleted Bieu Nhap Lieu Chi Tieu
+  ThisModel.customListDeleted = async function (queryData, page, pageSize) {
+    return await customCRUD.listDeleted(ThisModel, queryData, page, pageSize)
   }
 
-  QLKyBaoCao.createKyBaoCao = async function(
-    uid,
-    ma,
-    ten,
-    ngayBatDau,
-    ngayBaoCaoHuyen,
-    ngayBaoCaoTinh,
-    ngayBaoCaoTW,
-    ngayDong,
-    ngayMo,
-    ngayTongHop,
-    ghiChu,
-    qlNamLamViecId,
-    sysKyBaoCaoId,
-    sysTrangThaiDongMoId
-  ) {
-    const qlKyBaoCao = {
-      uid: uid,
-      ma: ma,
-      ten: ten,
-      ngayBatDau: ngayBatDau,
-      ngayBaoCaoHuyen: ngayBaoCaoHuyen,
-      ngayBaoCaoTinh: ngayBaoCaoTinh,
-      ngayBaoCaoTW: ngayBaoCaoTW,
-      ngayDong: ngayDong,
-      ngayMo: ngayMo,
-      ngayTongHop: ngayTongHop,
-      ghiChu: ghiChu,
-      createdAt: new Date(),
-      createdBy: 0,
-      qlNamLamViecId: qlNamLamViecId,
-      sysKyBaoCaoId: sysKyBaoCaoId,
-      sysTrangThaiDongMoId: sysTrangThaiDongMoId
-    }
-
-    try {
-      const data = await QLKyBaoCao.create(qlKyBaoCao)
-      return data
-    } catch (err) {
-      console.log('createKyBaoCao', err)
-      throw err
-    }
+  //read Bieu Nhap Lieu Chi Tieu
+  ThisModel.customRead = async function (id) {
+    return await customCRUD.read(ThisModel, id)
   }
 
-  QLKyBaoCao.updateKyBaoCao = async function(
-    id,
-    ma,
-    ten,
-    ngayBatDau,
-    ngayBaoCaoHuyen,
-    ngayBaoCaoTinh,
-    ngayBaoCaoTW,
-    ngayDong,
-    ngayMo,
-    ngayTongHop,
-    ghiChu,
-    qlNamLamViecId,
-    sysKyBaoCaoId,
-    sysTrangThaiDongMoId, 
-    hieuLuc
-  ) {
-    const qlKyBaoCao = {
-      id: id,
-      ma: ma,
-      ten: ten,
-      ngayBatDau: ngayBatDau,
-      ngayBaoCaoHuyen: ngayBaoCaoHuyen,
-      ngayBaoCaoTinh: ngayBaoCaoTinh,
-      ngayBaoCaoTW: ngayBaoCaoTW,
-      ngayDong: ngayDong,
-      ngayMo: ngayMo,
-      ngayTongHop: ngayTongHop,
-      ghiChu: ghiChu,
-      updatedAt: new Date(),
-      updatedBy: 0,
-      qlNamLamViecId: qlNamLamViecId,
-      sysKyBaoCaoId: sysKyBaoCaoId,
-      sysTrangThaiDongMoId: sysTrangThaiDongMoId,
-      hieuLuc: hieuLuc
-    }
-
-    try {
-      const data = await QLKyBaoCao.upsertWithWhere({ id: id, xoa: false }, qlKyBaoCao)
-
-      return data
-    } catch (err) {
-      console.log('updateKyBaoCao', err)
-      throw err
-    }
+  //update Bieu Nhap Lieu Chi Tieu
+  ThisModel.customUpdate = async function (id, ma, ten, ngayBatDau, ngayBaoCaoHuyen, ngayBaoCaoTinh, ngayBaoCaoTW, ngayMo, ngayDong, ngayTongHop, ghiChu, hieuLuc) {
+        const queryData = {
+            id: id,
+            ma: ma,
+            ten: ten,
+            ngayBatDau: ngayBatDau,
+            ngayBaoCaoHuyen: ngayBaoCaoHuyen,
+            ngayBaoCaoTinh: ngayBaoCaoTinh,
+            ngayBaoCaoTW: ngayBaoCaoTW,
+            ngayMo: ngayMo,
+            ngayDong: ngayDong,
+            ngayTongHop: ngayTongHop,
+            ghiChu: ghiChu,
+            hieuLuc: hieuLuc,
+            updatedAt: new Date(),
+            updatedBy: 0
+          }
+          return await customCRUD.update(ThisModel, queryData)
   }
 
-  QLKyBaoCao.deleteKyBaoCao = async function(id) {
-    try {
-      const data = await QLKyBaoCao.upsertWithWhere(
-        {
-          id: id
-        },
-        { xoa: true }
-      )
-      return data
-    } catch (err) {
-      console.log('deleteKyBaoCao', err)
-      throw err
-    }
+  //delete Bieu Nhap Lieu Chi Tieu 
+  ThisModel.customDelete = async function (id) {
+    return await customCRUD.delete(ThisModel, id)
   }
 
-  QLKyBaoCao.reStoreKyBaoCao = async function(id) {
-    try {
-      const data = await QLKyBaoCao.upsertWithWhere(
-        {
-          id: id
-        },
-        { xoa: false }
-      )
-      return data
-    } catch (err) {
-      console.log('reStoreKyBaoCao', err)
-      throw err
-    }
+  // Restore Bieu Nhap Lieu Chi Tieu
+  ThisModel.customRestore = async function (id) {
+    return await customCRUD.restore(ThisModel, id)
   }
 
-  QLKyBaoCao.remoteMethod('listKyBaoCao', {
-    accepts: [
-      {
-        arg: 'page',
-        type: 'number',
-        default: '0'
-      },
-      {
-        arg: 'pageSize',
-        type: 'number',
-        default: '20'
-      },
-      {
-        arg: 'queryData',
-        type: 'object'
-      }
-    ],
-    returns: { arg: 'data' },
-    http: { verb: 'post', path: '/list' }
-  })
+  ThisModel.remoteMethod('customCreate',
+    {
+      http: { path: '/create', verb: 'post' },
+      accepts: [
+        { arg: 'uid', type: 'string', required: true },
+        { arg: 'ma', type: 'string', required: true },
+        { arg: 'ten', type: 'string' },
+        { arg: 'ngayBatDau', type: 'date', required: true },
+        { arg: 'ngayBaoCaoHuyen', type: 'date', required: true },
+        { arg: 'ngayBaoCaoTinh', type: 'date', required: true },
+        { arg: 'ngayBaoCaoTW', type: 'date', required: true },
+        { arg: 'ngayMo', type: 'date', required: true },
+        { arg: 'ngayDong', type: 'date', required: true },
+        { arg: 'ngayTongHop', type: 'date', required: true },
+        { arg: 'ghiChu', type: 'string' }
+      ],
+      returns: { arg: 'data' },
+    }
+  )
 
-  QLKyBaoCao.remoteMethod('deletedListKyBaoCao', {
-    accepts: [
-      {
-        arg: 'page',
-        type: 'number',
-        default: '0'
-      },
-      {
-        arg: 'pageSize',
-        type: 'number',
-        default: '20'
-      },
-      {
-        arg: 'queryData',
-        type: 'object'
-      }
-    ],
-    returns: { arg: 'data' },
-    http: { verb: 'post', path: '/deleted-list' }
-  })
+  ThisModel.remoteMethod('customList',
+    {
+      http: { verb: 'post', path: '/list' },
+      accepts: [
+        { arg: 'queryData', type: 'object' },
+        { arg: 'page', type: 'number', default: '0' },
+        { arg: 'pageSize', type: 'number', default: '20' }],
+      returns: { arg: 'data' }
+    })
 
-  QLKyBaoCao.remoteMethod('readKyBaoCao', {
-    accepts: [
-      {
-        arg: 'id',
-        type: 'number',
-        required: true
-      }
-    ],
-    returns: { arg: 'data' },
-    http: { verb: 'get', path: '/read' }
-  })
+    ThisModel.remoteMethod('customListDeleted',
+    {
+      http: { verb: 'post', path: '/list_deleted' },
+      accepts: [
+        { arg: 'queryData', type: 'object' },
+        { arg: 'page', type: 'number', default: '0' },
+        { arg: 'pageSize', type: 'number', default: '20' }],
+      returns: { arg: 'data' }
+    })
 
-  QLKyBaoCao.remoteMethod('createKyBaoCao', {
-    accepts: [
-      {
-        arg: 'uid',
-        type: 'string',
-        required: true
-      },
-      {
-        arg: 'ma',
-        type: 'string',
-        required: true
-      },
-      {
-        arg: 'ten',
-        type: 'string'
-      },
-      {
-        arg: 'ngayBatDau',
-        type: 'date'
-      },
-      {
-        arg: 'ngayBaoCaoHuyen',
-        type: 'date'
-      },
-      {
-        arg: 'ngayBaoCaoTinh',
-        type: 'date'
-      },
-      {
-        arg: 'ngayBaoCaoTW',
-        type: 'date'
-      },
-      {
-        arg: 'ngayDong',
-        type: 'date'
-      },
-      {
-        arg: 'ngayMo',
-        type: 'date'
-      },
-      {
-        arg: 'ngayTongHop',
-        type: 'date'
-      },
-      {
-        arg: 'ghiChu',
-        type: 'string'
-      },
-      {
-        arg: 'qlNamLamViecId',
-        type: 'number',
-        required: true
-      },
-      {
-        arg: 'sysKyBaoCaoId',
-        type: 'number',
-        required: true
-      },
-      {
-        arg: 'sysTrangThaiDongMoId',
-        type: 'number',
-        required: true
-      }
-    ],
-    returns: { arg: 'data' },
-    http: { verb: 'post', path: '/create' }
-  })
+  ThisModel.remoteMethod('customRead',
+    {
+      http: { path: '/read', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }],
+      returns: { arg: 'data' }
+    },
+  )
 
-  QLKyBaoCao.remoteMethod('updateKyBaoCao', {
-    accepts: [
-      {
-        arg: 'id',
-        type: 'number',
-        required: true
-      },
-      {
-        arg: 'ma',
-        type: 'string'
-      },
-      {
-        arg: 'ten',
-        type: 'string'
-      },
-      {
-        arg: 'ngayBatDau',
-        type: 'date'
-      },
-      {
-        arg: 'ngayBaoCaoHuyen',
-        type: 'date'
-      },
-      {
-        arg: 'ngayBaoCaoTinh',
-        type: 'date'
-      },
-      {
-        arg: 'ngayBaoCaoTW',
-        type: 'date'
-      },
-      {
-        arg: 'ngayDong',
-        type: 'date'
-      },
-      {
-        arg: 'ngayMo',
-        type: 'date'
-      },
-      {
-        arg: 'ngayTongHop',
-        type: 'date'
-      },
-      {
-        arg: 'ghiChu',
-        type: 'string'
-      },
-      {
-        arg: 'qlNamLamViecId',
-        type: 'number'
-      },
-      {
-        arg: 'sysKyBaoCaoId',
-        type: 'number'
-      },
-      {
-        arg: 'sysTrangThaiDongMoId',
-        type: 'number'
-      },
-      {
-        arg: "hieuLuc",
-        type: "boolean"
-      }
-    ],
-    returns: { arg: 'data' },
-    http: { verb: 'post', path: '/update' }
-  })
+  ThisModel.remoteMethod('customUpdate',
+    {
+      http: { path: '/update', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true },
+        { arg: 'ma', type: 'string' },
+        { arg: 'ten', type: 'string' },
+        { arg: 'ngayBatDau', type: 'date' },
+        { arg: 'ngayBaoCaoHuyen', type: 'date' },
+        { arg: 'ngayBaoCaoTinh', type: 'date' },
+        { arg: 'ngayBaoCaoTW', type: 'date' },
+        { arg: 'ngayMo', type: 'date', },
+        { arg: 'ngayDong', type: 'date', },
+        { arg: 'ngayTongHop', type: 'date' },
+        { arg: 'ghiChu', type: 'string' },
+        { arg: 'hieuLuc', type: 'boolean' }
+      ],
+      returns: { arg: 'data' },
+    },
+  )
 
-  QLKyBaoCao.remoteMethod('deleteKyBaoCao', {
-    accepts: [
-      {
-        arg: 'id',
-        type: 'number',
-        required: true
-      }
-    ],
-    returns: { arg: 'data' },
-    http: { verb: 'post', path: '/delete' }
-  })
+  ThisModel.remoteMethod('customDelete',
+    {
+      http: { path: '/delete', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }
+      ],
+      returns: { arg: 'data' }
+    },
+  )
 
-  QLKyBaoCao.remoteMethod('reStoreKyBaoCao', {
-    accepts: [
-      {
-        arg: 'id',
-        type: 'number',
-        required: true
-      }
-    ],
-    returns: { arg: 'data' },
-    http: { verb: 'post', path: '/restore' }
-  })
-}
+  ThisModel.remoteMethod('customRestore',
+    {
+      http: { path: '/restore', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }
+      ],
+      returns: { arg: 'data' }
+    },
+  )
+};

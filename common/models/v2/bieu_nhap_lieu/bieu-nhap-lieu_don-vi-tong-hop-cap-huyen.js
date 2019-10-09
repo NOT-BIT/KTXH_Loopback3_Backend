@@ -5,13 +5,13 @@ let app = require('../../../../server/server')
 
 module.exports = function (ThisModel) {
   //create Bieu Nhap Lieu Chi Tieu
-  ThisModel.customCreate = async function (uid, ma, ten, qtTacNhanId, qtChucNangPhanMemId, ghiChu) {
+  ThisModel.customCreate = async function (uid, ma, ten, bieuNhapLieuId, donViTongHopCapHuyenId, ghiChu) {
     const queryData = {
       uid: uid,
       ma: ma,
       ten: ten,
-      qtTacNhanId: qtTacNhanId,
-      qtChucNangPhanMemId: qtChucNangPhanMemId,
+      bieuNhapLieuId: bieuNhapLieuId,
+      donViTongHopCapHuyenId: donViTongHopCapHuyenId,
       ghiChu: ghiChu,
       createdAt: new Date(),
       createdBy: 0
@@ -35,13 +35,13 @@ module.exports = function (ThisModel) {
   }
 
   //update Bieu Nhap Lieu Chi Tieu
-  ThisModel.customUpdate = async function (id, ma, ten, qtTacNhanId, qtChucNangPhanMemId, ghiChu, hieuLuc) {
+  ThisModel.customUpdate = async function (id, ma, ten, bieuNhapLieuId, donViTongHopCapHuyenId, ghiChu, hieuLuc) {
     const queryData = {
       id: id,
       ma: ma,
       ten: ten,
-      qtTacNhanId: qtTacNhanId,
-      qtChucNangPhanMemId: qtChucNangPhanMemId,
+      bieuNhapLieuId: bieuNhapLieuId,
+      donViTongHopCapHuyenId: donViTongHopCapHuyenId,
       ghiChu: ghiChu,
       hieuLuc: hieuLuc,
       updatedAt: new Date(),
@@ -67,8 +67,8 @@ module.exports = function (ThisModel) {
         { arg: 'uid', type: 'string', required: true },
         { arg: 'ma', type: 'string', required: true },
         { arg: 'ten', type: 'string' },
-        { arg: 'qtTacNhanId', type: 'number', required: true },
-        { arg: 'qtChucNangPhanMemId', type: 'number', required: true },
+        { arg: 'bieuNhapLieuId', type: 'number', required: true },
+        { arg: 'donViTongHopCapHuyenId', type: 'number', required: true },
         { arg: 'ghiChu', type: 'string' }
       ],
       returns: { arg: 'data' },
@@ -111,8 +111,8 @@ module.exports = function (ThisModel) {
         { arg: 'id', type: 'number', required: true },
         { arg: 'ma', type: 'string' },
         { arg: 'ten', type: 'string' },
-        { arg: 'qtTacNhanId', type: 'number' },
-        { arg: 'qtChucNangPhanMemId', type: 'number' },
+        { arg: 'bieuNhapLieuId', type: 'number' },
+        { arg: 'donViTongHopCapHuyenId', type: 'number' },
         { arg: 'ghiChu', type: 'string' },
         { arg: 'hieuLuc', type: 'boolean' }
       ],

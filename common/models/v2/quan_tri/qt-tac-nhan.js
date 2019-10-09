@@ -1,202 +1,138 @@
-module.exports = function(QTTacNhan) {
-    const Promise = require('bluebird')
+let customCRUD = require('../../../utils/custom-crud')
+let app = require('../../../../server/server')
 
-    QTTacNhan.createTacNhan = async function(uid, ma, ten, sysCapHanhChinhId, ghiChu){
-        const tacNhanData = {
-            uid: uid,
-            ma: ma,
-            ten: ten,
-            sysCapHanhChinhId: sysCapHanhChinhId,
-            ghiChu: ghiChu,
-            createdAt: new Date(),
-            createdBy: 0
-        }
-        try {
-            const data = await QTTacNhan.create(tacNhanData)
-            return data
-        } catch (err) {
-            console.log('createQTTacNhan', err)
-            throw err
-        }
+'use_strict';
+
+module.exports = function (ThisModel) {
+  //create Bieu Nhap Lieu Chi Tieu
+  ThisModel.customCreate = async function (uid, ma, ten, sysCapHanhChinhId, ghiChu) {
+    const queryData = {
+      uid: uid,
+      ma: ma,
+      ten: ten,
+      sysCapHanhChinhId: sysCapHanhChinhId,
+      ghiChu: ghiChu,
+      createdAt: new Date(),
+      createdBy: 0
     }
+    return await customCRUD.create(ThisModel, queryData)
+  }
 
-    QTTacNhan.updateTacNhan = async function(id, ma, ten, sysCapHanhChinhId, ghiChu, hieuLuc){
-        const tacNhanData = {
-            id: id,
-            ma: ma,
-            ten: ten,
-            ghiChu: ghiChu,
-            sysCapHanhChinhId: sysCapHanhChinhId,
-            hieuLuc: hieuLuc,
-            updatedAt: new Date()
-        }
-        try {
-            const data = await QTTacNhan.upsertWithWhere({id: tacNhanData.id, xoa: false}, tacNhanData)
-            return data
-        } catch (err) {
-            console.log('updateQTTacNhan', err)
-            throw err
-        }
+  //list Bieu Nhap Lieu Chi Tieu
+  ThisModel.customList = async function (queryData, page, pageSize) {
+    return await customCRUD.list(ThisModel, queryData, page, pageSize)
+  }
+
+  //list deleted Bieu Nhap Lieu Chi Tieu
+  ThisModel.customListDeleted = async function (queryData, page, pageSize) {
+    return await customCRUD.listDeleted(ThisModel, queryData, page, pageSize)
+  }
+
+  //read Bieu Nhap Lieu Chi Tieu
+  ThisModel.customRead = async function (id) {
+    return await customCRUD.read(ThisModel, id)
+  }
+
+  //update Bieu Nhap Lieu Chi Tieu
+  ThisModel.customUpdate = async function (id, ma, ten, sysCapHanhChinhId, ghiChu, hieuLuc) {
+    const queryData = {
+      id: id,
+      ma: ma,
+      ten: ten,
+      sysCapHanhChinhId: sysCapHanhChinhId,
+      ghiChu: ghiChu,
+      hieuLuc: hieuLuc,
+      updatedAt: new Date(),
+      updatedBy: 0
     }
+    return await customCRUD.update(ThisModel, queryData)
+  }
 
-    QTTacNhan.deleteTacNhan = async function(id){
-        try {
-            const data = await QTTacNhan.upsertWithWhere({id: id},{ xoa: true })
-            return data
-        } catch (err) {
-            console.log('deleteQTTacNhan', err)
-            throw err
-        }
+  //delete Bieu Nhap Lieu Chi Tieu 
+  ThisModel.customDelete = async function (id) {
+    return await customCRUD.delete(ThisModel, id)
+  }
+
+  // Restore Bieu Nhap Lieu Chi Tieu
+  ThisModel.customRestore = async function (id) {
+    return await customCRUD.restore(ThisModel, id)
+  }
+
+  ThisModel.remoteMethod('customCreate',
+    {
+      http: { path: '/create', verb: 'post' },
+      accepts: [
+        { arg: 'uid', type: 'string', required: true },
+        { arg: 'ma', type: 'string', required: true },
+        { arg: 'ten', type: 'string' },
+        { arg: 'sysCapHanhChinhId', type: 'number', required: true },
+        { arg: 'ghiChu', type: 'string' }
+      ],
+      returns: { arg: 'data' },
     }
-    
-    QTTacNhan.restoreTacNhan = async function(id){
-        try {
-            const data = await QTTacNhan.upsertWithWhere({id: id}, { xoa: false })
-            return data
-        } catch (err) {
-            console.log('restoreQTTacNhan', err)
-            throw err
-        }
-    }
+  )
 
-    QTTacNhan.readTacNhan = async function(id){
-        try {
-            const data = await QTTacNhan.findOne({where: {id: id, xoa: false}})
-            return data
-        } catch (err) {
-            console.log('readQTTacNhan', err)
-            throw err
-        }
-    }
+  ThisModel.remoteMethod('customList',
+    {
+      http: { verb: 'post', path: '/list' },
+      accepts: [
+        { arg: 'queryData', type: 'object' },
+        { arg: 'page', type: 'number', default: '0' },
+        { arg: 'pageSize', type: 'number', default: '20' }],
+      returns: { arg: 'data' }
+    })
 
-    QTTacNhan.listTacNhan = async function(queryData, page, pageSize){
-        try {
-            queryData.xoa = 0
-            const [data, total] = await Promise.all([
-              QTTacNhan.find({
-                where: {queryData},
-                include: ['belongsToSysCapHanhChinh'],
-                limit: pageSize,
-                skip: page
-              }),
-              QTTacNhan.count({xoa: false})
-            ])
-            return {
-              rows: queryObject.listAPIReturnsList(QTTacNhan, data),
-              page: page,
-              pageSize: pageSize,
-              total: total
-            }
-        } catch (err) {
-            console.log('listQTTacNhan', err)
-            throw err
-        }
-    }
+    ThisModel.remoteMethod('customListDeleted',
+    {
+      http: { verb: 'post', path: '/list_deleted' },
+      accepts: [
+        { arg: 'queryData', type: 'object' },
+        { arg: 'page', type: 'number', default: '0' },
+        { arg: 'pageSize', type: 'number', default: '20' }],
+      returns: { arg: 'data' }
+    })
 
-    QTTacNhan.listDeletedTacNhan = async function(queryData, page, pageSize){
-        try {
-            queryData.xoa = 1
-            const [data, total] = await Promise.all([
-              QTTacNhan.find({
-                where: {queryData},
-                include: ['belongsToSysCapHanhChinh'],
-                limit: pageSize,
-                skip: page
-              }),
-              QTTacNhan.count({xoa: true})
-            ])
-            return {
-              rows: queryObject.listAPIReturnsList(QTTacNhan, data),
-              page: page,
-              pageSize: pageSize,
-              total: total
-            }
-        } catch (err) {
-            console.log('listDeletedQTTacNhan', err)
-            throw err
-        }
-    }
+  ThisModel.remoteMethod('customRead',
+    {
+      http: { path: '/read', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }],
+      returns: { arg: 'data' }
+    },
+  )
 
-    QTTacNhan.remoteMethod(
-        'createTacNhan', {
-            http: {path: '/create', verb: 'post'},
-            accepts: [
-                {arg: 'uid', type: 'string', required: true},
-                {arg: 'ma', type: 'string', required: true},
-                {arg: 'ten', type: 'string'},
-                {arg: 'sysCapHanhChinhId', type: 'number'},
-                {arg: 'ghiChu', type: 'string'}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
+  ThisModel.remoteMethod('customUpdate',
+    {
+      http: { path: '/update', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true },
+        { arg: 'ma', type: 'string' },
+        { arg: 'ten', type: 'string' },
+        { arg: 'sysCapHanhChinhId', type: 'number' },
+        { arg: 'ghiChu', type: 'string' },
+        { arg: 'hieuLuc', type: 'boolean' }
+      ],
+      returns: { arg: 'data' },
+    },
+  )
 
-    QTTacNhan.remoteMethod(
-        'updateTacNhan', {
-            http: {path: '/update', verb: 'post'},
-            accepts: [
-                {arg: 'id', type: 'number', required: true},
-                {arg: 'ma', type: 'string'},
-                {arg: 'ten', type: 'string'},
-                {arg: 'sysCapHanhChinhId', type: 'number'},
-                {arg: 'ghiChu', type: 'string'},
-                {arg: 'hieuLuc', type: 'boolean'}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
+  ThisModel.remoteMethod('customDelete',
+    {
+      http: { path: '/delete', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }
+      ],
+      returns: { arg: 'data' }
+    },
+  )
 
-    QTTacNhan.remoteMethod(
-        'deleteTacNhan', {
-            http: {path: '/delete', verb: 'post'},
-            accepts: [
-                {arg: 'id', type: 'number', required: true}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
-
-    QTTacNhan.remoteMethod(
-        'restoreTacNhan', {
-            http: {path: '/restore', verb: 'post'},
-            accepts: [
-                {arg: 'id', type: 'number', required: true}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
-
-    QTTacNhan.remoteMethod(
-        'readTacNhan', {
-            http: {path: '/read', verb: 'post'},
-            accepts: [
-                {arg: 'id', type: 'number', required: true}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
-
-    QTTacNhan.remoteMethod(
-        'listTacNhan', {
-            http: {path: '/list', verb: 'post'},
-            accepts: [
-                {arg: 'queryData', type: 'object'},
-                {arg: 'page', type: 'number', default: '0'},
-                {arg: 'pageSize', type: 'number', default: '20'}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
-
-    QTTacNhan.remoteMethod(
-        'listDeletedTacNhan', {
-            http: {path: '/deleted_list', verb: 'post'},
-            accepts: [
-                {arg: 'queryData', type: 'object'},
-                {arg: 'page', type: 'number', default: '0'},
-                {arg: 'pageSize', type: 'number', default: '20'}
-            ],
-            returns: {arg: 'data', type: 'object'},
-        },
-    )
-}
+  ThisModel.remoteMethod('customRestore',
+    {
+      http: { path: '/restore', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }
+      ],
+      returns: { arg: 'data' }
+    },
+  )
+};

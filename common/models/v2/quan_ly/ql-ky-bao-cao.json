@@ -83,18 +83,18 @@
       }
     },
 
-    "ngayDong": {
-      "type": "Date",
-      "mysql": {
-        "columnName": "ngay_dong",
-        "dataType": "date"
-      }
-    },
-
     "ngayMo": {
       "type": "Date",
       "mysql": {
         "columnName": "ngay_mo",
+        "dataType": "date"
+      }
+    },
+
+    "ngayDong": {
+      "type": "Date",
+      "mysql": {
+        "columnName": "ngay_dong",
         "dataType": "date"
       }
     },

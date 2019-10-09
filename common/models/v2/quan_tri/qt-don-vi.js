@@ -1,243 +1,154 @@
-let to = require('await-to-js').to;
-let constants = require('../../../constants/constants')
-const Promise = require('bluebird')
+let customCRUD = require('../../../utils/custom-crud')
+let app = require('../../../../server/server')
 
-module.exports = function(QTDonVi) {
-	  //create Quan Tri Don Vi
-    QTDonVi.createQTDonVi = async function(uid, ma, ten, donViChaId,
-      diaChi, soDienThoai, email, laDonVi, ghiChu) {
-        const qtDonViData = {
-          uid: uid,
-          ma: ma,
-          ten: ten,
-          donViChaId: donViChaId,
-          diaChi: diaChi,
-          soDienThoai: soDienThoai,
-          email: email,
-          laDonVi: laDonVi,
-          ghiChu: ghiChu,
-          createdAt: new Date(),
-          createdBy: 0
-        }
+'use_strict';
 
-        try {
-          const result = await QTDonVi.create(qtDonViData)
-          return {
-            statusCode: 200,
-            message: "Success",
-            result: result
+module.exports = function (ThisModel) {
+  //create Bieu Nhap Lieu Chi Tieu
+  ThisModel.customCreate = async function (uid, ma, ten, donViChaId, diaChi,  soDienThoai, email, laDonVi, ghiChu) {
+        const queryData = {
+            uid: uid,
+            ma: ma,
+            ten: ten,
+            donViChaId: donViChaId,
+            diaChi: diaChi,
+            soDienThoai: soDienThoai,
+            email: email,
+            laDonVi: laDonVi,
+            ghiChu: ghiChu,
+            updatedAt: new Date(),
+            updatedBy: 0
           }
-        } catch (err) {
-          console.log('create QT-Don-Vi', err)
-          throw err
-        }
-      }
-    
+          return await customCRUD.create(ThisModel, queryData)
+  }
 
-    //read Quan Tri Don Vi
-    QTDonVi.readQTDonVi = async function(id) {
-        try {
-            const data = await QTDonVi.findOne({where: {id: id, xoa: false}})
-            return data;
-        } catch (err) {
-            console.log('read QT-Don-Vi', err)
-            throw err
-        }
-    }
+  //list Bieu Nhap Lieu Chi Tieu
+  ThisModel.customList = async function (queryData, page, pageSize) {
+    return await customCRUD.list(ThisModel, queryData, page, pageSize)
+  }
 
-    //update Quan Tri Don Vi
-    QTDonVi.updateQTDonVi = async function(id, ma, ten, donViChaId,
-      diaChi, soDienThoai, email, laDonVi, ghiChu, hieuLuc) {
-            const qtDonViData = {
-              id: id,
-              ma: ma,
-              ten: ten,
-              donViChaId: donViChaId,
-              diaChi: diaChi,
-              soDienThoai: soDienThoai,
-              email: email,
-              laDonVi: laDonVi,
-              ghiChu: ghiChu,
-              updatedAt: new Date(),
-              hieuLuc: hieuLuc
-            }
-            try {
-                const data = await QTDonVi.upsertWithWhere({id: id, xoa: 0}, qtDonViData)
-                return data
-            } catch (err) {
-                console.log('update QT-Don-Vi', err)
-                throw err
-            }
-    }
+  //list deleted Bieu Nhap Lieu Chi Tieu
+  ThisModel.customListDeleted = async function (queryData, page, pageSize) {
+    return await customCRUD.listDeleted(ThisModel, queryData, page, pageSize)
+  }
 
-    //delete Quan Tri Don Vi 
-    QTDonVi.deleteQTDonVi = async function(id) {
-        try {
-            const data = await QTDonVi.upsertWithWhere(
-              {
-                id: id
-              },
-              { xoa: 1 }
-            )
-            return data
-          } catch (err) {
-            console.log('delete QT-Don-Vi', err)
-            throw err
+  //read Bieu Nhap Lieu Chi Tieu
+  ThisModel.customRead = async function (id) {
+    return await customCRUD.read(ThisModel, id)
+  }
+
+  //update Bieu Nhap Lieu Chi Tieu
+  ThisModel.customUpdate = async function (id, ma, ten, donViChaId, diaChi, soDienThoai, email, laDonVi, ghiChu, hieuLuc) {
+        const queryData = {
+            id: id,
+            ma: ma,
+            ten: ten,
+            donViChaId: donViChaId,
+            diaChi: diaChi,
+            soDienThoai: soDienThoai,
+            email: email,
+            laDonVi: laDonVi,
+            ghiChu: ghiChu,
+            hieuLuc: hieuLuc,
+            updatedAt: new Date(),
+            updatedBy: 0
           }
+          return await customCRUD.update(ThisModel, queryData)
+  }
+
+  //delete Bieu Nhap Lieu Chi Tieu 
+  ThisModel.customDelete = async function (id) {
+    return await customCRUD.delete(ThisModel, id)
+  }
+
+  // Restore Bieu Nhap Lieu Chi Tieu
+  ThisModel.customRestore = async function (id) {
+    return await customCRUD.restore(ThisModel, id)
+  }
+
+  ThisModel.remoteMethod('customCreate',
+    {
+      http: { path: '/create', verb: 'post' },
+      accepts: [
+        { arg: 'uid', type: 'string', required: true },
+        { arg: 'ma', type: 'string', required: true },
+        { arg: 'ten', type: 'string' },
+        { arg: 'donViChaId', type: 'number' },
+        { arg: 'diaChi', type: 'string' },
+        { arg: 'soDienThoai', type: 'string' },
+        { arg: 'email', type: 'string' },
+        { arg: 'laDonVi', type: 'boolean' },
+        { arg: 'ghiChu', type: 'string' }
+      ],
+      returns: { arg: 'data' },
     }
+  )
 
-    // Restore Quan Tri Don Vi 
-    QTDonVi.restoreQTDonVi = async function(id) {
-    	try {
-            const data = await QTDonVi.upsertWithWhere(
-              {
-                id: id
-              },
-              { xoa: 0 }
-            )
-            return data
-          } catch (err) {
-            console.log('restore QT-Don-Vi', err)
-            throw err
-          }
-    }
+  ThisModel.remoteMethod('customList',
+    {
+      http: { verb: 'post', path: '/list' },
+      accepts: [
+        { arg: 'queryData', type: 'object' },
+        { arg: 'page', type: 'number', default: '0' },
+        { arg: 'pageSize', type: 'number', default: '20' }],
+      returns: { arg: 'data' }
+    })
 
-    // list Quan Tri Don Vi
-    QTDonVi.listQTDonVi = async function(page, pageSize) {
-        try {
-          queryData.xoa = 0
-          const [data, total] = await Promise.all([
-            QTDonVi.find({
-              where: {queryData}
-            }),
-            QTDonVi.count({
-              xoa: 0
-            })
-          ])
-    
-          return {
-            rows: queryObject.listAPIReturnsList(QTDonVi, data),
-            page: page,
-            pageSize: pageSize,
-            total: total
-          }
-        } catch (err) {
-          console.log('listQTDonVi', err)
-          throw err
-        }
-    }
+    ThisModel.remoteMethod('customListDeleted',
+    {
+      http: { verb: 'post', path: '/list_deleted' },
+      accepts: [
+        { arg: 'queryData', type: 'object' },
+        { arg: 'page', type: 'number', default: '0' },
+        { arg: 'pageSize', type: 'number', default: '20' }],
+      returns: { arg: 'data' }
+    })
 
-    // list  deleted Quan Tri Don Vi
-    QTDonVi.listdeletedQTDonVi = async function(page, pageSize) {
-      try {
-        queryData.xoa = 1
-        const [data, total] = await Promise.all([
-          QTDonVi.find({
-            where: {queryData}
-          }),
-          QTDonVi.count({
-            xoa: 1
-          })
-        ])
-  
-        return {
-          rows: queryObject.listAPIReturnsList(QTDonVi, data),
-          page: page,
-          pageSize: pageSize,
-          total: total
-        }
-      } catch (err) {
-        console.log('list deleted QTDonVi', err)
-        throw err
-      }
-   }
-    
+  ThisModel.remoteMethod('customRead',
+    {
+      http: { path: '/read', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }],
+      returns: { arg: 'data' }
+    },
+  )
 
-    QTDonVi.remoteMethod('createQTDonVi', 
-      {
-        http: {path: '/create', verb: 'post'},
-        accepts: [
-            {arg: 'uid', type: 'string', required: true},
-            {arg: 'ma', type: 'string', required: true},
-            {arg: 'ten', type: 'string'},
-            {arg: 'iddonViChaId', type: 'number'},
-            {arg: 'diaChi', type: 'string'},
-            {arg: 'soDienThoai', type: 'string'},
-            {arg: 'email', type: 'string'},
-            {arg: 'laDonVi', type: 'boolean'},
-            {arg: 'ghiChu', type: 'string'}
-        ],
-        returns: { arg: 'data' },
-      }
-    )
+  ThisModel.remoteMethod('customUpdate',
+    {
+      http: { path: '/update', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true },
+        { arg: 'ma', type: 'string' },
+        { arg: 'ten', type: 'string' },
+        { arg: 'donViChaId', type: 'number' },
+        { arg: 'diaChi', type: 'string' },
+        { arg: 'soDienThoai', type: 'string' },
+        { arg: 'email', type: 'string' },
+        { arg: 'laDonVi', type: 'boolean' },
+        { arg: 'ghiChu', type: 'string' },
+        { arg: 'hieuLuc', type: 'boolean' }
+      ],
+      returns: { arg: 'data' },
+    },
+  )
 
-    QTDonVi.remoteMethod('readQTDonVi', 
-      {
-        http: {path: '/read', verb: 'post'},
-        accepts: [
-            {arg: 'id', type: 'number', required: true}],
-        returns: { arg: 'data' }
-      },
-    )
+  ThisModel.remoteMethod('customDelete',
+    {
+      http: { path: '/delete', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }
+      ],
+      returns: { arg: 'data' }
+    },
+  )
 
-    QTDonVi.remoteMethod('updateQTDonVi', 
-      {
-        http: {path: '/update', verb: 'post'},
-        accepts: [
-            {arg: 'id', type: 'number', required: true},
-            {arg: 'ma', type: 'string'},
-            {arg: 'ten', type:'string'},
-            {arg: 'donViChaId', type: 'number'},
-            {arg: 'diaChi', type: 'string'},
-            {arg: 'soDienThoai', type: 'string'},
-            {arg: 'email', type: 'string'},
-            {arg: 'laDonVi', type: 'boolean'},
-            {arg: 'ghiChu', type: 'string'},
-            {arg: 'hieuLuc', type: 'boolean'},
-        ],
-        returns: { arg: 'data', type: 'object' }
-      },
-    )
-
-    QTDonVi.remoteMethod('deleteQTDonVi', 
-      {
-        http: {path: '/delete', verb: 'post'},
-        accepts: [
-            {arg: 'id', type: 'number', required: true}
-        ],
-        returns:{ arg: 'data' }
-      },
-    )
-
-    QTDonVi.remoteMethod('restoreQTDonVi', 
-      {
-        http: {path: '/restore', verb: 'post'},
-        accepts: [
-            {arg: 'id', type: 'number', required: true}
-        ],
-        returns:{ arg: 'data' }
-      },
-    )
-
-    QTDonVi.remoteMethod('listQTDonVi', 
-      {
-        http: { verb: 'post', path: '/list' },
-        accepts: [
-          { arg: 'queryData', type: 'object'},
-          { arg: 'page', type: 'number', default: '0'},
-          { arg: 'pageSize', type: 'number', default: '20'}],
-        returns: { arg: 'data' },
-      }
-    )
-
-    QTDonVi.remoteMethod('listdeletedQTDonVi', 
-      {
-        http: { verb: 'post', path: '/deleted_list' },
-        accepts: [
-          { arg: 'queryData', type: 'object'},
-          { arg: 'page', type: 'number', default: '0'},
-          { arg: 'pageSize', type: 'number', default: '20'}],
-        returns: { arg: 'data' },
-      })  
-
+  ThisModel.remoteMethod('customRestore',
+    {
+      http: { path: '/restore', verb: 'post' },
+      accepts: [
+        { arg: 'id', type: 'number', required: true }
+      ],
+      returns: { arg: 'data' }
+    },
+  )
 };
