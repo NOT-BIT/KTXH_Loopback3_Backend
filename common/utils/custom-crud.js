@@ -8,7 +8,7 @@ let to = require("await-to-js")
 var CustomCRUD = {}
 
 CustomCRUD.create = async function (model, queryData) {
-  let relations = model.definition.settings.relations
+  let relations = model.definition.settings.relations || new Object()
   let relationsKey = Object.keys(relations)
 
   for (let i in relationsKey) {
@@ -143,7 +143,7 @@ CustomCRUD.update = async function (model, queryData) {
     throw err
   }
 
-  let relations = model.definition.settings.relations
+  let relations = model.definition.settings.relations || new Object()
   Object.keys(relations).forEach(item => {
     let rfModel = app.models[relations[item].model]
     let fk = relations[item].foreignKey
