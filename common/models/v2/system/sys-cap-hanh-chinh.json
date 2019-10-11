@@ -106,5 +106,37 @@
         "dataType": "tinyint"
       }
     }
+  },
+  "relations": {
+    "hasManyQCTinh": {
+      "type": "hasMany",
+      "model": "QCTinh",
+      "foreignKey": "sysCapDonViHanhChinhId"
+    },
+    "hasManyQCHuyen": {
+      "type": "hasMany",
+      "model": "QCHuyen",
+      "foreignKey": "sysCapDonViHanhChinhId"
+    },
+    "hasManyQCXa": {
+      "type": "hasMany",
+      "model": "QCXa",
+      "foreignKey": "sysCapDonViHanhChinhId"
+    },
+    "hasManyChiTieu": {
+      "type": "hasMany",
+      "model": "ChiTieu",
+      "foreignKey": "capNhapLieuId"
+    },
+    "hasManyChiTieu2": {
+      "type": "hasMany",
+      "model": "ChiTieu",
+      "foreignKey": "capTongHopId"
+    },
+    "hasManyQTTacNhan": {
+      "type": "hasMany",
+      "model": "QTTacNhan",
+      "foreignKey": "sysCapHanhChinhId"
+    }
   }
 }

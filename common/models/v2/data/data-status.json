@@ -4,8 +4,7 @@
     "idInjection": false,
     "mysql": {
       "table": "data_status"
-    },
-    "relations": {}
+    }
   },
   "http": {
     "path": "v2/crud/datastatus"

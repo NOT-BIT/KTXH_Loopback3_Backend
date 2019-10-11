@@ -154,7 +154,14 @@
       "extendOptions": {
         "showList": true
       }
-
+    },
+    "hasManyQTUsers_TacNhan": {
+      "type": "hasMany",
+      "model": "QTUsers_TacNhan",
+      "foreignKey": "qtUsersId",
+      "options": {
+        "nestRemoting": false
+      }
     }
   }
 }

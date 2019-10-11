@@ -137,7 +137,7 @@
     },
     "belongsToDonViNhap": {
       "type": "belongsTo",
-      "model": "DonVi",
+      "model": "QTDonVi",
       "foreignKey": "donViNhapId",
       "options": {
         "nestRemoting": false

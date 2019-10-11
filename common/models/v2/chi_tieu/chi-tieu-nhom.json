@@ -109,6 +109,14 @@
       }
     }
   },
-  
-  "relations": {}
+  "relations": {
+    "hasManyChiTieu": {
+      "type": "hasMany",
+      "model": "ChiTieu",
+      "foreignKey": "chiTieuNhomId",
+      "options": {
+        "nestRemoting": false
+      }
+    }
+  }
 }

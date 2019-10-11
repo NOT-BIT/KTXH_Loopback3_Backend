@@ -8,7 +8,7 @@
       }
     },
     "http": {
-      "path": "v2/crud/syscaphanhchinh"
+      "path": "v2/crud/sysloaikybaocao"
     },
     "properties": {
       "uid": {

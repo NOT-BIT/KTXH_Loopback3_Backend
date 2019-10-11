@@ -5,8 +5,7 @@
     "idInjection": true,
     "mysql": {
       "table": "sys_trang_thai_dong_mo"
-    },
-    "relations": {}
+    }
   },
   "http": {
     "path": "v2/crud/systrangthaidongmo"
@@ -109,9 +108,14 @@
     }
   },
   "relations": {
-    "SysTranngThaiDongMo": {
+    "hasManyQLKyBaoCao": {
       "type": "hasMany",
       "model": "QLKyBaoCao",
+      "foreignKey": "sysTrangThaiDongMoId"
+    },
+    "hasManyQLNamLamViec": {
+      "type": "hasMany",
+      "model": "QLNamLamViec",
       "foreignKey": "sysTrangThaiDongMoId"
     }
   }

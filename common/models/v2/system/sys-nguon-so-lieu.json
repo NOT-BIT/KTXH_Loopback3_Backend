@@ -5,8 +5,7 @@
     "idInjection": true,
     "mysql": {
       "table": "sys_nguon_so_lieu"
-    },
-    "relations": {}
+    }
   },
   "http": {
     "path": "v2/crud/sysnguonsolieu"

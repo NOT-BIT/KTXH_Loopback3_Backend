@@ -1,12 +1,11 @@
 {
   "name": "SysKyBaoCao",
   "base": "Model",
+  "idInjection": true,
   "options": {
-    "idInjection": true,
     "mysql": {
       "table": "sys_ky_bao_cao"
-    },
-    "relations": {}
+    }
   },
   "http": {
     "path": "v2/crud/syskybaocao"
@@ -109,7 +108,7 @@
     }
   },
   "relations": {
-    "SysKyBaoCao": {
+    "hasManyQLKyBaoCao": {
       "type": "hasMany",
       "model": "QLKyBaoCao",
       "foreignKey": "sysKyBaoCaoId"

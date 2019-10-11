@@ -4,8 +4,7 @@
     "idInjection": true,
     "mysql": {
       "table": "chi_tieu_phan_to_chi_tiet"
-    },
-    "relations": {}
+    }
   },
   "http": {
     "path": "v2/crud/chitieuphantochitiet"

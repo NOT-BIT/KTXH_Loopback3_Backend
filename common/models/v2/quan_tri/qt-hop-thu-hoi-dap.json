@@ -4,8 +4,7 @@
     "idInjection": true,
     "mysql": {
       "table": "qt_hop_thu_hoi_dap"
-    },
-    "relations": {}
+    }
   },
   "http": {
     "path": "v2/crud/qthopthuhoidap"

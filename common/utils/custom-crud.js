@@ -17,7 +17,7 @@ CustomCRUD.create = async function (model, queryData) {
       let rfModel = app.models[relations[item].model]
       let fk = relations[item].foreignKey
 
-      console.log(item, queryData[fk])
+      // console.log(item, queryData[fk])
       if (queryData[fk] != undefined) {
         let rfRecord = await rfModel.findOne({ where: { id: queryData[fk], xoa: 0 } })
         if (!rfRecord) {

@@ -5,8 +5,7 @@
     "idInjection": true,
     "mysql": {
       "table": "sys_loai_bieu_nhap_lieu"
-    },
-    "relations": {}
+    }
   },
   "http": {
     "path": "v2/crud/sysloaibieunhaplieu"
@@ -109,12 +108,10 @@
     }
   },
   "relations": {
-    "BieuNhapLieu": {
+    "hasManyBieuNhapLieu": {
       "type": "hasMany",
       "model": "BieuNhapLieu",
-      "options": {
-        "nestRemoting": false
-      }
+      "foreignKey": "sysLoaiBieuNhapLieuId"
     }
   }
 }

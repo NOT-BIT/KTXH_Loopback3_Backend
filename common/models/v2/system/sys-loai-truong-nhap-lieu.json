@@ -5,8 +5,7 @@
     "idInjection": true,
     "mysql": {
       "table": "sys_loai_truong_nhap_lieu"
-    },
-    "relations": {}
+    }
   },
   "http": {
     "path": "v2/crud/sysloaitruongnhaplieu"
@@ -106,6 +105,13 @@
         "columnName": "xoa",
         "dataType": "tinyint"
       }
+    }
+  },
+  "relations": {
+    "hasManyTruongNhapLieu": {
+      "type": "hasMany",
+      "model": "TruongNhapLieu",
+      "foreignKey": "sysLoaiTruongNhapLieuId"
     }
   }
 }

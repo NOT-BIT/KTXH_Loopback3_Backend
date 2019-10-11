@@ -136,9 +136,9 @@
         "showList": true
       }
     },
-    "belongsToDonViTongHop": {
+    "belongsToQTDonVi": {
       "type": "belongsTo",
-      "model": "DonVi",
+      "model": "QTDonVi",
       "foreignKey": "donViTongHopId",
       "options": {
         "nestRemoting": false

@@ -4,8 +4,7 @@
     "idInjection": false,
     "mysql": {
       "table": "data_detail"
-    },
-    "relations": {}
+    }
   },
   "http": {
     "path": "v2/crud/datadetail"

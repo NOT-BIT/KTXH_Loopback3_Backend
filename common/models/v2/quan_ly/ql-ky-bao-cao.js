@@ -5,7 +5,7 @@ let app = require('../../../../server/server')
 
 module.exports = function (ThisModel) {
   //create Bieu Nhap Lieu Chi Tieu
-  ThisModel.customCreate = async function (uid, ma, ten, ngayBatDau, ngayBaoCaoHuyen, ngayBaoCaoTinh, ngayBaoCaoTW, ngayMo, ngayDong, ngayTongHop, ghiChu) {
+  ThisModel.customCreate = async function (uid, ma, ten, ngayBatDau, ngayBaoCaoHuyen, ngayBaoCaoTinh, ngayBaoCaoTW, ngayMo, ngayDong, ngayTongHop, qlNamLamViecId, sysKyBaoCaoId, sysTrangThaiDongMoId, ghiChu) {
         const queryData = {
             uid: uid,
             ma: ma,
@@ -17,9 +17,12 @@ module.exports = function (ThisModel) {
             ngayMo: ngayMo,
             ngayDong: ngayDong,
             ngayTongHop: ngayTongHop,
+            qlNamLamViecId: qlNamLamViecId,
+            sysKyBaoCaoId: sysKyBaoCaoId,
+            sysTrangThaiDongMoId: sysTrangThaiDongMoId,
             ghiChu: ghiChu,
-            updatedAt: new Date(),
-            updatedBy: 0
+            createdAt: new Date(),
+            createdBy: 0
           }
           return await customCRUD.create(ThisModel, queryData)
   }
@@ -40,7 +43,7 @@ module.exports = function (ThisModel) {
   }
 
   //update Bieu Nhap Lieu Chi Tieu
-  ThisModel.customUpdate = async function (id, ma, ten, ngayBatDau, ngayBaoCaoHuyen, ngayBaoCaoTinh, ngayBaoCaoTW, ngayMo, ngayDong, ngayTongHop, ghiChu, hieuLuc) {
+  ThisModel.customUpdate = async function (id, ma, ten, ngayBatDau, ngayBaoCaoHuyen, ngayBaoCaoTinh, ngayBaoCaoTW, ngayMo, ngayDong, ngayTongHop, qlNamLamViecId, sysKyBaoCaoId, sysTrangThaiDongMoId, ghiChu, hieuLuc) {
         const queryData = {
             id: id,
             ma: ma,
@@ -52,6 +55,9 @@ module.exports = function (ThisModel) {
             ngayMo: ngayMo,
             ngayDong: ngayDong,
             ngayTongHop: ngayTongHop,
+            qlNamLamViecId: qlNamLamViecId,
+            sysKyBaoCaoId: sysKyBaoCaoId,
+            sysTrangThaiDongMoId: sysTrangThaiDongMoId,
             ghiChu: ghiChu,
             hieuLuc: hieuLuc,
             updatedAt: new Date(),
@@ -84,6 +90,9 @@ module.exports = function (ThisModel) {
         { arg: 'ngayMo', type: 'date', required: true },
         { arg: 'ngayDong', type: 'date', required: true },
         { arg: 'ngayTongHop', type: 'date', required: true },
+        { arg: 'qlNamLamViecId', type: 'number' },
+        { arg: 'sysKyBaoCaoId', type: 'number' },
+        { arg: 'sysTrangThaiDongMoId', type: 'number' },
         { arg: 'ghiChu', type: 'string' }
       ],
       returns: { arg: 'data' },
@@ -133,6 +142,9 @@ module.exports = function (ThisModel) {
         { arg: 'ngayMo', type: 'date', },
         { arg: 'ngayDong', type: 'date', },
         { arg: 'ngayTongHop', type: 'date' },
+        { arg: 'qlNamLamViecId', type: 'number' },
+        { arg: 'sysKyBaoCaoId', type: 'number' },
+        { arg: 'sysTrangThaiDongMoId', type: 'number' },
         { arg: 'ghiChu', type: 'string' },
         { arg: 'hieuLuc', type: 'boolean' }
       ],

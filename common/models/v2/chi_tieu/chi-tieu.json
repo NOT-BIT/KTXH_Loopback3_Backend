@@ -267,14 +267,14 @@
         "showList": true
       }
     },
-      "hasManyChiTieu": {
+    "hasManyChiTieu": {
         "type": "hasMany",
         "model": "ChiTieu",
         "foreignKey": "chiTieuChaId",
         "options": {
           "nestRemoting": false
         }
-      },
+    },
     "hasManyBieuNhapLieu_ChiTieu": {
       "type": "hasMany",
       "model": "BieuNhapLieu_ChiTieu",

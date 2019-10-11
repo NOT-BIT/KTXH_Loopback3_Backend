@@ -116,6 +116,14 @@
       "options": {
         "nestRemoting": false
       }
+    },
+    "hasManyChiTieu": {
+      "type": "hasMany",
+      "model": "ChiTieu",
+      "foreignKey": "chiTieuPhanToId",
+      "options": {
+        "nestRemoting": false
+      }
     }
   }
 }
