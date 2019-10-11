@@ -165,55 +165,65 @@ CustomCRUD.update = async function (model, queryData) {
   }
 }
 
-CustomCRUD.delete = async function (model, id) {
-  let curRecord = await model.findOne({ where: { id: id } })
-  if (!curRecord) {
-    let err = new Error()
-    throw err
-  }
-  let relations = model.definition.settings.relations
-  let relationsKey = Object.keys(relations)
-  for (let i in relationsKey) {
-    let item = relationsKey[i]
-    if (item.match(/^hasMany/)) {
-      let rfModel = app.models[relations[item].model]
-      let fk = relations[item].foreignKey
-      let whereFilter = JSON.parse(`{"${fk}" : ${id}, "xoa": 0}`)
-      let rfRecord =  await rfModel.findOne({ where: whereFilter })
-      console.log(relations[item].model, rfRecord)
-      if (rfRecord){
-        let err2 = new Error()
-        throw err2
+CustomCRUD.delete = async function (model, ids) {
+  let datas = []
+  for (let i in ids) {
+    let id = ids[i]
+    let curRecord = await model.findOne({ where: { id: id } })
+    if (!curRecord) {
+      let err = new Error(`Cannot find record has id ${id}`)
+      throw err
+    }
+    let relations = model.definition.settings.relations
+    let relationsKey = Object.keys(relations)
+    for (let i in relationsKey) {
+      let item = relationsKey[i]
+      if (item.match(/^hasMany/)) {
+        let rfModel = app.models[relations[item].model]
+        let fk = relations[item].foreignKey
+        let whereFilter = JSON.parse(`{"${fk}" : ${id}, "xoa": 0}`)
+        let rfRecord =  await rfModel.findOne({ where: whereFilter })
+        console.log(relations[item].model, rfRecord)
+        if (rfRecord){
+          let err2 = new Error()
+          throw err2
+        }
       }
     }
+    try {
+      const queryData = {id: id,
+      xoa: 1}
+      const data = await model.upsert(queryData)
+      datas.push(data)
+    } catch (err) {
+      console.log(`Delete ${model.definition.name}: ${err}`)
+      throw err
+    }
   }
-  try {
-    const queryData = {id: id,
-    xoa: 1}
-    const data = await model.upsert(queryData)
-    return data
-  } catch (err) {
-    console.log(`Delete ${model.definition.name}: ${err}`)
-    throw err
-  }
+  return datas
 }
 
-CustomCRUD.restore = async function (model, id) {
-  let curRecord = await model.findOne({ where: { id: id } })
-  if (!curRecord) {
-    let err = new Error()
-    throw err
-  }
+CustomCRUD.restore = async function (model, ids) {
+  let datas = []
+  for (let i in ids) {
+    let id = ids[i]
+    let curRecord = await model.findOne({ where: { id: id } })
+    if (!curRecord) {
+      let err = new Error()
+      throw err
+    }
 
-  try {
-    const queryData = {id: id,
-    xoa: 0}
-    const data = await model.upsert(queryData)
-    return data
-  } catch (err) {
-    console.log(`Restore ${model.definition.name}: ${err}`)
-    throw err
+    try {
+      const queryData = {id: id,
+      xoa: 0}
+      const data = await model.upsert(queryData)
+      datas.push(data)
+    } catch (err) {
+      console.log(`Restore ${model.definition.name}: ${err}`)
+      throw err
+    }
   }
+  return datas
 }
 
 

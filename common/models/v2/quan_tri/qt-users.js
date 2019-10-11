@@ -132,7 +132,7 @@ module.exports = function (ThisModel) {
     {
       http: { path: '/delete', verb: 'post' },
       accepts: [
-        { arg: 'id', type: 'number', required: true }
+        { arg: 'id', type: ['number'], required: true }
       ],
       returns: { arg: 'data' }
     },
@@ -142,7 +142,7 @@ module.exports = function (ThisModel) {
     {
       http: { path: '/restore', verb: 'post' },
       accepts: [
-        { arg: 'id', type: 'number', required: true }
+        { arg: 'id', type: ['number'], required: true }
       ],
       returns: { arg: 'data' }
     },
