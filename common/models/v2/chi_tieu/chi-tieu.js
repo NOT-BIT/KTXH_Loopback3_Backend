@@ -110,7 +110,7 @@ module.exports = function (ThisModel) {
         { arg: 'tinhPhanTram', type: 'boolean', required: true },
         { arg: 'ghiChu', type: 'string' }
       ],
-      returns: { arg: 'data' },
+      returns: {arg: 'data', type: 'object', root: true}
     }
   )
 
@@ -121,7 +121,7 @@ module.exports = function (ThisModel) {
         { arg: 'queryData', type: 'object' },
         { arg: 'page', type: 'number', default: '0' },
         { arg: 'pageSize', type: 'number', default: '20' }],
-      returns: { arg: 'data' }
+      returns: {arg: 'data', type: 'object', root: true}
     })
 
     ThisModel.remoteMethod('customListDeleted',
@@ -131,7 +131,7 @@ module.exports = function (ThisModel) {
         { arg: 'queryData', type: 'object' },
         { arg: 'page', type: 'number', default: '0' },
         { arg: 'pageSize', type: 'number', default: '20' }],
-      returns: { arg: 'data' }
+      returns: {arg: 'data', type: 'object', root: true}
     })
 
   ThisModel.remoteMethod('customRead',
@@ -139,7 +139,7 @@ module.exports = function (ThisModel) {
       http: { path: '/read', verb: 'post' },
       accepts: [
         { arg: 'id', type: 'number', required: true }],
-      returns: { arg: 'data' }
+      returns: {arg: 'data', type: 'object', root: true}
     },
   )
 
@@ -166,7 +166,7 @@ module.exports = function (ThisModel) {
         { arg: 'ghiChu', type: 'string' },
         { arg: 'hieuLuc', type: 'boolean' }
       ],
-      returns: { arg: 'data' },
+      returns: {arg: 'data', type: 'object', root: true}
     },
   )
 
@@ -176,7 +176,7 @@ module.exports = function (ThisModel) {
       accepts: [
         { arg: 'id', type: ['number'], required: true }
       ],
-      returns: { arg: 'data' }
+      returns: {arg: 'data', type: 'object', root: true}
     },
   )
 
@@ -186,7 +186,7 @@ module.exports = function (ThisModel) {
       accepts: [
         { arg: 'id', type: ['number'], required: true }
       ],
-      returns: { arg: 'data' }
+      returns: {arg: 'data', type: 'object', root: true}
     },
   )
 };

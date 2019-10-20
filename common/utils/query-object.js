@@ -29,11 +29,12 @@ function readRelationsFilter(model) {
 function listAPIReturns(model, object, flag) {
     var properties = model.definition.properties
     let listObject = {};
+    listObject.id = object.id
     Object.keys(properties).forEach(item => {
         if (object[item] != undefined
             && properties[item].extendOptions != undefined
-            && properties[item].extendOptions.showList == true) {
-           listObject[item] = object[item]
+            && properties[item].extendOptions.showList == true){
+                listObject[item] = object[item]
         }
       });
     if (flag == true){
