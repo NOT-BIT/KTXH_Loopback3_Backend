@@ -110,11 +110,7 @@ module.exports = function (ThisModel) {
         { arg: 'tinhPhanTram', type: 'boolean', required: true },
         { arg: 'ghiChu', type: 'string' }
       ],
-<<<<<<< Updated upstream
       returns: {arg: 'data', type: 'object', root: true}
-=======
-      returns: { root: true },
->>>>>>> Stashed changes
     }
   )
 
@@ -125,11 +121,7 @@ module.exports = function (ThisModel) {
         { arg: 'queryData', type: 'object' },
         { arg: 'page', type: 'number', default: '0' },
         { arg: 'pageSize', type: 'number', default: '20' }],
-<<<<<<< Updated upstream
       returns: {arg: 'data', type: 'object', root: true}
-=======
-      returns: { root: true }
->>>>>>> Stashed changes
     })
 
     ThisModel.remoteMethod('customListDeleted',
@@ -139,11 +131,7 @@ module.exports = function (ThisModel) {
         { arg: 'queryData', type: 'object' },
         { arg: 'page', type: 'number', default: '0' },
         { arg: 'pageSize', type: 'number', default: '20' }],
-<<<<<<< Updated upstream
       returns: {arg: 'data', type: 'object', root: true}
-=======
-      returns: { root: true }
->>>>>>> Stashed changes
     })
 
   ThisModel.remoteMethod('customRead',
@@ -151,11 +139,7 @@ module.exports = function (ThisModel) {
       http: { path: '/read', verb: 'post' },
       accepts: [
         { arg: 'id', type: 'number', required: true }],
-<<<<<<< Updated upstream
       returns: {arg: 'data', type: 'object', root: true}
-=======
-      returns: { root: true }
->>>>>>> Stashed changes
     },
   )
 
@@ -182,11 +166,7 @@ module.exports = function (ThisModel) {
         { arg: 'ghiChu', type: 'string' },
         { arg: 'hieuLuc', type: 'boolean' }
       ],
-<<<<<<< Updated upstream
       returns: {arg: 'data', type: 'object', root: true}
-=======
-      returns: { root: true },
->>>>>>> Stashed changes
     },
   )
 
@@ -196,11 +176,7 @@ module.exports = function (ThisModel) {
       accepts: [
         { arg: 'id', type: ['number'], required: true }
       ],
-<<<<<<< Updated upstream
       returns: {arg: 'data', type: 'object', root: true}
-=======
-      returns: { root: true }
->>>>>>> Stashed changes
     },
   )
 
@@ -210,11 +186,7 @@ module.exports = function (ThisModel) {
       accepts: [
         { arg: 'id', type: ['number'], required: true }
       ],
-<<<<<<< Updated upstream
       returns: {arg: 'data', type: 'object', root: true}
-=======
-      returns: { root: true }
->>>>>>> Stashed changes
     },
   )
 };

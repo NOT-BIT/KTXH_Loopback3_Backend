@@ -20,7 +20,6 @@
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^6.2.0",
     "loopback-connector-mysql": "^5.4.2",
-    "loopback-context": "^3.4.0",
     "njwt": "^1.0.0",
     "node": "^12.11.1",
     "nodemon": "^1.19.3",
