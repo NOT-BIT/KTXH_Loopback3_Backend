@@ -31,7 +31,23 @@ CustomCRUD.create = async function (model, queryData) {
 
   try {
     const data = await model.create(queryData)
-    return data
+    var properties = model.definition.properties
+    let record = {}
+    record.id = data.id
+    Object.keys(properties).forEach(item => {
+      record[item] = data[item]
+    });
+    let listRelation = queryObject.listRelationsFilter(model)
+    let relations = model.definition.settings.relations
+    for (let j in listRelation) {
+      console.log(j)
+      let relation = listRelation[j]
+      let rfModel = app.models[relations[relation].model]
+      let fk = relations[relation].foreignKey
+      let rfData = await rfModel.findOne({ where: { id: record[fk], xoa: 0 } })
+      record[relation] = queryObject.listAPIReturns(rfModel, rfData, false)
+    }
+    return record
   } catch (err) {
     console.log(`Create ${model.definition.name}: ${err}`)
     throw err
