@@ -59,7 +59,7 @@
     "qtTacNhanId": {
       "type": "Number",
       "mysql": {
-        "columnName": "qt_tac_nhan",
+        "columnName": "qt_tac_nhan_id",
         "dataType": "int"
       },
       "extendOptions": {

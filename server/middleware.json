@@ -3,6 +3,7 @@
     "loopback#favicon": {}
   },
   "initial": {
+    "loopback-context#per-request": {},
     "compression": {},
     "cors": {
       "params": {
@@ -34,6 +35,11 @@
   "auth": {},
   "parse": {},
   "routes": {
+    "./middleware/check-permission": {
+      "paths": [
+        "ttt/api/v2/crud/bieunhaplieu/create"
+      ]
+    },
     "loopback#rest": {
       "paths": [
         "${restApiRoot}"

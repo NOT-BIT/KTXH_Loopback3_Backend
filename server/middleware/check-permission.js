@@ -5,6 +5,7 @@ let to = require('await-to-js').to;
 
 module.exports = function () {
   return async function checkAdmin(req, res, next) {
+    console.log("check permission middleware invoken")
     let loopbackContext = LoopBackContext.getCurrentContext();
     let token = '';
     let err = new Error();
@@ -13,43 +14,37 @@ module.exports = function () {
       if (req.headers[constants.KEY_AUTHORIZATION]) {
         token = req.headers[constants.KEY_AUTHORIZATION].replace(constants.TYPE_AUTHORIZATION_HEADER, '');
       }
-      let jwtModel = app.models.Jwt;
-      let verifiedToken = jwtModel.verifyToken(token);
+      // Verify Token
+      let JWT = require('../../common/utils/jwt')
+      let verifiedToken = JWT.verifyToken(token)
       if (!verifiedToken) {
         err.message = 'verify token is null';
         return next(err);
       }
+      console.log(verifyToken.userId, req.url)
 
-      let userId = verifiedToken.body.userId;
-      let modelUser = app.models.CustomUser;
-      let [errAdmin, admin] = await to(modelUser.findOne({
+      let QTUsers_TacNhan = app.models.QTUsers_TacNhan
+      let listTacNhan = QTUsers_TacNhan.find({
         where: {
-          and: [
-            {id: userId},
-            {status: constants.STATUS_ACTIVE},
-            {
-              or: [
-                {adminType: constants.TYPE_ADMIN_NORMAL},
-                {adminType: constants.TYPE_ADMIN_FOUNDER},
-              ],
-            },
-          ],
-        },
-      }));
-
-      if (errAdmin) {
-        err.message = 'error find admin';
-        return next(err);
+          id: verifiedToken.userId,
+          hieuLuc: 1, xoa: 0
+          },
+        fields: ['qtTacNhanId']
+      })
+      let QTChucNangPhanMem = app.models.QTChucNangPhanMem
+      let chucNangPhanMemId = await QTChucNangPhanMem.findOne({where: {path: req.url}})
+      let QTTacNhan_ChucNangPhanMem = app.models.QTTacNhan_ChucNangPhanMem
+      for (let i in listTacNhan) {
+        tacNhanId = listTacNhan[i].qtTacNhanId
+        let tacNhanChucNangPhanMem = await findOne({where: {chucNangPhanMemId: chucNangPhanMemId, tacNhanId: tacNhanId}})
+        if (!tacNhanChucNangPhanMem) {
+          err.message = "user doesn't have permission to access function"
+          return next(err)
+        }
       }
-      if (!admin) {
-        err.message = 'cannot find admin';
-        return next(err);
-      }
-
-      loopbackContext.set(constants.KEY_ADMIN, admin);
-      return next();
+      // List roles
+      // let UserTacNhan =
+      //  Check permission
     }
-    err.message = 'context is null';
-    return next(err);
-  };
-};
+  }
+}

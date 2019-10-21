@@ -1,3 +1,82 @@
+exports.ACTION_SELL = 0;
+exports.ACTION_BUY = 1;
+exports.ACTION_CANCEL = 2;
+
+exports.STATUS_ENABLE = true;
+exports.STATUS_DISABLE = false;
+exports.STATUS_ACTIVE = 1;
+exports.STATUS_DEACTIVE = 0;
+
+exports.STATUS_COIN_BASE = 1;
+exports.STATUS_NONE_COIN_BASE = 0;
+
+exports.STATUS_ORDER_FAILED = -1;
+exports.STATUS_ORDER_OPEN = 0;
+exports.STATUS_ORDER_FINISHED = 1;
+exports.STATUS_ORDER_CANCELED = 2;
+exports.STATUS_ORDER_MATCHED = 10
+
+exports.DEFAULT_DEC = 8;
+
+// event  for  soket
+exports.EVENT_LIST_ORDER_SELL_INIT = 'EVENT_LIST_ORDER_SELL_INIT';
+exports.EVENT_LIST_ORDER_SELL = 'EVENT_LIST_ORDER_SELL';
+exports.EVENT_LIST_ORDER_SELL_DELETE = 'EVENT_LIST_ORDER_SELL_DELETE';
+
+exports.EVENT_LIST_ORDER_BUY_INIT = 'EVENT_LIST_ORDER_BUY_INIT';
+exports.EVENT_LIST_ORDER_BUY = 'EVENT_LIST_ORDER_BUY';
+exports.EVENT_LIST_ORDER_BUY_DELETE = 'EVENT_LIST_ORDER_BUY_DELETE';
+
+exports.EVENT_MATCH_ORDER = 'EVENT_MATCH_ORDER';
+
+exports.EVENT_LIST_ORDER_BY_USER_ID = 'EVENT_LIST_ORDER_BY_USER_ID_';
+exports.UPDATE_PENDING_BY_USER_ID = 'UPDATE_PENDING_BY_USER_ID_';
+exports.REMOVE_PENDING_BUY_USER_ID = 'REMOVE_PENDING_BUY_USER_ID_';
+exports.UPDATE_FINISHED_BY_USER_ID = 'UPDATE_FINISHED_BY_USER_ID_';
+
+exports.EVENT_PAIR_INFO_BY_ID = 'EVENT_PAIR_INFO_BY_ID_';
+exports.EVENT_DYNAMIC_MODEL = 'EVENT_DYNAMIC_MODEL';
+
+exports.EVENT_BALANCE_BY_USER = 'EVENT_BALANCE_BY_USER_ID_';
+exports.TOKEN_ID = '_TOKEN_ID_';
+
+exports.USER_TRADE_HISTORY_BY_USER_ID = 'USER_TRADE_HISTORY_BY_USER_ID_';
+
+exports.TOKEN_INFO = 'TOKEN_INFO_';
+
+exports.USER_PIONEER = 'PIONEER'
+exports.USER_NORMAL = 'NORMAL'
+exports.USER_ADMIN = 'ADMIN'
+exports.USER_BOT = 'BOT'
+exports.USER_POWER = 'POWER'
+
+exports.TYPE_ADMIN_FOUNDER = 'FOUNDER'
+exports.TYPE_ADMIN_NORMAL = 'ADMIN'
+exports.TYPE_ADMIN_MODERATOR = 'MODERATOR'
+
+exports.TIME_EXPIRE_USER = 24 * 3600 * 1000;
+exports.TIME_EXPIRE_ADMIN = 24 * 3600 * 1000;
+exports.TIME_EXPIRE_BOT = 2 * 365 * 24 * 3600 * 1000;
+exports.USER_ACTIVE = 1;
+exports.USER_DEACTIVE = 0;
+
+exports.USER_MIN_LENGTH_PASSWORD = 6;
+
+exports.NOT_UPLOAD_PROFILE = 0;
+exports.PENDDING_VERIFY_PROFILE = 1;
+exports.VERIFY_PROFILE = 2;
+
+exports.TYPE_AUTHORIZATION_HEADER = 'Bearer ';
+exports.TYPE_AUTHORIZATION_BASIC = 'Basic ';
+exports.HEADER_USER_AGENT = 'user-agent';
+exports.KEY_AUTHORIZATION = 'authorization';
+exports.KEY_IP_ADDRESS = 'ip_address';
+exports.DEVICE_INFO = 'device_info';
+exports.KEY_API_KEY = 'app_key';
+exports.KEY_CHECK_INTERGRITY = 'data_check_integrity';
+exports.ENABLE_ORDER_SIGNATURE = false;
+exports.KEY_ADMIN = 'admin';
+
 exports.RESPONSE_CODE_UNAVILABLE = 451;
 exports.RESPONSE_CODE_UNAUTHORIZED = 401;
 exports.RESPONSE_CODE_NOT_FOUND = 404;
@@ -16,4 +95,46 @@ exports.RESPONSE_CODE_ERR_VERIFY_EMAIL = 454;
 exports.RESPONSE_CODE_ADMIN_FIRST_TIME_LOGIN = 455;
 exports.RESPONSE_CODE_NOT_PIONEER = 456;
 
-exports.TIME_EXPIRE_USER = 24 * 3600 * 1000;
+exports.INSIGHT_REWARD_URL = '/api/rewards';
+exports.URL_ADDRESS_USER_SYMBOL = '/api/balance/get-address-user-by-symbol?';
+exports.URL_ADDRESS_FORWARD = '/api/blockchain-endpoint';
+exports.URL_UPDATE_WITHDRAW_STATUS = '/api/withdrawal/status';
+
+exports.WITHDRAW_APPROVE = 1;
+exports.WITHDRAW_REJECT = 0;
+exports.WITHDRAW_STATUS_WAIT_CONFIRM_EMAIL = 0;
+exports.WITHDRAW_STATUS_WAIT_APPROVE = 1;
+exports.WITHDRAW_STATUS_PENDING = 2;
+exports.WITHDRAW_STATUS_SUCCESS = 3;
+exports.WITHDRAW_STATUS_FAILED = 4;
+exports.WITHDRAW_STATUS_USER_CANCEL = 5;
+exports.WITHDRAW_STATUS_REJECTED = 6;
+exports.WITHDRAW_STATUS_PROCESSING = 7;
+
+exports.TIME_WINDOW_TWOFA = 4;
+exports.TIME_CACHE_EMAIL_CODE = 120;
+
+exports.TIME_CACHE_HISTORY_CHART = 5;
+exports.CACHE_HISTORY_CHART = 'DATA_HISTORY_CHART';
+exports.TIME_CACHE_LOGIN = 20;
+exports.CACHE_LOGIN = 'CACHE_LOGIN_';
+
+exports.STATUS_KYC_REJECT = -1;
+exports.STATUS_KYC_PENDING = 0;
+exports.STATUS_KYC_ACCEPT = 1;
+exports.ACTION_KYC_ACCEPT = 1;
+exports.ACTION_KYC_REJECT = 0;
+
+exports.TIMEZONE_DEFAULT = 'Asia/Singapore'
+
+exports.DATASOURCE_CONFIG = {
+  dataSource: 'mysql_db',
+  public: true,
+  options: {
+    remoting: {
+      sharedMethods: {
+        '*': false,
+      },
+    },
+  },
+};
