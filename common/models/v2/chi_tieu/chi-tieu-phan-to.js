@@ -11,8 +11,8 @@ module.exports = function (ThisModel) {
             ma: ma,
             ten: ten,
             ghiChu: ghiChu,
-            updatedAt: new Date(),
-            updatedBy: 0
+            createdAt: new Date(),
+            createdBy: 0
           }
           return await customCRUD.create(ThisModel, queryData)
   }

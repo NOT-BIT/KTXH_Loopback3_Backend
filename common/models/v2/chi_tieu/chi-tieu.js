@@ -27,8 +27,8 @@ module.exports = function (ThisModel) {
             mauSo: mauSo,
             tinhPhanTram: tinhPhanTram,
             ghiChu: ghiChu,
-            updatedAt: new Date(),
-            updatedBy: 0
+            createdAt: new Date(),
+            createdBy: 0
           }
           return await customCRUD.create(ThisModel, queryData)
   }
