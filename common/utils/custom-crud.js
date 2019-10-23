@@ -133,12 +133,16 @@ CustomCRUD.read = async function (model, id) {
     ])
     let listRelation = queryObject.listRelationsFilter(model)
     let relations = model.definition.settings.relations
-    record = JSON.parse(JSON.stringify(record))
+    record = JSON.parse(JSON.stringify(record))[0]
     for (let j in listRelation) {
       let relation = listRelation[j]
       let rfModel = app.models[relations[relation].model]
       let fk = relations[relation].foreignKey
-      record[relation] = await rfModel.find({ where: { id: record[fk], xoa: 0 } })
+      record[relation] = queryObject.listAPIReturnsList(
+        rfModel,
+        await rfModel.find({ where: { id: record[fk], xoa: 0 } }),
+        false
+      )
     }
     return record
   } catch (err) {
