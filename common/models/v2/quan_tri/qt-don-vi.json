@@ -73,6 +73,9 @@
         "columnName": "so_dien_thoai",
         "dataType": "varchar",
         "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "email": {
