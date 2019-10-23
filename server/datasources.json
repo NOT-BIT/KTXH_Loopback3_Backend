@@ -5,7 +5,7 @@
     "port": 3306,
     "database": "ktxh_caphuyen",
     "user": "root",
-    "password": "26121997",
+    "password": "",
     "connector": "mysql",
     "collation": "utf8_unicode_ci"
   }
