@@ -99,7 +99,7 @@ module.exports = function (ThisModel) {
         { arg: 'capTongHopId', type: 'number', required: true },
         { arg: 'chiTieuNhomId', type: 'number', required: true },
         { arg: 'chiTieuPhanToId', type: 'number', required: true },
-        { arg: 'chiTieuChaId', type: 'number', required: true },
+        { arg: 'chiTieuChaId', type: 'number', required: false },
         { arg: 'congDonTuDuoiLen', type: 'boolean', required: true },
         { arg: 'congTheoMa', type: 'boolean', required: true },
         { arg: 'congThucCong', type: 'string', required: true },
