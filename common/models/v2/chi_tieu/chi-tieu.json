@@ -82,7 +82,7 @@
     },
     "chiTieuChaId": {
       "type": "Number",
-      "required": true, 
+      "required": false, 
       "mysql": {
         "columnName": "chi_tieu_cha_id",
         "dataType": "int"
