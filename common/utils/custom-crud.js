@@ -203,7 +203,6 @@ CustomCRUD.delete = async function (model, ids) {
         let fk = relations[item].foreignKey
         let whereFilter = JSON.parse(`{"${fk}" : ${id}, "xoa": 0}`)
         let rfRecord =  await rfModel.findOne({ where: whereFilter })
-        console.log(relations[item].model, rfRecord)
         if (rfRecord){
           let err2 = new Error()
           throw err2

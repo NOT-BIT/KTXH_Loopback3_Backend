@@ -215,7 +215,7 @@
     },
     "hasManyBieuNhapLieu_DonViTongHopCapHuyen": {
       "type": "hasMany",
-      "model": "BieuNhapLieu_DonViTongHopCapHuyeh",
+      "model": "BieuNhapLieu_DonViTongHopCapHuyen",
       "foreignKey": "donViTongHopCapHuyenId",
       "primaryKey": "id",
       "options": {
