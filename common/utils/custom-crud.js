@@ -55,6 +55,12 @@ CustomCRUD.create = async function (model, queryData) {
 }
 
 CustomCRUD.list = async function (model, queryData, page, pageSize) {
+  if (!page) {
+    page = 0
+  }
+  if (!pageSize) {
+    pageSize = 20
+  }
   if (!queryData) {
     queryData = {}
   }
@@ -90,6 +96,12 @@ CustomCRUD.list = async function (model, queryData, page, pageSize) {
 }
 
 CustomCRUD.listDeleted = async function (model, queryData, page, pageSize) {
+  if (!page) {
+    page = 0
+  }
+  if (!pageSize) {
+    pageSize = 20
+  }
   if (!queryData) {
     queryData = {}
   }
