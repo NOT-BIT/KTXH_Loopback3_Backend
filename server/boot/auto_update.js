@@ -9,6 +9,7 @@ module.exports = function(app) {
     Object.keys(models).forEach(function(key) {
       if (typeof models[key].dataSource != 'undefined') {
         if (typeof datasources[models[key].dataSource] != 'undefined') {
+          app.dataSources[models[key].dataSource].setMaxListeners(0);
           app.dataSources[models[key].dataSource].autoupdate(key, function(
             err
           ) {
@@ -24,6 +25,7 @@ module.exports = function(app) {
     Object.keys(models).forEach(function(key) {
       if (typeof models[key].dataSource != 'undefined') {
         if (typeof datasources[models[key].dataSource] != 'undefined') {
+          app.dataSources[models[key].dataSource].setMaxListeners(0);
           app.dataSources[models[key].dataSource].automigrate(key, function(
             err
           ) {
