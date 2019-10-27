@@ -7,7 +7,7 @@
     "user": "root",
     "password": "",
     "connector": "mysql",
-    "collation": "utf8_unicode_ci",
+    "collation": "utf8mb4_unicode_ci",
     "maxOfflineRequests": 2048
   }
 }
