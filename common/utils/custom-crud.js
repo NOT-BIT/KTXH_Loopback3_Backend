@@ -21,9 +21,9 @@ CustomCRUD.create = async function (model, queryData) {
       if (queryData[fk] != undefined) {
         let rfRecord = await rfModel.findOne({ where: { id: queryData[fk], xoa: 0 } })
         if (!rfRecord) {
-          let err = new Error("Can't find referenced record")
-          console.log(`Create ${model.definition.name}: ${err}`)
-          throw err
+          var err = {"Error": `Can't find referenced record. Refernced Model = ${relations[item].model}. Referenced Id = ${queryData[fk]}.`}
+          console.log(`Create ${model.definition.name}: ${JSON.stringify(err)}`)
+          return err
         }
       }
     }
@@ -50,7 +50,7 @@ CustomCRUD.create = async function (model, queryData) {
     return record
   } catch (err) {
     console.log(`Create ${model.definition.name}: ${err}`)
-    throw err
+    return err
   }
 }
 
@@ -91,7 +91,7 @@ CustomCRUD.list = async function (model, queryData, page, pageSize) {
     }
   } catch (err) {
     console.log(`List ${model.definition.name}: ${err}`)
-    throw err
+    return err
   }
 }
 
@@ -132,7 +132,7 @@ CustomCRUD.listDeleted = async function (model, queryData, page, pageSize) {
     }
   } catch (err) {
     console.log(`List ${model.definition.name}: ${err}`)
-    throw err
+    return err
   }
 }
 
@@ -143,6 +143,11 @@ CustomCRUD.read = async function (model, id) {
         where: { id: id, xoa: 0 }
       })
     ])
+    if (record[0] == null) {
+      var err = {"Error": `Can't find record. Id = ${id}`}
+      console.log(`Read ${model.definition.name}: ${JSON.stringify(err)}`)
+      return err
+    }
     let listRelation = queryObject.listRelationsFilter(model)
     let relations = model.definition.settings.relations
     record = JSON.parse(JSON.stringify(record))[0]
@@ -159,41 +164,46 @@ CustomCRUD.read = async function (model, id) {
     return record
   } catch (err) {
     console.log(`Read ${model.definition.name}: ${err}`)
-    throw err
+    return err
   }
 }
 
 CustomCRUD.update = async function (model, queryData) {
   if (!queryData.id) {
-    let err = new Error()
-    throw err
+    var err = {"Error": `Missing id.`}
+    console.log(`Update ${model.definition.name}: ${JSON.stringify(err)}`)
+    return err
   }
 
   let curRecord = await model.findOne({ where: { id: queryData.id } })
   if (!curRecord) {
-    let err = new Error()
-    throw err
+    var err = {"Error": `Can't find record.`}
+    console.log(`Update ${model.definition.name}: ${JSON.stringify(err)}`)
+    return err
   }
 
   let relations = model.definition.settings.relations || new Object()
-  Object.keys(relations).forEach(item => {
+  relationKey = Object.keys(relations)
+  for (let i in relationKey) {
+    item = relationKey[i]
     let rfModel = app.models[relations[item].model]
     let fk = relations[item].foreignKey
 
     if (queryData[fk] != undefined) {
       let rfRecord = rfModel.findOne({ where: { id: queryData[fk], xoa: 0 } })
       if (!rfRecord) {
-        let err = new Error()
-        throw err
+        var err = {"Error": `Can't find referenced record. Refernced Model = ${relations[item].model}. Referenced Id = ${queryData[fk]}.`}
+        console.log(`Update ${model.definition.name}: ${JSON.stringify(err)}`)
+        return err
       }
     }
-  })
+  }
   try {
     const data = await model.upsert(queryData)
     return data
   } catch (err) {
     console.log(`Update ${model.definition.name}: ${err}`)
-    throw err
+    return err
   }
 }
 
@@ -201,10 +211,12 @@ CustomCRUD.delete = async function (model, ids) {
   let datas = []
   for (let i in ids) {
     let id = ids[i]
-    let curRecord = await model.findOne({ where: { id: id } })
+    let curRecord = await model.findOne({ where: { id: id, xoa: 0 } })
     if (!curRecord) {
-      let err = new Error(`Cannot find record has id ${id}`)
-      throw err
+      var err = {"Error": `Can't find record. Id = ${id}`}
+      console.log(`Delete ${model.definition.name}: ${JSON.stringify(err)}`)
+      datas.push(err)
+      continue
     }
     let relations = model.definition.settings.relations
     let relationsKey = Object.keys(relations)
@@ -216,19 +228,21 @@ CustomCRUD.delete = async function (model, ids) {
         let whereFilter = JSON.parse(`{"${fk}" : ${id}, "xoa": 0}`)
         let rfRecord =  await rfModel.findOne({ where: whereFilter })
         if (rfRecord){
-          let err2 = new Error()
-          throw err2
+          var err = {"Error": `Can't delete referenced record.`}
+          console.log(`Delete ${model.definition.name}: ${JSON.stringify(err)}`)
+          datas.push(err)
+          continue
         }
       }
     }
     try {
-      const queryData = {id: id,
-      xoa: 1}
+      const queryData = {id: id, xoa: 1}
       const data = await model.upsert(queryData)
       datas.push(data)
     } catch (err) {
       console.log(`Delete ${model.definition.name}: ${err}`)
-      throw err
+      datas.push(err)
+      continue
     }
   }
   return datas
@@ -238,10 +252,12 @@ CustomCRUD.restore = async function (model, ids) {
   let datas = []
   for (let i in ids) {
     let id = ids[i]
-    let curRecord = await model.findOne({ where: { id: id } })
+    let curRecord = await model.findOne({ where: { id: id, xoa: 1 } })
     if (!curRecord) {
-      let err = new Error()
-      throw err
+      var err = {"Error": `Can't find record. Id = ${id}`}
+      console.log(`Restore ${model.definition.name}: ${JSON.stringify(err)}`)
+      datas.push(err)
+      continue
     }
 
     try {
@@ -251,7 +267,8 @@ CustomCRUD.restore = async function (model, ids) {
       datas.push(data)
     } catch (err) {
       console.log(`Restore ${model.definition.name}: ${err}`)
-      throw err
+      datas.push(err)
+      continue
     }
   }
   return datas
