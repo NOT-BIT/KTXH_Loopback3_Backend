@@ -23,7 +23,7 @@ CustomCRUD.create = async function (model, queryData) {
         if (!rfRecord) {
           var err = {"Error": `Can't find referenced record. Refernced Model = ${relations[item].model}. Referenced Id = ${queryData[fk]}.`}
           console.log(`Create ${model.definition.name}: ${JSON.stringify(err)}`)
-          return err
+          throw err
         }
       }
     }
@@ -50,7 +50,7 @@ CustomCRUD.create = async function (model, queryData) {
     return record
   } catch (err) {
     console.log(`Create ${model.definition.name}: ${err}`)
-    return err
+    throw err
   }
 }
 
@@ -91,7 +91,7 @@ CustomCRUD.list = async function (model, queryData, page, pageSize) {
     }
   } catch (err) {
     console.log(`List ${model.definition.name}: ${err}`)
-    return err
+    throw err
   }
 }
 
@@ -132,7 +132,7 @@ CustomCRUD.listDeleted = async function (model, queryData, page, pageSize) {
     }
   } catch (err) {
     console.log(`List ${model.definition.name}: ${err}`)
-    return err
+    throw err
   }
 }
 
@@ -146,7 +146,7 @@ CustomCRUD.read = async function (model, id) {
     if (record[0] == null) {
       var err = {"Error": `Can't find record. Id = ${id}`}
       console.log(`Read ${model.definition.name}: ${JSON.stringify(err)}`)
-      return err
+      throw err
     }
     let listRelation = queryObject.listRelationsFilter(model)
     let relations = model.definition.settings.relations
@@ -164,7 +164,7 @@ CustomCRUD.read = async function (model, id) {
     return record
   } catch (err) {
     console.log(`Read ${model.definition.name}: ${err}`)
-    return err
+    throw err
   }
 }
 
@@ -172,18 +172,18 @@ CustomCRUD.update = async function (model, queryData) {
   if (!queryData.id) {
     var err = {"Error": `Missing id.`}
     console.log(`Update ${model.definition.name}: ${JSON.stringify(err)}`)
-    return err
+    throw err
   }
 
   let curRecord = await model.findOne({ where: { id: queryData.id } })
   if (!curRecord) {
     var err = {"Error": `Can't find record.`}
     console.log(`Update ${model.definition.name}: ${JSON.stringify(err)}`)
-    return err
+    throw err
   }
 
   let relations = model.definition.settings.relations || new Object()
-  relationKey = Object.keys(relations)
+  let relationKey = Object.keys(relations)
   for (let i in relationKey) {
     item = relationKey[i]
     let rfModel = app.models[relations[item].model]
@@ -194,7 +194,7 @@ CustomCRUD.update = async function (model, queryData) {
       if (!rfRecord) {
         var err = {"Error": `Can't find referenced record. Refernced Model = ${relations[item].model}. Referenced Id = ${queryData[fk]}.`}
         console.log(`Update ${model.definition.name}: ${JSON.stringify(err)}`)
-        return err
+        throw err
       }
     }
   }
@@ -203,7 +203,7 @@ CustomCRUD.update = async function (model, queryData) {
     return data
   } catch (err) {
     console.log(`Update ${model.definition.name}: ${err}`)
-    return err
+    throw err
   }
 }
 
