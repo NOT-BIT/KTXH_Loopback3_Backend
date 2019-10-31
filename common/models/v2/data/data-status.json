@@ -36,6 +36,9 @@
         "dataPrecision": null,
         "dataScale": null,
         "nullable": "Y"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "id": {
