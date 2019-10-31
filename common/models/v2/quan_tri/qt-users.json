@@ -62,6 +62,9 @@
         "columnName": "so_dien_thoai",
         "dataType": "varchar",
         "dataLength": 12
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "email": {
@@ -70,6 +73,9 @@
         "columnName": "email",
         "dataType": "varchar",
         "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "qtDonViId": {
@@ -130,6 +136,9 @@
       "mysql": {
         "columnName": "hieu_luc",
         "dataType": "tinyint"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "xoa": {

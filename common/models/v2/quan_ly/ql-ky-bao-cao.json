@@ -88,6 +88,9 @@
       "mysql": {
         "columnName": "ngay_mo",
         "dataType": "date"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
 
@@ -96,6 +99,9 @@
       "mysql": {
         "columnName": "ngay_dong",
         "dataType": "date"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
 
@@ -152,6 +158,18 @@
       }
     },
 
+    "trangThai": {
+      "type": "Boolean",
+      "default": true,
+      "mysql": {
+        "columnName": "trang_thai",
+        "dataType": "tinyint"
+      },
+      "extendOptions": {
+        "showList": true
+      }
+    },
+
     "hieuLuc": {
       "type": "Boolean",
       "required": true,
@@ -159,6 +177,9 @@
       "mysql": {
         "columnName": "hieu_luc",
         "dataType": "tinyint"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
 

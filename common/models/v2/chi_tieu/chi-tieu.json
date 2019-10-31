@@ -126,6 +126,9 @@
       "mysql": {
         "columnName": "don_vi_tinh",
         "dataType": "longtext"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "tuSo": {
@@ -199,6 +202,9 @@
       "mysql": {
         "columnName": "hieu_luc",
         "dataType": "tinyint"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "xoa": {

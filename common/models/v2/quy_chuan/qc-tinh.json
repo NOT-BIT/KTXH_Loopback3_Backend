@@ -143,6 +143,9 @@
       "mysql": {
         "columnName": "hieu_luc",
         "dataType": "tinyint"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "xoa": {
