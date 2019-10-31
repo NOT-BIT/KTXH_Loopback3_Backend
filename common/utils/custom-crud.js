@@ -185,7 +185,7 @@ CustomCRUD.update = async function (model, queryData) {
   let relations = model.definition.settings.relations || new Object()
   let relationKey = Object.keys(relations)
   for (let i in relationKey) {
-    item = relationKey[i]
+    let item = relationKey[i]
     let rfModel = app.models[relations[item].model]
     let fk = relations[item].foreignKey
 
