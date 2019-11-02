@@ -123,7 +123,6 @@ module.exports = function (ThisModel) {
         { arg: 'id', type: 'number', required: true },
         { arg: 'ma', type: 'string' },
         { arg: 'ten', type: 'string' },
-        { arg: 'qcTinhId', type: 'number' },
         { arg: 'sysCapDonViHanhChinh', type: 'number' },
         { arg: 'loaiDonViHanhChinh', type: 'string' },
         { arg: 'nongThon', 'type': 'boolean' },
