@@ -5,7 +5,7 @@ let app = require('../../../../server/server')
 
 module.exports = function (ThisModel) {
   //create Bieu Nhap Lieu Chi Tieu
-  ThisModel.customCreate = async function (uid, ma, ten, ngayBatDau, ngayBaoCaoHuyen, ngayBaoCaoTinh, ngayBaoCaoTW, ngayMo, ngayDong, ngayTongHop, qlNamLamViecId, sysKyBaoCaoId, sysTrangThaiDongMoId, ghiChu) {
+  ThisModel.customCreate = async function (uid, ma, ten, ngayBatDau, ngayBaoCaoHuyen, ngayBaoCaoTinh, ngayBaoCaoTW, ngayMo, ngayDong, ngayTongHop, qlNamLamViecId, sysKyBaoCaoId, sysTrangThaiDongMoId, trangThai) {
         const queryData = {
             uid: uid,
             ma: ma,
@@ -20,7 +20,7 @@ module.exports = function (ThisModel) {
             qlNamLamViecId: qlNamLamViecId,
             sysKyBaoCaoId: sysKyBaoCaoId,
             sysTrangThaiDongMoId: sysTrangThaiDongMoId,
-            ghiChu: ghiChu,
+            trangThai: trangThai,
             createdAt: new Date(),
             createdBy: 0
           }
@@ -43,7 +43,7 @@ module.exports = function (ThisModel) {
   }
 
   //update Bieu Nhap Lieu Chi Tieu
-  ThisModel.customUpdate = async function (id, ma, ten, ngayBatDau, ngayBaoCaoHuyen, ngayBaoCaoTinh, ngayBaoCaoTW, ngayMo, ngayDong, ngayTongHop, qlNamLamViecId, sysKyBaoCaoId, sysTrangThaiDongMoId, ghiChu, hieuLuc) {
+  ThisModel.customUpdate = async function (id, ma, ten, ngayBatDau, ngayBaoCaoHuyen, ngayBaoCaoTinh, ngayBaoCaoTW, ngayMo, ngayDong, ngayTongHop, qlNamLamViecId, sysKyBaoCaoId, sysTrangThaiDongMoId, trangThai, hieuLuc) {
         const queryData = {
             id: id,
             ma: ma,
@@ -58,7 +58,7 @@ module.exports = function (ThisModel) {
             qlNamLamViecId: qlNamLamViecId,
             sysKyBaoCaoId: sysKyBaoCaoId,
             sysTrangThaiDongMoId: sysTrangThaiDongMoId,
-            ghiChu: ghiChu,
+            trangThai: trangThai,
             hieuLuc: hieuLuc,
             updatedAt: new Date(),
             updatedBy: 0
@@ -93,7 +93,7 @@ module.exports = function (ThisModel) {
         { arg: 'qlNamLamViecId', type: 'number' },
         { arg: 'sysKyBaoCaoId', type: 'number' },
         { arg: 'sysTrangThaiDongMoId', type: 'number' },
-        { arg: 'ghiChu', type: 'string' }
+        { arg: 'trangThai', type: 'string' }
       ],
       returns: {arg: 'data', type: 'object', root: true}
     }
@@ -145,7 +145,7 @@ module.exports = function (ThisModel) {
         { arg: 'qlNamLamViecId', type: 'number' },
         { arg: 'sysKyBaoCaoId', type: 'number' },
         { arg: 'sysTrangThaiDongMoId', type: 'number' },
-        { arg: 'ghiChu', type: 'string' },
+        { arg: 'trangThai', type: 'string' },
         { arg: 'hieuLuc', type: 'boolean' }
       ],
       returns: {arg: 'data', type: 'object', root: true}
