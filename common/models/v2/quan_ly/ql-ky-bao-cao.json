@@ -159,11 +159,10 @@
     },
 
     "trangThai": {
-      "type": "Boolean",
-      "default": true,
+      "type": "String",
       "mysql": {
         "columnName": "trang_thai",
-        "dataType": "tinyint"
+        "dataType": "longtext"
       },
       "extendOptions": {
         "showList": true
