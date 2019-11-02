@@ -99,7 +99,8 @@
       }
     },
     "congTheoMa": {
-      "type": "Number",
+      "type": "Boolean",
+      "default": false,
       "mysql": {
         "columnName": "cong_theo_ma",
         "dataType": "tinyint"
