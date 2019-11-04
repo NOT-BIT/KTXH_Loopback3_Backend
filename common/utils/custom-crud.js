@@ -200,7 +200,16 @@ CustomCRUD.update = async function (model, queryData) {
   }
   try {
     const data = await model.upsert(queryData)
-    return CustomCRUD.read(model, data.id)
+    let listRelation = queryObject.listRelationsFilter(model)
+    let record = JSON.parse(JSON.stringify(data))
+    for (let j in listRelation) {
+      let relation = listRelation[j]
+      let rfModel = app.models[relations[relation].model]
+      let fk = relations[relation].foreignKey
+      let rfData = await rfModel.findOne({ where: { id: data[fk], xoa: 0 } })
+        record[relation] = queryObject.listAPIReturns(rfModel, rfData, false)
+    }
+    return record
   } catch (err) {
     console.log(`Update ${model.definition.name}: ${err}`)
     throw err
