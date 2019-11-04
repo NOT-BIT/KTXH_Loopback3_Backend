@@ -200,7 +200,7 @@ CustomCRUD.update = async function (model, queryData) {
   }
   try {
     const data = await model.upsert(queryData)
-    return data
+    return CustomCRUD.read(model, data.id)
   } catch (err) {
     console.log(`Update ${model.definition.name}: ${err}`)
     throw err
