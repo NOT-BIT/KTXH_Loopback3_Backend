@@ -62,6 +62,14 @@
         "showList": true
       }
     },
+    "sysNhomDonViId": {
+      "type": "Number",
+      "required": true,
+      "mysql": {
+        "columnName": "sys_nhom_don_vi_id",
+        "dataType": "int"
+      }
+    },
     "diaChi": {
       "type": "String",
       "mysql": {

@@ -52,18 +52,16 @@
       "type": "Number",
       "required": true,
       "mysql": {
-        "columnName": "cap_don_vi_hanh_chinh",
+        "columnName": "sys_cap_don_vi_hanh_chinh_id",
         "dataType": "int"
       }
     },
-    "loaiDonViHanhChinh": {
-      "type": "String",
+    "sysLoaiDonViHanhChinhId": {
+      "type": "Number",
       "required": true,
-      "length": 250,
       "mysql": {
-        "columnName": "loai_don_vi_hanh_chinh",
-        "dataType": "varchar",
-        "dataLength": 250
+        "columnName": "sys_loai_don_vi_hanh_chinh_id",
+        "dataType": "int"
       }
     },
     "nongThon": {
@@ -181,7 +179,7 @@
     "belongsToSysLoaiDonViHanhChinh": {
       "type": "belongsTo",
       "model": "SysLoaiDonViHanhChinh",
-      "foreignKey": "belongsToSysLoaiDonViHanhChinhId",
+      "foreignKey": "sysLoaiDonViHanhChinhId",
       "options": {
         "nestRemoting": false
       },
