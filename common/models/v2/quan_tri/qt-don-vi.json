@@ -261,7 +261,7 @@
     "belongsToSysNhomDonVi": {
       "type": "belongsTo",
       "model": "SysNhomDonVi",
-      "foreignKey": "sysNhomDonViId",
+      "foreignKey": "SysNhomDonViId",
       "options": {
         "nestRemoting": false
       },

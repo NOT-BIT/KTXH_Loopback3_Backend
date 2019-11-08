@@ -221,7 +221,7 @@
     },
     "belongsToSysLoaiBaoCao": {
       "type": "belongsTo",
-      "model": "sysLoaiBaoCao",
+      "model": "SysLoaiBaoCao",
       "foreignKey": "sysLoaiBaoCaoId",
       "primaryKey": "id",
       "options": {
