@@ -65,7 +65,7 @@ CustomCRUD.list = async function (model, queryData, page, pageSize) {
     queryData = {}
   }
   try {
-    queryData.xoa = 0
+    queryData.where.xoa = 0
     queryData.skip = page * pageSize;
     queryData.limit = pageSize;
     const [data, total] = await Promise.all([
@@ -108,7 +108,7 @@ CustomCRUD.listDeleted = async function (model, queryData, page, pageSize) {
     queryData = {}
   }
   try {
-    queryData.xoa = 1
+    queryData.where.xoa = 1
     queryData.skip = page * pageSize;
     queryData.limit = pageSize;
     const [data, total] = await Promise.all([
