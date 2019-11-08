@@ -57,6 +57,9 @@
       "mysql": {
         "columnName": "id_cha",
         "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "diaChi": {
@@ -155,6 +158,27 @@
       "mysql": {
         "columnName": "xoa",
         "dataType": "tinyint"
+      }
+    },
+    "trace": {
+      "type": "string",
+      "required": false,
+      "mysql": {
+        "columnName": "trace"
+      },
+      "extendOptions": {
+        "showList": false
+      }
+    },
+    "level": {
+      "type": "number",
+      "required": false,
+      "mysql": {
+        "columnName": "level",
+        "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
       }
     }
   },

@@ -151,4 +151,8 @@ module.exports = function (ThisModel) {
       returns: {arg: 'data', type: 'object', root: true}
     },
   )
+
+  ThisModel.observe('after save', async function(ctx) {
+    customCRUD.autoUpdateTraceAndLevel(ThisModel, ctx.instance, "donViChaId")
+  })
 };

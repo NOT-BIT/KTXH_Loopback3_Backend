@@ -66,8 +66,10 @@ CustomCRUD.list = async function (model, queryData, page, pageSize) {
   }
   try {
     queryData.xoa = 0
+    queryData.skip = page * pageSize;
+    queryData.limit = pageSize;
     const [data, total] = await Promise.all([
-      model.find({where: queryData, skip: page * pageSize, limit: pageSize}),
+      model.find(queryData),
       model.count({xoa: 0})
     ])
     let listRelation = queryObject.listRelationsFilter(model)
@@ -107,8 +109,10 @@ CustomCRUD.listDeleted = async function (model, queryData, page, pageSize) {
   }
   try {
     queryData.xoa = 1
+    queryData.skip = page * pageSize;
+    queryData.limit = pageSize;
     const [data, total] = await Promise.all([
-      model.find({where: queryData, skip: page * pageSize, limit: pageSize}),
+      model.find(queryData),
       model.count({xoa: 1})
     ])
     listRelation = queryObject.listRelationsFilter(model)
@@ -281,6 +285,44 @@ CustomCRUD.restore = async function (model, ids) {
     }
   }
   return datas
+}
+
+CustomCRUD.generateNodeIndexFromId = function (id, size = 10) {
+  return String(String(id).padStart(size, '0'));
+}
+
+CustomCRUD.autoUpdateTraceAndLevel = async function(model, instance, idCha, parentInstance) {
+  // console.log(instance.id)
+  if (!parentInstance && instance[idCha]) {
+    // console.log('.')
+    parentInstance = await model.findOne({where: {id: instance[idCha]}})
+  }
+
+  let parentTrace = this.generateNodeIndexFromId('')
+  let parentLevel = 0
+  // console.log("trace", parentTrace, "level", parentLevel)
+  if (parentInstance) {
+    // console.log('.')
+    parentTrace = String(parentInstance.trace)
+    parentLevel = parentInstance.level
+  }
+
+  let instanceIndex = this.generateNodeIndexFromId(instance.id)
+
+  // console.log(instance.trace)
+  // console.log(parentTrace + instanceIndex)
+
+  if (!instance.trace || (String(instance.trace) !== parentTrace + instanceIndex)) {
+    console.log(instance.id, "upserted!")
+    instance.trace = parentTrace + instanceIndex
+    instance.level = parentLevel + 1
+    await model.upsert(instance)
+    let childenInstances = await model.find({where: JSON.parse(`{"${idCha}": ${instance.id}}`)})
+    // console.log(childenInstances)
+    for (let i in childenInstances) {
+      this.autoUpdateTraceAndLevel(model, childenInstances[i], idCha, instance);
+    }
+  }
 }
 
 
