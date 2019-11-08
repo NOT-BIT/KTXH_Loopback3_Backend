@@ -65,6 +65,9 @@ CustomCRUD.list = async function (model, queryData, page, pageSize) {
     queryData = {}
   }
   try {
+    if (!queryData.where) {
+      queryData.where = {}
+    }
     queryData.where.xoa = 0
     queryData.skip = page * pageSize;
     queryData.limit = pageSize;
@@ -108,6 +111,9 @@ CustomCRUD.listDeleted = async function (model, queryData, page, pageSize) {
     queryData = {}
   }
   try {
+    if (!queryData.where) {
+      queryData.where = {}
+    }
     queryData.where.xoa = 1
     queryData.skip = page * pageSize;
     queryData.limit = pageSize;

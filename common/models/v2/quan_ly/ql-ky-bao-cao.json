@@ -219,6 +219,18 @@
         "showList": true
       }
     },
+    "belongsToSysLoaiBaoCao": {
+      "type": "belongsTo",
+      "model": "sysLoaiBaoCao",
+      "foreignKey": "sysLoaiBaoCaoId",
+      "primaryKey": "id",
+      "options": {
+        "nestRemoting": false
+      },
+      "extendOptions": {
+        "showList": true
+      }
+    },
     "belongsToSysTrangThaiDongMo": {
       "type": "belongsTo",
       "model": "SysTrangThaiDongMo",

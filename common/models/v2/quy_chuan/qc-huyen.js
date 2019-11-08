@@ -5,14 +5,14 @@ let app = require('../../../../server/server')
 
 module.exports = function (ThisModel) {
   //create Bieu Nhap Lieu Chi Tieu
-  ThisModel.customCreate = async function (uid, ma, ten, qcTinhId, sysCapDonViHanhChinhId, loaiDonViHanhChinh, nongThon, bienGioi, haiDao, vungDBKhoKhan, ghiChu) {
+  ThisModel.customCreate = async function (uid, ma, ten, qcTinhId, sysCapDonViHanhChinhId, sysLoaiDonViHanhChinhId, nongThon, bienGioi, haiDao, vungDBKhoKhan, ghiChu) {
     const queryData = {
       uid: uid,
       ma: ma,
       ten: ten,
       qcTinhId: qcTinhId,
       sysCapDonViHanhChinhId: sysCapDonViHanhChinhId,
-      loaiDonViHanhChinh: loaiDonViHanhChinh,
+      sysLoaiDonViHanhChinhId: sysLoaiDonViHanhChinhId,
       nongThon: nongThon,
       bienGioi: bienGioi,
       haiDao, haiDao,
@@ -40,14 +40,14 @@ module.exports = function (ThisModel) {
   }
 
   //update Bieu Nhap Lieu Chi Tieu
-  ThisModel.customUpdate = async function (id, ma, ten, qcTinhId, sysCapDonViHanhChinhId, loaiDonViHanhChinh, nongThon, bienGioi, haiDao, vungDBKhoKhan, ghiChu, hieuLuc) {
+  ThisModel.customUpdate = async function (id, ma, ten, qcTinhId, sysCapDonViHanhChinhId, sysLoaiDonViHanhChinhId, nongThon, bienGioi, haiDao, vungDBKhoKhan, ghiChu, hieuLuc) {
     const queryData = {
       id: id,
       ma: ma,
       ten: ten,
       qcTinhId: qcTinhId,
       sysCapDonViHanhChinhId: sysCapDonViHanhChinhId,
-      loaiDonViHanhChinh: loaiDonViHanhChinh,
+      sysLoaiDonViHanhChinhId: sysLoaiDonViHanhChinhId,
       nongThon: nongThon,
       bienGioi: bienGioi,
       haiDao, haiDao,
@@ -79,7 +79,7 @@ module.exports = function (ThisModel) {
         { arg: 'ten', type: 'string' },
         { arg: 'qcTinhId', type: 'number', required: true },
         { arg: 'sysCapDonViHanhChinh', type: 'number', required: true },
-        { arg: 'loaiDonViHanhChinh', type: 'string', required: true },
+        { arg: 'sysLoaiDonViHanhChinhId', type: 'number', required: true },
         { arg: 'nongThon', 'type': 'boolean' },
         { arg: 'bienGioi', type: 'boolean' },
         { arg: 'haiDao', type: 'boolean' },
@@ -128,7 +128,7 @@ module.exports = function (ThisModel) {
         { arg: 'ten', type: 'string' },
         { arg: 'qcTinhId', type: 'number' },
         { arg: 'sysCapDonViHanhChinh', type: 'number' },
-        { arg: 'loaiDonViHanhChinh', type: 'string' },
+        { arg: 'sysLoaiDonViHanhChinhId', type: 'number' },
         { arg: 'nongThon', 'type': 'boolean' },
         { arg: 'bienGioi', type: 'boolean' },
         { arg: 'haiDao', type: 'boolean' },

@@ -5,18 +5,11 @@ let app = require('../../../../server/server')
 
 module.exports = function (ThisModel) {
   //create Bieu Nhap Lieu Chi Tieu
-  ThisModel.customCreate = async function (uid, ma, ten, qcHuyenId, sysCapDonViHanhChinhId, sysLoaiDonViHanhChinhId, nongThon, bienGioi, haiDao, vungDBKhoKhan, ghiChu) {
+  ThisModel.customCreate = async function (uid, ma, ten, ghiChu) {
     const queryData = {
       uid: uid,
       ma: ma,
       ten: ten,
-      qcHuyenId: qcHuyenId,
-      sysCapDonViHanhChinhId: sysCapDonViHanhChinhId,
-      sysLoaiDonViHanhChinhId: sysLoaiDonViHanhChinhId,
-      nongThon: nongThon,
-      bienGioi: bienGioi,
-      haiDao, haiDao,
-      vungDBKhoKhan: vungDBKhoKhan,
       ghiChu: ghiChu,
       createdAt: new Date(),
       createdBy: 0
@@ -40,18 +33,11 @@ module.exports = function (ThisModel) {
   }
 
   //update Bieu Nhap Lieu Chi Tieu
-  ThisModel.customUpdate = async function (id, ma, ten, qcHuyenId, sysCapDonViHanhChinhId, sysLoaiDonViHanhChinhId, nongThon, bienGioi, haiDao, vungDBKhoKhan, ghiChu, hieuLuc) {
+  ThisModel.customUpdate = async function (id, ma, ten, ghiChu, hieuLuc) {
     const queryData = {
       id: id,
       ma: ma,
       ten: ten,
-      qcHuyenId: qcHuyenId,
-      sysCapDonViHanhChinhId: sysCapDonViHanhChinhId,
-      sysLoaiDonViHanhChinhId: sysLoaiDonViHanhChinhId,
-      nongThon: nongThon,
-      bienGioi: bienGioi,
-      haiDao, haiDao,
-      vungDBKhoKhan: vungDBKhoKhan,
       ghiChu: ghiChu,
       hieuLuc: hieuLuc,
       updatedAt: new Date(),
@@ -77,13 +63,6 @@ module.exports = function (ThisModel) {
         { arg: 'uid', type: 'string', required: true },
         { arg: 'ma', type: 'string', required: true },
         { arg: 'ten', type: 'string' },
-        { arg: 'qcHuyenId', type: 'number', required: true },
-        { arg: 'sysCapDonViHanhChinh', type: 'number', required: true },
-        { arg: 'sysLoaiDonViHanhChinhId', type: 'number', required: true },
-        { arg: 'nongThon', 'type': 'boolean' },
-        { arg: 'bienGioi', type: 'boolean' },
-        { arg: 'haiDao', type: 'boolean' },
-        { arg: 'vungDBKhoKhan', type: 'boolean' },
         { arg: 'ghiChu', type: 'string' }
       ],
       returns: {arg: 'data', type: 'object', root: true}
@@ -126,13 +105,6 @@ module.exports = function (ThisModel) {
         { arg: 'id', type: 'number', required: true },
         { arg: 'ma', type: 'string' },
         { arg: 'ten', type: 'string' },
-        { arg: 'qcHuyenId', type: 'number' },
-        { arg: 'sysCapDonViHanhChinh', type: 'number' },
-        { arg: 'sysLoaiDonViHanhChinhId', type: 'number' },
-        { arg: 'nongThon', 'type': 'boolean' },
-        { arg: 'bienGioi', type: 'boolean' },
-        { arg: 'haiDao', type: 'boolean' },
-        { arg: 'vungDBKhoKhan', type: 'boolean' },
         { arg: 'ghiChu', type: 'string' },
         { arg: 'hieuLuc', type: 'boolean' }
       ],

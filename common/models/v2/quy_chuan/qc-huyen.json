@@ -199,6 +199,17 @@
       "extendOptions": {
         "showList": true
       }
+    },
+    "belongsToSysLoaiDonViHanhChinh": {
+      "type": "belongsTo",
+      "model": "SysLoaiDonViHanhChinh",
+      "foreignKey": "belongsToSysLoaiDonViHanhChinhId",
+      "options": {
+        "nestRemoting": false
+      },
+      "extendOptions": {
+        "showList": true
+      }
     }
   }
 }

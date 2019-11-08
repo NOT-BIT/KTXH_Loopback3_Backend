@@ -5,12 +5,13 @@ let app = require('../../../../server/server')
 
 module.exports = function (ThisModel) {
   //create Bieu Nhap Lieu Chi Tieu
-  ThisModel.customCreate = async function (uid, ma, ten, donViChaId, diaChi,  soDienThoai, email, laDonVi, ghiChu) {
+  ThisModel.customCreate = async function (uid, ma, ten, donViChaId, sysNhomDonViId, diaChi,  soDienThoai, email, laDonVi, ghiChu) {
         const queryData = {
             uid: uid,
             ma: ma,
             ten: ten,
             donViChaId: donViChaId,
+            sysNhomDonViId: sysNhomDonViId,
             diaChi: diaChi,
             soDienThoai: soDienThoai,
             email: email,
@@ -38,12 +39,13 @@ module.exports = function (ThisModel) {
   }
 
   //update Bieu Nhap Lieu Chi Tieu
-  ThisModel.customUpdate = async function (id, ma, ten, donViChaId, diaChi, soDienThoai, email, laDonVi, ghiChu, hieuLuc) {
+  ThisModel.customUpdate = async function (id, ma, ten, donViChaId, sysNhomDonViId, diaChi, soDienThoai, email, laDonVi, ghiChu, hieuLuc) {
         const queryData = {
             id: id,
             ma: ma,
             ten: ten,
             donViChaId: donViChaId,
+            sysNhomDonViId: sysNhomDonViId,
             diaChi: diaChi,
             soDienThoai: soDienThoai,
             email: email,
@@ -74,6 +76,7 @@ module.exports = function (ThisModel) {
         { arg: 'ma', type: 'string', required: true },
         { arg: 'ten', type: 'string' },
         { arg: 'donViChaId', type: 'number' },
+        { arg: 'sysNhomDonViId', type: 'number'},
         { arg: 'diaChi', type: 'string' },
         { arg: 'soDienThoai', type: 'string' },
         { arg: 'email', type: 'string' },
@@ -121,6 +124,7 @@ module.exports = function (ThisModel) {
         { arg: 'ma', type: 'string' },
         { arg: 'ten', type: 'string' },
         { arg: 'donViChaId', type: 'number' },
+        { arg: 'sysNhomDonViId', type: 'number'},
         { arg: 'diaChi', type: 'string' },
         { arg: 'soDienThoai', type: 'string' },
         { arg: 'email', type: 'string' },

@@ -257,6 +257,17 @@
       "options": {
         "nestRemoting": false
       }
+    },
+    "belongsToSysNhomDonVi": {
+      "type": "belongsTo",
+      "model": "SysNhomDonVi",
+      "foreignKey": "sysNhomDonViId",
+      "options": {
+        "nestRemoting": false
+      },
+      "extendOptions": {
+        "showList": true
+      }
     }
   }
 }
