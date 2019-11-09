@@ -307,7 +307,7 @@ CustomCRUD.autoUpdateTraceAndLevel = async function(model, instance, idCha, pare
   let parentTrace = this.generateNodeIndexFromId('')
   let parentLevel = 0
   // console.log("trace", parentTrace, "level", parentLevel)
-  if (parentInstance) {
+  if (parentInstance && parentInstance.id != instance[idCha]) {
     // console.log('.')
     parentTrace = String(parentInstance.trace)
     parentLevel = parentInstance.level
