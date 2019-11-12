@@ -68,6 +68,9 @@
       "mysql": {
         "columnName": "sys_nhom_don_vi_id",
         "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "diaChi": {
@@ -269,7 +272,7 @@
     "belongsToSysNhomDonVi": {
       "type": "belongsTo",
       "model": "SysNhomDonVi",
-      "foreignKey": "SysNhomDonViId",
+      "foreignKey": "sysNhomDonViId",
       "options": {
         "nestRemoting": false
       },
