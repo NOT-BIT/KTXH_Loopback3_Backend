@@ -13,7 +13,7 @@ CustomCRUD.create = async function (model, queryData) {
 
   for (let i in relationsKey) {
     let item = relationsKey[i]
-    if (item.match(/^belongsTo/)) {
+    if (relations[item].type.match(/^belongsTo/)) {
       let rfModel = app.models[relations[item].model]
       let fk = relations[item].foreignKey
 
@@ -237,20 +237,25 @@ CustomCRUD.delete = async function (model, ids) {
     }
     let relations = model.definition.settings.relations
     let relationsKey = Object.keys(relations)
+    let referenced = false
     for (let i in relationsKey) {
       let item = relationsKey[i]
-      if (item.match(/^hasMany/)) {
+      if (relations[item].type.match(/^hasMany/)) {
         let rfModel = app.models[relations[item].model]
         let fk = relations[item].foreignKey
         let whereFilter = JSON.parse(`{"${fk}" : ${id}, "xoa": 0}`)
         let rfRecord =  await rfModel.findOne({ where: whereFilter })
         if (rfRecord){
-          var err = {"Error": `Can't delete referenced record.`}
-          console.log(`Delete ${model.definition.name}: ${JSON.stringify(err)}`)
-          datas.push(err)
-          continue
+          referenced = true
+          break
         }
       }
+    }
+    if (referenced) {
+      var err = {"Error": `Can't delete referenced record.`}
+      console.log(`Delete ${model.definition.name}: ${JSON.stringify(err)}`)
+      datas.push(err)
+      continue
     }
     try {
       const queryData = {id: id, xoa: 1}
