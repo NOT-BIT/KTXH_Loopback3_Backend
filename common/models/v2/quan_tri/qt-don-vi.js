@@ -76,7 +76,7 @@ module.exports = function (ThisModel) {
         { arg: 'ma', type: 'string', required: true },
         { arg: 'ten', type: 'string' },
         { arg: 'donViChaId', type: 'number' },
-        { arg: 'sysNhomDonViId', type: 'number'},
+        { arg: 'sysNhomDonViId', type: 'number', required: true },
         { arg: 'diaChi', type: 'string' },
         { arg: 'soDienThoai', type: 'string' },
         { arg: 'email', type: 'string' },
