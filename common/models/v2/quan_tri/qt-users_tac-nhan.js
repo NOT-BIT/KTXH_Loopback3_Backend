@@ -60,6 +60,42 @@ module.exports = function (ThisModel) {
     return await customCRUD.restore(ThisModel, id)
   }
 
+  //
+  ThisModel.newUpdate = async function(uid, ma, qtUsersId, listTNid){
+    let i,j,k
+    oldList = await ThisModel.find({where: {qtUsersId: qtUsersId}})
+    oldList.sort((a, b) => (a.qtTacNhanId > b.qtTacNhanId) ? 1 : -1)
+    listTNid.sort()
+    i = 0
+    j = 0
+    while (listTNid[i] != null & oldList[j] != null){
+      if (listTNid[i] < oldList[j].qtTacNhanId){
+        await ThisModel.customCreate(uid+i, ma+i, "", qtUsersId, listTNid[i], "")
+        i += 1 
+      }
+      else if (listTNid[i] > oldList[j].qtTacNhanId){
+        await ThisModel.destroyById(oldList[j].id)
+        j += 1
+      }
+      else{
+        i += 1
+        j += 1
+      }
+    }
+    if (i < listTNid.length){
+      for (k = i; k < listTNid.length; k++){
+       await ThisModel.customCreate(uid+k, ma+k, "", qtUsersId, listTNid[k], "")
+      }
+    }
+    if (j <= oldList.length){
+      for (k = j; k < oldList.length; k++){
+        await ThisModel.destroyById(oldList[k].id)
+      }
+    }
+    return  await ThisModel.find({where: {qtUsersId: qtUsersId }})
+  }
+ 
+
   ThisModel.remoteMethod('customCreate',
     {
       http: { path: '/create', verb: 'post' },
@@ -138,5 +174,18 @@ module.exports = function (ThisModel) {
       ],
       returns: {arg: 'data', type: 'object', root: true}
     },
+  )
+
+  ThisModel.remoteMethod('newUpdate',
+    {
+      http: { path: '/newUpdate', verb: 'post' },
+      accepts: [
+        { arg: 'uid', type: 'string', required: true },
+        { arg: 'ma', type: 'string', required: true },
+        { arg: 'qtUsersId', type: 'number', required: true },
+        { arg: 'listTNid', type: 'array', required: true }
+      ],
+      returns: {arg: 'data', type: 'object', root: true}
+    }
   )
 };
