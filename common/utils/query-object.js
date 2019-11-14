@@ -1,7 +1,7 @@
 let app = require('../../server/server')
 
 function listRelationsFilter(model) {
-    relations = model.definition.settings.relations
+    relations = model.definition.settings.relations || {}
     listRelation = []
     Object.keys(relations).forEach(item => {
         if (relations[item] != undefined

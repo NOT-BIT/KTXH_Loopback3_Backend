@@ -13,11 +13,10 @@ CustomCRUD.create = async function (model, queryData) {
 
   for (let i in relationsKey) {
     let item = relationsKey[i]
-    if (item.match(/^belongsTo/)) {
+    if (relations[item].type.match(/^belongsTo/)) {
       let rfModel = app.models[relations[item].model]
       let fk = relations[item].foreignKey
 
-      // console.log(item, queryData[fk])
       if (queryData[fk] != undefined) {
         let rfRecord = await rfModel.findOne({ where: { id: queryData[fk], xoa: 0 } })
         if (!rfRecord) {
@@ -40,7 +39,6 @@ CustomCRUD.create = async function (model, queryData) {
     let listRelation = queryObject.listRelationsFilter(model)
     let relations = model.definition.settings.relations
     for (let j in listRelation) {
-      console.log(j)
       let relation = listRelation[j]
       let rfModel = app.models[relations[relation].model]
       let fk = relations[relation].foreignKey
@@ -65,7 +63,10 @@ CustomCRUD.list = async function (model, queryData, page, pageSize) {
     queryData = {}
   }
   try {
-    queryData.xoa = 0
+    if (!queryData.where) {
+      queryData.where = {}
+    }
+    queryData.where.xoa = 0
     queryData.skip = page * pageSize;
     queryData.limit = pageSize;
     const [data, total] = await Promise.all([
@@ -108,7 +109,10 @@ CustomCRUD.listDeleted = async function (model, queryData, page, pageSize) {
     queryData = {}
   }
   try {
-    queryData.xoa = 1
+    if (!queryData.where) {
+      queryData.where = {}
+    }
+    queryData.where.xoa = 1
     queryData.skip = page * pageSize;
     queryData.limit = pageSize;
     const [data, total] = await Promise.all([
@@ -233,20 +237,25 @@ CustomCRUD.delete = async function (model, ids) {
     }
     let relations = model.definition.settings.relations
     let relationsKey = Object.keys(relations)
+    let referenced = false
     for (let i in relationsKey) {
       let item = relationsKey[i]
-      if (item.match(/^hasMany/)) {
+      if (relations[item].type.match(/^hasMany/)) {
         let rfModel = app.models[relations[item].model]
         let fk = relations[item].foreignKey
         let whereFilter = JSON.parse(`{"${fk}" : ${id}, "xoa": 0}`)
         let rfRecord =  await rfModel.findOne({ where: whereFilter })
         if (rfRecord){
-          var err = {"Error": `Can't delete referenced record.`}
-          console.log(`Delete ${model.definition.name}: ${JSON.stringify(err)}`)
-          datas.push(err)
-          continue
+          referenced = true
+          break
         }
       }
+    }
+    if (referenced) {
+      var err = {"Error": `Can't delete referenced record.`}
+      console.log(`Delete ${model.definition.name}: ${JSON.stringify(err)}`)
+      datas.push(err)
+      continue
     }
     try {
       const queryData = {id: id, xoa: 1}
@@ -292,25 +301,20 @@ CustomCRUD.generateNodeIndexFromId = function (id, size = 10) {
 }
 
 CustomCRUD.autoUpdateTraceAndLevel = async function(model, instance, idCha, parentInstance) {
-  // console.log(instance.id)
   if (!parentInstance && instance[idCha]) {
-    // console.log('.')
     parentInstance = await model.findOne({where: {id: instance[idCha]}})
   }
 
+  console.log(parentInstance)
+
   let parentTrace = this.generateNodeIndexFromId('')
   let parentLevel = 0
-  // console.log("trace", parentTrace, "level", parentLevel)
-  if (parentInstance) {
-    // console.log('.')
+  if (parentInstance && instance.id != instance[idCha]) {
     parentTrace = String(parentInstance.trace)
     parentLevel = parentInstance.level
   }
 
   let instanceIndex = this.generateNodeIndexFromId(instance.id)
-
-  // console.log(instance.trace)
-  // console.log(parentTrace + instanceIndex)
 
   if (!instance.trace || (String(instance.trace) !== parentTrace + instanceIndex)) {
     console.log(instance.id, "upserted!")
@@ -318,7 +322,6 @@ CustomCRUD.autoUpdateTraceAndLevel = async function(model, instance, idCha, pare
     instance.level = parentLevel + 1
     await model.upsert(instance)
     let childenInstances = await model.find({where: JSON.parse(`{"${idCha}": ${instance.id}}`)})
-    // console.log(childenInstances)
     for (let i in childenInstances) {
       this.autoUpdateTraceAndLevel(model, childenInstances[i], idCha, instance);
     }

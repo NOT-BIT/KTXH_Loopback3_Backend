@@ -51,6 +51,39 @@
       }
     },
 
+    "sysLoaiBaoCaoId": {
+      "type": "Number",
+      "required": true,
+      "mysql": {
+        "columnName": "sys_loai_bao_cao_id",
+        "dataType": "int"
+      }
+    },
+    "sysKyBaoCaoId": {
+      "type": "Number",
+      "required": true,
+      "mysql": {
+        "columnName": "sys_ky_bao_cao_id",
+        "dataType": "int"
+      }
+    },
+    "sysTrangThaiDongMoId": {
+      "type": "Number",
+      "required": true,
+      "mysql": {
+        "columnName": "sys_trang_thai_dong_mo_id",
+        "dataType": "int"
+      }
+    },
+    "qlNamLamViecId": {
+      "type": "Number",
+      "required": true,
+      "mysql": {
+        "columnName": "ql_nam_lam_viec_id",
+        "dataType": "int"
+      }
+    },
+
     "ngayBatDau": {
       "type": "Date",
       "mysql": {
@@ -211,6 +244,18 @@
       "type": "belongsTo",
       "model": "SysKyBaoCao",
       "foreignKey": "sysKyBaoCaoId",
+      "primaryKey": "id",
+      "options": {
+        "nestRemoting": false
+      },
+      "extendOptions": {
+        "showList": true
+      }
+    },
+    "belongsToSysLoaiBaoCao": {
+      "type": "belongsTo",
+      "model": "SysLoaiBaoCao",
+      "foreignKey": "sysLoaiBaoCaoId",
       "primaryKey": "id",
       "options": {
         "nestRemoting": false

@@ -5,7 +5,7 @@ let app = require('../../../../server/server')
 
 module.exports = function (ThisModel) {
   //create Bieu Nhap Lieu Chi Tieu
-  ThisModel.customCreate = async function (uid, ma, ten, ngayBatDau, ngayBaoCaoHuyen, ngayBaoCaoTinh, ngayBaoCaoTW, ngayMo, ngayDong, ngayTongHop, qlNamLamViecId, sysKyBaoCaoId, sysTrangThaiDongMoId, trangThai) {
+  ThisModel.customCreate = async function (uid, ma, ten, ngayBatDau, ngayBaoCaoHuyen, ngayBaoCaoTinh, ngayBaoCaoTW, ngayMo, ngayDong, ngayTongHop, qlNamLamViecId, sysKyBaoCaoId, sysLoaiBaoCaoId, sysTrangThaiDongMoId, trangThai) {
         const queryData = {
             uid: uid,
             ma: ma,
@@ -19,6 +19,7 @@ module.exports = function (ThisModel) {
             ngayTongHop: ngayTongHop,
             qlNamLamViecId: qlNamLamViecId,
             sysKyBaoCaoId: sysKyBaoCaoId,
+            sysLoaiBaoCaoId: sysLoaiBaoCaoId,
             sysTrangThaiDongMoId: sysTrangThaiDongMoId,
             trangThai: trangThai,
             createdAt: new Date(),
@@ -43,7 +44,7 @@ module.exports = function (ThisModel) {
   }
 
   //update Bieu Nhap Lieu Chi Tieu
-  ThisModel.customUpdate = async function (id, ma, ten, ngayBatDau, ngayBaoCaoHuyen, ngayBaoCaoTinh, ngayBaoCaoTW, ngayMo, ngayDong, ngayTongHop, qlNamLamViecId, sysKyBaoCaoId, sysTrangThaiDongMoId, trangThai, hieuLuc) {
+  ThisModel.customUpdate = async function (id, ma, ten, ngayBatDau, ngayBaoCaoHuyen, ngayBaoCaoTinh, ngayBaoCaoTW, ngayMo, ngayDong, ngayTongHop, qlNamLamViecId, sysKyBaoCaoId, sysLoaiBaoCaoId, sysTrangThaiDongMoId, trangThai, hieuLuc) {
         const queryData = {
             id: id,
             ma: ma,
@@ -57,6 +58,7 @@ module.exports = function (ThisModel) {
             ngayTongHop: ngayTongHop,
             qlNamLamViecId: qlNamLamViecId,
             sysKyBaoCaoId: sysKyBaoCaoId,
+            sysLoaiBaoCaoId: sysLoaiBaoCaoId,
             sysTrangThaiDongMoId: sysTrangThaiDongMoId,
             trangThai: trangThai,
             hieuLuc: hieuLuc,
@@ -92,6 +94,7 @@ module.exports = function (ThisModel) {
         { arg: 'ngayTongHop', type: 'date', required: true },
         { arg: 'qlNamLamViecId', type: 'number' },
         { arg: 'sysKyBaoCaoId', type: 'number' },
+        { arg: 'sysLoaiBaoCaoId', type: 'number' },
         { arg: 'sysTrangThaiDongMoId', type: 'number' },
         { arg: 'trangThai', type: 'string' }
       ],
@@ -144,6 +147,7 @@ module.exports = function (ThisModel) {
         { arg: 'ngayTongHop', type: 'date' },
         { arg: 'qlNamLamViecId', type: 'number' },
         { arg: 'sysKyBaoCaoId', type: 'number' },
+        { arg: 'sysLoaiBaoCaoId', type: 'number' },
         { arg: 'sysTrangThaiDongMoId', type: 'number' },
         { arg: 'trangThai', type: 'string' },
         { arg: 'hieuLuc', type: 'boolean' }

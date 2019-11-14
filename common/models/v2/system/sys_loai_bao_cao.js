@@ -5,22 +5,16 @@ let app = require('../../../../server/server')
 
 module.exports = function (ThisModel) {
   //create Bieu Nhap Lieu Chi Tieu
-  ThisModel.customCreate = async function (uid, ma, ten, donViChaId, sysNhomDonViId, diaChi,  soDienThoai, email, laDonVi, ghiChu) {
-        const queryData = {
-            uid: uid,
-            ma: ma,
-            ten: ten,
-            donViChaId: donViChaId,
-            sysNhomDonViId: sysNhomDonViId,
-            diaChi: diaChi,
-            soDienThoai: soDienThoai,
-            email: email,
-            laDonVi: laDonVi,
-            ghiChu: ghiChu,
-            createdAt: new Date(),
-            createdBy: 0
-          }
-          return await customCRUD.create(ThisModel, queryData)
+  ThisModel.customCreate = async function (uid, ma, ten, ghiChu) {
+    const queryData = {
+      uid: uid,
+      ma: ma,
+      ten: ten,
+      ghiChu: ghiChu,
+      createdAt: new Date(),
+      createdBy: 0
+    }
+    return await customCRUD.create(ThisModel, queryData)
   }
 
   //list Bieu Nhap Lieu Chi Tieu
@@ -39,23 +33,17 @@ module.exports = function (ThisModel) {
   }
 
   //update Bieu Nhap Lieu Chi Tieu
-  ThisModel.customUpdate = async function (id, ma, ten, donViChaId, sysNhomDonViId, diaChi, soDienThoai, email, laDonVi, ghiChu, hieuLuc) {
-        const queryData = {
-            id: id,
-            ma: ma,
-            ten: ten,
-            donViChaId: donViChaId,
-            sysNhomDonViId: sysNhomDonViId,
-            diaChi: diaChi,
-            soDienThoai: soDienThoai,
-            email: email,
-            laDonVi: laDonVi,
-            ghiChu: ghiChu,
-            hieuLuc: hieuLuc,
-            updatedAt: new Date(),
-            updatedBy: 0
-          }
-          return await customCRUD.update(ThisModel, queryData)
+  ThisModel.customUpdate = async function (id, ma, ten, ghiChu, hieuLuc) {
+    const queryData = {
+      id: id,
+      ma: ma,
+      ten: ten,
+      ghiChu: ghiChu,
+      hieuLuc: hieuLuc,
+      updatedAt: new Date(),
+      updatedBy: 0
+    }
+    return await customCRUD.update(ThisModel, queryData)
   }
 
   //delete Bieu Nhap Lieu Chi Tieu 
@@ -75,12 +63,6 @@ module.exports = function (ThisModel) {
         { arg: 'uid', type: 'string', required: true },
         { arg: 'ma', type: 'string', required: true },
         { arg: 'ten', type: 'string' },
-        { arg: 'donViChaId', type: 'number' },
-        { arg: 'sysNhomDonViId', type: 'number', required: true },
-        { arg: 'diaChi', type: 'string' },
-        { arg: 'soDienThoai', type: 'string' },
-        { arg: 'email', type: 'string' },
-        { arg: 'laDonVi', type: 'boolean' },
         { arg: 'ghiChu', type: 'string' }
       ],
       returns: {arg: 'data', type: 'object', root: true}
@@ -123,12 +105,6 @@ module.exports = function (ThisModel) {
         { arg: 'id', type: 'number', required: true },
         { arg: 'ma', type: 'string' },
         { arg: 'ten', type: 'string' },
-        { arg: 'donViChaId', type: 'number' },
-        { arg: 'sysNhomDonViId', type: 'number'},
-        { arg: 'diaChi', type: 'string' },
-        { arg: 'soDienThoai', type: 'string' },
-        { arg: 'email', type: 'string' },
-        { arg: 'laDonVi', type: 'boolean' },
         { arg: 'ghiChu', type: 'string' },
         { arg: 'hieuLuc', type: 'boolean' }
       ],
@@ -155,8 +131,4 @@ module.exports = function (ThisModel) {
       returns: {arg: 'data', type: 'object', root: true}
     },
   )
-
-  ThisModel.observe('after save', async function(ctx) {
-    customCRUD.autoUpdateTraceAndLevel(ThisModel, ctx.instance, "donViChaId")
-  })
 };

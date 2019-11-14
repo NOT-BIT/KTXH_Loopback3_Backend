@@ -62,6 +62,17 @@
         "showList": true
       }
     },
+    "sysNhomDonViId": {
+      "type": "Number",
+      "required": true,
+      "mysql": {
+        "columnName": "sys_nhom_don_vi_id",
+        "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
+      }
+    },
     "diaChi": {
       "type": "String",
       "mysql": {
@@ -256,6 +267,17 @@
       "primaryKey": "id",
       "options": {
         "nestRemoting": false
+      }
+    },
+    "belongsToSysNhomDonVi": {
+      "type": "belongsTo",
+      "model": "SysNhomDonVi",
+      "foreignKey": "sysNhomDonViId",
+      "options": {
+        "nestRemoting": false
+      },
+      "extendOptions": {
+        "showList": true
       }
     }
   }
