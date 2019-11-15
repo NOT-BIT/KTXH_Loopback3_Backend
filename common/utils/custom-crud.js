@@ -328,5 +328,61 @@ CustomCRUD.autoUpdateTraceAndLevel = async function(model, instance, idCha, pare
   }
 }
 
+CustomCRUD.checkList = async function (model, queryData) {
+  let modelReferenedId = queryData.modelReferenedId
+  let referenedModel1 = queryData.referenedModel1
+  let referenedModel2 = queryData.referenedModel2
+  let checkList = await model.find({where: { referenedModel1: modelReferenedId}})
+  let data = []
+  for (let i=0; i < checkList.length; i++){
+    data.push(checkList[i][referenedModel2])
+  }
+  return data
+}
+
+CustomCRUD.updateByList = async function (model, queryData) {
+  let model1Id = queryData.model1Id
+  let model2ListId = queryData.model2ListId
+  let referenedModel1 = queryData.referenedModel1
+  let referenedModel2 = queryData.referenedModel2
+  let uid = queryData.uid
+  let ma =queryData.ma
+  let i,j,k
+  let oldList = await model.find({where: { referenedModel1: model1Id}})
+  oldList.sort((a, b) => (a.referenedModel2 > b.referenedModel2) ? 1 : -1)
+  model2ListId.sort()
+  i = 0
+  j = 0
+  try{
+    while (model2ListId[i] != null & oldList[j] != null){
+      if (model2ListId[i] < oldList[j][referenedModel2]){
+        await model.customCreate(uid+i, ma+i, "", model1Id, model2ListId[i], "")
+        i += 1 
+      }
+      else if (model2ListId[i] > oldList[j][referenedModel2]){
+        await model.destroyById(oldList[j].id)
+        j += 1
+      }
+      else{
+        i += 1
+        j += 1
+      }
+    }
+    if (i < model2ListId.length){
+      for (k = i; k < model2ListId.length; k++){
+      await model.customCreate(uid+k, ma+k, "", model1Id, model2ListId[k], "")
+      }
+    }
+    if (j <= oldList.length){
+      for (k = j; k < oldList.length; k++){
+        await model.destroyById(oldList[k].id)
+      }
+    }
+    return model.find({where: {referenedModel1: model1Id }})
+  } catch (err) {
+    console.log(`Update ${model.definition.name}: ${err}`)
+    throw err
+  }
+}
 
 module.exports = CustomCRUD

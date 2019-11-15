@@ -61,38 +61,25 @@ module.exports = function (ThisModel) {
   }
 
   //
+  ThisModel.checkList = async function(qtUsersId){
+    let queryData = {
+      modelReferenedId: qtUsersId,
+      referenedModel1: "qtUsersId",
+      referenedModel2: "qtTacNhanId"
+    }
+    return await customCRUD.checkList(ThisModel, queryData)
+  }
+
   ThisModel.newUpdate = async function(uid, ma, qtUsersId, listTNid){
-    let i,j,k
-    oldList = await ThisModel.find({where: {qtUsersId: qtUsersId}})
-    oldList.sort((a, b) => (a.qtTacNhanId > b.qtTacNhanId) ? 1 : -1)
-    listTNid.sort()
-    i = 0
-    j = 0
-    while (listTNid[i] != null & oldList[j] != null){
-      if (listTNid[i] < oldList[j].qtTacNhanId){
-        await ThisModel.customCreate(uid+i, ma+i, "", qtUsersId, listTNid[i], "")
-        i += 1 
-      }
-      else if (listTNid[i] > oldList[j].qtTacNhanId){
-        await ThisModel.destroyById(oldList[j].id)
-        j += 1
-      }
-      else{
-        i += 1
-        j += 1
-      }
+    let queryData = {
+      model1Id: qtUsersId,
+      manyList: listTNid,
+      referenedModel1: "qtUsersId",
+      referenedModel2: "qtTacNhanId",
+      uid: uid,
+      ma: ma
     }
-    if (i < listTNid.length){
-      for (k = i; k < listTNid.length; k++){
-       await ThisModel.customCreate(uid+k, ma+k, "", qtUsersId, listTNid[k], "")
-      }
-    }
-    if (j <= oldList.length){
-      for (k = j; k < oldList.length; k++){
-        await ThisModel.destroyById(oldList[k].id)
-      }
-    }
-    return  await ThisModel.find({where: {qtUsersId: qtUsersId }})
+    return await customCRUD.updateByList(ThisModel, queryData)
   }
  
 
@@ -176,6 +163,13 @@ module.exports = function (ThisModel) {
     },
   )
 
+  ThisModel.remoteMethod('checkList',
+    {
+      http: { path: '/checkList', verb: 'post' },
+      accepts: { arg: 'qtTacNhanId', type: 'number', required: true },
+      returns: {arg: 'data', type: 'object', root: true}
+    }
+  )
   ThisModel.remoteMethod('newUpdate',
     {
       http: { path: '/newUpdate', verb: 'post' },

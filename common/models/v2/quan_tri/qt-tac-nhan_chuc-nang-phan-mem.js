@@ -61,38 +61,25 @@ module.exports = function (ThisModel) {
   }
 
   //
+  ThisModel.checkList = async function(qtTacNhanId){
+    let queryData = {
+      modelReferenedId: qtTacNhanId,
+      referenedModel1: "qtTacNhanId",
+      referenedModel2: "qtChucNangPhanMemId"
+    }
+    return await customCRUD.checkList(ThisModel, queryData)
+  }
+
   ThisModel.newUpdate = async function(uid, ma, qtTacNhanId, listCNPMid){
-    let i,j,k
-    oldList = await ThisModel.find({where: {qtTacNhanId: qtTacNhanId}})
-    oldList.sort((a, b) => (a.qtChucNangPhanMemId > b.qtChucNangPhanMemId) ? 1 : -1)
-    listCNPMid.sort()
-    i = 0
-    j = 0
-    while (listCNPMid[i] != null & oldList[j] != null){
-      if (listCNPMid[i] < oldList[j].qtChucNangPhanMemId){
-        await ThisModel.customCreate(uid+i, ma+i, "", qtTacNhanId, listCNPMid[i], "")
-        i += 1 
-      }
-      else if (listCNPMid[i] > oldList[j].qtChucNangPhanMemId){
-        await ThisModel.destroyById(oldList[j].id)
-        j += 1
-      }
-      else{
-        i += 1
-        j += 1
-      }
+    let queryData = {
+      model1Id: qtTacNhanId,
+      model2ListId: listCNPMid,
+      referenedModel1: "qtTacNhanId",
+      referenedModel2: "qtChucNangPhanMemId",
+      uid: uid,
+      ma: ma
     }
-    if (i < listCNPMid.length){
-      for (k = i; k < listCNPMid.length; k++){
-       await ThisModel.customCreate(uid+k, ma+k, "", qtTacNhanId, listCNPMid[k], "")
-      }
-    }
-    if (j <= oldList.length){
-      for (k = j; k < oldList.length; k++){
-        await ThisModel.destroyById(oldList[k].id)
-      }
-    }
-    return  await ThisModel.find({where: {qtTacNhanId: qtTacNhanId }})
+    return await customCRUD.updateByList(ThisModel, queryData)
   }
  
 
@@ -174,6 +161,14 @@ module.exports = function (ThisModel) {
       ],
       returns: {arg: 'data', type: 'object', root: true}
     },
+  )
+
+  ThisModel.remoteMethod('checkList',
+    {
+      http: { path: '/checkList', verb: 'post' },
+      accepts: { arg: 'qtTacNhanId', type: 'number', required: true },
+      returns: {arg: 'data', type: 'object', root: true}
+    }
   )
 
   ThisModel.remoteMethod('newUpdate',
