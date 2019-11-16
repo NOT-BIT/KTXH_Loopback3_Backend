@@ -166,7 +166,7 @@ module.exports = function (ThisModel) {
   ThisModel.remoteMethod('checkList',
     {
       http: { path: '/checkList', verb: 'post' },
-      accepts: { arg: 'qtTacNhanId', type: 'number', required: true },
+      accepts: { arg: 'qtUsersId', type: 'number', required: true },
       returns: {arg: 'data', type: 'object', root: true}
     }
   )

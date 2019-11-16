@@ -332,7 +332,8 @@ CustomCRUD.checkList = async function (model, queryData) {
   let modelReferenedId = queryData.modelReferenedId
   let referenedModel1 = queryData.referenedModel1
   let referenedModel2 = queryData.referenedModel2
-  let checkList = await model.find({where: { referenedModel1: modelReferenedId}})
+  let checkList = await model.find({where: { referenedModel1: modelReferenedId, xoa: 0}})
+  console.log(checkList)
   let data = []
   for (let i=0; i < checkList.length; i++){
     data.push(checkList[i][referenedModel2])
@@ -348,7 +349,7 @@ CustomCRUD.updateByList = async function (model, queryData) {
   let uid = queryData.uid
   let ma =queryData.ma
   let i,j,k
-  let oldList = await model.find({where: { referenedModel1: model1Id}})
+  let oldList = await model.find({where: { referenedModel1: model1Id, xoa: 0}})
   oldList.sort((a, b) => (a.referenedModel2 > b.referenedModel2) ? 1 : -1)
   model2ListId.sort()
   i = 0
