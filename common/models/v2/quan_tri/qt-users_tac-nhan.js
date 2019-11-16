@@ -70,14 +70,10 @@ module.exports = function (ThisModel) {
     return await customCRUD.checkList(ThisModel, queryData)
   }
 
-  ThisModel.newUpdate = async function(uid, ma, qtUsersId, listTNid){
+  ThisModel.newUpdate = async function(qtUsersId, listTNid){
     let queryData = {
       model1Id: qtUsersId,
-      manyList: listTNid,
-      referenedModel1: "qtUsersId",
-      referenedModel2: "qtTacNhanId",
-      uid: uid,
-      ma: ma
+      model2ListId: listTNid
     }
     return await customCRUD.updateByList(ThisModel, queryData)
   }
@@ -174,8 +170,6 @@ module.exports = function (ThisModel) {
     {
       http: { path: '/newUpdate', verb: 'post' },
       accepts: [
-        { arg: 'uid', type: 'string', required: true },
-        { arg: 'ma', type: 'string', required: true },
         { arg: 'qtUsersId', type: 'number', required: true },
         { arg: 'listTNid', type: 'array', required: true }
       ],

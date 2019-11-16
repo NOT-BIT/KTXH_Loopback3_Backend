@@ -79,6 +79,9 @@
         "columnName": "dia_chi",
         "dataType": "varchar",
         "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "soDienThoai": {

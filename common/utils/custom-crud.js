@@ -337,29 +337,39 @@ CustomCRUD.checkList = async function (model, queryData) {
 }
 
 CustomCRUD.updateByList = async function (model, queryData) {
-  
+  let relations = model.definition.settings.relations || new Object()
+  let relationsKey = Object.keys(relations)
+  let rfModel = []
+  let fk = []
+  for (let i in relationsKey) {
+    let item = relationsKey[i]
+    if (relations[item].type.match(/^belongsTo/)) {
+      let rfModeli = app.models[relations[item].model]
+      let fki = relations[item].foreignKey
+      rfModel.push(rfModeli)
+      fk.push(fki)
+    }
+  }
   let model1Id = queryData.model1Id
   let model2ListId = queryData.model2ListId
-  let referenedModel1 = queryData.referenedModel1
-  let referenedModel2 = queryData.referenedModel2
-  let uid = queryData.uid
-  let ma =queryData.ma
+  let rf1Record = await rfModel[0].findOne({ where: { id: model1Id} })
   let i,j,k
   let oldList = await model.find({
-      where: JSON.parse(`{"${referenedModel1}": ${model1Id}}`)
+      where: JSON.parse(`{"${fk[0]}": ${model1Id}}`)
     })
-  oldList.sort((a, b) => (a[`${referenedModel2}`] > b[`${referenedModel2}`]) ? 1 : -1)
+  oldList.sort((a, b) => (a[`${fk[1]}`] > b[`${fk[1]}`]) ? 1 : -1)
   model2ListId.sort()
   console.log(oldList, model2ListId)
   i = 0
   j = 0
   try{
     while (model2ListId[i] != null & oldList[j] != null){
-      if (model2ListId[i] < oldList[j][`${referenedModel2}`]){
-        await model.customCreate(uid+i, ma+i, "", model1Id, model2ListId[i], "")
+      if (model2ListId[i] < oldList[j][`${fk[1]}`]){
+        let rf2Record = await rfModel[1].findOne({ where: { id: model2ListId[i]} })
+        await model.customCreate(rf2Record.uid + rf2Record.uid, rf2Record.ma + rf2Record.ma, "", model1Id, model2ListId[i], "")
         i += 1 
       }
-      else if (model2ListId[i] > oldList[j][`${referenedModel2}`]){
+      else if (model2ListId[i] > oldList[j][`${fk[1]}`]){
         await model.destroyById(oldList[j].id)
         j += 1
       }
@@ -370,7 +380,8 @@ CustomCRUD.updateByList = async function (model, queryData) {
     }
     if (i < model2ListId.length){
       for (k = i; k < model2ListId.length; k++){
-      await model.customCreate(uid+k, ma+k, "", model1Id, model2ListId[k], "")
+        let rf2Record = await rfModel[1].findOne({ where: { id: model2ListId[k]} })
+        await model.customCreate(rf2Record.uid + rf2Record.uid, rf2Record.ma + rf2Record.ma, "", model1Id, model2ListId[k], "")
       }
     }
     if (j <= oldList.length){
@@ -378,7 +389,7 @@ CustomCRUD.updateByList = async function (model, queryData) {
         await model.destroyById(oldList[k].id)
       }
     }
-    return model.find({where: JSON.parse(`{"${referenedModel1}": ${model1Id}}`)})
+    return model.find({where: JSON.parse(`{"${fk[0]}": ${model1Id}}`)})
   } catch (err) {
     console.log(`Update ${model.definition.name}: ${err}`)
     throw err
