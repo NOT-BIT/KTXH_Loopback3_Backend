@@ -370,7 +370,7 @@ CustomCRUD.updateByList = async function (model, queryData) {
     while (model2ListId[i] != null & oldList[j] != null){
       if (model2ListId[i] < oldList[j][`${fk[1]}`]){
         let rf2Record = await rfModel[1].findOne({ where: { id: model2ListId[i]} })
-        await model.customCreate(rf2Record.uid + rf2Record.uid, rf2Record.ma + rf2Record.ma, "", model1Id, model2ListId[i], "")
+        await model.customCreate(rf1Record.uid + rf2Record.uid, rf1Record.ma + rf2Record.ma, "", model1Id, model2ListId[i], "")
         i += 1 
       }
       else if (model2ListId[i] > oldList[j][`${fk[1]}`]){
@@ -385,7 +385,7 @@ CustomCRUD.updateByList = async function (model, queryData) {
     if (i < model2ListId.length){
       for (k = i; k < model2ListId.length; k++){
         let rf2Record = await rfModel[1].findOne({ where: { id: model2ListId[k]} })
-        await model.customCreate(rf2Record.uid + rf2Record.uid, rf2Record.ma + rf2Record.ma, "", model1Id, model2ListId[k], "")
+        await model.customCreate(rf1Record.uid + rf2Record.uid, rf1Record.ma + rf2Record.ma, "", model1Id, model2ListId[k], "")
       }
     }
     if (j <= oldList.length){
