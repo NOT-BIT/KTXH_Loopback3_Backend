@@ -52,27 +52,29 @@ CustomCRUD.create = async function (model, queryData) {
   }
 }
 
-CustomCRUD.list = async function (model, queryData, getAllData) {
+CustomCRUD.list = async function (model, queryData, page, pageSize) {
+  if (!page) {
+    page = 0
+  }
+  if (!pageSize) {
+    pageSize = 20
+  }
   if (!queryData) {
     queryData = {}
-  }
-  if (!queryData.skip & !queryData.limit){
-    if (getAllData == false){
-      queryData.skip = 0;
-      queryData.limit = 20;
-    }
   }
   try {
     if (!queryData.where) {
       queryData.where = {}
     }
     queryData.where.xoa = 0
+    queryData.skip = page * pageSize;
+    queryData.limit = pageSize;
     const [data, total] = await Promise.all([
       model.find(queryData),
       model.count({xoa: 0})
     ])
-    let listRelation = queryObject.listRelationsFilter(model)
-    let relations = model.definition.settings.relations
+    listRelation = queryObject.listRelationsFilter(model)
+    relations = model.definition.settings.relations
     let returnData =  queryObject.listAPIReturnsList(model, data, false)
     for (let i in data) {
       let record = returnData[i] = JSON.parse(JSON.stringify(returnData[i]))
@@ -86,6 +88,8 @@ CustomCRUD.list = async function (model, queryData, getAllData) {
     }
     return {
       rows: returnData,
+      page: page,
+      pageSize: pageSize,
       total: total
     }
   } catch (err) {
