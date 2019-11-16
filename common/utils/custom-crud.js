@@ -52,23 +52,21 @@ CustomCRUD.create = async function (model, queryData) {
   }
 }
 
-CustomCRUD.list = async function (model, queryData, page, pageSize) {
-  if (!page) {
-    page = 0
-  }
-  if (!pageSize) {
-    pageSize = 20
-  }
+CustomCRUD.list = async function (model, queryData, getAllData) {
   if (!queryData) {
     queryData = {}
+  }
+  if (!queryData.skip & !queryData.limit){
+    if (getAllData == false){
+      queryData.skip = 0;
+      queryData.limit = 20;
+    }
   }
   try {
     if (!queryData.where) {
       queryData.where = {}
     }
     queryData.where.xoa = 0
-    queryData.skip = page * pageSize;
-    queryData.limit = pageSize;
     const [data, total] = await Promise.all([
       model.find(queryData),
       model.count({xoa: 0})
@@ -88,8 +86,6 @@ CustomCRUD.list = async function (model, queryData, page, pageSize) {
     }
     return {
       rows: returnData,
-      page: page,
-      pageSize: pageSize,
       total: total
     }
   } catch (err) {
@@ -341,6 +337,7 @@ CustomCRUD.checkList = async function (model, queryData) {
 }
 
 CustomCRUD.updateByList = async function (model, queryData) {
+  
   let model1Id = queryData.model1Id
   let model2ListId = queryData.model2ListId
   let referenedModel1 = queryData.referenedModel1
@@ -348,18 +345,21 @@ CustomCRUD.updateByList = async function (model, queryData) {
   let uid = queryData.uid
   let ma =queryData.ma
   let i,j,k
-  let oldList = await model.find({where: JSON.parse(`{"${referenedModel1}": ${model1Id}}`)})
-  oldList.sort((a, b) => (a.referenedModel2 > b.referenedModel2) ? 1 : -1)
+  let oldList = await model.find({
+      where: JSON.parse(`{"${referenedModel1}": ${model1Id}}`)
+    })
+  oldList.sort((a, b) => (a[`${referenedModel2}`] > b[`${referenedModel2}`]) ? 1 : -1)
   model2ListId.sort()
+  console.log(oldList, model2ListId)
   i = 0
   j = 0
   try{
     while (model2ListId[i] != null & oldList[j] != null){
-      if (model2ListId[i] < oldList[j][referenedModel2]){
+      if (model2ListId[i] < oldList[j][`${referenedModel2}`]){
         await model.customCreate(uid+i, ma+i, "", model1Id, model2ListId[i], "")
         i += 1 
       }
-      else if (model2ListId[i] > oldList[j][referenedModel2]){
+      else if (model2ListId[i] > oldList[j][`${referenedModel2}`]){
         await model.destroyById(oldList[j].id)
         j += 1
       }
@@ -378,7 +378,7 @@ CustomCRUD.updateByList = async function (model, queryData) {
         await model.destroyById(oldList[k].id)
       }
     }
-    return model.find({where: {referenedModel1: model1Id }})
+    return model.find({where: JSON.parse(`{"${referenedModel1}": ${model1Id}}`)})
   } catch (err) {
     console.log(`Update ${model.definition.name}: ${err}`)
     throw err

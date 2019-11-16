@@ -98,6 +98,9 @@
         "columnName": "email",
         "dataType": "varchar",
         "dataLength": 250
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "laDonVi": {
