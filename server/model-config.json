@@ -438,7 +438,9 @@
           "customListDeleted": true,
           "customUpdate": true,
           "customDelete": true,
-          "customRestore": true
+          "customRestore": true,
+          "checkList": true,
+          "newUpdate": true
         }
       }
     }
@@ -474,7 +476,9 @@
           "customListDeleted": true,
           "customUpdate": true,
           "customDelete": true,
-          "customRestore": true
+          "customRestore": true,
+          "checkList": true,
+          "newUpdate": true
         }
       }
     }
