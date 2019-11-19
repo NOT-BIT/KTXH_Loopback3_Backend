@@ -83,8 +83,8 @@ module.exports = function (ThisModel) {
       http: { verb: 'post', path: '/list' },
       accepts: [
         { arg: 'queryData', type: 'object' },
-        { arg: 'page', type: 'number', default: '0' },
-        { arg: 'pageSize', type: 'number', default: '20' }],
+        { arg: 'page', type: 'number'},
+        { arg: 'pageSize', type: 'number'}],
       returns: {arg: 'data', type: 'object', root: true}
     })
 
@@ -93,8 +93,8 @@ module.exports = function (ThisModel) {
       http: { verb: 'post', path: '/list_deleted' },
       accepts: [
         { arg: 'queryData', type: 'object' },
-        { arg: 'page', type: 'number', default: '0' },
-        { arg: 'pageSize', type: 'number', default: '20' }],
+        { arg: 'page', type: 'number'},
+        { arg: 'pageSize', type: 'number'}],
       returns: {arg: 'data', type: 'object', root: true}
     })
 

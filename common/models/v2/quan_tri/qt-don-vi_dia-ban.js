@@ -5,7 +5,7 @@ let app = require('../../../../server/server')
 
 module.exports = function (ThisModel) {
   //create Bieu Nhap Lieu Chi Tieu
-  ThisModel.customCreate = async function (uid, ma, ten, qtDonViId, qtTinhId, qcHuyenId, tatCaNutCon, ghiChu) {
+  ThisModel.customCreate = async function (uid, ma, ten, qtDonViId, qtTinhId, qcHuyenId,qcXaId, tatCaNutCon, ghiChu) {
         const queryData = {
             uid: uid,
             ma: ma,
@@ -13,6 +13,7 @@ module.exports = function (ThisModel) {
             qtDonViId: qtDonViId,
             qtTinhId: qtTinhId,
             qcHuyenId: qcHuyenId,
+            qcXaId: qcXaId,
             tatCaNutCon: tatCaNutCon,
             ghiChu: ghiChu,
             updatedAt: new Date(),
@@ -37,7 +38,7 @@ module.exports = function (ThisModel) {
   }
 
   //update Bieu Nhap Lieu Chi Tieu
-  ThisModel.customUpdate = async function (id, ma, ten, qtDonViId, qtTinhId, qcHuyenId, tatCaNutCon, ghiChu, hieuLuc) {
+  ThisModel.customUpdate = async function (id, ma, ten, qtDonViId, qtTinhId, qcHuyenId, qcXaId, tatCaNutCon, ghiChu, hieuLuc) {
         const queryData = {
             id: id,
             ma: ma,
@@ -45,6 +46,7 @@ module.exports = function (ThisModel) {
             qtDonViId: qtDonViId,
             qtTinhId: qtTinhId,
             qcHuyenId: qcHuyenId,
+            qcXaId: qcXaId,
             tatCaNutCon: tatCaNutCon,
             ghiChu: ghiChu,
             hieuLuc: hieuLuc,
@@ -74,6 +76,7 @@ module.exports = function (ThisModel) {
         { arg: 'qtDonViId', type: 'number' },
         { arg: 'qtTinhId', type: 'number' },
         { arg: 'qcHuyenId', type: 'number' },
+        { arg: 'qcXaId', type: 'number' },
         { arg: 'tatCaNutCon', type: 'boolean' },
         { arg: 'ghiChu', type: 'string' }
       ],
@@ -86,8 +89,8 @@ module.exports = function (ThisModel) {
       http: { verb: 'post', path: '/list' },
       accepts: [
         { arg: 'queryData', type: 'object' },
-        { arg: 'page', type: 'number', default: '0' },
-        { arg: 'pageSize', type: 'number', default: '20' }],
+        { arg: 'page', type: 'number'},
+        { arg: 'pageSize', type: 'number'}],
       returns: {arg: 'data', type: 'object', root: true}
     })
 
@@ -96,8 +99,8 @@ module.exports = function (ThisModel) {
       http: { verb: 'post', path: '/list_deleted' },
       accepts: [
         { arg: 'queryData', type: 'object' },
-        { arg: 'page', type: 'number', default: '0' },
-        { arg: 'pageSize', type: 'number', default: '20' }],
+        { arg: 'page', type: 'number'},
+        { arg: 'pageSize', type: 'number'}],
       returns: {arg: 'data', type: 'object', root: true}
     })
 
@@ -120,6 +123,7 @@ module.exports = function (ThisModel) {
         { arg: 'qtDonViId', type: 'number' },
         { arg: 'qtTinhId', type: 'number' },
         { arg: 'qcHuyenId', type: 'string' },
+        { arg: 'qcXaId', type: 'number' },
         { arg: 'tatCaNutCon', type: 'boolean' },
         { arg: 'ghiChu', type: 'number' },
         { arg: 'hieuLuc', type: 'boolean' }

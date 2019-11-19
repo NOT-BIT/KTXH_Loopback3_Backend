@@ -29,7 +29,13 @@ CustomCRUD.create = async function (model, queryData) {
   }
 
   try {
-    const data = await model.create(queryData)
+    let oldRecord = await model.findOne({ where: { ma: queryData.ma} })
+    if (oldRecord != null){
+      if (oldRecord.xoa == 1){
+        await model.destroyById(oldRecord.id)
+      }
+    }
+    const data = await model.upsert(queryData)
     var properties = model.definition.properties
     let record = {}
     record.id = data.id
@@ -53,28 +59,33 @@ CustomCRUD.create = async function (model, queryData) {
 }
 
 CustomCRUD.list = async function (model, queryData, page, pageSize) {
-  if (!page) {
-    page = 0
-  }
-  if (!pageSize) {
-    pageSize = 20
-  }
   if (!queryData) {
     queryData = {}
   }
+  if (!queryData.getAllData || queryData.getAllData == false){
+    if (!page) {
+      page = 0
+    }
+    if (!pageSize) {
+      pageSize = 20
+    }
+    queryData.skip = page * pageSize;
+    queryData.limit = pageSize;
+  } else{
+    page = pageSize = undefined
+  }
+
   try {
     if (!queryData.where) {
       queryData.where = {}
     }
     queryData.where.xoa = 0
-    queryData.skip = page * pageSize;
-    queryData.limit = pageSize;
     const [data, total] = await Promise.all([
       model.find(queryData),
       model.count({xoa: 0})
     ])
-    listRelation = queryObject.listRelationsFilter(model)
-    relations = model.definition.settings.relations
+    let listRelation = queryObject.listRelationsFilter(model)
+    let relations = model.definition.settings.relations
     let returnData =  queryObject.listAPIReturnsList(model, data, false)
     for (let i in data) {
       let record = returnData[i] = JSON.parse(JSON.stringify(returnData[i]))
@@ -99,28 +110,33 @@ CustomCRUD.list = async function (model, queryData, page, pageSize) {
 }
 
 CustomCRUD.listDeleted = async function (model, queryData, page, pageSize) {
-  if (!page) {
-    page = 0
-  }
-  if (!pageSize) {
-    pageSize = 20
-  }
   if (!queryData) {
     queryData = {}
   }
+  if (!queryData.getAllData || !queryData.getAllData == false){
+    if (!page) {
+      page = 0
+    }
+    if (!pageSize) {
+      pageSize = 20
+    }
+    queryData.skip = page * pageSize;
+    queryData.limit = pageSize;
+  } else{
+    page = pageSize = undefined
+  }
+
   try {
     if (!queryData.where) {
       queryData.where = {}
     }
     queryData.where.xoa = 1
-    queryData.skip = page * pageSize;
-    queryData.limit = pageSize;
     const [data, total] = await Promise.all([
       model.find(queryData),
       model.count({xoa: 1})
     ])
-    listRelation = queryObject.listRelationsFilter(model)
-    relations = model.definition.settings.relations
+    let listRelation = queryObject.listRelationsFilter(model)
+    let relations = model.definition.settings.relations
     let returnData =  queryObject.listAPIReturnsList(model, data, false)
     for (let i in data) {
       let record = returnData[i] = JSON.parse(JSON.stringify(returnData[i]))
@@ -128,7 +144,7 @@ CustomCRUD.listDeleted = async function (model, queryData, page, pageSize) {
         let relation = listRelation[j]
         let rfModel = app.models[relations[relation].model]
         let fk = relations[relation].foreignKey
-        let rfData = await rfModel.findOne({ where: { id: data[i][fk]} })
+        let rfData = await rfModel.findOne({ where: { id: data[i][fk], xoa: 1 } })
         record[relation] = queryObject.listAPIReturns(rfModel, rfData, false)
       }
     }
