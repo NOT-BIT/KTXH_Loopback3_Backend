@@ -66,6 +66,20 @@ module.exports = function (ThisModel) {
     return await customCRUD.restore(ThisModel, id)
   }
 
+  //
+  ThisModel.checkList = async function(qtDonViId){
+    let queryData = {
+      modelReferenedId: qtDonViId,
+      referenedModel1: "qtDonViId",
+      referenedModel2: "qtTinhId"
+    }
+    return await customCRUD.checkList(ThisModel, queryData)
+  }
+
+  ThisModel.newUpdate = async function(queryData){
+    return await customCRUD.updateByList(ThisModel, queryData)
+  }
+
   ThisModel.remoteMethod('customCreate',
     {
       http: { path: '/create', verb: 'post' },
@@ -150,5 +164,21 @@ module.exports = function (ThisModel) {
       ],
       returns: {arg: 'data', type: 'object', root: true}
     },
+  )
+
+  ThisModel.remoteMethod('checkList',
+    {
+      http: { path: '/checkList', verb: 'post' },
+      accepts: { arg: 'qtDonViId', type: 'number', required: true },
+      returns: {arg: 'data', type: 'object', root: true}
+    }
+  )
+
+  ThisModel.remoteMethod('newUpdate',
+    {
+      http: { path: '/newUpdate', verb: 'post' },
+      accepts: { arg: 'queryData', type: ['object']},
+      returns: {arg: 'data', type: 'object', root: true}
+    }
   )
 };

@@ -70,11 +70,7 @@ module.exports = function (ThisModel) {
     return await customCRUD.checkList(ThisModel, queryData)
   }
 
-  ThisModel.newUpdate = async function(qtTacNhanId, listCNPMid){
-    let queryData = {
-      model1Id: qtTacNhanId,
-      model2ListId: listCNPMid
-    }
+  ThisModel.newUpdate = async function(queryData){
     return await customCRUD.updateByList(ThisModel, queryData)
   }
  
@@ -170,10 +166,7 @@ module.exports = function (ThisModel) {
   ThisModel.remoteMethod('newUpdate',
     {
       http: { path: '/newUpdate', verb: 'post' },
-      accepts: [
-        { arg: 'qtTacNhanId', type: 'number', required: true },
-        { arg: 'listCNPMid', type: 'array', required: true }
-      ],
+      accepts: { arg: 'queryData', type: ['object']},
       returns: {arg: 'data', type: 'object', root: true}
     }
   )

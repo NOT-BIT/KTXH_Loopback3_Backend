@@ -82,7 +82,7 @@ CustomCRUD.list = async function (model, queryData, page, pageSize) {
     queryData.where.xoa = 0
     const [data, total] = await Promise.all([
       model.find(queryData),
-      model.count({xoa: 0})
+      model.count(queryData.where)
     ])
     let listRelation = queryObject.listRelationsFilter(model)
     let relations = model.definition.settings.relations
@@ -133,7 +133,7 @@ CustomCRUD.listDeleted = async function (model, queryData, page, pageSize) {
     queryData.where.xoa = 1
     const [data, total] = await Promise.all([
       model.find(queryData),
-      model.count({xoa: 1})
+      model.count(queryData.where)
     ])
     let listRelation = queryObject.listRelationsFilter(model)
     let relations = model.definition.settings.relations
@@ -370,46 +370,31 @@ CustomCRUD.updateByList = async function (model, queryData) {
       fk.push(fki)
     }
   }
-  let model1Id = queryData.model1Id
-  let model2ListId = queryData.model2ListId
-  let rf1Record = await rfModel[0].findOne({ where: { id: model1Id} })
-  let i,j,k
-  let oldList = await model.find({
-      where: JSON.parse(`{"${fk[0]}": ${model1Id}}`)
-    })
-  oldList.sort((a, b) => (a[`${fk[1]}`] > b[`${fk[1]}`]) ? 1 : -1)
-  model2ListId.sort()
-  console.log(oldList, model2ListId)
-  i = 0
-  j = 0
-  try{
-    while (model2ListId[i] != null & oldList[j] != null){
-      if (model2ListId[i] < oldList[j][`${fk[1]}`]){
-        let rf2Record = await rfModel[1].findOne({ where: { id: model2ListId[i]} })
-        await model.customCreate(rf1Record.uid + rf2Record.uid, rf1Record.ma + rf2Record.ma, "", model1Id, model2ListId[i], "")
-        i += 1 
-      }
-      else if (model2ListId[i] > oldList[j][`${fk[1]}`]){
-        await model.destroyById(oldList[j].id)
-        j += 1
-      }
-      else{
-        i += 1
-        j += 1
-      }
+  try {
+    let newList = []
+    for (let i=0; i< queryData.length; i++){
+      let query = queryData[i]
+      let oldRecord = await model.findOne({
+        where: JSON.parse(`{"${fk[0]}": ${query[fk[0]]}, "${fk[1]}": ${query[fk[1]]}}`)
+      })
+      console.log(JSON.parse(`{"${fk[0]}": ${query[fk[0]]}, "${fk[1]}": ${query[fk[1]]}}`))
+      console.log(oldRecord)
+      if (query.action == 'delete'){
+        if (oldRecord != null){
+          await model.destroyById(oldRecord.id)
+        }
+      } else if (query.action == 'add'){
+        if (oldRecord == null){
+          let rf1Record = await rfModel[0].findOne({ where: {id: query[fk[0]]}})
+          let rf2Record = await rfModel[1].findOne({ where: {id: query[fk[1]]}})
+          let newRecord = await model.customCreate(rf1Record.uid + rf2Record.uid, rf1Record.ma + rf2Record.ma, "",  query[fk[0]], query[fk[1]], "")
+          newList.push(newRecord)
+        } else{
+          newList.push(oldRecord)
+        }
+      }  
     }
-    if (i < model2ListId.length){
-      for (k = i; k < model2ListId.length; k++){
-        let rf2Record = await rfModel[1].findOne({ where: { id: model2ListId[k]} })
-        await model.customCreate(rf1Record.uid + rf2Record.uid, rf1Record.ma + rf2Record.ma, "", model1Id, model2ListId[k], "")
-      }
-    }
-    if (j <= oldList.length){
-      for (k = j; k < oldList.length; k++){
-        await model.destroyById(oldList[k].id)
-      }
-    }
-    return model.find({where: JSON.parse(`{"${fk[0]}": ${model1Id}}`)})
+    return newList
   } catch (err) {
     console.log(`Update ${model.definition.name}: ${err}`)
     throw err
