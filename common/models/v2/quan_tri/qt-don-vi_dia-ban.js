@@ -16,8 +16,8 @@ module.exports = function (ThisModel) {
             qcXaId: qcXaId,
             tatCaNutCon: tatCaNutCon,
             ghiChu: ghiChu,
-            updatedAt: new Date(),
-            updatedBy: 0
+            createdAt: new Date(),
+            createdBy: 0
           }
           return await customCRUD.create(ThisModel, queryData)
   }
