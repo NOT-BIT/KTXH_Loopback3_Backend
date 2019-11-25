@@ -54,6 +54,9 @@
       "mysql": {
         "columnName": "bieu_nhap_lieu_id",
         "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "donViTongHopCapTinhId": {
@@ -62,6 +65,9 @@
       "mysql": {
         "columnName": "don_vi_id",
         "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "ghiChu": {

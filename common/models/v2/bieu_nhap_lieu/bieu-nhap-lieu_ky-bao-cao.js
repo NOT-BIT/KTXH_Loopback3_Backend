@@ -60,6 +60,20 @@ module.exports = function (ThisModel) {
     return await customCRUD.restore(ThisModel, id)
   }
 
+  //
+  ThisModel.newUpdate = async function(queryData){
+    return await customCRUD.newUpdate(ThisModel, queryData)
+  }
+
+  
+  ThisModel.remoteMethod('newUpdate',
+    {
+      http: { path: '/newUpdate', verb: 'post' },
+      accepts: { arg: 'queryData', type: 'object'},
+      returns: {arg: 'data', type: 'object', root: true}
+    }
+  )
+
   ThisModel.remoteMethod('customCreate',
     {
       http: { path: '/create', verb: 'post' },

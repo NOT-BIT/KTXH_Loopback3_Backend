@@ -54,6 +54,9 @@
       "mysql": {
         "columnName": "bieu_nhap_lieu_id",
         "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "chiTieuId": {
@@ -62,6 +65,9 @@
       "mysql": {
         "columnName": "chi_tieu_id",
         "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "ghiChu": {

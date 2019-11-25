@@ -54,6 +54,9 @@
       "mysql": {
         "columnName": "qt_tac_nhan_id",
         "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "qtChucNangPhanMemId": {
@@ -62,6 +65,9 @@
       "mysql": {
         "columnName": "qt_chuc_nang_phan_mem_id",
         "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "ghiChu": {

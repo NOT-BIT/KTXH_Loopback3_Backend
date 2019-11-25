@@ -61,18 +61,18 @@ module.exports = function (ThisModel) {
   }
 
   //
-  ThisModel.checkList = async function(qtTacNhanId){
-    let queryData = {
-      modelReferenedId: qtTacNhanId,
-      referenedModel1: "qtTacNhanId",
-      referenedModel2: "qtChucNangPhanMemId"
-    }
-    return await customCRUD.checkList(ThisModel, queryData)
+  ThisModel.newUpdate = async function(queryData){
+    return await customCRUD.newUpdate(ThisModel, queryData)
   }
 
-  ThisModel.newUpdate = async function(queryData){
-    return await customCRUD.updateByList(ThisModel, queryData)
-  }
+  
+  ThisModel.remoteMethod('newUpdate',
+    {
+      http: { path: '/newUpdate', verb: 'post' },
+      accepts: { arg: 'queryData', type: 'object'},
+      returns: {arg: 'data', type: 'object', root: true}
+    }
+  )
  
 
   ThisModel.remoteMethod('customCreate',
@@ -153,21 +153,5 @@ module.exports = function (ThisModel) {
       ],
       returns: {arg: 'data', type: 'object', root: true}
     },
-  )
-
-  ThisModel.remoteMethod('checkList',
-    {
-      http: { path: '/checkList', verb: 'post' },
-      accepts: { arg: 'qtTacNhanId', type: 'number', required: true },
-      returns: {arg: 'data', type: 'object', root: true}
-    }
-  )
-
-  ThisModel.remoteMethod('newUpdate',
-    {
-      http: { path: '/newUpdate', verb: 'post' },
-      accepts: { arg: 'queryData', type: ['object']},
-      returns: {arg: 'data', type: 'object', root: true}
-    }
   )
 };

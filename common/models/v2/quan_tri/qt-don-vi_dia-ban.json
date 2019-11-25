@@ -54,6 +54,9 @@
       "mysql": {
         "columnName": "qt_don_vi_id",
         "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "qcTinhId": {
@@ -61,6 +64,9 @@
       "mysql": {
         "columnName": "qc_tinh_id",
         "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "qcHuyenId": {
@@ -68,6 +74,9 @@
       "mysql": {
         "columnName": "qc_huyen_id",
         "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "qcXaId": {
@@ -75,6 +84,9 @@
       "mysql": {
         "columnName": "qc_xa_id",
         "dataType": "int"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "tatCaNutCon": {
@@ -84,6 +96,9 @@
       "mysql": {
         "columnName": "tat_ca_nut_con",
         "dataType": "tinyint"
+      },
+      "extendOptions": {
+        "showList": true
       }
     },
     "ghiChu": {
