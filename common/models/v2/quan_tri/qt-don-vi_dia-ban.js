@@ -165,20 +165,4 @@ module.exports = function (ThisModel) {
       returns: {arg: 'data', type: 'object', root: true}
     },
   )
-
-  ThisModel.remoteMethod('checkList',
-    {
-      http: { path: '/checkList', verb: 'post' },
-      accepts: { arg: 'qtDonViId', type: 'number', required: true },
-      returns: {arg: 'data', type: 'object', root: true}
-    }
-  )
-
-  ThisModel.remoteMethod('newUpdate',
-    {
-      http: { path: '/newUpdate', verb: 'post' },
-      accepts: { arg: 'queryData', type: ['object']},
-      returns: {arg: 'data', type: 'object', root: true}
-    }
-  )
 };

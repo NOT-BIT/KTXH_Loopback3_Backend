@@ -344,61 +344,6 @@ CustomCRUD.autoUpdateTraceAndLevel = async function(model, instance, idCha, pare
   }
 }
 
-// CustomCRUD.checkList = async function (model, queryData) {
-//   let modelReferenedId = queryData.modelReferenedId
-//   let referenedModel1 = queryData.referenedModel1
-//   let referenedModel2 = queryData.referenedModel2
-//   let checkList = await model.find({where: JSON.parse(`{"${referenedModel1}": ${modelReferenedId}}`)})
-//   let data = []
-//   for (let i=0; i < checkList.length; i++){
-//     data.push(checkList[i][referenedModel2])
-//   }
-//   return data
-// }
-
-// CustomCRUD.updateByList = async function (model, queryData) {
-//   let relations = model.definition.settings.relations || new Object()
-//   let relationsKey = Object.keys(relations)
-//   let rfModel = []
-//   let fk = []
-//   for (let i in relationsKey) {
-//     let item = relationsKey[i]
-//     if (relations[item].type.match(/^belongsTo/)) {
-//       let rfModeli = app.models[relations[item].model]
-//       let fki = relations[item].foreignKey
-//       rfModel.push(rfModeli)
-//       fk.push(fki)
-//     }
-//   }
-//   try {
-//     let newList = []
-//     for (let i=0; i< queryData.length; i++){
-//       let query = queryData[i]
-//       let oldRecord = await model.findOne({
-//         where: JSON.parse(`{"${fk[0]}": ${query[fk[0]]}, "${fk[1]}": ${query[fk[1]]}}`)
-//       })
-//       if (query.action == 'delete'){
-//         if (oldRecord != null){
-//           await model.destroyById(oldRecord.id)
-//         }
-//       } else if (query.action == 'add'){
-//         if (oldRecord == null){
-//           let rf1Record = await rfModel[0].findOne({ where: {id: query[fk[0]]}})
-//           let rf2Record = await rfModel[1].findOne({ where: {id: query[fk[1]]}})
-//           let newRecord = await model.customCreate(rf1Record.uid + rf2Record.uid, rf1Record.ma + rf2Record.ma, "",  query[fk[0]], query[fk[1]], "")
-//           newList.push(newRecord)
-//         } else{
-//           newList.push(oldRecord)
-//         }
-//       }  
-//     }
-//     return newList
-//   } catch (err) {
-//     console.log(`Update ${model.definition.name}: ${err}`)
-//     throw err
-//   }
-// }
-
 CustomCRUD.newUpdate = async function (model, queryData) {
   let relations = model.definition.settings.relations || new Object()
   let relationsKey = Object.keys(relations)
@@ -442,7 +387,9 @@ CustomCRUD.newUpdate = async function (model, queryData) {
         data[fk[j]] = query[fk[j]]
         data.uid += rfRecordi.uid
         data.ma += rfRecordi.ma
+        delete query[fk[j]]
       }
+      data = Object.assign(query, data)
       let newRecord = await CustomCRUD.create(model, data)
       newList.push(newRecord)
     }
