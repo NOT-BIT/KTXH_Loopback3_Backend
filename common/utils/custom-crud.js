@@ -383,11 +383,13 @@ CustomCRUD.newUpdate = async function (model, queryData) {
       data.createdBy = 0
       data[rf1Id] = queryData[rf1Id]
       for (let j = 0; j < fk.length; j++){
-        let rfRecordi = await CustomCRUD.read(rfModel[j],query[fk[j]])
-        data[fk[j]] = query[fk[j]]
-        data.uid += rfRecordi.uid
-        data.ma += rfRecordi.ma
-        delete query[fk[j]]
+        if(query[fk[j]]){
+          let rfRecordi = await CustomCRUD.read(rfModel[j],query[fk[j]])
+          data[fk[j]] = query[fk[j]]
+          data.uid += rfRecordi.uid
+          data.ma += rfRecordi.ma
+          delete query[fk[j]]
+        }
       }
       data = Object.assign(query, data)
       let newRecord = await CustomCRUD.create(model, data)
