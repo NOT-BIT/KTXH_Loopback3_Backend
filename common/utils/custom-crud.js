@@ -347,8 +347,8 @@ CustomCRUD.autoUpdateTraceAndLevel = async function(model, instance, idCha, pare
 CustomCRUD.newUpdate = async function (model, queryData) {
   let relations = model.definition.settings.relations || new Object()
   let relationsKey = Object.keys(relations)
-  let rfModel = []
-  let fk = []
+  const rfModel = []
+  const fk = []
   for (let i in relationsKey) {
     let item = relationsKey[i]
     if (relations[item].type.match(/^belongsTo/)) {
@@ -376,7 +376,7 @@ CustomCRUD.newUpdate = async function (model, queryData) {
     let newList = []
     for (let i =0; i < queryData.listID.length; i++){
       let query = queryData.listID[i]
-      let data = {}
+      var data = {}
       data.uid = rfRecord0.uid
       data.ma = rfRecord0.ma
       data.createdAt = new Date()

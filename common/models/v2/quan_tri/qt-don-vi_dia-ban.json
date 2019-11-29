@@ -173,6 +173,33 @@
       "extendOptions": {
         "showList": true
       }
+    },
+    "belongsToQCTinh": {
+      "type": "belongsTo",
+      "model": "QCTinh",
+      "foreignKey": "qcTinhId",
+      "primaryKey": "id",
+      "options": {
+        "nestRemoting": false
+      }
+    },
+    "belongsToQCHuyen": {
+      "type": "belongsTo",
+      "model": "QCHuyen",
+      "foreignKey": "qcHuyenId",
+      "primaryKey": "id",
+      "options": {
+        "nestRemoting": false
+      }
+    },
+    "belongsToQCXa": {
+      "type": "belongsTo",
+      "model": "QCXa",
+      "foreignKey": "qcXaId",
+      "primaryKey": "id",
+      "options": {
+        "nestRemoting": false
+      }
     }
   }
 }
