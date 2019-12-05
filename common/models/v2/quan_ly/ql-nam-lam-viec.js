@@ -5,7 +5,7 @@ let app = require('../../../../server/server')
 
 module.exports = function (ThisModel) {
   //create Bieu Nhap Lieu Chi Tieu
-  ThisModel.customCreate = async function (uid, ma, ten, nam, ngayMoNam, ngayDongNam, sysTrangThaiDongMo, ghiChu) {
+  ThisModel.customCreate = async function (uid, ma, ten, nam, ngayMoNam, ngayDongNam, sysTrangThaiDongMoId, ghiChu) {
         const queryData = {
             uid: uid,
             ma: ma,
@@ -13,7 +13,7 @@ module.exports = function (ThisModel) {
             nam: nam,
             ngayMoNam: ngayMoNam,
             ngayDongNam: ngayDongNam,
-            sysTrangThaiDongMo: sysTrangThaiDongMo,
+            sysTrangThaiDongMoId: sysTrangThaiDongMoId,
             ghiChu: ghiChu,
             createdAt: new Date(),
             createdBy: 0
@@ -37,7 +37,7 @@ module.exports = function (ThisModel) {
   }
 
   //update Bieu Nhap Lieu Chi Tieu
-  ThisModel.customUpdate = async function (id, ma, ten, nam, ngayMoNam, ngayDongNam, sysTrangThaiDongMo, ghiChu, hieuLuc) {
+  ThisModel.customUpdate = async function (id, ma, ten, nam, ngayMoNam, ngayDongNam, sysTrangThaiDongMoId, ghiChu, hieuLuc) {
         const queryData = {
             id: id,
             ma: ma,
@@ -45,7 +45,7 @@ module.exports = function (ThisModel) {
             nam: nam,
             ngayMoNam: ngayMoNam,
             ngayDongNam: ngayDongNam,
-            sysTrangThaiDongMo: sysTrangThaiDongMo,
+            sysTrangThaiDongMoId: sysTrangThaiDongMoId,
             ghiChu: ghiChu,
             hieuLuc: hieuLuc,
             updatedAt: new Date(),
@@ -74,7 +74,7 @@ module.exports = function (ThisModel) {
         { arg: 'nam', type: 'number' },
         { arg: 'ngayMoNam', type: 'date', required: true },
         { arg: 'ngayDongNam', type: 'date', required: true },
-        { arg: 'sysTrangThaiDongMo', type: 'number', required: true },
+        { arg: 'sysTrangThaiDongMoId', type: 'number', required: true },
         { arg: 'ghiChu', type: 'string' }
       ],
       returns: {arg: 'data', type: 'object', root: true}
@@ -120,7 +120,7 @@ module.exports = function (ThisModel) {
         { arg: 'nam', type: 'number' },
         { arg: 'ngayMoNam', type: 'date', required: true },
         { arg: 'ngayDongNam', type: 'date', required: true },
-        { arg: 'sysTrangThaiDongMo', type: 'number', required: true },
+        { arg: 'sysTrangThaiDongMoId', type: 'number', required: true },
         { arg: 'ghiChu', type: 'string' },
         { arg: 'hieuLuc', type: 'boolean' }
       ],
