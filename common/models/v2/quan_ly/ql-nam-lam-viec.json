@@ -30,6 +30,9 @@
           "columnName": "ma",
           "dataType": "varchar",
           "dataLength": 250
+        },
+        "extendOptions": {
+          "showList": true
         }
     },
     "ten": {
@@ -49,6 +52,9 @@
         "mysql": {
           "columnName": "nam",
           "dataType": "int"
+        },
+        "extendOptions": {
+          "showList": true
         }
     },
     "ngayMoNam": {
@@ -56,6 +62,9 @@
         "mysql": {
           "columnName": "ngay_mo_nam",
           "dataType": "date"
+        },
+        "extendOptions": {
+          "showList": true
         }
     },
     "ngayDongNam": {
@@ -63,6 +72,9 @@
         "mysql": {
           "columnName": "ngay_dong_nam",
           "dataType": "date"
+        },
+        "extendOptions": {
+          "showList": true
         }
     },
     "sysTrangThaiDongMoId": {
