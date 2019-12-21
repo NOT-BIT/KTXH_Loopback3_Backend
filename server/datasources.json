@@ -1,7 +1,7 @@
 {
   "mysql": {
     "name": "mysql",
-    "host": "localhost",
+    "host": "123.31.12.83",
     "port": 3306,
     "database": "ktxh_caphuyen",
     "user": "local_user_001",
