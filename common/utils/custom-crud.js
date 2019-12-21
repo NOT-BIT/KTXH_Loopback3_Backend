@@ -402,4 +402,42 @@ CustomCRUD.newUpdate = async function (model, queryData) {
   }
 }
 
+CustomCRUD.updateSameProperty = async function (model, queryData) {
+  let listBulk = queryObject.readBulkPropertiesFilter(model)
+  let updateProperty = Object.keys(queryData.sameProperty)
+  for (let i =0; i< updateProperty.length; i++){
+    if (listBulk.indexOf(updateProperty[i])){
+      var err = {"Error": `This property cant be updated. Property = ${updateProperty[i]}.`}
+      console.log(`Update same property ${model.definition.name}: ${JSON.stringify(err)}`)
+      throw err
+    }
+  }
+  let relations = model.definition.settings.relations || new Object()
+  let relationKey = Object.keys(relations)
+  for (let i in relationKey) {
+    let item = relationKey[i]
+    let rfModel = app.models[relations[item].model]
+    let fk = relations[item].foreignKey
+    if (queryData.sameProperty[fk] != undefined) {
+      let rfRecord = await rfModel.findOne({ where: { id: queryData.sameProperty[fk], xoa: 0 } })
+      if (!rfRecord) {
+        var err = {"Error": `Can't find referenced record. Refernced Model = ${relations[item].model}. Referenced Id = ${queryData.sameProperty[fk]}.`}
+        console.log(`Update same property ${model.definition.name}: ${JSON.stringify(err)}`)
+        throw err
+      }
+    }
+  }
+  let newList = []
+  try{
+    for (let i =0; i < queryData.listID.length; i++){
+      const data = await model.upsertWithWhere({id: queryData.listID[i]}, queryData.sameProperty)
+      newList.push(data)
+    }
+    return newList
+  } catch (err) {
+    console.log(`Update same property ${model.definition.name}: ${err}`)
+    throw err
+  }
+}
+
 module.exports = CustomCRUD

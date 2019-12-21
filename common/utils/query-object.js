@@ -26,6 +26,19 @@ function readRelationsFilter(model) {
     return listRelation
 }
 
+function readBulkPropertiesFilter(model) {
+    properties = model.definition.properties
+    listProperty = []
+    Object.keys(properties).forEach(item => {
+        if (properties[item] != undefined
+            && properties[item].extendOptions != undefined
+            && properties[item].extendOptions.bulkEditable == true) {
+                listProperty.push(item)
+        }
+    })
+    return listProperty
+}
+
 function listAPIReturns(model, object, flag) {
     if (!object) {
       return null
@@ -69,6 +82,7 @@ function listAPIReturnsList(model, listData, flag){
 module.exports = {
     listRelationsFilter: listRelationsFilter,
     readRelationsFilter: readRelationsFilter,
+    readBulkPropertiesFilter: readBulkPropertiesFilter,
     listAPIReturns: listAPIReturns,
     listAPIReturnsList: listAPIReturnsList
 }
