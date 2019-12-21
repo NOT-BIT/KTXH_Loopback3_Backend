@@ -403,6 +403,14 @@ CustomCRUD.newUpdate = async function (model, queryData) {
 }
 
 CustomCRUD.updateSameProperty = async function (model, queryData) {
+  // queryData:
+  // {
+  //   "listID": [1,2,3],
+  //   "sameProperty": {
+  //     "property1": 4,
+  //     "property2": 5
+  //   }
+  // }
   let listBulk = queryObject.readBulkPropertiesFilter(model)
   let updateProperty = Object.keys(queryData.sameProperty)
   for (let i =0; i< updateProperty.length; i++){
