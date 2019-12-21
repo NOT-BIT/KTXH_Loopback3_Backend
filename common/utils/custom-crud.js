@@ -406,7 +406,7 @@ CustomCRUD.updateSameProperty = async function (model, queryData) {
   let listBulk = queryObject.readBulkPropertiesFilter(model)
   let updateProperty = Object.keys(queryData.sameProperty)
   for (let i =0; i< updateProperty.length; i++){
-    if (listBulk.indexOf(updateProperty[i])){
+    if (listBulk.indexOf(updateProperty[i]) < 0){
       var err = {"Error": `This property cant be updated. Property = ${updateProperty[i]}.`}
       console.log(`Update same property ${model.definition.name}: ${JSON.stringify(err)}`)
       throw err
